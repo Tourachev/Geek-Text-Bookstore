@@ -1,16 +1,13 @@
 {
   "files": {
-    "main.css": "/FIU-CEN-TEAM8/static/css/main.2cce8147.chunk.css",
-    "main.js": "/FIU-CEN-TEAM8/static/js/main.980a0b9f.chunk.js",
-    "main.js.map": "/FIU-CEN-TEAM8/static/js/main.980a0b9f.chunk.js.map",
+    "main.js": "/FIU-CEN-TEAM8/static/js/main.a40ff5ea.chunk.js",
+    "main.js.map": "/FIU-CEN-TEAM8/static/js/main.a40ff5ea.chunk.js.map",
     "runtime~main.js": "/FIU-CEN-TEAM8/static/js/runtime~main.d1238491.js",
     "runtime~main.js.map": "/FIU-CEN-TEAM8/static/js/runtime~main.d1238491.js.map",
     "static/js/2.24091619.chunk.js": "/FIU-CEN-TEAM8/static/js/2.24091619.chunk.js",
     "static/js/2.24091619.chunk.js.map": "/FIU-CEN-TEAM8/static/js/2.24091619.chunk.js.map",
     "index.html": "/FIU-CEN-TEAM8/index.html",
-    "precache-manifest.23ffb3a571b8d048d7d3b2d22bfcf932.js": "/FIU-CEN-TEAM8/precache-manifest.23ffb3a571b8d048d7d3b2d22bfcf932.js",
-    "service-worker.js": "/FIU-CEN-TEAM8/service-worker.js",
-    "static/css/main.2cce8147.chunk.css.map": "/FIU-CEN-TEAM8/static/css/main.2cce8147.chunk.css.map",
-    "static/media/logo.svg": "/FIU-CEN-TEAM8/static/media/logo.5d5d9eef.svg"
+    "precache-manifest.56b89e5093463af527376794359aee33.js": "/FIU-CEN-TEAM8/precache-manifest.56b89e5093463af527376794359aee33.js",
+    "service-worker.js": "/FIU-CEN-TEAM8/service-worker.js"
   }
 }

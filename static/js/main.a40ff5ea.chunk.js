@@ -1,0 +1,2 @@
+(window["webpackJsonpgeek-text"]=window["webpackJsonpgeek-text"]||[]).push([[0],[,,,function(e,n,t){e.exports=t(4)},function(e,n,t){"use strict";t.r(n);var r=t(0),a=t.n(r),l=t(2);t.n(l).a.render(a.a.createElement((function(){return a.a.createElement("div",null,a.a.createElement("h1",null,"Howdy Partners"),a.a.createElement("p",null,"This is the landing for CEN4010 Team 8"))}),null),document.getElementById("root"))}],[[3,1,2]]]);
+//# sourceMappingURL=main.a40ff5ea.chunk.js.map
