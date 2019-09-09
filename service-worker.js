@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/FIU-CEN-TEAM8/precache-manifest.56b89e5093463af527376794359aee33.js"
+  "/FIU-CEN-TEAM8/precache-manifest.26cdac6749f8ff6203055cf394508b96.js"
 );
 
 self.addEventListener('message', (event) => {
