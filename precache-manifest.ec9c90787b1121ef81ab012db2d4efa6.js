@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "466574878fb066952722a998fd0819f5",
+    "revision": "745431d6cdfb5df8c8685829057499f8",
     "url": "/FIU-CEN-TEAM8/index.html"
   },
   {
-    "revision": "d875c1263532eb0a6fb5",
-    "url": "/FIU-CEN-TEAM8/static/css/main.68dc45e9.chunk.css"
+    "revision": "0da5188d7d1f874376f4",
+    "url": "/FIU-CEN-TEAM8/static/css/main.c3f64f4c.chunk.css"
   },
   {
     "revision": "4c8ed0f4c0a911fe75f6",
     "url": "/FIU-CEN-TEAM8/static/js/2.24091619.chunk.js"
   },
   {
-    "revision": "d875c1263532eb0a6fb5",
-    "url": "/FIU-CEN-TEAM8/static/js/main.a6f6ea57.chunk.js"
+    "revision": "0da5188d7d1f874376f4",
+    "url": "/FIU-CEN-TEAM8/static/js/main.aeb8c1de.chunk.js"
   },
   {
     "revision": "7ec790e2d8d75d5bedac",
