@@ -23,10 +23,10 @@ a {
     z-index: 1;
 }
 
-.navbar-collapse {
+.navbar-items {
     display: flex;
     flex-direction: row;
-    align-items: baseline;
+    align-items: center;
 }
 
 .navbar-toggler {
