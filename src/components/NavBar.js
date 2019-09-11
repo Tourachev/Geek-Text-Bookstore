@@ -26,23 +26,26 @@ const NavBar = () => {
                                 <i className='fas fa-home fa-lg'></i>
                             </a>
                         </li>
+
+                        <li>
+                            <div
+                                className='ui vertical large animated button'
+                                tabIndex='0'
+                            >
+                                <div className='hidden content'>It's Free!</div>
+                                <div className='visible content'>Sign-up</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div
+                                className='ui vertical large animated button'
+                                tabIndex='0'
+                            >
+                                <div className='hidden content'>Welcome!</div>
+                                <div className='visible content'>Sign in</div>
+                            </div>
+                        </li>
                     </ul>
-
-                    <div
-                        className='ui vertical large animated button'
-                        tabIndex='0'
-                    >
-                        <div className='hidden content'>It's Free!</div>
-                        <div className='visible content'>Sign-up</div>
-                    </div>
-
-                    <div
-                        className='ui vertical large animated button'
-                        tabIndex='0'
-                    >
-                        <div className='hidden content'>Welcome!</div>
-                        <div className='visible content'>Sign in</div>
-                    </div>
 
                     {/* <div
                         className='ui vertical large animated button'
