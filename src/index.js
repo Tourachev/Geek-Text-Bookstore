@@ -1,6 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./App.css";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
 
 const App = () => {
     return (
@@ -39,4 +39,4 @@ const Body = () => {
     return {};
 };
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));
