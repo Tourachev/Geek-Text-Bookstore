@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/FIU-CEN-TEAM8/static/css/main.b203fcf7.chunk.css",
+    "main.css": "/FIU-CEN-TEAM8/static/css/main.4ea43023.chunk.css",
     "main.js": "/FIU-CEN-TEAM8/static/js/main.8e26d619.chunk.js",
     "main.js.map": "/FIU-CEN-TEAM8/static/js/main.8e26d619.chunk.js.map",
     "runtime~main.js": "/FIU-CEN-TEAM8/static/js/runtime~main.d1238491.js",
@@ -8,9 +8,9 @@
     "static/js/2.a8648fd8.chunk.js": "/FIU-CEN-TEAM8/static/js/2.a8648fd8.chunk.js",
     "static/js/2.a8648fd8.chunk.js.map": "/FIU-CEN-TEAM8/static/js/2.a8648fd8.chunk.js.map",
     "index.html": "/FIU-CEN-TEAM8/index.html",
-    "precache-manifest.f9d6366c6669d205a889b4fa4abe3d20.js": "/FIU-CEN-TEAM8/precache-manifest.f9d6366c6669d205a889b4fa4abe3d20.js",
+    "precache-manifest.70a7f641c59bb1e92b99f4a848ee98da.js": "/FIU-CEN-TEAM8/precache-manifest.70a7f641c59bb1e92b99f4a848ee98da.js",
     "service-worker.js": "/FIU-CEN-TEAM8/service-worker.js",
-    "static/css/main.b203fcf7.chunk.css.map": "/FIU-CEN-TEAM8/static/css/main.b203fcf7.chunk.css.map",
+    "static/css/main.4ea43023.chunk.css.map": "/FIU-CEN-TEAM8/static/css/main.4ea43023.chunk.css.map",
     "static/media/index.css": "/FIU-CEN-TEAM8/static/media/img2.2b7a26ee.jpg"
   }
 }
