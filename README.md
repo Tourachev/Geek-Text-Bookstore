@@ -8,4 +8,4 @@ After cloning the repo, run `npm install` from the project root directory. Once 
 
 ## To run Express Server
 
-In backend run ```node app.js```. This will allow React to pull data from backend.
+In ./backend folder run ```node app.js```. This will allow React to pull data from backend.
