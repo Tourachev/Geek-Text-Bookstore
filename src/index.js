@@ -1,26 +1,11 @@
-// import React from "react";
-import ReactDOM from "react-dom";
-// import "./css/index.css";
-
-// import NavBar from "./components/NavBar";
-// import JumboHeader from "./components/JumboHeader";
-// import SideBar from "./components/SideBar";
-
-// const App = () => {
-//     return (
-//         <div className='body'>
-//             <NavBar />
-//             <JumboHeader />
-//             {/* <SideBar /> */}
-//         </div>
-//     );
-// };
-
-// export default Index;
-
-// ReactDOM.render(<App />, document.getElementById("root"));
-
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import "./css/index.css";
+
+import NavBar from "./components/NavBar";
+import JumboHeader from "./components/JumboHeader";
+import SideBar from "./components/SideBar";
+
 import "./css/index.css";
 
 class App extends Component {
@@ -34,11 +19,15 @@ class App extends Component {
 
     render() {
         return (
-            <div className='App'>
-                <h1>Users</h1>
-                {this.state.users.map(user => (
-                    <div key={user.id}>{user.username}</div>
-                ))}
+            <div>
+                <div className='body'>
+                    <NavBar />
+                    <JumboHeader />
+                    <h1>Users</h1>
+                    {this.state.users.map(user => (
+                        <div key={user.id}>{user.username}</div>
+                    ))}
+                </div>
             </div>
         );
     }
