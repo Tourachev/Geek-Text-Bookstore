@@ -3,15 +3,17 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const cors = require("cors");
 
 const mariadb = require("mariadb");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 const app = express();
+app.use(cors());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -44,6 +46,34 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
+// const pool = mariadb.createPool({
+//     host: "mydb.com",
+//     user: "myUser",
+//     connectionLimit: 5
+// });
+// pool.getConnection()
+//     .then(conn => {
+//         conn.query("SELECT 1 as val")
+//             .then(rows => {
+//                 console.log(rows); //[ {val: 1}, meta: ... ]
+//                 return conn.query("INSERT INTO myTable value (?, ?)", [
+//                     1,
+//                     "mariadb"
+//                 ]);
+//             })
+//             .then(res => {
+//                 console.log(res); // { affectedRows: 1, insertId: 1, warningStatus: 0 }
+//                 conn.end();
+//             })
+//             .catch(err => {
+//                 //handle error
+//                 conn.end();
+//             });
+//     })
+//     .catch(err => {
+//         //not connected
+//     });
+
 app.listen(PORT, () => {
-    console.log("Magic on port 3000");
+    console.log("Magic on port 3001");
 });

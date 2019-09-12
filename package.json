@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "homepage": "http://tourachev.github.io/FIU-CEN-TEAM8/",
-    "proxy": "http://localhost:4000",
+    "proxy": "http://localhost:3001",
     "dependencies": {
         "express": "^4.17.1",
         "mariadb": "^2.1.1",

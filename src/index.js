@@ -1,21 +1,49 @@
-import React from "react";
+// import React from "react";
 import ReactDOM from "react-dom";
+// import "./css/index.css";
+
+// import NavBar from "./components/NavBar";
+// import JumboHeader from "./components/JumboHeader";
+// import SideBar from "./components/SideBar";
+
+// const App = () => {
+//     return (
+//         <div className='body'>
+//             <NavBar />
+//             <JumboHeader />
+//             {/* <SideBar /> */}
+//         </div>
+//     );
+// };
+
+// export default Index;
+
+// ReactDOM.render(<App />, document.getElementById("root"));
+
+import React, { Component } from "react";
 import "./css/index.css";
 
-import NavBar from "./components/NavBar";
-import JumboHeader from "./components/JumboHeader";
-import SideBar from "./components/SideBar";
+class App extends Component {
+    state = { users: [] };
 
-const App = () => {
-    return (
-        <div className='body'>
-            <NavBar />
-            <JumboHeader />
-            {/* <SideBar /> */}
-        </div>
-    );
-};
+    componentDidMount() {
+        fetch("/users")
+            .then(res => res.json())
+            .then(users => this.setState({ users }));
+    }
 
-export default Index;
+    render() {
+        return (
+            <div className='App'>
+                <h1>Users</h1>
+                {this.state.users.map(user => (
+                    <div key={user.id}>{user.username}</div>
+                ))}
+            </div>
+        );
+    }
+}
 
 ReactDOM.render(<App />, document.getElementById("root"));
+
+export default App;
