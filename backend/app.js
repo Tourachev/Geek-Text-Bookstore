@@ -46,33 +46,44 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-// const pool = mariadb.createPool({
-//     host: "mydb.com",
-//     user: "myUser",
-//     connectionLimit: 5
-// });
-// pool.getConnection()
-//     .then(conn => {
-//         conn.query("SELECT 1 as val")
-//             .then(rows => {
-//                 console.log(rows); //[ {val: 1}, meta: ... ]
-//                 return conn.query("INSERT INTO myTable value (?, ?)", [
-//                     1,
-//                     "mariadb"
-//                 ]);
-//             })
-//             .then(res => {
-//                 console.log(res); // { affectedRows: 1, insertId: 1, warningStatus: 0 }
-//                 conn.end();
-//             })
-//             .catch(err => {
-//                 //handle error
-//                 conn.end();
-//             });
-//     })
-//     .catch(err => {
-//         //not connected
-//     });
+//----------Connecting to mariadb(need to have a mariadb server installed locally)
+//----------Testing how to make the connection and displaying errors if there are any
+
+const mariadb = require('mariadb');
+
+connection = mariadb.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'IhaveControl4',
+    //database: 'GeekTextDB',
+    rowsAsArray: true
+    })
+    .then(conn => {
+        console.log("connected ! connection id is " + conn.threadId);
+        conn.query("CREATE DATABASE IF NOT EXISTS GeekTextDB;");
+        conn.end()
+        .then(() => {
+            console.log('connection has ended properly');
+          })
+          .catch(err => {
+            console.log("connection not closed properly due to error: " + err);
+          });
+      })
+      .catch(err => {
+        console.log("not connected due to error: " + err);
+      });
+
+/*-----------Executing sql table definition
+Defines the database (starts a child process that uses mysql client to pass the file)
+uncomment to define the database locally
+
+const cp = require('child_process');
+cp.exec('mysql -uroot -pIhaveControl4 < geek-text-def.sql', (error, stdout, stderr) => {
+    if (error) throw error;
+    console.log('stdout: ${stdout}');
+    console.log('stderr: ${stderr}');
+});
+----------------------------------------------------*/
 
 app.listen(PORT, () => {
     console.log("Magic on port 3001");
