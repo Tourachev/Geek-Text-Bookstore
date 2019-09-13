@@ -47,17 +47,21 @@ app.use(function(err, req, res, next) {
 module.exports = app;
 
 //----------Connecting to mariadb(need to have a mariadb server installed locally)
-/*----------Testing how to make the connection and displaying errors if there are any
+//----------Testing how to make the connection and displaying errors if there are any
 connection = mariadb.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'IhaveControl4',
-    //database: 'GeekTextDB',
+    //connects to mariadb server hosted on one of my servers (Steven)
+    //Anyone can access the db server remotely with info below
+    //Only access to GeekTextDB is given, no access to other dbs
+    //for security reasons
+    host: 'virt-servers.mynetgear.com',
+    port: 30000,
+    user: 'team8',
+    password: 'WehaveControl',
+    database: 'GeekTextDB',
     rowsAsArray: true
     })
     .then(conn => {
         console.log("connected ! connection id is " + conn.threadId);
-        conn.query("CREATE DATABASE IF NOT EXISTS GeekTextDB;");
         conn.end()
         .then(() => {
             console.log('connection has ended properly');
@@ -69,7 +73,6 @@ connection = mariadb.createConnection({
       .catch(err => {
         console.log("not connected due to error: " + err);
       });
-*/
 /*-----------Executing sql table definition
 Defines the database (starts a child process that uses mysql client to pass the file)
 uncomment to define the database locally
