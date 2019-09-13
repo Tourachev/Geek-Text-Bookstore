@@ -48,9 +48,6 @@ module.exports = app;
 
 //----------Connecting to mariadb(need to have a mariadb server installed locally)
 //----------Testing how to make the connection and displaying errors if there are any
-
-const mariadb = require('mariadb');
-
 connection = mariadb.createConnection({
     host: 'localhost',
     user: 'root',
