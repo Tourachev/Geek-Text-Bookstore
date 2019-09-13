@@ -47,7 +47,7 @@ app.use(function(err, req, res, next) {
 module.exports = app;
 
 //----------Connecting to mariadb(need to have a mariadb server installed locally)
-//----------Testing how to make the connection and displaying errors if there are any
+/*----------Testing how to make the connection and displaying errors if there are any
 connection = mariadb.createConnection({
     host: 'localhost',
     user: 'root',
@@ -69,7 +69,7 @@ connection = mariadb.createConnection({
       .catch(err => {
         console.log("not connected due to error: " + err);
       });
-
+*/
 /*-----------Executing sql table definition
 Defines the database (starts a child process that uses mysql client to pass the file)
 uncomment to define the database locally
