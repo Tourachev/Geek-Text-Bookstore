@@ -1,18 +1,19 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import "./css/index.css";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { Button, Header, List } from 'semantic-ui-react';
+import './css/index.css';
 
-import NavBar from "./components/NavBar";
-import JumboHeader from "./components/JumboHeader";
-import SideBar from "./components/SideBar";
+import NavBar from './components/NavBar';
+import JumboHeader from './components/JumboHeader';
+import BrowseField from './components/BrowseField';
 
-import "./css/index.css";
+import './css/index.css';
 
 class App extends Component {
     state = { users: [] };
 
     componentDidMount() {
-        fetch("/users")
+        fetch('/users')
             .then(res => res.json())
             .then(users => this.setState({ users }));
     }
@@ -22,7 +23,10 @@ class App extends Component {
             <div>
                 <div className='body'>
                     <NavBar />
-                    <JumboHeader />
+                    <div>
+                        <JumboHeader />
+                        <BrowseField />
+                    </div>
                     <h1>Users</h1>
                     {this.state.users.map(user => (
                         <div key={user.id}>{user.username}</div>
@@ -33,6 +37,6 @@ class App extends Component {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));
 
 export default App;
