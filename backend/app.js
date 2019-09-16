@@ -46,44 +46,38 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-//----------Connecting to mariadb(need to have a mariadb server installed locally)
-//----------Testing how to make the connection and displaying errors if there are any
-connection = mariadb.createConnection({
-    //connects to mariadb server hosted on one of my servers (Steven)
-    //Anyone can access the db server remotely with info below
-    //Only access to GeekTextDB is given, no access to other dbs
-    //for security reasons
+//Create a connection pool
+//Anyone can access the db server remotely with info below
+//Only access to GeekTextDB is given, no access to other dbs
+//for security reasons
+const pool = mariadb.createPool({
     host: 'virt-servers.mynetgear.com',
     port: 30000,
     user: 'team8',
     password: 'WehaveControl',
     database: 'GeekTextDB',
-    rowsAsArray: true
-    })
+    rowsAsArray: true,
+  
+  });
+  
+  //Make connection
+  pool.getConnection()
     .then(conn => {
-        console.log("connected ! connection id is " + conn.threadId);
-        conn.end()
-        .then(() => {
-            console.log('connection has ended properly');
-          })
-          .catch(err => {
-            console.log("connection not closed properly due to error: " + err);
-          });
-      })
-      .catch(err => {
-        console.log("not connected due to error: " + err);
-      });
-/*-----------Executing sql table definition
-Defines the database (starts a child process that uses mysql client to pass the file)
-uncomment to define the database locally
-
-const cp = require('child_process');
-cp.exec('mysql -uroot -pIhaveControl4 < geek-text-def.sql', (error, stdout, stderr) => {
-    if (error) throw error;
-    console.log('stdout: ${stdout}');
-    console.log('stderr: ${stderr}');
-});
-----------------------------------------------------*/
+        conn.query('SELECT * FROM Book')
+            .then((rows) => {
+                console.log(rows); //Wont output an arry if there is no data, like now
+                                   //however, metadata of table will be shown in json
+                                   //access array with for each loop and indexes
+            })
+            .catch(err => {
+                console.log('Error executing query: ' + err);
+                conn.end();
+            })
+    })
+    .catch(err => {
+        console.log('Error making connection: ' + err);
+        conn.end();
+    })
 
 app.listen(PORT, () => {
     console.log("Magic on port 3001");
