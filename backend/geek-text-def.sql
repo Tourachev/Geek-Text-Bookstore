@@ -2,24 +2,25 @@ USE GeekTextDB;
 
 CREATE TABLE IF NOT EXISTS Author(
     authorID INT,
-    fname VARCHAR(40),
-    lname VARCHAR(40),
+    firstName varchar(40),
+    lastName varchar(40),
+    bio varchar(40),
     PRIMARY KEY(authorID)
 );
 
 CREATE TABLE IF NOT EXISTS Book(
     bookID INT,
-    authorID INT,
     title VARCHAR(40),
-    genre VARCHAR(40),
+    genre varchar(20),
+    authorID INT,
     PRIMARY KEY(bookID),
     FOREIGN KEY(authorID) REFERENCES Author(authorID)
 );
 
-CREATE TABLE IF NOT EXISTS Info(
+CREATE TABLE IF NOT EXISTS BookInfo(
     bookID INT,
     totalSold INT,
-    rating DECIMAL,
+    rating int ,
     price DECIMAL,
     releaseDate DATE,
     FOREIGN KEY(bookID) REFERENCES Book(bookID)
