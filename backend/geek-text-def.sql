@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS Credentials(
     userID INT,
     pw varchar(40),
     FOREIGN KEY(userID) REFERENCES UserInfo(userID)
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS PaymentInfo(
