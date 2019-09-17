@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import BrowseSection from "./BrowseSection";
-import SideBar from "./SideBar";
+import BrowseSection from './BrowseSection';
+import SideBar from './SideBar';
 
 class Body extends React.Component {
     constructor(props) {

@@ -191,13 +191,6 @@ a {
     z-index: -1;
 }
 
-#browse-body {
-    display: none;
-    background: red;
-    height: 120vh;
-    width: 100%;
-}
-
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
