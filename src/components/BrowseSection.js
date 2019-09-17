@@ -39,10 +39,34 @@ class BrowseSection extends React.Component {
                         </button>
                         <div class='dropdown-menu'>
                             <a class='dropdown-item' href='#'>
-                                Action
+                                Author: A-Z
                             </a>
                             <a class='dropdown-item' href='#'>
-                                Another action
+                                Author: Z-A
+                            </a>
+                            <a class='dropdown-item' href='#'>
+                                Title: A-Z
+                            </a>
+                            <a class='dropdown-item' href='#'>
+                                Title: Z-A
+                            </a>
+                            <a class='dropdown-item' href='#'>
+                                Price: Low-High
+                            </a>
+                            <a class='dropdown-item' href='#'>
+                                Price: High-Low
+                            </a>
+                            <a class='dropdown-item' href='#'>
+                                Date: Old-New
+                            </a>
+                            <a class='dropdown-item' href='#'>
+                                Date: New-Old
+                            </a>
+                            <a class='dropdown-item' href='#'>
+                                Rating: High-Low
+                            </a>
+                            <a class='dropdown-item' href='#'>
+                                Rating: Low-High
                             </a>
                         </div>
                     </div>
@@ -55,14 +79,14 @@ class BrowseSection extends React.Component {
                             aria-haspopup='true'
                             aria-expanded='false'
                         >
-                            Sort By
+                            Books Per Page:
                         </button>
                         <div class='dropdown-menu'>
                             <a class='dropdown-item' href='#'>
-                                Action
+                                10
                             </a>
                             <a class='dropdown-item' href='#'>
-                                Another action
+                                20
                             </a>
                         </div>
                     </div>
