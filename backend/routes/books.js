@@ -1,27 +1,43 @@
-var express = require("express");
+var express = require('express');
 var router = express.Router();
 
-router.get("/", function(req, res, next) {
+router.get('/', function(req, res, next) {
     res.json([
         {
             bookID: 1,
-            title: "A Catcher in the Rye"
+            author: 'Mike Tyson',
+            title: 'A Catcher in the Rye',
+            rating: '5',
+            price: '9.99',
+            topseller: true
         },
         {
             bookID: 2,
-            title: "To Kill A Mokingbird"
+            author: 'Mike Tyson',
+            title: 'To Kill A Mokingbird',
+            rating: '5',
+            price: '9.99'
         },
         {
             bookID: 3,
-            title: "To Kill A Mokingbird"
+            author: 'Mike Tyson',
+            title: 'To Kill A Mokingbird',
+            rating: '5',
+            price: '9.99'
         },
         {
             bookID: 4,
-            title: "To Kill A Mokingbird"
+            author: 'Mike Tyson',
+            title: 'To Kill A Mokingbird',
+            rating: '5',
+            price: '9.99'
         },
         {
             bookID: 5,
-            title: "To Kill A Mokingbird"
+            author: 'Mike Tyson',
+            title: 'To Kill A Mokingbird',
+            rating: '5',
+            price: '9.99'
         }
     ]);
 });
