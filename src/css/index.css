@@ -14,12 +14,106 @@ body {
     background-image: linear-gradient(315deg, #f6f6f6 0%, #e9e9e9 74%);
 }
 
+#browse-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* overflow: auto; */
+    padding-top: 2%;
+}
+
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    /* border-right: #333 1px solid; */
+    /* justify-items: left; */
+    padding-top: 2%;
+    width: 300px;
+    height: 100vh;
+    border-right: 1px solid;
+    border-image: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(158, 158, 158, 0.6) 48%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    border-image-slice: 1;
+}
+
+#nav-browse-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#browse-body {
+    margin-left: 5%;
+    padding-top: 2%;
+    height: 100vh;
+}
+
+#card-body {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    overflow: auto;
+}
+
+#jumbo-container {
+    overflow: hidden;
+    height: 100vh;
+    width: 100%;
+}
+
+#navbarSupportedContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#browse-body-bottom {
+    margin-top: 3%;
+    display: flex;
+    flex-direction: row;
+}
+
+/* .hidden {
+    display: none;
+}
+.show {
+    display: block;
+} */
+
+.card-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.page-link {
+    color: #212529;
+}
+
+p {
+    font-size: 150%;
+}
+
+.card {
+    width: 18rem;
+    margin: 5px !important;
+}
+
 a {
     text-decoration: none;
 }
 
 .navbar {
     background-color: rgba(255, 255, 255, 0) !important;
+
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16),
+        0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
     z-index: 1;
 }
 
@@ -31,6 +125,23 @@ a {
 
 .navbar-toggler {
     background: #e9e9e9 !important;
+}
+
+.sexy_line {
+    display: block;
+    border: none;
+    color: rgba(158, 158, 158, 0.6);
+    height: 1px;
+    background: black;
+    background: -webkit-gradient(
+        radial,
+        50% 50%,
+        0,
+        50% 50%,
+        650,
+        from(rgba(158, 158, 158, 0.6)),
+        to(rgba(0, 0, 0, 0))
+    );
 }
 
 #home-logo {
@@ -45,9 +156,7 @@ a {
         255,
         0
     ) !important; /*This will make jumbotron color transparent*/
-    height: 120vh;
-    margin-top: -60px;
-    margin-bottom: -60px;
+    height: 100%;
     position: absolute;
 }
 
@@ -59,17 +168,21 @@ a {
 
 /* Following to objects are used to create a transparent photo background */
 .header {
+    height: 100%;
     display: block;
     position: relative;
     /* text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4); */
 }
 
 .header::after {
+    height: 100%;
     content: '';
     background: url(../img/img2.jpg);
+    background-attachment: fixed;
+    background-position: center;
     background-repeat: no-repeat;
-    background-size: 100%;
-    opacity: 0.9;
+    background-size: cover;
+    opacity: 1;
     top: 0;
     left: 0;
     bottom: 0;

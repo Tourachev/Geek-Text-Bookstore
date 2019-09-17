@@ -9,6 +9,7 @@ const mariadb = require("mariadb");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const booksRouter = require("./routes/books");
 
 //purchase router
 const purchaseRouter = require("./routes/purchase");
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/books", booksRouter);
 
 //purchase router
 app.use("/purchase", purchaseRouter);
@@ -52,33 +54,38 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-// const pool = mariadb.createPool({
-//     host: "mydb.com",
-//     user: "myUser",
-//     connectionLimit: 5
-// });
-// pool.getConnection()
-//     .then(conn => {
-//         conn.query("SELECT 1 as val")
-//             .then(rows => {
-//                 console.log(rows); //[ {val: 1}, meta: ... ]
-//                 return conn.query("INSERT INTO myTable value (?, ?)", [
-//                     1,
-//                     "mariadb"
-//                 ]);
-//             })
-//             .then(res => {
-//                 console.log(res); // { affectedRows: 1, insertId: 1, warningStatus: 0 }
-//                 conn.end();
-//             })
-//             .catch(err => {
-//                 //handle error
-//                 conn.end();
-//             });
-//     })
-//     .catch(err => {
-//         //not connected
-//     });
+//Create a connection pool
+//Anyone can access the db server remotely with info below
+//Only access to GeekTextDB is given, no access to other dbs
+//for security reasons
+const pool = mariadb.createPool({
+    host: "virt-servers.mynetgear.com",
+    port: 30000,
+    user: "team8",
+    password: "WehaveControl",
+    database: "GeekTextDB",
+    rowsAsArray: true
+});
+
+//Make connection
+pool.getConnection()
+    .then(conn => {
+        conn.query("SELECT * FROM Book")
+            .then(rows => {
+                var arr = rows;
+                console.log(rows); //Wont output an arry if there is no data, like now
+                //however, metadata of table will be shown in json
+                //access array with for each loop and indexes
+            })
+            .catch(err => {
+                console.log("Error executing query: " + err);
+                conn.end();
+            });
+    })
+    .catch(err => {
+        console.log("Error making connection: " + err);
+        conn.end();
+    });
 
 app.listen(PORT, () => {
   console.log("Magic on port 3001");
