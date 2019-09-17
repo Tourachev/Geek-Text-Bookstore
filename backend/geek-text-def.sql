@@ -30,11 +30,6 @@ IF NOT EXISTS Book
 (authorID)
 );
 
-INSERT INTO Book
-    (bookID, title)
-VALUES
-    ('1', 'Stavanger');
-
 CREATE TABLE
 IF NOT EXISTS BookInfo
 (
