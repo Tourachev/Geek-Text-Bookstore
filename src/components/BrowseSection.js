@@ -20,6 +20,7 @@ class BrowseSection extends React.Component {
                 bookID={book.bookID}
                 title={book.title}
                 author={book.author}
+                genre={book.genre}
                 price={book.price}
             />
         ));

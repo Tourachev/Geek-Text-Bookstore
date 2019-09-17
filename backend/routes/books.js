@@ -7,6 +7,7 @@ router.get('/', function(req, res, next) {
             bookID: 1,
             author: 'Mike Tyson',
             title: 'A Catcher in the Rye',
+            genre: 'Horror',
             rating: '5',
             price: '9.99',
             topseller: true
@@ -15,6 +16,7 @@ router.get('/', function(req, res, next) {
             bookID: 2,
             author: 'Mike Tyson',
             title: 'To Kill A Mokingbird',
+            genre: 'Pulp Fiction',
             rating: '5',
             price: '9.99'
         },
@@ -22,6 +24,7 @@ router.get('/', function(req, res, next) {
             bookID: 3,
             author: 'Mike Tyson',
             title: 'To Kill A Mokingbird',
+            genre: 'Comedy',
             rating: '5',
             price: '9.99'
         },
@@ -29,6 +32,7 @@ router.get('/', function(req, res, next) {
             bookID: 4,
             author: 'Mike Tyson',
             title: 'To Kill A Mokingbird',
+            genre: 'Drama',
             rating: '5',
             price: '9.99'
         },
@@ -36,6 +40,7 @@ router.get('/', function(req, res, next) {
             bookID: 5,
             author: 'Mike Tyson',
             title: 'To Kill A Mokingbird',
+            genre: 'horror',
             rating: '5',
             price: '9.99'
         }
