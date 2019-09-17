@@ -9,6 +9,7 @@ const mariadb = require("mariadb");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const booksRouter = require("./routes/books");
 
 const PORT = process.env.PORT || 3001;
 
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/books", booksRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -51,33 +53,33 @@ module.exports = app;
 //Only access to GeekTextDB is given, no access to other dbs
 //for security reasons
 const pool = mariadb.createPool({
-    host: 'virt-servers.mynetgear.com',
+    host: "virt-servers.mynetgear.com",
     port: 30000,
-    user: 'team8',
-    password: 'WehaveControl',
-    database: 'GeekTextDB',
-    rowsAsArray: true,
-  
-  });
-  
-  //Make connection
-  pool.getConnection()
+    user: "team8",
+    password: "WehaveControl",
+    database: "GeekTextDB",
+    rowsAsArray: true
+});
+
+//Make connection
+pool.getConnection()
     .then(conn => {
-        conn.query('SELECT * FROM Book')
-            .then((rows) => {
+        conn.query("SELECT * FROM Book")
+            .then(rows => {
+                var arr = rows;
                 console.log(rows); //Wont output an arry if there is no data, like now
-                                   //however, metadata of table will be shown in json
-                                   //access array with for each loop and indexes
+                //however, metadata of table will be shown in json
+                //access array with for each loop and indexes
             })
             .catch(err => {
-                console.log('Error executing query: ' + err);
+                console.log("Error executing query: " + err);
                 conn.end();
-            })
+            });
     })
     .catch(err => {
-        console.log('Error making connection: ' + err);
+        console.log("Error making connection: " + err);
         conn.end();
-    })
+    });
 
 app.listen(PORT, () => {
     console.log("Magic on port 3001");
