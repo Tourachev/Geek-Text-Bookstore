@@ -14,6 +14,7 @@ const BookCard = props => {
                 <ul class='list-group list-group-flush'>
                     <li class='list-group-item'>Genre: {props.genre}</li>
                     <li class='list-group-item'>Price: ${props.price}</li>
+                    <li class='list-group-item'>Rating: {props.rating}</li>
                     {/* <li class='list-group-item'>Book ID: {props.bookID}</li> */}
                 </ul>
                 <div class='card-body card-links'>
