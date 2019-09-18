@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import BookCard from './BookCard';
+import BookCard from "./BookCard";
 
 class BrowseSection extends React.Component {
     constructor(props) {
@@ -9,9 +9,13 @@ class BrowseSection extends React.Component {
     }
 
     componentDidMount() {
-        fetch('/books')
+        fetch("/books")
             .then(res => res.json())
             .then(books => this.setState({ books }));
+    }
+
+    sortAlphabeticaly(props) {
+        console.log(props.title);
     }
 
     render() {
@@ -39,7 +43,11 @@ class BrowseSection extends React.Component {
                             Sort By
                         </button>
                         <div class='dropdown-menu'>
-                            <a class='dropdown-item' href='#'>
+                            <a
+                                class='dropdown-item'
+                                href='#'
+                                onClick={this.sortAlphabeticaly}
+                            >
                                 Author: A-Z
                             </a>
                             <a class='dropdown-item' href='#'>

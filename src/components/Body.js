@@ -1,21 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import BrowseSection from './BrowseSection';
-import SideBar from './SideBar';
+import BrowseSection from "./BrowseSection";
+import SideBar from "./SideBar";
 
 class Body extends React.Component {
-    constructor(props) {
-        super(props);
-        this.toggleClass = this.toggleClass.bind(this);
-        this.state = {
-            active: false
-        };
-    }
-    toggleClass() {
-        const currentState = this.state.active;
-        this.setState({ active: !currentState });
-    }
-
     render() {
         return (
             <div className='{this.props.showHideSidenav}'>
@@ -30,17 +18,13 @@ class Body extends React.Component {
                             <button
                                 className='ui secondary basic button huge'
                                 id='browse-button'
-                                onClick={this.toggleClass.bind(this)}
                             >
                                 Browse
                             </button>
                         </div>
                     </div>
                 </div>
-                <div
-                    id='browse-container'
-                    className='{this.props.showHideSidenav}'
-                >
+                <div id='browse-container'>
                     <SideBar />
                     <BrowseSection />
                 </div>
