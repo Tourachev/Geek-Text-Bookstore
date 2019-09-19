@@ -10,6 +10,7 @@ const mariadb = require("mariadb");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const booksRouter = require("./routes/books");
+const bookSort = require('book-sort')
 
 const PORT = process.env.PORT || 3001;
 
@@ -58,7 +59,7 @@ const pool = mariadb.createPool({
     user: "team8",
     password: "WehaveControl",
     database: "GeekTextDB",
-    rowsAsArray: true
+    //rowsAsArray: true
 });
 
 //Make connection
