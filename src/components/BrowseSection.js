@@ -45,6 +45,7 @@ class BrowseSection extends React.Component {
         );
         this.forceUpdate();
     }
+
     sortPriceL2H(props) {
         this.setState = this.state.books.sort((a, b) => a.price - b.price);
         this.forceUpdate();
@@ -183,10 +184,7 @@ class BrowseSection extends React.Component {
                 </div>
                 <hr className='sexy_line' />
 
-                <div id='card-body'>
-                    
-                {card}
-                </div>
+                <div id='card-body'>{card}</div>
                 <div id='browse-body-bottom'>
                     <nav aria-label='Page navigation example'>
                         <ul class='pagination pagination-lg'>
