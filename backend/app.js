@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
 
-const mariadb = require("mariadb");
+const mariadb = require("mariadb/callback");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -61,6 +61,7 @@ const pool = mariadb.createPool({
     user: "team8",
     password: "WehaveControl",
     database: "GeekTextDB",
+    connections: 10
     //rowsAsArray: true
 });
 
@@ -68,9 +69,13 @@ const pool = mariadb.createPool({
 
 //Using query function bookTitle
 //Get name from front end, then send json back
-bookSort.byTitle("Harry Potta", pool, function(err, res){
-    if (err) console.log('Error with query: ' + err);
-    res.render();
+bookSort.byTitle("Harry Potta", pool, function(err, res, fields){
+    if (err){
+        console.log('Error: ' + err);
+    }
+    else{
+        console.log(res);
+    }
 });
 
 app.listen(PORT, () => {
