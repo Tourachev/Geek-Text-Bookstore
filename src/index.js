@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
-import "./css/index.css";
+import './css/index.css';
 
-import NavBar from "./components/NavBar";
-import Body from "./components/Body";
+import NavBar from './components/NavBar';
+import Body from './components/Body';
 
-import "./css/index.css";
+import './css/index.css';
 
 class App extends Component {
     render() {
@@ -21,6 +21,6 @@ class App extends Component {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));
 
 export default App;

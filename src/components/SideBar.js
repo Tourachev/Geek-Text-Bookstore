@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const SideBar = () => {
     return (
@@ -23,6 +23,10 @@ const SideBar = () => {
                 <p>
                     Comedy <input type='checkbox' />
                 </p>
+                <hr />
+                <h3>
+                    Top Sellers Only <input type='checkbox' />
+                </h3>
                 <hr />
                 <h2>Rating</h2>
                 <p>
