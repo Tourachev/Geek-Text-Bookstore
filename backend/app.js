@@ -71,7 +71,7 @@ var qResult;
 
 //Using query function bookTitle
 //Get name from front end, then send json back
-bookFilter.byTitle("Harry Potta", pool, function(err, res, fields) {
+bookFilter.byTitle(true, pool, function(err, res, fields) {
     if (err) {
         console.log("Error: " + err);
     } else {
