@@ -1,8 +1,8 @@
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     height: 100vh;
@@ -18,7 +18,7 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-top: 2%;
+    padding-top: 6%;
 }
 
 #sidebar {
@@ -29,7 +29,8 @@ body {
     /* border-right: #333 1px solid; */
     /* justify-items: left; */
     padding-top: 2%;
-    width: 300px;
+    min-width: 270px;
+    width: 270px;
     height: 100vh;
     border-right: 1px solid;
     border-image: linear-gradient(
@@ -49,6 +50,7 @@ body {
 
 #browse-body {
     margin-left: 5%;
+    margin-right: 5%;
     padding-top: 2%;
     height: 100vh;
     overflow: auto;
@@ -97,24 +99,31 @@ body {
 }
 
 p {
-    font-size: 150%;
+    font-size: 130%;
 }
 
 .card {
     width: 18rem;
     margin: 5px !important;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16),
+        0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
 }
 
 a {
+    color: #212529 !important;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .navbar {
-    background-color: rgba(255, 255, 255, 0) !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
 
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16),
         0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
     z-index: 1;
+    width: 100%;
+    position: fixed;
+    top: 0;
 }
 
 .navbar-items {
@@ -176,7 +185,7 @@ a {
 
 .header::after {
     height: 100%;
-    content: "";
+    content: '';
     background: url(../img/img2.jpg);
     background-attachment: fixed;
     background-position: center;
@@ -192,7 +201,7 @@ a {
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
 }
 
@@ -342,7 +351,7 @@ code {
     pointer-events: none;
     position: absolute;
     z-index: -1;
-    content: "";
+    content: '';
     top: 100%;
     left: 5%;
     height: 10px;

@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import BrowseSection from "./BrowseSection";
-import SideBar from "./SideBar";
+import BrowseSection from './BrowseSection';
+import SideBar from './SideBar';
 
 class Body extends React.Component {
     render() {
@@ -19,7 +19,7 @@ class Body extends React.Component {
                                 className='ui secondary basic button huge'
                                 id='browse-button'
                             >
-                                Browse
+                                <a href='#browse-container'>Browse</a>
                             </button>
                         </div>
                     </div>
