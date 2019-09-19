@@ -14,10 +14,6 @@ class BrowseSection extends React.Component {
             .then(books => this.setState({ books }));
     }
 
-    // componentDidUpdate() {
-    //     this.forceUpdate();
-    // }
-
     sortAuthorA2Z(props) {
         this.setState = this.state.books.sort((a, b) =>
             a.author > b.author ? 1 : -1
