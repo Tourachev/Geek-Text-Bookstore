@@ -14,6 +14,10 @@ class BrowseSection extends React.Component {
             .then(books => this.setState({ books }));
     }
 
+    // componentDidUpdate() {
+    //     this.forceUpdate();
+    // }
+
     sortAuthorA2Z(props) {
         this.setState = this.state.books.sort((a, b) =>
             a.author > b.author ? 1 : -1
@@ -179,7 +183,10 @@ class BrowseSection extends React.Component {
                 </div>
                 <hr className='sexy_line' />
 
-                <div id='card-body'>{card}</div>
+                <div id='card-body'>
+                    
+                {card}
+                </div>
                 <div id='browse-body-bottom'>
                     <nav aria-label='Page navigation example'>
                         <ul class='pagination pagination-lg'>
