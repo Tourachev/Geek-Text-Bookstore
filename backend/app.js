@@ -10,7 +10,9 @@ const mariadb = require("mariadb");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const booksRouter = require("./routes/books");
-const bookSort = require('book-sort')
+const bookSort = require("./book-sort.js");
+
+const Promise = require('promise');
 
 const PORT = process.env.PORT || 3001;
 
@@ -62,25 +64,14 @@ const pool = mariadb.createPool({
     //rowsAsArray: true
 });
 
-//Make connection
-pool.getConnection()
-    .then(conn => {
-        conn.query("SELECT * FROM Book")
-            .then(rows => {
-                var arr = rows;
-                console.log(rows); //Wont output an arry if there is no data, like now
-                //however, metadata of table will be shown in json
-                //access array with for each loop and indexes
-            })
-            .catch(err => {
-                console.log("Error executing query: " + err);
-                conn.end();
-            });
-    })
-    .catch(err => {
-        console.log("Error making connection: " + err);
-        conn.end();
-    });
+//var qResult = is th; //to store query result
+
+//Using query function bookTitle
+//Get name from front end, then send json back
+bookSort.byTitle("Harry Potta", pool, function(err, res){
+    if (err) console.log('Error with query: ' + err);
+    res.render();
+});
 
 app.listen(PORT, () => {
     console.log("Magic on port 3001");
