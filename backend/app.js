@@ -63,7 +63,7 @@ const pool = mariadb.createPool({
     user: "team8",
     password: "WehaveControl",
     database: "GeekTextDB",
-    connections: 10
+    connections: 2
     //rowsAsArray: true
 });
 
