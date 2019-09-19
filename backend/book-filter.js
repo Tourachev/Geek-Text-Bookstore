@@ -241,8 +241,17 @@ async function byDate(newOrOld, pool, callback){
     }
 }
 
-async function insertBook(){
-    
+async function insertBook(values, pool, callback){
+    var query = 'INSERT INTO Book VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+
+    pool.query(query, values, (err, res, fields) => {
+        if (err){
+            callback(err, null, null);
+        }
+        else{
+            callback(null, res, fields);
+        }
+    });
 }
 
 //Make functions readily available from other files
@@ -254,4 +263,5 @@ module.exports = {
     byGenre,
     byRating,
     byDate,
+    insertBook
 };
