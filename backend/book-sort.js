@@ -37,12 +37,15 @@ const mariadb = require('mariadb');
 async function byTitle(title, pool, callback){
     if (typeof title == 'string' || title instanceof String)
     {
-        var findBooks = "SELECT *FROM Book WHERE title = ?";
+        var findBooks = "SELECT * FROM Book WHERE title = ?";
 
-        pool.query(findBooks, [title], function(err, res){
-            if (err) callback(err, null);
-            console.log(res);
-            callback(null, res);
+        pool.query(findBooks, [title], (err, res, fields) => {
+            if (err){
+                callback(err, null, null);
+            }
+            else{
+                callback(null, res, fields);
+            }
         });
     }
     else
