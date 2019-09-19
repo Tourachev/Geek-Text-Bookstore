@@ -24,21 +24,27 @@ const mariadb = require('mariadb/callback');
 
 /*Function: byTitle
  *---------------------------------
- *Sorts books by title. If no match is found, display books with similar
- *names. Output 'did you mean ...?' 
+ *Sorts books by title from A-Z or Z-A.
  *
- * param: 
- *        title : string
- *        conn : db connection
+ * param: sort : boolean (true for A-Z, false for Z-A)
+ *        pool : db connection
  *        callback: function to return error or result
  * 
- * return: json file containing sorted books
+ * return: json object containing sorted books
  */
-async function byTitle(title, pool, callback){
-    if (typeof title == 'string' || title instanceof String){
+async function byTitle(sort, pool, callback){
+    if (typeof sort == 'boolean' || sort instanceof Boolean){
 
-        var findBooks = "SELECT * FROM Book WHERE title = ?";
-        pool.query(findBooks, [title], (err, res, fields) => {
+        var sortType;
+        if (sort == true){
+            sortType = 'DESC';
+        }
+        else{
+            sortType = 'ASC';
+        }
+
+        var findBooks = "SELECT * FROM Book SORT BY title " + sortType;
+        pool.query(findBooks, (err, res, fields) => {
             if (err){
                 callback(err, null, null);
             }
@@ -48,25 +54,33 @@ async function byTitle(title, pool, callback){
         });
     }
     else{
-        console.log('In function byTitle: Invalid parameter for title, must be string');
+        console.log('In function byTitle: Invalid parameter for sort, must be boolean');
     }
 }
 
 /*async functio: byAuthor
  *---------------------------------
- *Sorts books by author. If no match is found, display books with similar named
- *authors. Output 'did you mean ...?'
+ *Sorts books by author from A-Z to Z-A.
  *
- * param: 
- *        author : string
+ * param: sort : boolean
+ *        pool : db connection
+ *        callback: function to return error or result
  * 
- * return: json file containing sorted books
+ * return: json object containing sorted books
  */
-async function byAuthor(author, pool, callback){
-    if (typeof author == 'string' || author instanceof String){
+async function byAuthor(sort, pool, callback){
+    if (typeof sort == 'boolean' || sort instanceof Boolean){
         
-        var findBooks = "SELECT * FROM Book WHERE author = ?";
-        pool.query(findBooks, [author], (err, res, fields) => {
+        var sortType;
+        if (sort == true){
+            sortType = 'DESC';
+        }
+        else{
+            sortType = 'ASC';
+        }
+
+        var findBooks = "SELECT * FROM Book SORT BY Author " + sortType;
+        pool.query(findBooks, (err, res, fields) => {
             if (err){
                 callback(err, null, null);
             }
@@ -76,7 +90,7 @@ async function byAuthor(author, pool, callback){
         });
     }
     else{
-        console.log('In function byAuthor: Invalid parameter for title, must be string');
+        console.log('In function byAuthor: Invalid parameter for sort, must be boolean');
     }
 }
 
@@ -85,10 +99,11 @@ async function byAuthor(author, pool, callback){
  *Sorts books by price. Can specify high or low price.
  *Should be able to include price range.
  *
- * param: 
- *        highOrLow : boolean (1 for high, 0 for low)
+ * param: highOrLow : boolean (1 for high, 0 for low)
+ *        pool : db connection
+ *        callback: function to return error or result
  * 
- * return: json file containing sorted books
+ * return: json object containing sorted books
  */
 async function byPrice(highOrLow, pool, callback){
     if (typeof highOrLow == 'boolean' || title instanceof Boolean){
@@ -119,10 +134,11 @@ async function byPrice(highOrLow, pool, callback){
  *-----------------------------------
  *Sorts books by total number of sales. Can specify most or least sold.
  *
- * param: 
- *        mostOrLeast : boolean (1 for most, 0 for least)
+ * param: mostOrLeast : boolean (1 for most, 0 for least)
+ *        pool : db connection
+ *        callback: function to return error or result
  * 
- * return: json file containing sorted books
+ * return: json object containing sorted books
  */
 async function bySales(mostOrLeast, pool, callback){
     if (typeof mostOrLeast == 'boolean' || author instanceof Boolean){
@@ -154,10 +170,11 @@ async function bySales(mostOrLeast, pool, callback){
  *-----------------------------------
  *Sorts books by genre. Must specify genre.
  *
- * param: 
- *        genre : string
+ * param: genre : string
+ *        pool : db connection
+ *        callback: function to return error or result
  * 
- * return: json file containing sorted books
+ * return: json object containing sorted books
  */
 async function byGenre(genre, pool, callback){
     if (typeof genre == 'string' || genre instanceof String){
@@ -182,11 +199,11 @@ async function byGenre(genre, pool, callback){
  *Sorts books by rating. If user chooses a specific rating n then display
  *books in the range n <= n >= n + 1.
  *
- * param: 
- *        rating : int (-1 for no specific rating chosen)
- *        highOrLow: boolean (1 for high, 0 for low)
+ * param: rating : int (-1 for no specific rating chosen)
+ *        pool : db connection
+ *        callback: function to return error or result
  * 
- * return: json file containing sorted books
+ * return: json object containing sorted books
  */
 async function byRating(rating, pool, callback){
     if (typeof rating == 'integer' || rating instanceof Integer){
@@ -210,10 +227,11 @@ async function byRating(rating, pool, callback){
  *---------------------------------------
  *Sorts books by release date. From latest to oldest.
  * 
- * param:
- *        newOrOld : boolean (1 for newest, 0 for oldest)
+ * param: newOrOld : boolean (1 for newest, 0 for oldest)
+ *        pool : db connection
+ *        callback: function to return error or result
  * 
- * return: json file containing sorted books
+ * return: json object containing sorted books
  */
 async function byDate(newOrOld, pool, callback){
     if (typeof newOrOld == 'boolean' || newOrOld instanceof Boolean){
