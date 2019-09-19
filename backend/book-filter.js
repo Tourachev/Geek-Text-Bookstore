@@ -42,7 +42,7 @@ async function byTitle(sort, pool, callback){
             sortType = 'ASC';
         }
 
-        var findBooks = "SELECT * FROM Book SORT BY title " + sortType;
+        var findBooks = "SELECT * FROM Book ORDER BY title " + sortType;
         pool.query(findBooks, (err, res, fields) => {
             if (err){
                 callback(err, null, null);
@@ -78,7 +78,7 @@ async function byAuthor(sort, pool, callback){
             sortType = 'ASC';
         }
 
-        var findBooks = "SELECT * FROM Book SORT BY Author " + sortType;
+        var findBooks = "SELECT * FROM Book ORDER BY Author " + sortType;
         pool.query(findBooks, (err, res, fields) => {
             if (err){
                 callback(err, null, null);
@@ -109,13 +109,13 @@ async function byPrice(highOrLow, pool, callback){
         
         var option;
         if (highOrLow === true){
-            option = 'DESC';
+            option = "DESC";
         }
         else{
-            option = 'ASC';
+            option = "ASC";
         }
-        var findBooks = "SELECT * FROM Book ORDER BY price " + option;
-        pool.query(findBooks, (err, res, fields) => {
+        var findBooks = "SELECT * FROM Book ORDER BY price ?";
+        pool.query(findBooks, [option], (err, res, fields) => {
             if (err){
                 callback(err, null, null);
             }
@@ -150,8 +150,8 @@ async function bySales(mostOrLeast, pool, callback){
             option = 'ASC';
         }
         
-        var findBooks = "SELECT * FROM Book ORDER BY sales " + option;
-        pool.query(findBooks, (err, res, fields) => {
+        var findBooks = "SELECT * FROM Book ORDER BY sales ?";
+        pool.query(findBooks, [option], (err, res, fields) => {
             if (err){
                 callback(err, null, null);
             }
@@ -243,8 +243,8 @@ async function byDate(newOrOld, pool, callback){
             option = 'ASC';
         }
         
-        var findBooks = "SELECT * FROM Book ORDER BY date " + option;
-        pool.query(findBooks, (err, res, fields) => {
+        var findBooks = "SELECT * FROM Book ORDER BY date ?";
+        pool.query(findBooks, [option], (err, res, fields) => {
             if (err){
                 callback(err, null, null);
             }
