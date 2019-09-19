@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import BookCard from './BookCard';
+import BookCard from "./BookCard";
 
 class BrowseSection extends React.Component {
     constructor(props) {
@@ -8,8 +8,16 @@ class BrowseSection extends React.Component {
         this.state = { books: [] };
     }
 
+    sortAlphabeticaly() {
+        this.setState = this.state.books.sort((a, b) =>
+            a.author > b.author ? 1 : -1
+        );
+
+        console.log(this.state.books);
+    }
+
     componentDidMount() {
-        fetch('/books')
+        fetch("/books")
             .then(res => res.json())
             .then(books => this.setState({ books }));
     }
