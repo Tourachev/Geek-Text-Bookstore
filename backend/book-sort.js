@@ -95,13 +95,13 @@ async function byPrice(highOrLow, pool, callback){
         
         var option;
         if (highOrLow == true){
-            option = 'DESC'
+            option = 'DESC';
         }
         else{
-            option = 'ASC'
+            option = 'ASC';
         }
-        var findBooks = "SELECT * FROM Book ORDER BY price ?";
-        pool.query(findBooks, [option], (err, res, fields) => {
+        var findBooks = "SELECT * FROM Book ORDER BY price " + option;
+        pool.query(findBooks, (err, res, fields) => {
             if (err){
                 callback(err, null, null);
             }
@@ -111,7 +111,7 @@ async function byPrice(highOrLow, pool, callback){
         });
     }
     else{
-        console.log('In function byPrice: Invalid parameter for byPrice, must be string');
+        console.log('In function byPrice: Invalid parameter for byPrice, must be decimal');
     }
 }
 
@@ -124,8 +124,30 @@ async function byPrice(highOrLow, pool, callback){
  * 
  * return: json file containing sorted books
  */
-async function bySales(){
+async function bySales(mostOrLeast, pool, callback){
+    if (typeof mostOrLeast == 'boolean' || author instanceof Boolean){
 
+        var option;
+        if (mostOrLeast == true){
+            option = 'DESC';
+        }
+        else{
+            option = 'ASC';
+        }
+        
+        var findBooks = "SELECT * FROM Book ORDER BY sales " + option;
+        pool.query(findBooks, (err, res, fields) => {
+            if (err){
+                callback(err, null, null);
+            }
+            else{
+                callback(null, res, fields);
+            }
+        });
+    }
+    else{
+        console.log('In function byAuthor: Invalid parameter for mostOrLeast, must be boolean');
+    }
 }
 
 /*Functiopn: byGenre
@@ -137,8 +159,22 @@ async function bySales(){
  * 
  * return: json file containing sorted books
  */
-async function byGenre(){
-
+async function byGenre(genre, pool, callback){
+    if (typeof genre == 'string' || genre instanceof String){
+        
+        var findBooks = "SELECT * FROM Book WHERE author = ?";
+        pool.query(findBooks, [genre], (err, res, fields) => {
+            if (err){
+                callback(err, null, null);
+            }
+            else{
+                callback(null, res, fields);
+            }
+        });
+    }
+    else{
+        console.log('In function byAuthor: Invalid parameter for author, must be string');
+    }
 }
 
 /*Function: byRating
@@ -152,8 +188,22 @@ async function byGenre(){
  * 
  * return: json file containing sorted books
  */
-async function byRating(){
-
+async function byRating(rating, pool, callback){
+    if (typeof rating == 'integer' || rating instanceof Integer){
+        
+        var findBooks = "SELECT * FROM Book WHERE rating = ?";
+        pool.query(findBooks, [rating], (err, res, fields) => {
+            if (err){
+                callback(err, null, null);
+            }
+            else{
+                callback(null, res, fields);
+            }
+        });
+    }
+    else{
+        console.log('In function byRating: Invalid parameter for rating, must be integer');
+    }
 }
 
 /*Function: byDate
@@ -165,12 +215,34 @@ async function byRating(){
  * 
  * return: json file containing sorted books
  */
-async function byDate(){
+async function byDate(newOrOld, pool, callback){
+    if (typeof newOrOld == 'boolean' || newOrOld instanceof Boolean){
 
+        var option;
+        if (newOrOld == true){
+            option = 'DESC';
+        }
+        else{
+            option = 'ASC';
+        }
+        
+        var findBooks = "SELECT * FROM Book ORDER BY date " + option;
+        pool.query(findBooks, (err, res, fields) => {
+            if (err){
+                callback(err, null, null);
+            }
+            else{
+                callback(null, res, fields);
+            }
+        });
+    }
+    else{
+        console.log('In function byDate: Invalid parameter for newOrOld, must be boolean');
+    }
 }
 
 async function insertBook(){
-
+    
 }
 
 //Make functions readily available from other files
