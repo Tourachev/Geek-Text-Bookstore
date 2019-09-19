@@ -63,14 +63,13 @@ const pool = mariadb.createPool({
     port: 30000,
     user: "team8",
     password: "WehaveControl",
-    database: "GeekTextDB",
-    rowsAsArray: true
+    database: "GeekTextDB"
 });
 
 //Make connection
 pool.getConnection()
     .then(conn => {
-        conn.query("SELECT * FROM Book")
+        conn.query("SELECT * FROM Author")
             .then(rows => {
                 var arr = rows;
                 console.log(rows); //Wont output an arry if there is no data, like now

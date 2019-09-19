@@ -8,14 +8,18 @@ class BrowseSection extends React.Component {
         this.state = { books: [] };
     }
 
+    sortAlphabeticaly() {
+        this.setState = this.state.books.sort((a, b) =>
+            a.author > b.author ? 1 : -1
+        );
+
+        console.log(this.state.books);
+    }
+
     componentDidMount() {
         fetch("/books")
             .then(res => res.json())
             .then(books => this.setState({ books }));
-    }
-
-    sortAlphabeticaly(props) {
-        console.log(props.title);
     }
 
     render() {
@@ -46,7 +50,7 @@ class BrowseSection extends React.Component {
                             <a
                                 class='dropdown-item'
                                 href='#'
-                                onClick={this.sortAlphabeticaly}
+                                onClick={() => this.sortAlphabeticaly()}
                             >
                                 Author: A-Z
                             </a>
