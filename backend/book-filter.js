@@ -1,4 +1,3 @@
-const mariadb = require('mariadb/callback');
 
 /*
     Source file: book-sort.js
@@ -36,7 +35,7 @@ async function byTitle(sort, pool, callback){
     if (typeof sort == 'boolean' || sort instanceof Boolean){
 
         var sortType;
-        if (sort == true){
+        if (sort === true){
             sortType = 'DESC';
         }
         else{
@@ -72,7 +71,7 @@ async function byAuthor(sort, pool, callback){
     if (typeof sort == 'boolean' || sort instanceof Boolean){
         
         var sortType;
-        if (sort == true){
+        if (sort === true){
             sortType = 'DESC';
         }
         else{
@@ -106,10 +105,10 @@ async function byAuthor(sort, pool, callback){
  * return: json object containing sorted books
  */
 async function byPrice(highOrLow, pool, callback){
-    if (typeof highOrLow == 'boolean' || title instanceof Boolean){
+    if (typeof highOrLow == 'boolean' || highOrLow instanceof Boolean){
         
         var option;
-        if (highOrLow == true){
+        if (highOrLow === true){
             option = 'DESC';
         }
         else{
@@ -141,10 +140,10 @@ async function byPrice(highOrLow, pool, callback){
  * return: json object containing sorted books
  */
 async function bySales(mostOrLeast, pool, callback){
-    if (typeof mostOrLeast == 'boolean' || author instanceof Boolean){
+    if (typeof mostOrLeast == 'boolean' || mostOrLeast instanceof Boolean){
 
         var option;
-        if (mostOrLeast == true){
+        if (mostOrLeast === true){
             option = 'DESC';
         }
         else{
@@ -206,7 +205,7 @@ async function byGenre(genre, pool, callback){
  * return: json object containing sorted books
  */
 async function byRating(rating, pool, callback){
-    if (typeof rating == 'integer' || rating instanceof Integer){
+    if (typeof rating == 'number'){
         
         var findBooks = "SELECT * FROM Book WHERE rating = ?";
         pool.query(findBooks, [rating], (err, res, fields) => {
@@ -237,7 +236,7 @@ async function byDate(newOrOld, pool, callback){
     if (typeof newOrOld == 'boolean' || newOrOld instanceof Boolean){
 
         var option;
-        if (newOrOld == true){
+        if (newOrOld === true){
             option = 'DESC';
         }
         else{
