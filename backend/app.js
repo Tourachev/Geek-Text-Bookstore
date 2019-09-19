@@ -57,6 +57,8 @@ module.exports = app;
 //Anyone can access the db server remotely with info below
 //Only access to GeekTextDB is given, no access to other dbs
 //for security reasons
+
+/*
 const pool = mariadb.createPool({
     host: "virt-servers.mynetgear.com",
     port: 30000,
@@ -78,7 +80,7 @@ bookFilter.byTitle(true, pool, function(err, res, fields) {
         qResult = res;
         console.log(qResult);
     }
-});
+});*/
 
 app.listen(PORT, () => {
     console.log("Magic on port 3001");
