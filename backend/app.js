@@ -8,11 +8,8 @@ const cors = require("cors");
 const mariadb = require("mariadb/callback");
 
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
 const booksRouter = require("./routes/books");
 const bookSort = require("./book-sort.js");
-
-const Promise = require('promise');
 
 //purchase router
 const purchaseRouter = require("./routes/purchase");
@@ -33,7 +30,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
 app.use("/books", booksRouter);
 
 //purchase router
@@ -75,11 +71,10 @@ const pool = mariadb.createPool({
 
 //Using query function bookTitle
 //Get name from front end, then send json back
-bookSort.byTitle("Harry Potta", pool, function(err, res, fields){
-    if (err){
-        console.log('Error: ' + err);
-    }
-    else{
+bookSort.byTitle("Harry Potta", pool, function(err, res, fields) {
+    if (err) {
+        console.log("Error: " + err);
+    } else {
         console.log(res);
     }
 });
