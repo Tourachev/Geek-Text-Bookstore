@@ -10,7 +10,7 @@ const pool = mariadb.createPool({
     user: "team8",
     password: "WehaveControl",
     database: "GeekTextDB",
-    connections: 2
+    connectionLimit: 2
     //rowsAsArray: true
 });
 
@@ -18,7 +18,7 @@ const pool = mariadb.createPool({
 router.get("/", function(req, res, next) {
     console.log("hey");
     //res.json(bookData);
-    bookFilter.byTitle("Harry Potta", pool, function(err, result, fields){
+    bookFilter.byTitle(true, pool, function(err, result, fields){
         if (err){
             console.log('Error :' + err);
         }
