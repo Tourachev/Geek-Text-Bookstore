@@ -1,3 +1,5 @@
+const mariadb = require('mariadb');
+
 /*
     Source file: book-sort.js
     Authors: Team 8
@@ -27,15 +29,29 @@
  *
  * param: 
  *        title : string
+ *        conn : db connection
+ *        callback: function to return error or result
  * 
  * return: json file containing sorted books
  */
-function byTitle()
-{
+async function byTitle(title, pool, callback){
+    if (typeof title == 'string' || title instanceof String)
+    {
+        var findBooks = "SELECT *FROM Book WHERE title = ?";
 
+        pool.query(findBooks, [title], function(err, res){
+            if (err) callback(err, null);
+            console.log(res);
+            callback(null, res);
+        });
+    }
+    else
+    {
+        console.log('In function byTitle: Invalid parameter for title, must be string');
+    }
 }
 
-/*Function: byAuthor
+/*async functio: byAuthor
  *---------------------------------
  *Sorts books by author. If no match is found, display books with similar named
  *authors. Output 'did you mean ...?'
@@ -45,8 +61,7 @@ function byTitle()
  * 
  * return: json file containing sorted books
  */
-function byAuthor()
-{
+async function byAuthor(){
 
 }
 
@@ -60,8 +75,7 @@ function byAuthor()
  * 
  * return: json file containing sorted books
  */
-function byPrice()
-{
+async function byPrice(){
 
 }
 
@@ -74,8 +88,7 @@ function byPrice()
  * 
  * return: json file containing sorted books
  */
-function bySales()
-{
+async function bySales(){
 
 }
 
@@ -88,8 +101,7 @@ function bySales()
  * 
  * return: json file containing sorted books
  */
-function byGenre()
-{
+async function byGenre(){
 
 }
 
@@ -104,8 +116,7 @@ function byGenre()
  * 
  * return: json file containing sorted books
  */
-function byRating()
-{
+async function byRating(){
 
 }
 
@@ -118,7 +129,17 @@ function byRating()
  * 
  * return: json file containing sorted books
  */
-function byDate()
-{
+async function byDate(){
 
 }
+
+//Make functions readily available from other files
+module.exports = {
+    byTitle,
+    byAuthor,
+    byPrice,
+    bySales,
+    byGenre,
+    byRating,
+    byDate,
+};
