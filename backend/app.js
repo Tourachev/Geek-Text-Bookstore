@@ -9,7 +9,7 @@ const mariadb = require("mariadb/callback");
 
 const indexRouter = require("./routes/index");
 const booksRouter = require("./routes/books");
-const bookFilter = require("./book-sort.js");
+const bookFilter = require("./book-filter.js");
 
 //purchase router
 const purchaseRouter = require("./routes/purchase");
