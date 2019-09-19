@@ -9,7 +9,7 @@ const mariadb = require("mariadb/callback");
 
 const indexRouter = require("./routes/index");
 const booksRouter = require("./routes/books");
-const bookSort = require("./book-sort.js");
+const bookFilter = require("./book-sort.js");
 
 //purchase router
 const purchaseRouter = require("./routes/purchase");
@@ -67,15 +67,16 @@ const pool = mariadb.createPool({
     //rowsAsArray: true
 });
 
-//var qResult = is th; //to store query result
+var qResult;
 
 //Using query function bookTitle
 //Get name from front end, then send json back
-bookSort.byTitle("Harry Potta", pool, function(err, res, fields) {
+bookFilter.byTitle("Harry Potta", pool, function(err, res, fields) {
     if (err) {
         console.log("Error: " + err);
     } else {
-        console.log(res);
+        qResult = res;
+        console.log(qResult);
     }
 });
 
