@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-const bookData = require('./data');
-const realData = require('../app');
 const bookFilter = require('../book-filter');
 const mariadb = require('mariadb/callback');
 
@@ -12,7 +10,7 @@ const pool = mariadb.createPool({
     user: 'team8',
     password: 'WehaveControl',
     database: 'GeekTextDB',
-    connections: 10
+    connections: 2
     //rowsAsArray: true
 });
 
