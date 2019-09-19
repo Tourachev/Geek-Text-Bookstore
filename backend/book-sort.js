@@ -1,4 +1,4 @@
-const mariadb = require('mariadb');
+const mariadb = require('mariadb/callback');
 
 /*
     Source file: book-sort.js
@@ -35,10 +35,9 @@ const mariadb = require('mariadb');
  * return: json file containing sorted books
  */
 async function byTitle(title, pool, callback){
-    if (typeof title == 'string' || title instanceof String)
-    {
-        var findBooks = "SELECT * FROM Book WHERE title = ?";
+    if (typeof title == 'string' || title instanceof String){
 
+        var findBooks = "SELECT * FROM Book WHERE title = ?";
         pool.query(findBooks, [title], (err, res, fields) => {
             if (err){
                 callback(err, null, null);
@@ -48,8 +47,7 @@ async function byTitle(title, pool, callback){
             }
         });
     }
-    else
-    {
+    else{
         console.log('In function byTitle: Invalid parameter for title, must be string');
     }
 }
@@ -64,8 +62,22 @@ async function byTitle(title, pool, callback){
  * 
  * return: json file containing sorted books
  */
-async function byAuthor(){
-
+async function byAuthor(author, pool, callback){
+    if (typeof author == 'string' || author instanceof String){
+        
+        var findBooks = "SELECT * FROM Book WHERE author = ?";
+        pool.query(findBooks, [author], (err, res, fields) => {
+            if (err){
+                callback(err, null, null);
+            }
+            else{
+                callback(null, res, fields);
+            }
+        });
+    }
+    else{
+        console.log('In function byAuthor: Invalid parameter for title, must be string');
+    }
 }
 
 /*Function: byPrice
@@ -78,8 +90,29 @@ async function byAuthor(){
  * 
  * return: json file containing sorted books
  */
-async function byPrice(){
-
+async function byPrice(highOrLow, pool, callback){
+    if (typeof highOrLow == 'boolean' || title instanceof Boolean){
+        
+        var option;
+        if (highOrLow == true){
+            option = 'DESC'
+        }
+        else{
+            option = 'ASC'
+        }
+        var findBooks = "SELECT * FROM Book ORDER BY price ?";
+        pool.query(findBooks, [option], (err, res, fields) => {
+            if (err){
+                callback(err, null, null);
+            }
+            else{
+                callback(null, res, fields);
+            }
+        });
+    }
+    else{
+        console.log('In function byPrice: Invalid parameter for byPrice, must be string');
+    }
 }
 
 /*Function: bySales
@@ -133,6 +166,10 @@ async function byRating(){
  * return: json file containing sorted books
  */
 async function byDate(){
+
+}
+
+async function insertBook(){
 
 }
 
