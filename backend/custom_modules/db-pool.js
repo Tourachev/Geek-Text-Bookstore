@@ -6,7 +6,8 @@ const POOL = mariadb.createPool({
     user: "team8",
     password: "WehaveControl",
     database: "GeekTextDB",
-    connectionLimit: 2
+    connectionLimit: 2,
+    dateStrings: 'date'
     //rowsAsArray: true
 });
 
