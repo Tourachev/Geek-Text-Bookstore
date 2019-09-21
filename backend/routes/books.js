@@ -1,10 +1,21 @@
-var express = require("express");
+const POOL = require('../custom_modules/db-pool');
+
+var express = require('express');
 var router = express.Router();
 
-const bookData = require("./data");
+const bookFilter = require('../custom_modules/book-filter');
 
-router.get("/", function(req, res, next) {
-    res.json(bookData);
+//Have to execute the function in the body of the GET request
+router.get('/', function(req, res, next) {
+    console.log(req);
+    //res.json(bookData);
+    bookFilter.byTitle(false, POOL, function(err, result, fields) {
+        if (err) {
+            console.log('Error :' + err);
+        } else {
+            res.json(result);
+        }
+    });
 });
 
 module.exports = router;

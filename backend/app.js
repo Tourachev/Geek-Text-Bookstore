@@ -4,15 +4,8 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
-
-const mariadb = require("mariadb/callback");
-
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
 const booksRouter = require("./routes/books");
-const bookSort = require("./book-sort.js");
-
-const Promise = require('promise');
 
 //purchase router
 const purchaseRouter = require("./routes/purchase");
@@ -33,7 +26,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
 app.use("/books", booksRouter);
 
 //purchase router
@@ -61,28 +53,30 @@ module.exports = app;
 //Anyone can access the db server remotely with info below
 //Only access to GeekTextDB is given, no access to other dbs
 //for security reasons
+
+/*
 const pool = mariadb.createPool({
     host: "virt-servers.mynetgear.com",
     port: 30000,
     user: "team8",
     password: "WehaveControl",
     database: "GeekTextDB",
-    connections: 10
+    connectionLimit: 2
     //rowsAsArray: true
 });
 
-//var qResult = is th; //to store query result
+var qResult;
 
 //Using query function bookTitle
 //Get name from front end, then send json back
-bookSort.byTitle("Harry Potta", pool, function(err, res, fields){
-    if (err){
-        console.log('Error: ' + err);
+bookFilter.byTitle(true, pool, function(err, res, fields) {
+    if (err) {
+        console.log("Error: " + err);
+    } else {
+        qResult = res;
+        console.log(qResult);
     }
-    else{
-        console.log(res);
-    }
-});
+});*/
 
 app.listen(PORT, () => {
     console.log("Magic on port 3001");
