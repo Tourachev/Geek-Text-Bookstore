@@ -60,11 +60,11 @@ class BrowseSection extends React.Component {
     }
 
     sortDateL2H(props) {
-        this.setState = this.state.books.sort((a, b) => Date(a.date) - Date(b.date));
+        this.setState = this.state.books.sort((a, b) => b.date < a.date ? 1 : -1);
         this.forceUpdate();
     }
     sortDateH2L(props) {
-        this.setState = this.state.books.sort((a, b) => Date(b.date) - Date(a.date));
+        this.setState = this.state.books.sort((a, b) => a.date < b.date ? 1 : -1);
         this.forceUpdate();
     }
 
