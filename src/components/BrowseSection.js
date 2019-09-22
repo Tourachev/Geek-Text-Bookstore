@@ -9,6 +9,7 @@ class BrowseSection extends React.Component {
     this.state = { books: [] };
   }
 
+  //the states
   state = {
     data: null,
     total: null,
