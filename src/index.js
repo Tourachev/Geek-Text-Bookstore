@@ -10,17 +10,17 @@ import Footer from "./components/Footer";
 import "./css/index.css";
 
 class App extends Component {
-    render() {
-        return (
-            <div>
-                <div className='body'>
-                    <NavBar />
-                    <Body />
-                    <Footer />
-                </div>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <div className="body">
+          <NavBar />
+          <Body />
+          <Footer />
+        </div>
+      </div>
+    );
+  }
 }
 
 ReactDOM.render(<App />, document.getElementById("root"));
