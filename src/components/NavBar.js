@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import Header from "./Header";
 
 const NavBar = () => {
     return (
@@ -22,7 +23,11 @@ const NavBar = () => {
                 >
                     <div id='navbar-left'>
                         <ul className='navbar-nav navbar-items'>
-                            <li className='nav-item active' id='home-logo'>
+                            <li
+                                className='nav-item active'
+                                id='home-logo'
+                                onClick={Header.handleCLick}
+                            >
                                 <a className='nav-link' href='index.html'>
                                     <i className='fas fa-home fa-lg'></i>
                                 </a>
