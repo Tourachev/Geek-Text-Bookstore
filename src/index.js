@@ -4,16 +4,22 @@ import ReactDOM from "react-dom";
 import "./css/index.css";
 
 import NavBar from "./components/NavBar";
+import Header from "./components/Header";
 import Body from "./components/Body";
 import Footer from "./components/Footer";
 
 import "./css/index.css";
 
 class App extends Component {
+    constructor() {
+        super();
+    }
+
     render() {
         return (
             <div>
                 <div className='body'>
+                    <Header />
                     <NavBar />
                     <Body />
                     <Footer />

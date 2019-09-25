@@ -1,0 +1,41 @@
+import React from "react";
+
+class Header extends React.Component {
+    constructor() {
+        super();
+        this.state = { showBrowse: false };
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        this.setState({ showBrowse: true });
+    }
+
+    render() {
+        const style = this.state.showBrowse ? { display: "none" } : {};
+
+        return (
+            <div id='jumbo-container' style={style}>
+                <div className='jumbotron header'>
+                    <div className='container header-text'>
+                        <h1 className='display-2'>Geek text_</h1>
+                        <h1 className='display-4'>
+                            Because geeks like reading too.
+                        </h1>
+                        <hr className='my-4' />
+                        <button
+                            className='ui secondary basic button huge'
+                            id='browse-button'
+                            onClick={this.handleClick}
+                        >
+                            <a href='#'>Browse</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+export default Header;
