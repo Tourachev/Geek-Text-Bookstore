@@ -1,19 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './css/index.css';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
 
-import NavBar from './components/NavBar';
-import JumboHeader from './components/JumboHeader';
-import SideBar from './components/SideBar';
+import "./css/index.css";
 
-const App = () => {
-    return (
-        <div className='body'>
-            <NavBar />
-            <JumboHeader />
-            {/* <SideBar /> */}
-        </div>
-    );
-};
+import NavBar from "./components/NavBar";
+import Body from "./components/Body";
+import Footer from "./components/Footer";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import "./css/index.css";
+
+class App extends Component {
+    render() {
+        return (
+            <div>
+                <div className='body'>
+                    <NavBar />
+                    <Body />
+                    <Footer />
+                </div>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));
+
+export default App;
