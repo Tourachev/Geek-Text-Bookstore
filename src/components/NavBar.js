@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "./Header";
+import { Link } from 'react-router-dom'
 
 const NavBar = () => {
     return (
@@ -28,47 +29,38 @@ const NavBar = () => {
                                 id='home-logo'
                                 onClick={Header.handleCLick}
                             >
-                                <a className='nav-link' href='index.html'>
-                                    <i className='fas fa-home fa-lg'></i>
-                                </a>
+                                <Link to="/"><i className='fas fa-home fa-lg'></i></Link>
                             </li>
 
-                            <div
-                                className='ui vertical large animated button'
-                                tabIndex='0'
-                            >
-                                <div className='hidden content'>Cart</div>
-                                <div className='visible content'>
-                                    <i className='shop icon'></i>
+                            <li>
+                                <div className='ui vertical large button' tabIndex='0'>
+                                    <div className='visible content'>
+                                        <Link to="/Browse">Browse</Link>
+                                    </div>
                                 </div>
-                            </div>
+                            </li>
+                            <li>
+                                <div className='ui vertical large button' tabIndex='0'>
+                                    <div className='visible content'>
+                                        Wishlist
+                                    </div>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                     <div id='navbar-right'>
                         <ul className='navbar-nav navbar-items'>
                             <li>
-                                <div
-                                    className='ui vertical large animated button'
-                                    tabIndex='0'
-                                >
-                                    <div className='hidden content'>
-                                        It's Free!
-                                    </div>
+                                <div className='ui vertical large button' tabIndex='0'>
                                     <div className='visible content'>
-                                        Sign-up
+                                        Sign in
                                     </div>
                                 </div>
                             </li>
                             <li>
-                                <div
-                                    className='ui vertical large animated button'
-                                    tabIndex='0'
-                                >
-                                    <div className='hidden content'>
-                                        Welcome!
-                                    </div>
+                                <div className='ui vertical large button' tabIndex='0'>
                                     <div className='visible content'>
-                                        Sign in
+                                        <Link to="/cart"><i className='shop icon'></i></Link>
                                     </div>
                                 </div>
                             </li>

@@ -1,10 +1,10 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 
 class Header extends React.Component {
     constructor() {
         super();
         this.state = { showBrowse: false };
-
         this.handleClick = this.handleClick.bind(this);
     }
 
@@ -19,7 +19,7 @@ class Header extends React.Component {
             <div id='jumbo-container' style={style}>
                 <div className='jumbotron header'>
                     <div className='container header-text'>
-                        <h1 className='display-2'>Geek text_</h1>
+                        <h1 className='display-2'>Geek Text</h1>
                         <h1 className='display-4'>
                             Because geeks like reading too.
                         </h1>
@@ -29,7 +29,7 @@ class Header extends React.Component {
                             id='browse-button'
                             onClick={this.handleClick}
                         >
-                            <a href='#'>Browse</a>
+                            <Link to="/Browse">Browse</Link>
                         </button>
                     </div>
                 </div>

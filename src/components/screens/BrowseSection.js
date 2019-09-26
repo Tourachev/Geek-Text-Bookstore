@@ -1,6 +1,6 @@
 import React from "react";
 
-import BookCard from "./BookCard";
+import BookCard from "../BookCard";
 
 class BrowseSection extends React.Component {
     constructor(props) {

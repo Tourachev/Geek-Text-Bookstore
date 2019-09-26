@@ -1,7 +1,7 @@
-import React from "react";
+/*import React from "react";
 import { Table, Button} from "reactstrap"
 
-const purchase =  () => {
+const purchaseSection =  () => {
 
     const newbook = {
         books: {id: 1, title: "The wonderland Book", rating: "5"}
@@ -36,8 +36,6 @@ const purchase =  () => {
         </Table>
         </div>
 
-    )
-
 };
 
-export default purchase;
+export default purchaseSection;*/
