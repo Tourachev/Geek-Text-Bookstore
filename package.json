@@ -5,11 +5,14 @@
     "homepage": "http://tourachev.github.io/FIU-CEN-TEAM8/",
     "proxy": "http://localhost:3001",
     "dependencies": {
+        "bootstrap": "^4.3.1",
         "express": "^4.17.1",
         "faker": "^4.1.0",
         "mariadb": "^2.1.1",
         "react": "^16.9.0",
+        "react-bootstrap": "^1.0.0-beta.12",
         "react-dom": "^16.9.0",
+        "react-router-dom": "^5.1.0",
         "react-scripts": "3.1.1",
         "semantic-ui-react": "^0.88.1"
     },

@@ -18,7 +18,7 @@ class BrowseSection extends React.Component {
   };
 
   componentDidMount() {
-    this.makeHttpRequestWithPage(2);
+    this.makeHttpRequestWithPage(1);
   }
 
   makeHttpRequestWithPage = async pageNumber => {
