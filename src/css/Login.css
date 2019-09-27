@@ -5,7 +5,18 @@
 
   .Login form {
     margin: 0 auto;
-    max-width: 320px;
-    position: relative;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .input-feedback {
+    color: rgb(235, 54, 54);
+    margin-top: 0px;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  input.error {
+    border-color: red;
   }
 }

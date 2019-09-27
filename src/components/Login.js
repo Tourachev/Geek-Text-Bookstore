@@ -13,7 +13,7 @@ export default class Login extends Component {
   }
 
   validateForm() {
-    return this.state.email.length > 0 && this.state.password > 0;
+    return this.state.email.length > 0 && this.state.password.length > 0;
   }
 
   handleChange = event => {
@@ -27,21 +27,22 @@ export default class Login extends Component {
   };
 
   render() {
+    const { email, password } = this.state;
     return (
-      <di className="Login">
+      <div className="Login">
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="email" bsSize="large">
             <FormLabel>Email</FormLabel>
             <FormControl
               type="email"
-              value={this.state.email}
+              value={email}
               onChange={this.handleChange}
             />
           </FormGroup>
           <FormGroup controlId="password" bsSize="large">
             <FormLabel>password</FormLabel>
             <FormControl
-              value={this.state.password}
+              value={password}
               onChange={this.handleChange}
               type="password"
             />
@@ -55,7 +56,7 @@ export default class Login extends Component {
             Login
           </Button>
         </form>
-      </di>
+      </div>
     );
   }
 }

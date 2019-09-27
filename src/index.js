@@ -8,7 +8,9 @@ import Body from "./components/Body";
 import Footer from "./components/Footer";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./css/index.css";
-import Login from "./components/Login";
+// import Login from "./components/Login";
+import ApplicationForm from "./components/ApplicationForm";
+import ValidationLoginForm from "./components/ValidatedLoginForm";
 
 class App extends Component {
   render() {
@@ -18,7 +20,13 @@ class App extends Component {
           <div className="body">
             <NavBar />
             <Switch>
-              <Route path="/login" exact strict component={Login} />
+              <Route path="/signUp" exact strict component={ApplicationForm} />
+              <Route
+                path="/login"
+                exact
+                strict
+                component={ValidationLoginForm}
+              />
               <Route path="/body" exact component={Body} />
             </Switch>
             {/* <Body /> */}
