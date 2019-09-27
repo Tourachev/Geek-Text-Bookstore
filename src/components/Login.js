@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import "../css/Login.css";
+import PropTypes from "prop-types";
 
 export default class Login extends Component {
   constructor(props) {
@@ -12,9 +13,10 @@ export default class Login extends Component {
     };
   }
 
-  validateForm() {
-    return this.state.email.length > 0 && this.state.password.length > 0;
-  }
+  static PropTypes = {
+    login: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool
+  };
 
   handleChange = event => {
     this.setState({
@@ -24,6 +26,7 @@ export default class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    this.props.login(this.state.email, this.state.password);
   };
 
   render() {

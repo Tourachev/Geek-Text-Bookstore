@@ -11,29 +11,43 @@ import "./css/index.css";
 // import Login from "./components/Login";
 import ApplicationForm from "./components/ApplicationForm";
 import ValidationLoginForm from "./components/ValidatedLoginForm";
+import { PrivateRoute } from "../src/common/PrivateRoute";
+import store from "./common/store";
+import { loadUser } from "./actions/auth";
+import { Provider } from "react-redux";
 
 class App extends Component {
+  componentDidMount() {
+    store.dispatch(loadUser());
+  }
   render() {
     return (
-      <Router>
-        <div>
-          <div className="body">
-            <NavBar />
-            <Switch>
-              <Route path="/signUp" exact strict component={ApplicationForm} />
-              <Route
-                path="/login"
-                exact
-                strict
-                component={ValidationLoginForm}
-              />
-              <Route path="/body" exact component={Body} />
-            </Switch>
-            {/* <Body /> */}
-            <Footer />
+      <Provider store={store}>
+        <Router>
+          <div>
+            <div className="body">
+              <NavBar />
+              <Switch>
+                <Route
+                  exact
+                  path="/signUp"
+                  strict
+                  component={ApplicationForm}
+                />
+                <Route
+                  path="/login"
+                  exact
+                  strict
+                  component={ValidationLoginForm}
+                />
+                <Route path="/body" exact component={Body} />
+              </Switch>
+              {/* <Body /> */}
+              <Footer />
+            </div>
           </div>
-        </div>
-      </Router>
+        </Router>
+      </Provider>
     );
   }
 }

@@ -5,9 +5,41 @@ import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import * as Yup from "yup";
 import "../css/Login.css";
 import NavBar2 from "./NavBar2";
+import { connect } from "react-redux";
+import propTypes from "prop-types";
+import { login } from "../actions/auth";
+import { Link, Redirect } from "react-router-dom";
 
 export class ValidatedLoginForm extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: "",
+      password: ""
+    };
+  }
+
+  static propTypes = {
+    login: propTypes.func.isRequired,
+    isAuthenticated: propTypes.bool
+  };
+
+  handleChange = event => {
+    this.setState({
+      [event.target.id]: event.target.value
+    });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.login(this.state.email, this.state.password);
+  };
+
   render() {
+    if (this.props.isAuthenticated) {
+      return <Redirect to="/" />;
+    }
     return (
       <Formik
         initialValues={{ email: "", password: "" }}
@@ -42,11 +74,12 @@ export class ValidatedLoginForm extends Component {
           } = props;
 
           return (
-            <fragment>
+            <div>
               <NavBar2 />
-              <div className="Login">
+
+              <form className="Login">
                 <form onSubmit={handleSubmit}>
-                  <FormGroup controlId="email" bsSize="large">
+                  <FormGroup controlId="email" bssize="large">
                     <FormLabel>Email</FormLabel>
                     <FormControl
                       type="email"
@@ -59,7 +92,7 @@ export class ValidatedLoginForm extends Component {
                       <div className="input-feedback">{errors.email}</div>
                     )}
                   </FormGroup>
-                  <FormGroup controlId="password" bsSize="large">
+                  <FormGroup controlId="password" bssize="large">
                     <FormLabel>password</FormLabel>
                     <FormControl
                       value={values.password}
@@ -74,15 +107,15 @@ export class ValidatedLoginForm extends Component {
                   </FormGroup>
                   <Button
                     block
-                    bsSize="large"
+                    bssize="large"
                     disabled={isSubmitting}
                     type="submit"
                   >
                     Login
                   </Button>
                 </form>
-              </div>
-            </fragment>
+              </form>
+            </div>
           );
         }}
       </Formik>
@@ -90,4 +123,11 @@ export class ValidatedLoginForm extends Component {
   }
 }
 
-export default ValidatedLoginForm;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(
+  mapStateToProps,
+  { login }
+)(ValidatedLoginForm);
