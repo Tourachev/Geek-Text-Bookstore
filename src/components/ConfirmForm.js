@@ -3,7 +3,6 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
-import { EditorFormatAlignCenter } from "material-ui/svg-icons";
 import { List, ListItem } from "material-ui/List";
 
 export class ConfirmForm extends Component {

@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import propTypes from "prop-types";
 import { login } from "../actions/auth";
 import { Link, Redirect } from "react-router-dom";
+import Footer from "./Footer";
 
 export class ValidatedLoginForm extends Component {
   constructor(props) {
@@ -115,6 +116,7 @@ export class ValidatedLoginForm extends Component {
                   </Button>
                 </form>
               </form>
+              <Footer />
             </div>
           );
         }}
