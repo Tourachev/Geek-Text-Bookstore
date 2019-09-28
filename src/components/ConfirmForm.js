@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
-import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 import { List, ListItem } from "material-ui/List";
+import Footer from "../components/Footer";
 
 export class ConfirmForm extends Component {
   //GO to the next Page
@@ -14,44 +14,56 @@ export class ConfirmForm extends Component {
   };
 
   // Go back to prev step
-  prevStep = () => {
-    const { step } = this.state;
-    this.setState({
-      step: step - 1
-    });
+  back = e => {
+    e.preventDefault();
+    this.props.prevStep();
   };
 
   render() {
     const {
-      values: { FirstName, LastName, Email, Address, City, State }
+      values: {
+        FirstName,
+        LastName,
+        Email,
+        Address,
+        City,
+        State,
+        UserName,
+        NickName
+      }
     } = this.props;
     return (
       <MuiThemeProvider>
         <React.Fragment>
           <AppBar title="Confirm" />
-          <List>
-            <ListItem primaryText="First Name" secondaryText={FirstName} />
-            <ListItem primaryText="Last Name" secondaryText={LastName} />
-            <ListItem primaryText="Email" secondaryText={Email} />
-            <ListItem primaryText="Address" secondaryText={Address} />
-            <ListItem primaryText="City" secondaryText={City} />
-            <ListItem primaryText="State" secondaryText={State} />
-          </List>
+          <div className="container">
+            <List>
+              <ListItem primaryText="First Name" secondaryText={FirstName} />
+              <ListItem primaryText="Last Name" secondaryText={LastName} />
+              <ListItem primaryText="Email" secondaryText={Email} />
+              <ListItem primaryText="Username" secondaryText={UserName} />
+              <ListItem primaryText="Nickname" secondaryText={NickName} />
+              <ListItem primaryText="Address" secondaryText={Address} />
+              <ListItem primaryText="City" secondaryText={City} />
+              <ListItem primaryText="State" secondaryText={State} />
+            </List>
 
-          <br />
-          <RaisedButton
-            label="Confirm & Continue"
-            primary={true}
-            style={styles.button}
-            onClick={this.continue}
-          />
-          <br />
-          <RaisedButton
-            label="Back"
-            primary={false}
-            style={styles.button}
-            onClick={this.back}
-          />
+            <br />
+            <RaisedButton
+              label="Confirm & Continue"
+              primary={true}
+              style={styles.button}
+              onClick={this.continue}
+            />
+            <br />
+            <RaisedButton
+              label="Back"
+              primary={false}
+              style={styles.button}
+              onClick={this.back}
+            />
+          </div>
+          <Footer />
         </React.Fragment>
       </MuiThemeProvider>
     );

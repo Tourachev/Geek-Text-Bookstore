@@ -11,6 +11,7 @@ export class ApplicationForm extends Component {
     LastName: "",
     Email: "",
     UserName: "",
+    nickname: "",
     Password: "",
     Password2: "",
     Address: "",
@@ -45,6 +46,7 @@ export class ApplicationForm extends Component {
       FirstName,
       LastName,
       Email,
+      NickName,
       Address,
       City,
       State,
@@ -55,6 +57,7 @@ export class ApplicationForm extends Component {
     const values = {
       FirstName,
       LastName,
+      NickName,
       Email,
       Address,
       City,

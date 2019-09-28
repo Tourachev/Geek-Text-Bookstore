@@ -3,7 +3,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
-
+import Footer from "../components/Footer";
 export class SignupForm extends Component {
   continue = e => {
     e.preventDefault();
@@ -16,59 +16,65 @@ export class SignupForm extends Component {
       <MuiThemeProvider>
         <React.Fragment>
           <AppBar title="Enter user Details" />
-          <TextField
-            hintText="Enter your first Name"
-            floatingLabelText="first Name"
-            onChange={handleChange("FirstName")}
-            defaultValue={values.FirstName}
-          />
-          <br />
-          <TextField
-            className={"center-align"}
-            hintText="Enter your Last Name"
-            floatingLabelText="Last Name"
-            onChange={handleChange("LastName")}
-            defaultValue={values.LastName}
-          />
-          <br />
-          <TextField
-            className={"center-align"}
-            hintText="Enter your Email"
-            floatingLabelText="Email"
-            onChange={handleChange("Email")}
-            defaultValue={values.Email}
-          />
-          <br />
-          <TextField
-            className={"center-align"}
-            hintText="Enter your Username"
-            floatingLabelText="UserName"
-            onChange={handleChange("UserName")}
-            defaultValue={values.UserName}
-          />
-          <br />
-          <TextField
-            className={"center-align"}
-            hintText="Enter your Password"
-            floatingLabelText="Password"
-            onChange={handleChange("Password")}
-            defaultValue={values.Password}
-          />
-          <br />
-          <TextField
-            className={"center-align"}
-            hintText="Enter your Password Confirmation"
-            floatingLabelText="Password Confirmation"
-            onChange={handleChange("Password2")}
-            defaultValue={values.Password2}
-          />
-          <br />
-          <RaisedButton
-            label="continue"
-            primary={true}
-            style={styles.button}
-            onClick={this.continue}
-          />
+          <div className="container">
+            <TextField
+              hintText="Enter your first Name"
+              floatingLabelText="first Name"
+              onChange={handleChange("FirstName")}
+              defaultValue={values.FirstName}
+            />
+            <br />
+            <TextField
+              hintText="Enter your Last Name"
+              floatingLabelText="Last Name"
+              onChange={handleChange("LastName")}
+              defaultValue={values.LastName}
+            />
+            <br />
+            <TextField
+              hintText="Enter your Email"
+              floatingLabelText="Email"
+              onChange={handleChange("Email")}
+              defaultValue={values.Email}
+            />
+            <br />
+            <TextField
+              hintText="Enter your Username"
+              floatingLabelText="UserName"
+              onChange={handleChange("UserName")}
+              defaultValue={values.UserName}
+            />
+            <br />
+            <TextField
+              hintText="Enter your Nickname"
+              floatingLabelText="Nickname"
+              onChange={handleChange("Nickname")}
+              defaultValue={values.NickName}
+            />
+            <br />
+            <TextField
+              hintText="Enter your Password"
+              floatingLabelText="Password"
+              onChange={handleChange("Password")}
+              defaultValue={values.Password}
+            />
+            <br />
+            <TextField
+              hintText="Enter your Password Confirmation"
+              floatingLabelText="Password Confirmation"
+              onChange={handleChange("Password2")}
+              defaultValue={values.Password2}
+            />
+
+            <br />
+            <RaisedButton
+              label="continue"
+              primary={true}
+              style={styles.button}
+              onClick={this.continue}
+            />
+          </div>
+          <Footer />
         </React.Fragment>
       </MuiThemeProvider>
     );

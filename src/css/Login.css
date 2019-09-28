@@ -20,3 +20,10 @@
     border-color: red;
   }
 }
+
+.container {
+  position: absolutes;
+  left: 50%;
+  top: 50%;
+  align-items: center;
+}

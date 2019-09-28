@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import { Formik } from "formik";
-import * as EmailValidator from "email-validator";
+import * as emailValidator from "email-validator";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import * as Yup from "yup";
 import "../css/Login.css";
 import NavBar2 from "./NavBar2";
-import { connect } from "react-redux";
-import propTypes from "prop-types";
-import { login } from "../actions/auth";
 import { Link, Redirect } from "react-router-dom";
 import Footer from "./Footer";
 
@@ -16,15 +13,15 @@ export class ValidatedLoginForm extends Component {
     super(props);
 
     this.state = {
-      email: "",
+      username: "",
       password: ""
     };
   }
 
-  static propTypes = {
-    login: propTypes.func.isRequired,
-    isAuthenticated: propTypes.bool
-  };
+  // static propTypes = {
+  //   login: propTypes.func.isRequired,
+  //   isAuthenticated: propTypes.bool
+  // };
 
   handleChange = event => {
     this.setState({
@@ -34,7 +31,7 @@ export class ValidatedLoginForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.login(this.state.email, this.state.password);
+    // this.props.login(this.state.username, this.state.password);
   };
 
   render() {
@@ -43,7 +40,7 @@ export class ValidatedLoginForm extends Component {
     }
     return (
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ username: "", password: "" }}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             console.log("Logging in", values);
@@ -51,8 +48,8 @@ export class ValidatedLoginForm extends Component {
           }, 500);
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string()
-            .email()
+          username: Yup.string()
+            // .username()
             .required("Required"),
           password: Yup.string()
             .required("Required.")
@@ -80,17 +77,17 @@ export class ValidatedLoginForm extends Component {
 
               <form className="Login">
                 <form onSubmit={handleSubmit}>
-                  <FormGroup controlId="email" bssize="large">
-                    <FormLabel>Email</FormLabel>
+                  <FormGroup controlId="username" bssize="large">
+                    <FormLabel>username</FormLabel>
                     <FormControl
-                      type="email"
-                      value={values.email}
+                      type="username"
+                      value={values.username}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className={errors.email && touched.email && "error"}
+                      className={errors.username && touched.username && "error"}
                     />
-                    {errors.email && touched.email && (
-                      <div className="input-feedback">{errors.email}</div>
+                    {errors.username && touched.username && (
+                      <div className="input-feedback">{errors.username}</div>
                     )}
                   </FormGroup>
                   <FormGroup controlId="password" bssize="large">
@@ -125,11 +122,8 @@ export class ValidatedLoginForm extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
-});
+// const mapStateToProps = state => ({
+//   isAuthenticated: state.auth.isAuthenticated
+// });
 
-export default connect(
-  mapStateToProps,
-  { login }
-)(ValidatedLoginForm);
+export default ValidatedLoginForm;

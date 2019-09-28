@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
+import Footer from "../components/Footer";
 
 export class SuccessForm extends Component {
   //GO to the next Page
@@ -25,6 +26,7 @@ export class SuccessForm extends Component {
           <AppBar title="Success" />
           <h1>Thank you for your Submission</h1>
           <p>You will get an email!</p>
+          <Footer />
         </React.Fragment>
       </MuiThemeProvider>
     );
