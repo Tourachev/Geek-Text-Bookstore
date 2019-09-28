@@ -24,6 +24,7 @@ export class SignupForm extends Component {
           />
           <br />
           <TextField
+            className={"center-align"}
             hintText="Enter your Last Name"
             floatingLabelText="Last Name"
             onChange={handleChange("LastName")}
@@ -31,6 +32,7 @@ export class SignupForm extends Component {
           />
           <br />
           <TextField
+            className={"center-align"}
             hintText="Enter your Email"
             floatingLabelText="Email"
             onChange={handleChange("Email")}
@@ -38,6 +40,7 @@ export class SignupForm extends Component {
           />
           <br />
           <TextField
+            className={"center-align"}
             hintText="Enter your Username"
             floatingLabelText="UserName"
             onChange={handleChange("UserName")}
@@ -45,6 +48,7 @@ export class SignupForm extends Component {
           />
           <br />
           <TextField
+            className={"center-align"}
             hintText="Enter your Password"
             floatingLabelText="Password"
             onChange={handleChange("Password")}
@@ -52,6 +56,7 @@ export class SignupForm extends Component {
           />
           <br />
           <TextField
+            className={"center-align"}
             hintText="Enter your Password Confirmation"
             floatingLabelText="Password Confirmation"
             onChange={handleChange("Password2")}

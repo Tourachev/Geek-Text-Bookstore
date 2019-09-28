@@ -14,6 +14,7 @@ import store from "./common/store";
 import { loadUser } from "./actions/auth";
 import { Provider } from "react-redux";
 import { Home } from "./Home/Home";
+import { Leads } from "./components/Leads";
 
 class App extends Component {
   componentDidMount() {
@@ -40,6 +41,7 @@ class App extends Component {
                   component={ValidationLoginForm}
                 />
                 <Route path="/body" exact component={Body} />
+                <Route path="/leads" exact component={Leads} />
               </Switch>
             </div>
           </div>

@@ -21,6 +21,7 @@ export class PersonalInfo extends Component {
         <React.Fragment>
           <AppBar title="Enter Personal Details" />
           <TextField
+            style={styles.justify}
             hintText="Enter your Address"
             floatingLabelText="Address"
             onChange={handleChange("Address")}
@@ -28,6 +29,7 @@ export class PersonalInfo extends Component {
           />
           <br />
           <TextField
+            style={styles.justify}
             hintText="Enter your City"
             floatingLabelText="Last City"
             onChange={handleChange("City")}
@@ -35,6 +37,7 @@ export class PersonalInfo extends Component {
           />
           <br />
           <TextField
+            style={styles.justify}
             hintText="Enter your State"
             floatingLabelText="State"
             onChange={handleChange("State")}
@@ -63,6 +66,10 @@ export class PersonalInfo extends Component {
 const styles = {
   button: {
     margin: 20
+  },
+
+  TextField: {
+    width: 70
   }
 };
 
