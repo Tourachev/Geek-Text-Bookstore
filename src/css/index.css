@@ -1,11 +1,11 @@
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-        'Helvetica Neue', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    height: 100vh;
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -17,8 +17,9 @@ body {
 #browse-container {
     display: flex;
     flex-direction: row;
-    align-items: center;
     padding-top: 6%;
+    min-height: 800px;
+    height: 90%;
 }
 
 #sidebar {
@@ -31,7 +32,7 @@ body {
     padding-top: 2%;
     min-width: 270px;
     width: 270px;
-    height: 100vh;
+    height: 100%;
     border-right: 1px solid;
     border-image: linear-gradient(
         to bottom,
@@ -52,8 +53,8 @@ body {
     margin-left: 5%;
     margin-right: 5%;
     padding-top: 2%;
-    height: 100vh;
-    overflow: auto;
+    height: 100%;
+    overflow: none;
 }
 
 #card-body {
@@ -81,14 +82,13 @@ body {
     flex-direction: row;
 }
 
-/* .hidden {
+.invisible {
     display: none;
 }
 .show {
     display: block;
-} */
-
-.card-links {
+}
+c.card-links {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -185,7 +185,7 @@ a {
 
 .header::after {
     height: 100%;
-    content: '';
+    content: "";
     background: url(../img/img2.jpg);
     background-attachment: fixed;
     background-position: center;
@@ -201,7 +201,7 @@ a {
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;
 }
 
@@ -235,6 +235,7 @@ code {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 6px;
 }
+
 .footer-bs .footer-brand,
 .footer-bs .footer-nav,
 .footer-bs .footer-social,
@@ -246,9 +247,11 @@ code {
 .footer-bs .footer-ns {
     border-color: transparent;
 }
+
 .footer-bs .footer-brand h2 {
     margin: 0px 0px 10px;
 }
+
 .footer-bs .footer-brand p {
     font-size: 12px;
     color: rgba(255, 255, 255, 0.7);
@@ -258,18 +261,22 @@ code {
     list-style: none;
     padding: 0px;
 }
+
 .footer-bs .footer-nav ul.pages li {
     padding: 5px 0px;
 }
+
 .footer-bs .footer-nav ul.pages a {
     color: rgba(255, 255, 255, 1);
     font-weight: bold;
     text-transform: uppercase;
 }
+
 .footer-bs .footer-nav ul.pages a:hover {
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
 }
+
 .footer-bs .footer-nav h4 {
     font-size: 11px;
     text-transform: uppercase;
@@ -281,12 +288,15 @@ code {
     list-style: none;
     padding: 0px;
 }
+
 .footer-bs .footer-nav ul.list li {
     padding: 5px 0px;
 }
+
 .footer-bs .footer-nav ul.list a {
     color: rgba(255, 255, 255, 0.8);
 }
+
 .footer-bs .footer-nav ul.list a:hover {
     color: rgba(255, 255, 255, 0.6);
     text-decoration: none;
@@ -296,17 +306,21 @@ code {
     list-style: none;
     padding: 0px;
 }
+
 .footer-bs .footer-social h4 {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 3px;
 }
+
 .footer-bs .footer-social li {
     padding: 5px 4px;
 }
+
 .footer-bs .footer-social a {
     color: rgba(255, 255, 255, 1);
 }
+
 .footer-bs .footer-social a:hover {
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
@@ -318,6 +332,7 @@ code {
     letter-spacing: 3px;
     margin-bottom: 10px;
 }
+
 .footer-bs .footer-ns p {
     font-size: 12px;
     color: rgba(255, 255, 255, 0.7);
@@ -347,11 +362,12 @@ code {
     padding-top: 2%;
     cursor: pointer;
 }
+
 .hvr-float-shadow:before {
     pointer-events: none;
     position: absolute;
     z-index: -1;
-    content: '';
+    content: "";
     top: 100%;
     left: 5%;
     height: 10px;
@@ -374,6 +390,7 @@ code {
     -webkit-transition-property: transform, opacity;
     transition-property: transform, opacity;
 }
+
 .hvr-float-shadow:hover,
 .hvr-float-shadow:focus,
 .hvr-float-shadow:active {
@@ -381,6 +398,7 @@ code {
     transform: translateY(-5px);
     /* move the element up by 5px */
 }
+
 .hvr-float-shadow:hover:before,
 .hvr-float-shadow:focus:before,
 .hvr-float-shadow:active:before {

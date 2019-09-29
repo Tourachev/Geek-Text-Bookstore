@@ -9,7 +9,7 @@ const Footer = () => {
                         class='col-md-3 footer-brand animated fadeInLeft'
                         style={{ marginTop: "-1%" }}
                     >
-                        <h4>GEEK TEXT_</h4>
+                        <h4>GEEK TEXT</h4>
                         <p>
                             Suspendisse hendrerit tellus laoreet luctus
                             pharetra. Aliquam porttitor vitae orci nec
@@ -36,7 +36,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <div class='col-md-2 footer-social animated fadeInDown'>
-                        <h4>Follow Us_</h4>
+                        <h4>Follow Us</h4>
                         <ul>
                             <li>
                                 <a href='#'>Facebook</a>
@@ -50,7 +50,7 @@ const Footer = () => {
                         </ul>
                     </div>
                     <div class='col-md-3 footer-ns animated fadeInRight'>
-                        <h4>Book Search_</h4>
+                        <h4>Book Search</h4>
                         <p>
                             A rover wearing a fuzzy suit doesn’t alarm the real
                             penguins
