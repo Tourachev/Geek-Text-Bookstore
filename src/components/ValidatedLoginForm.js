@@ -74,7 +74,6 @@ export class ValidatedLoginForm extends Component {
           return (
             <div>
               <NavBar2 />
-
               <form className="Login">
                 <form onSubmit={handleSubmit}>
                   <FormGroup controlId="username" bssize="large">
