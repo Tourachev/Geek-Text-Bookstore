@@ -48,9 +48,11 @@ const NavBar = () => {
           <div id="navbar-right">
             <ul className="navbar-nav navbar-items">
               <li>
-                <div className="ui vertical large button" tabIndex="0">
-                  <div className="visible content">Sign in</div>
-                </div>
+                <Link to="/login">
+                  <div className="ui vertical large button" tabIndex="0">
+                    <div className="visible content">Sign in</div>
+                  </div>
+                </Link>
               </li>
               <li>
                 <div className="ui vertical large button" tabIndex="0">
