@@ -6,7 +6,7 @@ const BookCard = props => {
     return (
         <div>
             <div class='card'>
-                <img src={faker.image.cats()} class='card-img-top' alt='...' />
+                <img src={faker.image.cats()} class='card-img-top' alt={props.title} />
                 <div class='card-body'>
                     <h5 class='card-title'>{props.author}</h5>
                     <p class='card-text'>{props.title}</p>

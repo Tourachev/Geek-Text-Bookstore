@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Header from "./Header";
+import { Link } from 'react-router-dom'
 
 const NavBar = () => {
   return (
@@ -17,19 +18,54 @@ const NavBar = () => {
                     <span className='navbar-toggler-icon'></span>
                 </button> */}
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <div id="navbar-left">
-            <ul className="navbar-nav navbar-items">
-              <li className="nav-item active" id="home-logo">
-                <a className="nav-link" href="index.html">
-                  <i className="fas fa-home fa-lg"></i>
-                </a>
-              </li>
+                <div
+                    className='collapse navbar-collapse'
+                    id='navbarSupportedContent'
+                >
+                    <div id='navbar-left'>
+                        <ul className='navbar-nav navbar-items'>
+                            <li
+                                className='nav-item active'
+                                id='home-logo'
+                                onClick={Header.handleCLick}
+                            >
+                                <Link to="/"><i className='fas fa-home fa-lg'></i></Link>
+                            </li>
 
-              <div className="ui vertical large animated button" tabIndex="0">
-                <div className="hidden content">Cart</div>
-                <div className="visible content">
-                  <i className="shop icon"></i>
+                            <li>
+                                <div className='ui vertical large button' tabIndex='0'>
+                                    <div className='visible content'>
+                                        <Link to="/Browse">Browse</Link>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div className='ui vertical large button' tabIndex='0'>
+                                    <div className='visible content'>
+                                        Wishlist
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id='navbar-right'>
+                        <ul className='navbar-nav navbar-items'>
+                            <li>
+                                <div className='ui vertical large button' tabIndex='0'>
+                                    <div className='visible content'>
+                                        Sign in
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div className='ui vertical large button' tabIndex='0'>
+                                    <div className='visible content'>
+                                        <Link to="/cart"><i className='shop icon'></i></Link>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
               </div>
             </ul>
