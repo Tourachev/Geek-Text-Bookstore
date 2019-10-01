@@ -123,7 +123,7 @@ const bookData = [
         title: "10,000 Emails",
         genre: "Horror",
         rating: "5",
-        price: "10.99",
+        price: "99.99",
         imgLink:
           "https://images-na.ssl-images-amazon.com/images/I/81c8No6mSPL.jpg"
       },
