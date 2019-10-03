@@ -1,3 +1,46 @@
+/* CSS FOR MATERIAL UI ELEMENTS */
+
+.app-bar,
+.raised-button {
+    background: #212529 !important;
+}
+
+.raised-button div {
+    background: #212529 !important;
+    border-radius: 25x !important;
+}
+
+.sign-in-body {
+    height: 70vh;
+}
+.sign-in-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#sign-up-left-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 50%;
+}
+#sign-up-right-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 50%;
+    height: 100%;
+}
+.sign-up-bottom-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/* CUSTOM CSS FOR NOT BORROWED ELEMENTS */
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
@@ -12,6 +55,10 @@ body {
     justify-content: space-between;
     background-color: #f6f6f6;
     background-image: linear-gradient(315deg, #f6f6f6 0%, #e9e9e9 74%);
+}
+
+#sign-up-nav {
+    margin-bottom: 5%;
 }
 
 #browse-container {

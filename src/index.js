@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Home from './components/routes/HomePage';
 import Cart from './components/routes/CartPage';
 import Browse from './components/routes/BrowsePage';
+import Navbar from './components/NavBar';
 import Profile from './components/routes/ProfilePage';
 
 import { Route, BrowserRouter as Router } from 'react-router-dom';
@@ -23,8 +24,8 @@ class App extends Component {
             <div>
                 <Router>
                     <div>
-                        <Navbar />
                         <Route exact path='/' component={Home} />
+                        <Route path='/index.html' component={Home} />
                         <Route path='/browse' component={Browse} />
                         <Route path='/cart' component={Cart} />
                         <Route path='/login' component={ValidationLoginForm} />

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NavBar from '../NavBar';
+import Navbar from '../NavBar';
 import Footer from '../Footer';
 import PurchaseSection from '../screens/PurchaseSection';
 
@@ -13,6 +13,7 @@ class CartPage extends React.Component {
         return (
             <div>
                 <div className='body'>
+                    <Navbar />
                     <PurchaseSection />
                     <Footer />
                 </div>
