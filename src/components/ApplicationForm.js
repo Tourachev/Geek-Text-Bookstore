@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import SignupForm from './SignupForm';
-// import PersonalInfo from './PersonalInfo';
 import ConfirmForm from './ConfirmForm';
 import SuccessForm from './SuccessForm';
 

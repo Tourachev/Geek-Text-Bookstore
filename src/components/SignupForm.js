@@ -126,6 +126,7 @@ export class SignupForm extends Component {
                         </div>
                         <div className='container'>
                             <br />
+                            <hr className='sexy_line' />
                             <div className='sign-up-bottom-row'>
                                 <TextField
                                     hintText='Enter your Password'

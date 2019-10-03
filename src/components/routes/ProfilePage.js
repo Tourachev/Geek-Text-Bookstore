@@ -5,6 +5,34 @@ import Footer from '../Footer';
 class ProfilePage extends React.Component {
     constructor() {
         super();
+        this.state = {
+            user: 'dummy',
+            personalInfo: [],
+            addressInfo: [],
+            creditInfo: []
+        };
+    }
+
+    componentDidMount() {
+        const personnalPath = '/personnalInfo' + this.user;
+
+        fetch(personnalPath)
+            .then(res => res.json())
+            .then(personalInfo =>
+                this.setState({ personalInfo: personalInfo })
+            );
+
+        const addressPath = '/addressInfo' + this.user;
+
+        fetch(addressPath)
+            .then(res => res.json())
+            .then(personalInfo => this.setState({ addressInfo: personalInfo }));
+
+        const creditPath = '/creditInfo' + this.user;
+
+        fetch(creditPath)
+            .then(res => res.json())
+            .then(personalInfo => this.setState({ creditInfo: personalInfo }));
     }
 
     render() {
