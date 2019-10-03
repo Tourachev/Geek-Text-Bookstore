@@ -1,0 +1,29 @@
+@media all and (min-width: 480px) {
+  .Login {
+    padding: 60px 0;
+  }
+
+  .Login form {
+    margin: 0 auto;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .input-feedback {
+    color: rgb(235, 54, 54);
+    margin-top: 0px;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  input.error {
+    border-color: red;
+  }
+}
+
+.container {
+  position: absolutes;
+  left: 50%;
+  top: 50%;
+  align-items: center;
+}
