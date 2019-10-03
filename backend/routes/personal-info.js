@@ -26,7 +26,7 @@ router.delete('/:id', (req, res) => {
 });
 
 function findPersonalInfo(pool, callback) {
-    var findPersonalInfo = 'SELECT * FROM Book ORDER BY title ' + sortType;
+    var findPersonalInfo = 'SELECT * FROM Book ORDER BY title ';
 
     pool.query(findPersonalInfo, (err, res, fields) => {
         if (err) {

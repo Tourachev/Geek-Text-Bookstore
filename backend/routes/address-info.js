@@ -13,7 +13,19 @@ router.get('/', function(req, res, next) {
     });
 });
 
-function findPersonalInfo(pool, callback) {
+router.post('/', (req, res) => {
+    res.send('Add New Info');
+});
+
+router.put('/:id', (req, res) => {
+    res.send('Update info');
+});
+
+router.delete('/:id', (req, res) => {
+    res.send('Delete info');
+});
+
+function findAddresslInfo(pool, callback) {
     var findAddresslInfo = 'SELECT * FROM Book ORDER BY title ' + sortType;
 
     pool.query(findAddresslInfo, (err, res, fields) => {

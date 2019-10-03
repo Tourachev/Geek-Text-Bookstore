@@ -10,7 +10,8 @@ const booksRouter = require('./routes/books');
 const personalInfoRouter = require('./routes/personal-info');
 const addressInfoRouter = require('./routes/address-info');
 const creditInfoRouter = require('./routes/credit-info');
-const auth = require('./routes/auth');
+const authRouter = require('./routes/auth.js');
+const usersRouter = require('./routes/users.js');
 
 //purchase router
 const purchaseRouter = require('./routes/purchase');
@@ -25,7 +26,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
-app.use(express.json());
+app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -35,7 +36,8 @@ app.use('/books', booksRouter);
 app.use('/personalInfo', personalInfoRouter);
 app.use('/addressInfo', addressInfoRouter);
 app.use('/creditInfo', creditInfoRouter);
-app.use('/auth', auth);
+app.use('/users', usersRouter);
+app.use('/auth', authRouter);
 
 //purchase router
 app.use('/purchase', purchaseRouter);
