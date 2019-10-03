@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import BookCard from "../BookCard";
+import BookCard from '../BookCard';
 class BrowseSection extends React.Component {
 
   constructor(props) {
@@ -218,34 +218,34 @@ class BrowseSection extends React.Component {
 
     handleInputChange(event) {
         const target = event.target;
-        const isChecked = target.type === 'checkbox' ? target.checked : target.value;
+        const isChecked =
+            target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
         let value = target.value;
         const ogList = this.state.ogBooks;
 
-        if (name === "rating") {
+        if (name === 'rating') {
             value = parseInt(value);
         }
 
         if (isChecked === true) {
             let filteredList = this.state.books.filter(book => {
-                if (book[name] === value){
-                    return true
+                if (book[name] === value) {
+                    return true;
+                } else {
+                    return false;
                 }
-                else { return false }
-            })
+            });
             console.log(filteredList);
             this.setState({
                 books: filteredList
-            })
+            });
             this.forceUpdate();
-        }
-
-        else {
+        } else {
             this.setState({
                 books: ogList
-            })
-            console.log("False");
+            });
+            console.log('False');
         }
     }
 
@@ -258,10 +258,9 @@ class BrowseSection extends React.Component {
     }
 
     componentDidMount() {
-        fetch("/books")
+        fetch('/books')
             .then(res => res.json())
             .then(books => this.setState({ books: books, ogBooks: books }));
-
     }
 
     sortAuthorA2Z(props) {
@@ -302,11 +301,15 @@ class BrowseSection extends React.Component {
     }
 
     sortDateL2H(props) {
-        this.setState = this.state.books.sort((a, b) => b.date < a.date ? 1 : -1);
+        this.setState = this.state.books.sort((a, b) =>
+            b.date < a.date ? 1 : -1
+        );
         this.forceUpdate();
     }
     sortDateH2L(props) {
-        this.setState = this.state.books.sort((a, b) => a.date < b.date ? 1 : -1);
+        this.setState = this.state.books.sort((a, b) =>
+            a.date < b.date ? 1 : -1
+        );
         this.forceUpdate();
     }
 
@@ -339,26 +342,62 @@ class BrowseSection extends React.Component {
                     <div>
                         <h2>Genre</h2>
                         <p>
-                            Sci-Fi <input name="genre" value="Sci-Fi" type='checkbox' onChange={this.handleInputChange.bind(this)} />
+                            Sci-Fi{' '}
+                            <input
+                                name='genre'
+                                value='Sci-Fi'
+                                type='checkbox'
+                                onChange={this.handleInputChange.bind(this)}
+                            />
                         </p>
                         <p>
-                            Biography <input name="genre" value="Biography" type='checkbox' onChange={this.handleInputChange.bind(this)} />
+                            Biography{' '}
+                            <input
+                                name='genre'
+                                value='Biography'
+                                type='checkbox'
+                                onChange={this.handleInputChange.bind(this)}
+                            />
                         </p>
                         <p>
-                            Horror <input name="genre" value="Horror" type='checkbox' onChange={this.handleInputChange.bind(this)} />
+                            Horror{' '}
+                            <input
+                                name='genre'
+                                value='Horror'
+                                type='checkbox'
+                                onChange={this.handleInputChange.bind(this)}
+                            />
                         </p>
                         <p>
-                            Pulp Fiction <input name="genre" value="Pulp Fiction" type='checkbox' onChange={this.handleInputChange.bind(this)} />
+                            Pulp Fiction{' '}
+                            <input
+                                name='genre'
+                                value='Pulp Fiction'
+                                type='checkbox'
+                                onChange={this.handleInputChange.bind(this)}
+                            />
                         </p>
                         <p>
-                            Drama <input name="genre" value="Drama" type='checkbox' onChange={this.handleInputChange.bind(this)} />
+                            Drama{' '}
+                            <input
+                                name='genre'
+                                value='Drama'
+                                type='checkbox'
+                                onChange={this.handleInputChange.bind(this)}
+                            />
                         </p>
                         <p>
-                            Comedy <input name="genre" value="Comedy" type='checkbox' onChange={this.handleInputChange.bind(this)} />
+                            Comedy{' '}
+                            <input
+                                name='genre'
+                                value='Comedy'
+                                type='checkbox'
+                                onChange={this.handleInputChange.bind(this)}
+                            />
                         </p>
                         <hr />
                         <h3>
-                            Top Sellers Only <input type="checkbox" />
+                            Top Sellers Only <input type='checkbox' />
                         </h3>
                         <hr />
                         <h2>Rating</h2>
@@ -367,25 +406,55 @@ class BrowseSection extends React.Component {
                             <i class='fas fa-star'></i>
                             <i class='fas fa-star'></i>
                             <i class='fas fa-star'></i>
-                            <i class='fas fa-star'></i> <input name="rating" value="5" type='checkbox' onChange={this.handleInputChange.bind(this)} />
+                            <i class='fas fa-star'></i>{' '}
+                            <input
+                                name='rating'
+                                value='5'
+                                type='checkbox'
+                                onChange={this.handleInputChange.bind(this)}
+                            />
                         </p>
                         <p>
                             <i class='fas fa-star'></i>
                             <i class='fas fa-star'></i>
                             <i class='fas fa-star'></i>
-                            <i class='fas fa-star'></i> <input name="rating" value="4" type='checkbox' onChange={this.handleInputChange.bind(this)} />
+                            <i class='fas fa-star'></i>{' '}
+                            <input
+                                name='rating'
+                                value='4'
+                                type='checkbox'
+                                onChange={this.handleInputChange.bind(this)}
+                            />
                         </p>
                         <p>
                             <i class='fas fa-star'></i>
                             <i class='fas fa-star'></i>
-                            <i class='fas fa-star'></i> <input name="rating" value="3" type='checkbox' onChange={this.handleInputChange.bind(this)} />
+                            <i class='fas fa-star'></i>{' '}
+                            <input
+                                name='rating'
+                                value='3'
+                                type='checkbox'
+                                onChange={this.handleInputChange.bind(this)}
+                            />
                         </p>
                         <p>
                             <i class='fas fa-star'></i>
-                            <i class='fas fa-star'></i> <input name="rating" value="2" type='checkbox' onChange={this.handleInputChange.bind(this)} />
+                            <i class='fas fa-star'></i>{' '}
+                            <input
+                                name='rating'
+                                value='2'
+                                type='checkbox'
+                                onChange={this.handleInputChange.bind(this)}
+                            />
                         </p>
                         <p>
-                            <i class='fas fa-star'></i> <input name="rating" value="1" type='checkbox' onChange={this.handleInputChange.bind(this)} />
+                            <i class='fas fa-star'></i>{' '}
+                            <input
+                                name='rating'
+                                value='1'
+                                type='checkbox'
+                                onChange={this.handleInputChange.bind(this)}
+                            />
                         </p>
                     </div>
                 </div>
@@ -401,68 +470,68 @@ class BrowseSection extends React.Component {
                                 aria-expanded='false'
                             >
                                 Sort By
-                        </button>
+                            </button>
                             <div class='dropdown-menu'>
                                 <a
                                     class='dropdown-item'
                                     onClick={() => this.sortAuthorA2Z()}
                                 >
                                     Author: A-Z
-                            </a>
+                                </a>
                                 <a
                                     class='dropdown-item'
                                     onClick={() => this.sortAuthorZ2A()}
                                 >
                                     Author: Z-A
-                            </a>
+                                </a>
                                 <a
                                     class='dropdown-item'
                                     onClick={() => this.sortTitleA2Z()}
                                 >
                                     Title: A-Z
-                            </a>
+                                </a>
                                 <a
                                     class='dropdown-item'
                                     onClick={() => this.sortTitleZ2A()}
                                 >
                                     Title: Z-A
-                            </a>
+                                </a>
                                 <a
                                     class='dropdown-item'
                                     onClick={() => this.sortPriceL2H()}
                                 >
                                     Price: Low-High
-                            </a>
+                                </a>
                                 <a
                                     class='dropdown-item'
                                     onClick={() => this.sortPriceH2L()}
                                 >
                                     Price: High-Low
-                            </a>
+                                </a>
                                 <a
                                     class='dropdown-item'
                                     onClick={() => this.sortDateL2H()}
                                 >
                                     Date: Old-New
-                            </a>
+                                </a>
                                 <a
                                     class='dropdown-item'
                                     onClick={() => this.sortDateH2L()}
                                 >
                                     Date: New-Old
-                            </a>
+                                </a>
                                 <a
                                     class='dropdown-item'
                                     onClick={() => this.sortRatingL2H()}
                                 >
                                     Rating: Low-High
-                            </a>
+                                </a>
                                 <a
                                     class='dropdown-item'
                                     onClick={() => this.sortRatingH2L()}
                                 >
                                     Rating: High-Low
-                            </a>
+                                </a>
                             </div>
                         </div>
 
@@ -475,14 +544,14 @@ class BrowseSection extends React.Component {
                                 aria-expanded='false'
                             >
                                 Books Per Page:
-                        </button>
+                            </button>
                             <div class='dropdown-menu'>
                                 <a class='dropdown-item' href='#'>
                                     10
-                            </a>
+                                </a>
                                 <a class='dropdown-item' href='#'>
                                     20
-                            </a>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -495,27 +564,27 @@ class BrowseSection extends React.Component {
                                 <li class='page-item'>
                                     <a class='page-link' href='#'>
                                         Previous
-                                </a>
+                                    </a>
                                 </li>
                                 <li class='page-item'>
                                     <a class='page-link' href='#'>
                                         1
-                                </a>
+                                    </a>
                                 </li>
                                 <li class='page-item'>
                                     <a class='page-link' href='#'>
                                         2
-                                </a>
+                                    </a>
                                 </li>
                                 <li class='page-item'>
                                     <a class='page-link' href='#'>
                                         3
-                                </a>
+                                    </a>
                                 </li>
                                 <li class='page-item'>
                                     <a class='page-link' href='#'>
                                         Next
-                                </a>
+                                    </a>
                                 </li>
                             </ul>
                         </nav>
