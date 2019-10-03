@@ -30,6 +30,7 @@ class App extends Component {
                         <Route path='/cart' component={Cart} />
                         <Route path='/login' component={ValidationLoginForm} />
                         <Route path='/signUp' component={ApplicationForm} />
+                        <Route path='/profile' component={Profile} />
                     </div>
                 </Router>
             </div>

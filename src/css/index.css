@@ -1,4 +1,4 @@
-/* CSS FOR MATERIAL UI ELEMENTS */
+/* CSS FOR MATERIAL UI ELEMENTS AND SIGN-UP FORMS */
 
 .app-bar,
 .raised-button {
@@ -10,7 +10,8 @@
     border-radius: 25x !important;
 }
 
-.sign-in-body {
+.sign-in-body,
+.tall-body {
     height: 70vh;
 }
 .sign-in-form {
@@ -37,6 +38,22 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+/* CSS FOR PROFILE MANAGEMENT */
+
+.profile-card {
+    margin-bottom: 3%;
+}
+
+.profile-card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.profile-card-content {
+    margin-left: 5%;
 }
 
 /* CUSTOM CSS FOR NOT BORROWED ELEMENTS */
@@ -171,6 +188,7 @@ a {
     width: 100%;
     /* position: fixed; */
     top: 0;
+    margin-bottom: 3%;
 }
 
 .navbar-items {
