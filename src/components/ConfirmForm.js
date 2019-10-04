@@ -11,6 +11,7 @@ export class ConfirmForm extends Component {
     //GO to the next Page
     continue = e => {
         e.preventDefault();
+        console.log(e);
         //the backend goes here
         this.props.nextStep();
     };
@@ -19,6 +20,27 @@ export class ConfirmForm extends Component {
     back = e => {
         e.preventDefault();
         this.props.prevStep();
+    };
+
+    validate = e => {
+        e.preventDefault();
+        fetch('/registration', {
+            method: 'post',
+            body: JSON.stringify(this.props),
+            headers: {'Content-Type': 'application/json'},
+        })
+        .then(res => res.json())
+        .then(json => {
+            if (json.result === 3) {
+                this.props.nextStep(); //account created
+            }
+            else if (json.result == 2) {
+                //email taken
+            }
+            else {
+                this.props.prevStep(); //username taken
+            }
+        })
     };
 
     render() {
@@ -129,7 +151,7 @@ export class ConfirmForm extends Component {
                                 label='Confirm & Continue'
                                 primary={true}
                                 style={styles.button}
-                                onClick={this.continue}
+                                onClick={this.validate}
                             >
                                 CONTINUE
                             </button>

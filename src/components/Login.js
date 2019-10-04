@@ -10,7 +10,7 @@ export default class Login extends Component {
         super(props);
 
         this.state = {
-            email: '',
+            username: '',
             password: ''
         };
     }
@@ -28,11 +28,27 @@ export default class Login extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        this.props.login(this.state.email, this.state.password);
+        fetch('/auth', {
+            method: 'POST',
+            body: JSON.stringify(this.state),
+            headers: {"Content-Type": 'application/json'},
+        })
+        .then(res => res.json)
+        .then(json => {
+            if (json.result === 3) {
+                //success
+            }
+            else if (json.result === 2) {
+                //wrong password
+            }
+            else if (json.result === 1) {
+                //username does not exist
+            }
+        })
     };
 
     render() {
-        const { email, password } = this.state;
+        const { username, password } = this.state;
         return (
             <div>
                 <Navbar />
@@ -41,12 +57,12 @@ export default class Login extends Component {
                     <h1 className='display-4'>Sign In:</h1>
                     <hr />
                     <form onSubmit={this.handleSubmit}>
-                        <FormGroup controlId='email' bsSize='large'>
+                        <FormGroup controlId='username' bsSize='large'>
                             <FormLabel>Username:</FormLabel>
                             <FormControl
-                                type='email'
-                                value={email}
+                                value={username}
                                 onChange={this.handleChange}
+                                type='username'
                             />
                         </FormGroup>
                         <FormGroup controlId='password' bsSize='large'>

@@ -1,15 +1,14 @@
 const POOL = require('../custom_modules/db-pool');
+const log = require('../custom_modules/user-transac');
 
 var express = require('express');
 var router = express.Router();
 
-router.get('/', (req, res) => {
-    console.log('hey');
-    res.send('Get logged in user');
-});
-
+//3if authenticated
 router.post('/', (req, res) => {
-    res.send('Log in');
+    log.login(req.body, (err, result) => {
+        res.json({ "result": result });
+    })
 });
 
 module.exports = router;

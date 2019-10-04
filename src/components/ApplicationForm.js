@@ -10,7 +10,7 @@ export class ApplicationForm extends Component {
         LastName: '',
         Email: '',
         UserName: '',
-        nickname: '',
+        NickName: '',
         Password: '',
         Password2: '',
         Address: '',
