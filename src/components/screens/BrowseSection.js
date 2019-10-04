@@ -1,16 +1,25 @@
 import React from 'react';
 
 import BookCard from '../BookCard';
-
+import Pagination from "react-js-pagination"
 class BrowseSection extends React.Component {
     constructor(props) {
         super(props);
+        this.handlePageChange = this.handlePageChange.bind(this)
         this.state = {
             books: [],
-            ogBooks: []
+            ogBooks: [],
+            pageNumber: 1,
+            booksPerPage: 10,
+            activePage: 1
         };
     }
-
+    
+    handlePageChange(pageNumber) {
+        console.log(`active page is ${pageNumber}`);
+        this.setState({activePage: pageNumber});
+      }
+    
     handleInputChange(event) {
         const target = event.target;
         const isChecked =
@@ -353,7 +362,15 @@ class BrowseSection extends React.Component {
                     <hr className='sexy_line' />
 
                     <div id='card-body'>{card}</div>
-                    <div id='browse-body-bottom'>
+                    <Pagination
+                        activePage={this.state.activePage}
+                        itemsCountPerPage={this.state.booksPerPage}
+                        totalItemsCount={100}
+                        pageRangeDisplayed={5}
+                        onChange={this.handlePageChange}
+                        linkClass="page-link"
+                    />
+                    {/* <div id='browse-body-bottom'>
                         <nav aria-label='Page navigation example'>
                             <ul class='pagination pagination-lg'>
                                 <li class='page-item'>
@@ -383,7 +400,7 @@ class BrowseSection extends React.Component {
                                 </li>
                             </ul>
                         </nav>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         );
