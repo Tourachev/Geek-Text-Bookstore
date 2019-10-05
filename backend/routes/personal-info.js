@@ -3,7 +3,7 @@ const pool = require('../custom_modules/db-pool');
 var express = require('express');
 var router = express.Router();
 
-router.post('/', function(req, res, next) {
+router.post('/', (req, res, next) => {
     var query = 'select * from userinfo where userid=Mdamon';
     pool.query(query)
         .then(result => {
