@@ -18,6 +18,8 @@ class BrowseSection extends React.Component {
     handlePageChange(pageNumber) {
         console.log(`active page is ${pageNumber}`);
         this.setState({activePage: pageNumber});
+        this.setState = this.state.books.slice((this.state.pageNumber-1)*10, this.state.pageNumber*10)
+        this.forceUpdate();
       }
     
     handleInputChange(event) {
@@ -128,7 +130,7 @@ class BrowseSection extends React.Component {
     }
 
     render() {
-        const card = this.state.books.map(book => (
+        const card = this.state.books.slice((this.state.pageNumber-1)*10, this.state.pageNumber*10) (book => (
             <BookCard
                 bookID={book.bookID}
                 title={book.title}
