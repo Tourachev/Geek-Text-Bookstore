@@ -14,8 +14,8 @@ var express = require('express');
 var router = express.Router();
 
 router.post('/', (req, res, next) => {
-    var query = "select * from userinfo where userid='Mdamon'";
-    pool.query(query)
+    var query = "select * from userinfo where userid=?";
+    pool.query(query, [req.body.username])
         .then(result => {
             console.log(result);
             res.json(result);
