@@ -1,10 +1,20 @@
-const pool = require('../custom_modules/db-pool');
+const mariadb = require('mariadb');
+const pool = mariadb.createPool({
+    host: 'virt-servers.mynetgear.com',
+    port: 30000,
+    user: 'team8',
+    password: 'WehaveControl',
+    database: 'GeekTextDB',
+    connectionLimit: 2,
+    dateStrings: 'date'
+    //rowsAsArray: true
+});
 
 var express = require('express');
 var router = express.Router();
 
 router.post('/', (req, res, next) => {
-    var query = 'select * from userinfo where userid=Mdamon';
+    var query = "select * from userinfo where userid='Mdamon'";
     pool.query(query)
         .then(result => {
             console.log(result);
