@@ -132,7 +132,6 @@ class BrowseSection extends React.Component {
     }
 
     render() {
-        console.log(this.state.books.slice((this.state.activePage-1) *10, this.state.activePage*10));
         const card = this.state.books.slice((this.state.activePage-1) *10, this.state.activePage*10).map(book => (
             <BookCard
                 bookID={book.bookID}
@@ -370,7 +369,7 @@ class BrowseSection extends React.Component {
                     <Pagination
                         activePage={this.state.activePage}
                         itemsCountPerPage={this.state.booksPerPage}
-                        totalItemsCount={100}
+                        totalItemsCount={30}
                         pageRangeDisplayed={5}
                         onChange={this.handlePageChange}
                         linkClass="page-link"
