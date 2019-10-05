@@ -6,9 +6,10 @@ var router = express.Router();
 
 //3if authenticated
 router.post('/', (req, res) => {
-    log.login(req.body, (err, result) => {
-        res.json({ "result": result });
-    })
+    log.login(req.body, (err, username, result) => {
+        console.log(username);
+        res.json({ result: result });
+    });
 });
 
 module.exports = router;

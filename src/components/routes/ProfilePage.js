@@ -1,12 +1,16 @@
 import React from 'react';
 import Navbar2 from '../NavBar2';
 import Footer from '../Footer';
+import Personal from '../profile/personal';
+import Credit from '../profile/credit';
+import Address from '../profile/address';
 
 class ProfilePage extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+
         this.state = {
-            user: 'dummy',
+            username: this.props.location.state.username,
             personalInfo: [],
             addressInfo: [],
             creditInfo: []
@@ -14,25 +18,15 @@ class ProfilePage extends React.Component {
     }
 
     componentDidMount() {
-        const personnalPath = '/personnalInfo' + this.user;
-
-        fetch(personnalPath)
-            .then(res => res.json())
-            .then(personalInfo =>
-                this.setState({ personalInfo: personalInfo })
-            );
-
-        const addressPath = '/addressInfo' + this.user;
-
-        fetch(addressPath)
-            .then(res => res.json())
-            .then(personalInfo => this.setState({ addressInfo: personalInfo }));
-
-        const creditPath = '/creditInfo' + this.user;
-
-        fetch(creditPath)
-            .then(res => res.json())
-            .then(personalInfo => this.setState({ creditInfo: personalInfo }));
+        // console.log(this.state.username);
+        // const addressPath = '/addressInfo' + this.user;
+        // fetch(addressPath)
+        //     .then(res => res.json())
+        //     .then(personalInfo => this.setState({ addressInfo: personalInfo }));
+        // const creditPath = '/creditInfo' + this.user;
+        // fetch(creditPath)
+        //     .then(res => res.json())
+        //     .then(personalInfo => this.setState({ creditInfo: personalInfo }));
     }
 
     render() {
@@ -40,7 +34,7 @@ class ProfilePage extends React.Component {
             <div>
                 <div className='body'>
                     <Navbar2 />
-                    <div className='tall-body container'>
+                    <div className='container' id='profile-page'>
                         <h1 className='display-3 '>Profile Management</h1>
                         <hr />
                         <div className='profile-card'>
@@ -54,10 +48,7 @@ class ProfilePage extends React.Component {
                                 </button>
                             </div>
                             <div className='profile-card-content'>
-                                <h3>First Name:</h3>
-                                <h3>Last Name:</h3>
-                                <h3>Username:</h3>
-                                <h3>Nickname:</h3>
+                                <Personal username={this.state.username} />
                             </div>
                         </div>
                         <hr />
@@ -74,7 +65,9 @@ class ProfilePage extends React.Component {
                                     EDIT
                                 </button>
                             </div>
-                            <div className='profile-card-content'></div>
+                            <div className='profile-card-content'>
+                                <Address />
+                            </div>
                         </div>
                         <hr />
 
@@ -90,7 +83,9 @@ class ProfilePage extends React.Component {
                                     EDIT
                                 </button>
                             </div>
-                            <div className='profile-card-content'></div>
+                            <div className='profile-card-content'>
+                                <Credit />
+                            </div>
                         </div>
                     </div>
                     <Footer />

@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Header extends React.Component {
     constructor() {
@@ -13,7 +13,7 @@ class Header extends React.Component {
     }
 
     render() {
-        const style = this.state.showBrowse ? { display: "none" } : {};
+        const style = this.state.showBrowse ? { display: 'none' } : {};
 
         return (
             <div id='jumbo-container' style={style}>
@@ -27,9 +27,8 @@ class Header extends React.Component {
                         <button
                             className='ui secondary basic button huge'
                             id='browse-button'
-                            onClick={this.handleClick}
                         >
-                            <Link to="/Browse">Browse</Link>
+                            <Link to='/Browse'>Browse</Link>
                         </button>
                     </div>
                 </div>

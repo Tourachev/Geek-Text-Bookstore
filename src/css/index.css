@@ -227,6 +227,10 @@ a {
     padding-right: 30px;
 }
 
+#profile-page {
+    margin-top: 3%;
+}
+
 .jumbotron {
     background-color: rgba(
         255,

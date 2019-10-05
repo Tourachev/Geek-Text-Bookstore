@@ -4,7 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
-let bodyParser = require('body-parser')
+let bodyParser = require('body-parser');
 
 const indexRouter = require('./routes/index');
 const booksRouter = require('./routes/books');
@@ -34,9 +34,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/books', booksRouter);
-app.use('/personalInfo', personalInfoRouter);
-app.use('/addressInfo', addressInfoRouter);
-app.use('/creditInfo', creditInfoRouter);
+app.use('/personal-info', personalInfoRouter);
+app.use('/address-info', addressInfoRouter);
+app.use('/credit-info', creditInfoRouter);
 app.use('/registration', usersRouter);
 app.use('/auth', authRouter);
 
