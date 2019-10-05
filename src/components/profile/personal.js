@@ -13,7 +13,7 @@ class Personal extends React.Component {
     componentDidMount() {
         fetch('/personal-info', {
             method: 'POST',
-            body: JSON.stringify(this.state.username),
+            body: JSON.stringify( {username: this.state.username} ),
             headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
