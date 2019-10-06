@@ -17,8 +17,8 @@ router.post('/', (req, res, next) => {
     var query = "select * from userinfo where userid=?";
     pool.query(query, [req.body.username])
         .then(result => {
-            console.log(result);
-            res.json(result);
+            console.log(result[0]);
+            res.json(result[0]);
         })
         .catch(err => {
             console.log(err);
