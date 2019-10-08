@@ -4,6 +4,7 @@ import Navbar from './NavBar';
 import Footer from './Footer';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 // var username;
 
@@ -15,11 +16,13 @@ export default class Login extends React.Component {
             username: '',
             password: '',
             hideIssue: true,
-            redirect: false
+            redirect: false,
+            hideLoader: true
         };
 
         //Must do the bind to have the dom update on change.
         this.handleIssue = this.handleIssue.bind(this);
+        this.handleLoader = this.handleLoader.bind(this);
     }
 
     handleChange = event => {
@@ -34,9 +37,14 @@ export default class Login extends React.Component {
         this.setState({ hideIssue: false });
     }
 
+    handleLoader() {
+        this.setState({ hideLoader: false });
+    }
+
     //Handles the submit being clicked. Returns 3 for good. 2 and 1 for bad...
 
     handleSubmit = event => {
+        this.setState({ hideLoader: false });
         event.preventDefault();
         fetch('/auth', {
             method: 'POST',
@@ -46,19 +54,31 @@ export default class Login extends React.Component {
             .then(res => res.json())
             .then(json => {
                 if (json.result === 3) {
-                    this.setState({ redirect: true });
-                } else if (json.result === 2) {
-                    this.handleIssue();
-                } else if (json.result === 1) {
+                    this.setState({
+                        redirect: true,
+                        hideLoader: true
+                    });
+                } else {
+                    this.setState({ hideLoader: true });
                     this.handleIssue();
                 }
+
+                // else if (json.result == 2) {
+                //     this.setState({ hideLoader: true });
+                //     this.handleIssue();
+                // } else if (json.result === 1) {
+                //     this.setState({ hideLoader: true });
+                //     this.handleIssue();
+                // }
             });
     };
 
     render() {
         const { username, password } = this.state;
 
-        const style = this.state.hideIssue ? { display: 'none' } : {};
+        const issueStyle = this.state.hideIssue ? { display: 'none' } : {};
+
+        const loaderStyle = this.state.hideLoader ? { display: 'none' } : {};
 
         if (this.state.redirect) {
             console.log(this.state.username);
@@ -80,7 +100,7 @@ export default class Login extends React.Component {
                     <br />
                     <h1 className='display-4'>Sign In:</h1>
                     <hr />
-                    <h1 style={style}>
+                    <h1 style={issueStyle}>
                         Username and password don't match. <br /> Please Try
                         Again.
                     </h1>
@@ -106,6 +126,9 @@ export default class Login extends React.Component {
                             Login
                             {/* <Link to='/profile'>Login</Link> */}
                         </Button>
+                        <h1 style={loaderStyle}>
+                            <LinearProgress />
+                        </h1>
                     </form>
                 </div>
                 <Footer />

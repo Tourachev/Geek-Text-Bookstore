@@ -1,29 +1,31 @@
 import React from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import BookCard from '../BookCard';
-import Pagination from "react-js-pagination"
+import Pagination from 'react-js-pagination';
 class BrowseSection extends React.Component {
     constructor(props) {
         super(props);
-        this.handlePageChange = this.handlePageChange.bind(this)
+        this.handlePageChange = this.handlePageChange.bind(this);
         this.state = {
             books: [],
             ogBooks: [],
             pageNumber: 1,
             booksPerPage: 10,
-            activePage: 1
+            activePage: 1,
+            loading: true
         };
     }
-    
+
     handlePageChange(pageNumber) {
         console.log(`active page is ${pageNumber}`);
         let newPage = pageNumber;
-        this.setState({activePage: newPage}, () => {
-            console.log(this.state.activePage)
+        this.setState({ activePage: newPage }, () => {
+            console.log(this.state.activePage);
         });
         this.forceUpdate();
-      }
-    
+    }
+
     handleInputChange(event) {
         const target = event.target;
         const isChecked =
@@ -68,7 +70,9 @@ class BrowseSection extends React.Component {
     componentDidMount() {
         fetch('/books')
             .then(res => res.json())
-            .then(books => this.setState({ books: books, ogBooks: books }));
+            .then(books =>
+                this.setState({ books: books, ogBooks: books, loading: false })
+            );
     }
 
     sortAuthorA2Z(props) {
@@ -132,17 +136,19 @@ class BrowseSection extends React.Component {
     }
 
     render() {
-        const card = this.state.books.slice((this.state.activePage-1) *10, this.state.activePage*10).map(book => (
-            <BookCard
-                bookID={book.bookID}
-                title={book.title}
-                author={book.author}
-                genre={book.genre}
-                price={book.price}
-                rating={book.rating}
-                date={book.date}
-            />
-        ));
+        const card = this.state.books
+            .slice((this.state.activePage - 1) * 10, this.state.activePage * 10)
+            .map(book => (
+                <BookCard
+                    bookID={book.bookID}
+                    title={book.title}
+                    author={book.author}
+                    genre={book.genre}
+                    price={book.price}
+                    rating={book.rating}
+                    date={book.date}
+                />
+            ));
 
         return (
             <div id='browse-container'>
@@ -365,14 +371,17 @@ class BrowseSection extends React.Component {
                     </div>
                     <hr className='sexy_line' />
 
-                    <div id='card-body'>{card}</div>
+                    <div id='card-body'>
+                        {this.state.loading ? <CircularProgress /> : card}
+                    </div>
+                    <br />
                     <Pagination
                         activePage={this.state.activePage}
                         itemsCountPerPage={this.state.booksPerPage}
                         totalItemsCount={30}
                         pageRangeDisplayed={5}
                         onChange={this.handlePageChange}
-                        linkClass="page-link"
+                        linkClass='page-link'
                     />
                     {/* <div id='browse-body-bottom'>
                         <nav aria-label='Page navigation example'>

@@ -32,6 +32,7 @@ class Address extends React.Component {
                     <div className='info-card-lc'>
                         <h1>Address: {addressInfo.address}</h1>
                         <h1>City: {addressInfo.city}</h1>
+                        <h1>State: {addressInfo.state}</h1>
                         <h1>Zip: {addressInfo.zip}</h1>
                     </div>
                     <div className='info-card-rc'>
