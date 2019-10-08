@@ -25,6 +25,14 @@ class Address extends React.Component {
         // console.log(this.state.personalInfo);
     }
 
+    handleDelete() {
+        fetch('/address-info/delete', {
+            method: 'POST',
+            body: JSON.stringify({ addressInfo: this.state.address }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+    }
+
     render() {
         const card = this.state.addressInfo.map(addressInfo => (
             <div>
@@ -39,7 +47,11 @@ class Address extends React.Component {
                         <button type='button' class='btn btn-link btn-lg'>
                             EDIT
                         </button>
-                        <button type='button' class='btn btn-link btn-lg'>
+                        <button
+                            type='button'
+                            class='btn btn-link btn-lg'
+                            onClick={this.handleDelete}
+                        >
                             DELETE
                         </button>
                     </div>

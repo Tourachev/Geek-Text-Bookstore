@@ -42,8 +42,9 @@ router.put('/:id', (req, res) => {
     res.send('Update info');
 });
 
-router.delete('/:id', (req, res) => {
-    res.send('Delete info');
+router.post('/delete', (req, res) => {
+    var query = 'DELETE FROM shipaddresses where address=?';
+    pool.query(query, [req.body.address]);
 });
 
 module.exports = router;
