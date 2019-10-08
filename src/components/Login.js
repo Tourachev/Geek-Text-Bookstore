@@ -17,6 +17,8 @@ export default class Login extends React.Component {
             hideIssue: true,
             redirect: false
         };
+
+        this.handleIssue = this.handleIssue.bind(this);
     }
 
     handleChange = event => {
@@ -24,6 +26,10 @@ export default class Login extends React.Component {
             [event.target.id]: event.target.value
         });
     };
+
+    handleIssue() {
+        this.setState({ hideIssue: false });
+    }
 
     handleSubmit = event => {
         event.preventDefault();
@@ -38,23 +44,20 @@ export default class Login extends React.Component {
                     // username = this.username;
                     // console.log(username);
                     this.setState({ redirect: true });
-                    this.forceUpdate();
-                } else if (json.result === 2) {
-                    this.setState({ hideIssue: false });
-                    this.forceUpdate();
-                } else if (json.result === 1) {
-                    this.setState({ hideIssue: false });
-                    this.forceUpdate();
+                } else {
+                    this.handleIssue();
                 }
+                // } else if (json.result === 1) {
+                //     this.setState({ hideIssue: false });
+                //     this.forceUpdate();
+                // }
             });
     };
 
     render() {
         const { username, password } = this.state;
 
-        const style = this.state.hideIssue
-            ? { display: 'none', color: 'red' }
-            : {};
+        const style = this.state.hideIssue ? { display: 'none' } : {};
 
         if (this.state.redirect) {
             console.log(this.state.username);
@@ -76,7 +79,10 @@ export default class Login extends React.Component {
                     <br />
                     <h1 className='display-4'>Sign In:</h1>
                     <hr />
-                    <h1 style={style}>Something went wrong</h1>
+                    <h1 style={style}>
+                        Username and password don't match. <br /> Please Try
+                        Again.
+                    </h1>
                     <form onSubmit={this.handleSubmit}>
                         <FormGroup controlId='username' bsSize='large'>
                             <FormLabel>Username:</FormLabel>
