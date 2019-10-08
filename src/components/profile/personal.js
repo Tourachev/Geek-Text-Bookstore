@@ -29,47 +29,52 @@ class Personal extends React.Component {
     render() {
         return (
             <div>
-                <h1>
-                    First Name: {` `}
-                    {this.state.loading ? (
-                        <LinearProgress />
-                    ) : (
-                        this.state.personalInfo.fname
-                    )}
-                </h1>
-                <h1>
-                    Last Name: {` `}
-                    {this.state.loading ? (
-                        <LinearProgress />
-                    ) : (
-                        this.state.personalInfo.lname
-                    )}
-                </h1>
-                <h1>
-                    Email: {` `}
-                    {this.state.loading ? (
-                        <LinearProgress />
-                    ) : (
-                        this.state.personalInfo.email
-                    )}
-                </h1>
-                <h1>
-                    Username: {` `}
-                    {this.state.loading ? (
-                        <LinearProgress />
-                    ) : (
-                        this.state.personalInfo.userid
-                    )}
-                </h1>
-                <h1>
-                    Nickname: {` `}
-                    {this.state.loading ? (
-                        <LinearProgress />
-                    ) : (
-                        this.state.personalInfo.nickname
-                    )}
-                </h1>
-                {/* <h1>: {this.state.personalInfo.}</h1> */}
+                <div className='info-card'>
+                    <div className='info-card-lc'>
+                        <h1>
+                            First Name: {` `}
+                            {this.state.loading ? (
+                                <LinearProgress />
+                            ) : (
+                                this.state.personalInfo.fname
+                            )}
+                        </h1>
+                        <h1>
+                            Last Name: {` `}
+                            {this.state.loading ? (
+                                <LinearProgress />
+                            ) : (
+                                this.state.personalInfo.lname
+                            )}
+                        </h1>
+                        <h1>
+                            Email: {` `}
+                            {this.state.loading ? (
+                                <LinearProgress />
+                            ) : (
+                                this.state.personalInfo.email
+                            )}
+                        </h1>
+                        <h1>
+                            Username: {` `}
+                            {this.state.loading ? (
+                                <LinearProgress />
+                            ) : (
+                                this.state.personalInfo.userid
+                            )}
+                        </h1>
+                        <h1>
+                            Nickname: {` `}
+                            {this.state.loading ? (
+                                <LinearProgress />
+                            ) : (
+                                this.state.personalInfo.nickname
+                            )}
+                        </h1>
+                        {/* <h1>: {this.state.personalInfo.}</h1> */}
+                    </div>
+                    <div className='info-card-rc'></div>
+                </div>
             </div>
         );
     }

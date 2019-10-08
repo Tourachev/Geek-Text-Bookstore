@@ -1,24 +1,6 @@
 import React from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-class AddressCard extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <div>
-                <div>
-                    <h1>Address: {this.props.address}</h1>
-                    <h1>City: {this.props.address}</h1>
-                    <h1>Zip: {this.props.address}</h1>
-                </div>
-            </div>
-        );
-    }
-}
-
 class Address extends React.Component {
     constructor(props) {
         super(props);
@@ -45,14 +27,26 @@ class Address extends React.Component {
 
     render() {
         const card = this.state.addressInfo.map(addressInfo => (
-            <AddressCard
-                address={addressInfo.address}
-                city={addressInfo.city}
-                zip={addressInfo.zip}
-            />
+            <div>
+                <div className='info-card'>
+                    <div className='info-card-lc'>
+                        <h1>Address: {addressInfo.address}</h1>
+                        <h1>City: {addressInfo.city}</h1>
+                        <h1>Zip: {addressInfo.zip}</h1>
+                    </div>
+                    <div className='info-card-rc'>
+                        <button type='button' class='btn btn-link btn-lg'>
+                            EDIT
+                        </button>
+                        <button type='button' class='btn btn-link btn-lg'>
+                            DELETE
+                        </button>
+                    </div>
+                </div>
+            </div>
         ));
 
-        return <div>{card}</div>;
+        return <div>{this.state.loading ? <LinearProgress /> : card}</div>;
     }
 }
 

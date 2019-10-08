@@ -35,11 +35,11 @@ class ProfilePage extends React.Component {
                 <div className='body'>
                     <Navbar2 />
                     <div className='container' id='profile-page'>
-                        <h1 className='display-3 '>Profile Management</h1>
+                        <h1 className='display-3 '>Welcome Home </h1>
                         <hr />
                         <div className='profile-card'>
                             <div className='profile-card-header'>
-                                <h1 className='display-4 '>Personnal Info</h1>
+                                <h1 className='display-4 '>Personal Info</h1>
                                 <button
                                     type='button'
                                     class='btn btn-link btn-lg'
@@ -47,6 +47,7 @@ class ProfilePage extends React.Component {
                                     EDIT
                                 </button>
                             </div>
+
                             <div className='profile-card-content'>
                                 <Personal username={this.state.username} />
                             </div>
@@ -62,7 +63,7 @@ class ProfilePage extends React.Component {
                                     type='button'
                                     class='btn btn-link btn-lg'
                                 >
-                                    EDIT
+                                    ADD
                                 </button>
                             </div>
                             <div className='profile-card-content'>
@@ -80,7 +81,7 @@ class ProfilePage extends React.Component {
                                     type='button'
                                     class='btn btn-link btn-lg'
                                 >
-                                    EDIT
+                                    ADD
                                 </button>
                             </div>
                             <div className='profile-card-content'>

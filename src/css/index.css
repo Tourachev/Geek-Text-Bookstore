@@ -1,3 +1,26 @@
+/* PROFILE MANAGEMENT CSS */
+
+.info-card {
+    width: 100%;
+    margin-top: 2%;
+
+    margin-bottom: 2%;
+    padding: 2%;
+    background: #e9e9e9;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* border: black solid 1px; */
+}
+
+.info-card-lc {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-card-rc {
+}
+
 /* CSS FOR MATERIAL UI ELEMENTS AND SIGN-UP FORMS */
 
 .app-bar,
@@ -54,10 +77,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
-
-.profile-card-content {
-    margin-left: 5%;
 }
 
 /* CUSTOM CSS FOR NOT BORROWED ELEMENTS */
