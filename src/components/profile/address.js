@@ -51,7 +51,7 @@ class Address extends React.Component {
                         <button
                             type='button'
                             class='btn btn-link btn-lg'
-                            onClick={this.handleDelete(addressInfo)}
+                            onClick={() => this.handleDelete(addressInfo)}
                         >
                             DELETE
                         </button>

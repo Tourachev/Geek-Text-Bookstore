@@ -43,6 +43,7 @@ router.put('/:id', (req, res) => {
 });
 
 router.post('/delete', (req, res) => {
+    console.log(req.body.address);
     var query = 'DELETE FROM shipaddresses where address=?';
     pool.query(query, [req.body.address]);
 });
