@@ -1,4 +1,5 @@
 import React from 'react';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 class Personal extends React.Component {
     constructor(props) {
@@ -6,19 +7,20 @@ class Personal extends React.Component {
 
         this.state = {
             username: this.props.username,
-            personalInfo: []
+            personalInfo: [],
+            loading: true
         };
     }
 
     componentDidMount() {
         fetch('/personal-info', {
             method: 'POST',
-            body: JSON.stringify( {username: this.state.username} ),
+            body: JSON.stringify({ username: this.state.username }),
             headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
-            .then(personalInfo =>
-                this.setState({ personalInfo: personalInfo })
+            .then(personalInfos =>
+                this.setState({ personalInfo: personalInfos, loading: false })
             );
         console.log('Mounted');
         // console.log(this.state.personalInfo);
@@ -27,11 +29,46 @@ class Personal extends React.Component {
     render() {
         return (
             <div>
-                <h1>First Name:{this.state.personalInfo.fname}</h1>
-                <h1>Last Name: {this.state.personalInfo.fname}</h1>
-                <h1>Email: {this.state.personalInfo.email}</h1>
-                <h1>Username: {this.state.personalInfo.userid}</h1>
-                <h1>Nickname: {this.state.personalInfo.nickname}</h1>
+                <h1>
+                    First Name: {` `}
+                    {this.state.loading ? (
+                        <LinearProgress />
+                    ) : (
+                        this.state.personalInfo.fname
+                    )}
+                </h1>
+                <h1>
+                    Last Name: {` `}
+                    {this.state.loading ? (
+                        <LinearProgress />
+                    ) : (
+                        this.state.personalInfo.lname
+                    )}
+                </h1>
+                <h1>
+                    Email: {` `}
+                    {this.state.loading ? (
+                        <LinearProgress />
+                    ) : (
+                        this.state.personalInfo.email
+                    )}
+                </h1>
+                <h1>
+                    Username: {` `}
+                    {this.state.loading ? (
+                        <LinearProgress />
+                    ) : (
+                        this.state.personalInfo.userid
+                    )}
+                </h1>
+                <h1>
+                    Nickname: {` `}
+                    {this.state.loading ? (
+                        <LinearProgress />
+                    ) : (
+                        this.state.personalInfo.nickname
+                    )}
+                </h1>
                 {/* <h1>: {this.state.personalInfo.}</h1> */}
             </div>
         );

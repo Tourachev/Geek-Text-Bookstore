@@ -66,7 +66,7 @@ class ProfilePage extends React.Component {
                                 </button>
                             </div>
                             <div className='profile-card-content'>
-                                <Address />
+                                <Address username={this.state.username} />
                             </div>
                         </div>
                         <hr />
@@ -84,7 +84,7 @@ class ProfilePage extends React.Component {
                                 </button>
                             </div>
                             <div className='profile-card-content'>
-                                <Credit />
+                                <Credit username={this.state.username} />
                             </div>
                         </div>
                     </div>

@@ -18,6 +18,7 @@ export default class Login extends React.Component {
             redirect: false
         };
 
+        //Must do the bind to have the dom update on change.
         this.handleIssue = this.handleIssue.bind(this);
     }
 
@@ -27,9 +28,13 @@ export default class Login extends React.Component {
         });
     };
 
+    //Method handles removes hidden attr from error message if input is bad.
+
     handleIssue() {
         this.setState({ hideIssue: false });
     }
+
+    //Handles the submit being clicked. Returns 3 for good. 2 and 1 for bad...
 
     handleSubmit = event => {
         event.preventDefault();
@@ -41,16 +46,12 @@ export default class Login extends React.Component {
             .then(res => res.json())
             .then(json => {
                 if (json.result === 3) {
-                    // username = this.username;
-                    // console.log(username);
                     this.setState({ redirect: true });
-                } else {
+                } else if (json.result === 2) {
+                    this.handleIssue();
+                } else if (json.result === 1) {
                     this.handleIssue();
                 }
-                // } else if (json.result === 1) {
-                //     this.setState({ hideIssue: false });
-                //     this.forceUpdate();
-                // }
             });
     };
 

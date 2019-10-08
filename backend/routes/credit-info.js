@@ -1,20 +1,37 @@
-const POOL = require('../custom_modules/db-pool');
+const mariadb = require('mariadb');
+const pool = mariadb.createPool({
+    host: 'virt-servers.mynetgear.com',
+    port: 30000,
+    user: 'team8',
+    password: 'WehaveControl',
+    database: 'GeekTextDB',
+    connectionLimit: 2,
+    dateStrings: 'date'
+    //rowsAsArray: true
+});
 
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
-    findCreditlInfo(POOL, function(err, result, fields) {
-        if (err) {
-            console.log('Error :' + err);
-        } else {
-            res.json(result);
-        }
-    });
-});
+// router.get('/', function(req, res, next) {
+//     findCreditlInfo(POOL, function(err, result, fields) {
+//         if (err) {
+//             console.log('Error :' + err);
+//         } else {
+//             res.json(result);
+//         }
+//     });
+// });
 
-router.post('/', (req, res) => {
-    res.send('Add New Info');
+router.post('/', (req, res, next) => {
+    var query = 'select * from paymentinfo where userid=?';
+    pool.query(query, [req.body.username])
+        .then(result => {
+            res.json(result);
+        })
+        .catch(err => {
+            console.log(err);
+        });
 });
 
 router.put('/:id', (req, res) => {
@@ -24,17 +41,5 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
     res.send('Delete info');
 });
-
-function findCreditlInfo(pool, callback) {
-    var findCreditlInfo = 'SELECT * FROM Book ORDER BY title ' + sortType;
-
-    pool.query(findCreditlInfo, (err, res, fields) => {
-        if (err) {
-            callback(err, null, null);
-        } else {
-            callback(null, res, fields);
-        }
-    });
-}
 
 module.exports = router;
