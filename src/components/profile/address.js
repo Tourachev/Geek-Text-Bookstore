@@ -28,7 +28,7 @@ class Address extends React.Component {
     handleDelete(addressInfo) {
         fetch('/address-info/delete', {
             method: 'POST',
-            body: addressInfo.address,
+            body: JSON.stringify({ address: addressInfo.address }),
             headers: { 'Content-Type': 'application/json' }
         });
     }
@@ -38,7 +38,7 @@ class Address extends React.Component {
             <div>
                 <div className='info-card'>
                     <div className='info-card-lc'>
-                        <h1>{key + 1}</h1>
+                        {/* <h1>{key + 1}</h1> */}
                         <h1>Address: {addressInfo.address}</h1>
                         <h1>City: {addressInfo.city}</h1>
                         <h1>State: {addressInfo.state}</h1>
