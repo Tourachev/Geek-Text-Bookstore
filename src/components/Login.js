@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
+import { Button, ButtonGroup, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
 import Navbar from './NavBar';
 import Footer from './Footer';
 import { Link, Redirect } from 'react-router-dom';
@@ -121,11 +121,19 @@ export default class Login extends React.Component {
                                 type='password'
                             />
                         </FormGroup>
+                            <div style={{width:'100%'}}>
+                            <Link to='/signUp' >
+                                <Button style={{width:'47%'}} >
+                                    Sign Up
+                                </Button>
+                            </Link>
+                            <Button style={{width:'47%', marginLeft:'6%'}} type='submit' >
+                                Login
+                                {/* <Link to='/profile'>Login</Link> */}
+                            </Button>
+                            </div>
 
-                        <Button block bsSize='large' type='submit'>
-                            Login
-                            {/* <Link to='/profile'>Login</Link> */}
-                        </Button>
+
                         <h1 style={loaderStyle}>
                             <LinearProgress />
                         </h1>
