@@ -112,6 +112,15 @@ body {
     height: 90%;
 }
 
+#purchase-container {
+    display:flex;
+    justify-content: center;
+    width:100%;
+    min-height: 800px;
+    height: 90%;
+    margin: 5% 0% 7% 0%;
+}
+
 #sidebar {
     display: flex;
     flex-direction: column;
@@ -145,6 +154,32 @@ body {
     padding-top: 2%;
     height: 100%;
     overflow: none;
+}
+
+#purchase-body {
+    width: 80% !important;
+}
+
+#purchase-body th:nth-child(n+1) {
+    text-align: right;
+}
+
+#purchase-body th:first-child {
+    text-align: left !important;
+}
+
+#purchase-body td:nth-child(n+1) {
+    text-align: right;
+}
+
+#purchase-body td:first-child {
+    text-align: left !important;
+}
+
+.price-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 3%;
 }
 
 #card-body {

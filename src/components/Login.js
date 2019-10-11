@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ButtonGroup, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
 import Navbar from './NavBar';
 import Footer from './Footer';
 import { Link, Redirect } from 'react-router-dom';
@@ -98,7 +98,7 @@ export default class Login extends React.Component {
                 <Navbar />
                 <div className='container tall-body'>
                     <br />
-                    <h1 className='display-4'>Sign In:</h1>
+                    <h1 className='display-4'>Login:</h1>
                     <hr />
                     <h1 style={issueStyle}>
                         Username and password don't match. <br /> Please Try
