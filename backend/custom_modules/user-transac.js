@@ -118,7 +118,7 @@ async function login(info, callback) {
                     result
                 ) {
                     if (result === true) {
-                        callback(null, info.username, 3); //success!
+                        callback(null, 3); //success!
                     } else {
                         callback(null, 2); //wrong password
                     }
@@ -144,14 +144,80 @@ async function login(info, callback) {
 
 async function addPaymentInfo(info, callback) {
     var step1 = 'insert into paymentinfo values(?, ?, ?, ?, ?)';
+
+    var fields = [info.userid, info.ccnum, info.cvv, info.name, info.zip, info.expdate];
+
+    pool.query()
+        .then(res => {
+            callback(null, res);
+        })
+        .catch(err => {
+            callback(err, null);
+        });
 }
 
-async function removePaymentInfo() {
-    var step1 = 'delete * from paymentinfo where ccnum=? and userid=?';
+/*
+    This function removes a certain credit card from a specific user.
+    It uses the ccnum and primary key and userid as foreign key.
+    ------------------------------------------------------------------
+
+    param:  info - json including ccnum and userid
+            callback - function that will include the result or error
+*/
+async function removePaymentInfo(info, callback) {
+    var query = 'delete * from paymentinfo where ccnum=? and userid=?';
+
+    pool.query(query, [info.ccnum, info.userid])
+        ,then(res => {
+            callback(null, res);
+        })
+        .catch(err => {
+            console.log(err, null);
+        });
 }
 
-async function addShippingAddress() {
-    var step1 = 'insert into shipaddresses values(?, ?, ?, ?, ?)';
+/*
+    This function adds a shipping address to the specified user.
+    --------------------------------------------------------------
+
+    param:  info - json including shipping address and specified user 
+            callback - function that will include the result or error
+*/
+async function addShippingAddress(info, callback) {
+    var query = 'insert into shipaddresses values(?, ?, ?, ?, ?)';
+
+    pool.query(query, fields)
+        .then(res => {
+            callback(null, res);
+        })
+        .catch(err => {
+            callback(err, null);
+        })
 }
 
-module.exports = { createUser, login };
+/*
+    This function removes a shipping address from user.
+    -----------------------------------------------------------------
+
+    param:  info - info about which address to delete
+            callback - function to return result
+*/
+async function remShippingAddress(info, callback) {
+    var query = 'delete from shipaddresses where ('
+                + 'address=? and userid=? and state=? and city=? and zip=?)';
+
+    var data = [info.address, info.userid, info.state, info.city, info.zip];
+    
+    pool.query(query, data)
+        .then(res => {
+            callback(null, res);
+        })
+        .catch(err => {
+            callback(err, null)
+        })
+}
+
+module.exports = { 
+    createUser, login, removePaymentInfo, addPaymentInfo, addShippingAddress,
+    remShippingAddress 
+};
