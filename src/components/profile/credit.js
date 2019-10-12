@@ -49,7 +49,7 @@ class Credit extends React.Component {
     }
 
     handleDelete(entry) {
-        fetch('/credit-info/insert', {
+        fetch('/credit-info/delete', {
             method: 'POST',
             body: JSON.stringify({ username: this.state.username, ccnum: entry }),
             headers: { 'Content-Type': 'application/json' }
