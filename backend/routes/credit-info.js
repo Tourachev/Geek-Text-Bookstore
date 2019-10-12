@@ -9,7 +9,7 @@ router.post('/', (req, res, next) => {
         if (err) {
             console.log('Error in /backend/routes/credit-info : ' + 
             'from getPaymentInfo\n' + err);
-            res.send(null);
+            res.json(null);
         } else {
             res.json(result);
         }
@@ -18,27 +18,28 @@ router.post('/', (req, res, next) => {
 
 //body should be {username: '', ccnum: Number, cvv: Number(3), 
 //                name: '', zip: Number(5), expdate: ''}
-router.put('/insert', (req, res) => {
+router.post('/insert', (req, res) => {
     queries.addPaymentInfo(req.body, (err, result) => {
         if (err) {
             console.log('Error in /backend/routes/credit-info : ' + 
             'from addPaymentInfo\n' + err);
-            res.send(null); 
+            res.json(null); 
         } else {
-            res.send(true); //insert successful
+            res.json({decision: result}); //insert successful
         }
     });
 });
 
 //body should be {username: '', ccnum: Number}
-router.delete('/delete', (req, res) => {
+router.post('/delete', (req, res) => {
+    console.log(req.body);
     queries.delPaymentInfo(req.body, (err) => {
         if (err) {
             console.log('Error in /backend/routes/credit-info : ' + 
             'from remPaymentInfo: ' + err);
-            res.send(null);
+            res.json(null);
         } else {
-            res.send(true); //insert successful
+            res.json({ decision: true }); //insert successful
         }
     });
 });
