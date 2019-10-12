@@ -6,8 +6,8 @@ var router = express.Router();
 
 //3if authenticated
 router.post('/', (req, res) => {
-    log.login(req.body, (err, username, result) => {
-        console.log(username);
+    log.login(req.body, (err, result) => {
+        console.log(result);
         res.json({ result: result });
     });
 });
