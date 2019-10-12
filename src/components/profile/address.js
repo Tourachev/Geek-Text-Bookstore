@@ -13,15 +13,7 @@ class Address extends React.Component {
     }
 
     componentDidMount() {
-        fetch('/address-info', {
-            method: 'POST',
-            body: JSON.stringify({ username: this.state.username }),
-            headers: { 'Content-Type': 'application/json' }
-        })
-            .then(res => res.json())
-            .then(newInfo =>
-                this.setState({ addressInfo: newInfo, loading: false })
-            );
+        this.getInfo();
         // console.log(this.state.personalInfo);
     }
 
@@ -37,7 +29,7 @@ class Address extends React.Component {
         })
         .catch(err => {
             console.log(err);
-        })
+        });
     }
 
     handleInsert(addressInfo) {
@@ -97,9 +89,9 @@ class Address extends React.Component {
                         <button 
                             type='button' 
                             class='btn btn-link btn-lg'
-                            onClick={() => this.handleInsert(addressInfo)} //need form to input cc
+                            onClick={() => this.handleInsert(addressInfo)} //need form to input ADDRESS
                         >
-                            ADD
+                            EDIT
                         </button>
                         <button
                             type='button'
