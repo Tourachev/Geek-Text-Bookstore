@@ -9,7 +9,7 @@
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-
+const NOT_UNIQUE = 45017; // error num for unique constraint from mariadb
 const mariadb = require('mariadb');
 const pool = mariadb.createPool({
     host: 'virt-servers.mynetgear.com',
@@ -95,7 +95,7 @@ async function login(info, callback) {
             }
         })
         .catch(err => {
-            console.log(err);
+            callback(err, null);
         });
 }
 
@@ -147,10 +147,14 @@ async function addShippingAddress(info, callback) {
 
     pool.query(query, fields)
         .then(res => {
-            callback(null, res);
+            callback(null, 2); // address added
         })
         .catch(err => {
-            callback(err, null);
+            if (err.errno === NOT_UNIQUE) {
+                callback(null, 1); // address already exists (for specified user)
+            } else {
+                callback(err, null);
+            }
         })
 }
 
