@@ -97,7 +97,7 @@ class Address extends React.Component {
                         <button 
                             type='button' 
                             class='btn btn-link btn-lg'
-                            onClick={() => this.handleInsert(addressInfo)}
+                            onClick={() => this.handleInsert(addressInfo)} //need form to input cc
                         >
                             ADD
                         </button>
