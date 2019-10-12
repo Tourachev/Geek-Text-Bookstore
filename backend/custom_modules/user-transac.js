@@ -117,7 +117,7 @@ async function addPaymentInfo(info, callback) {
 async function delPaymentInfo(info, callback) {
     var query = 'delete from paymentinfo where ccnum=? and userid=?';
 
-    pool.query(query, [info.ccnum, info.userid])
+    pool.query(query, [info.ccnum, info.username])
         .then(res => {
             callback(null, res);
         })
@@ -162,7 +162,7 @@ async function delAddress(info, callback) {
     var query = 'delete from shipaddresses where ('
                 + 'address=? and userid=? and state=? and city=? and zip=?)';
 
-    var data = [info.address, info.userid, info.state, info.city, info.zip];
+    var data = [info.address, info.username, info.state, info.city, info.zip];
     
     pool.query(query, data)
         .then(res => {
@@ -174,7 +174,7 @@ async function delAddress(info, callback) {
 }
 
 async function getAddresses(username, callback) {
-    var query = 'select (state, city, address, zip) from shipaddresses where userid=?';
+    var query = 'select state, city, address, zip from shipaddresses where userid=?';
 
     pool.query(query, [username])
         .then(res => {
@@ -186,7 +186,7 @@ async function getAddresses(username, callback) {
 }
 
 async function getPaymentInfo(username, callback) {
-    var query = 'select (ccnum, cvv, name, zip, expdate) from paymentinfo where userid=?';
+    var query = 'select ccnum, cvv, name, zip, expdate from paymentinfo where userid=?';
 
     pool.query(query, [username])
         .then(res => {
