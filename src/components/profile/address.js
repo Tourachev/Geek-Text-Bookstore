@@ -19,18 +19,50 @@ class Address extends React.Component {
             headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
-            .then(addressInfo =>
-                this.setState({ addressInfo: addressInfo, loading: false })
+            .then(newInfo =>
+                this.setState({ addressInfo: newInfo, loading: false })
             );
         // console.log(this.state.personalInfo);
+    }
+
+    handleInsert(addressInfo) {
+        fetch('/address-info/insert', {
+            method: 'POST',
+            body: JSON.stringify({ 
+                username: this.props.username,
+                state: addressInfo.state,
+                city: addressInfo.city,
+                address: addressInfo.address,
+                zip: addressInfo.zip 
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(res => res.json())
+            .then(newInfo => {
+                this.setState({ addressInfo: newInfo, loading: false}); //update new addresses to show
+            })
+            .catch()
     }
 
     handleDelete(addressInfo) {
         fetch('/address-info/delete', {
             method: 'POST',
-            body: JSON.stringify({ address: addressInfo.address }),
+            body: JSON.stringify({ 
+                username: this.props.username,
+                state: addressInfo.state,
+                city: addressInfo.city,
+                address: addressInfo.address,
+                zip: addressInfo.zip 
+            }),
             headers: { 'Content-Type': 'application/json' }
-        });
+        })
+            .then(res => res.json())
+            .then(newInfo => {
+                this.setState({ addressInfo: newInfo, loading: false}); //update new addresses to show
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     render() {
@@ -45,8 +77,12 @@ class Address extends React.Component {
                         <h1>Zip: {addressInfo.zip}</h1>
                     </div>
                     <div className='info-card-rc'>
-                        <button type='button' class='btn btn-link btn-lg'>
-                            EDIT
+                        <button 
+                            type='button' 
+                            class='btn btn-link btn-lg'
+                            onClick={() => this.handleInsert(addressInfo)}
+                        >
+                            ADD
                         </button>
                         <button
                             type='button'
