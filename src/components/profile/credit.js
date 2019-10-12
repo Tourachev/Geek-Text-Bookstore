@@ -13,17 +13,54 @@ class Credit extends React.Component {
     }
 
     componentDidMount() {
+        this.getInfo();
+        console.log('Mounted');
+        // console.log(this.state.personalInfo);
+    }
+
+    getInfo() {
         fetch('/credit-info', {
             method: 'POST',
             body: JSON.stringify({ username: this.state.username }),
             headers: { 'Content-Type': 'application/json' }
         })
-            .then(res => res.json())
-            .then(creditInfo =>
-                this.setState({ creditInfo: creditInfo, loading: false })
-            );
-        console.log('Mounted');
-        // console.log(this.state.personalInfo);
+        .then(res => res.json())
+        .then(newInfo => {
+                this.setState({ creditInfo: newInfo, loading: false });
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
+    handleInsert(newEntry) {
+        fetch('/credit-info/insert', {
+            method: 'POST',
+            body: JSON.stringify({ username: this.state.username, info: newEntry }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(res => res.json())
+        .then(newInfo => {
+            this.getInfo();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
+    handleDelete(entry) {
+        fetch('/credit-info/insert', {
+            method: 'POST',
+            body: JSON.stringify({ username: this.state.username, ccnum: entry }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(res => res.json())
+        .then(newInfo => {
+            this.getInfo();
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
 
     render() {
@@ -38,10 +75,14 @@ class Credit extends React.Component {
                         <h1>Zip: {creditInfo.zip}</h1>
                     </div>
                     <div className='info-card-rc'>
-                        <button type='button' class='btn btn-link btn-lg'>
-                            EDIT
+                        <button type='button' class='btn btn-link btn-lg'
+                            onClick={() => this.handleInsert(creditInfo)}
+                        >
+                            ADD
                         </button>
-                        <button type='button' class='btn btn-link btn-lg'>
+                        <button type='button' class='btn btn-link btn-lg'
+                            onClick={() => this.handleDelete(creditInfo.ccnum)}
+                        >
                             DELETE
                         </button>
                     </div>
