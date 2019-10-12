@@ -25,9 +25,9 @@ router.post('/insert', (req, res) => {
             res.send(QUERY_ERR); //-1
         } else {
             if (result === ADDR_ADDED) {
-                res.send(ADDR_ADDED); //2
+                res.json( {decision: ADDR_ADDED} ); //2
             } else {
-                res.send(NOT_UNIQUE); //1
+                res.json( {decision: NOT_UNIQUE} ); //1
             }
         }
     });
@@ -39,9 +39,9 @@ router.post('/delete', (req, res) => {
         if (err) {
             console.log('Error in /backend/routes/address_info: ' +
             'from remShippingAddress: ' + err);
-            res.send(QUERY_ERR); //-1
+            res.json( {decision: QUERY_ERR} ); //-1
         } else {
-            res.send(ADDR_DELETED); //1
+            res.json( {decision: ADDR_DELETED} ); //1
         }
     });
 });
