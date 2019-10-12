@@ -12,18 +12,15 @@ const saltRounds = 10;
 const NOT_UNIQUE = 45017; // error num for unique constraint from mariadb
 const mariadb = require('mariadb');
 const pool = mariadb.createPool({
-    host: 'virt-servers.mynetgear.com',
-    port: 30000,
-    user: 'team8',
-    password: 'WehaveControl',
-    database: 'GeekTextDB',
-    connectionLimit: 2,
+    host: 'virt-servers.mynetgear.com', port: 30000,
+    user: 'team8', password: 'WehaveControl',
+    database: 'GeekTextDB', connectionLimit: 2,
     dateStrings: 'date'
     //rowsAsArray: true
 });
 
 /*
-    This functions performs a transaction to create a user.
+    This function performs a transaction to create a user.
     It checks first if username is taken, if it isn't it continues
     to profile info. The second step checks if the email is taken, if not
     then account is created and committed, otherwise it rolls back
@@ -33,14 +30,10 @@ async function createUser(info, callback) {
     bcrypt.hash(info.values.Password, saltRounds, function(err, hash) {
         var step1 = 'insert into credentials values(?, ?)';
         var cols = [
-            info.values.UserName,
-            info.values.Email,
-            info.values.FirstName,
-            info.values.LastName,
-            info.values.State,
-            info.values.City,
-            info.values.Address,
-            info.values.NickName
+            info.values.UserName, info.values.Email,
+            info.values.FirstName, info.values.LastName,
+            info.values.State, info.values.City,
+            info.values.Address, info.values.NickName
         ];
         var step2 = 'insert into userinfo values(?, ?, ?, ?, ?, ?, ?, ?)';
 
@@ -102,9 +95,9 @@ async function login(info, callback) {
 async function addPaymentInfo(info, callback) {
     var query = 'insert into paymentinfo values(?, ?, ?, ?, ?)';
 
-    var fields = [info.userid, info.ccnum, info.cvv, info.name, info.zip, info.expdate];
+    var fields = [info.username, info.ccnum, info.cvv, info.name, info.zip, info.expdate];
 
-    pool.query()
+    pool.query(query, fields)
         .then(res => {
             callback(null, res);
         })
@@ -121,7 +114,7 @@ async function addPaymentInfo(info, callback) {
     param:  info - json including ccnum and userid
             callback - function that will include the result or error
 */
-async function remPaymentInfo(info, callback) {
+async function delPaymentInfo(info, callback) {
     var query = 'delete from paymentinfo where ccnum=? and userid=?';
 
     pool.query(query, [info.ccnum, info.userid])
@@ -129,7 +122,7 @@ async function remPaymentInfo(info, callback) {
             callback(null, res);
         })
         .catch(err => {
-            console.log(err, null);
+            callback(err, null);
         });
 }
 
@@ -140,7 +133,7 @@ async function remPaymentInfo(info, callback) {
     param:  info - json including shipping address and specified user 
             callback - function that will include the result or error
 */
-async function addShippingAddress(info, callback) {
+async function addAddress(info, callback) {
     var query = 'insert into shipaddresses values(?, ?, ?, ?, ?)';
 
     var fields = [info.username, info.state, info.city, info.address, info.zip];
@@ -151,11 +144,11 @@ async function addShippingAddress(info, callback) {
         })
         .catch(err => {
             if (err.errno === NOT_UNIQUE) {
-                callback(null, 1); // address already exists (for specified user)
+                callback(null, 1); // duplicate address
             } else {
                 callback(err, null);
             }
-        })
+        });
 }
 
 /*
@@ -165,7 +158,7 @@ async function addShippingAddress(info, callback) {
     param:  info - info about which address to delete
             callback - function to return result
 */
-async function remShippingAddress(info, callback) {
+async function delAddress(info, callback) {
     var query = 'delete from shipaddresses where ('
                 + 'address=? and userid=? and state=? and city=? and zip=?)';
 
@@ -173,14 +166,52 @@ async function remShippingAddress(info, callback) {
     
     pool.query(query, data)
         .then(res => {
+            callback(null); // query successful
+        })
+        .catch(err => {
+            callback(err); // query error
+        });
+}
+
+async function getAddresses(username, callback) {
+    var query = 'select (state, city, address, zip) from shipaddresses where userid=?';
+
+    pool.query(query, [username])
+        .then(res => {
             callback(null, res);
         })
         .catch(err => {
             callback(err, null);
+        });
+}
+
+async function getPaymentInfo(username, callback) {
+    var query = 'select (ccnum, cvv, name, zip, expdate) from paymentinfo where userid=?';
+
+    pool.query(query, [username])
+        .then(res => {
+            callback(null, res);
         })
+        .catch(err => {
+            callback(err, null);
+        });
+}
+
+async function editPersonal(info, callback) {
+    var query = 'update userinfo set (email=?, fname=?, lname=?, nickname=?)' +
+                'where userid=?';
+
+    var data = [info.email, info.fname, info.lname, info.nickname, info.username];
+    pool.query(query, data)
+        .then(res => {
+            callback(null, res);
+        })
+        .catch(err => {
+            callback(err, null);
+        });
 }
 
 module.exports = { 
-    createUser, login, remPaymentInfo, addPaymentInfo, addShippingAddress,
-    remShippingAddress 
+    createUser, login, delPaymentInfo, addPaymentInfo, addAddress,
+    delAddress, getAddresses, getPaymentInfo, editPersonal
 };
