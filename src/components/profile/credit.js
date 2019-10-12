@@ -21,7 +21,7 @@ class Credit extends React.Component {
     getInfo() {
         fetch('/credit-info', {
             method: 'POST',
-            body: JSON.stringify({ username: this.state.username }),
+            body: JSON.stringify({ username: this.props.username }),
             headers: { 'Content-Type': 'application/json' }
         })
         .then(res => res.json())
@@ -30,13 +30,13 @@ class Credit extends React.Component {
         })
         .catch(err => {
             console.log(err);
-        })
+        });
     }
 
     handleInsert(newEntry) {
         fetch('/credit-info/insert', {
             method: 'POST',
-            body: JSON.stringify({ username: this.state.username, info: newEntry }),
+            body: JSON.stringify({ username: this.props.username, info: newEntry }),
             headers: { 'Content-Type': 'application/json' }
         })
         .then(res => res.json())
@@ -51,7 +51,7 @@ class Credit extends React.Component {
     handleDelete(entry) {
         fetch('/credit-info/delete', {
             method: 'POST',
-            body: JSON.stringify({ username: this.state.username, ccnum: entry }),
+            body: JSON.stringify({ username: this.props.username, ccnum: entry }),
             headers: { 'Content-Type': 'application/json' }
         })
         .then(res => res.json())
@@ -59,7 +59,7 @@ class Credit extends React.Component {
             this.getInfo();
         })
         .catch(err => {
-            console.log(err);
+            console.log("Hello " + err);
         });
     }
 
@@ -78,7 +78,7 @@ class Credit extends React.Component {
                         <button type='button' class='btn btn-link btn-lg'
                             onClick={() => this.handleInsert(creditInfo)} //need form to input cc
                         >
-                            ADD
+                            EDIT
                         </button>
                         <button type='button' class='btn btn-link btn-lg'
                             onClick={() => this.handleDelete(creditInfo.ccnum)}
