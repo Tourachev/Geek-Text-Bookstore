@@ -1,40 +1,82 @@
 import React from 'react';
-import { Table, Button } from 'reactstrap';
+import { Table } from 'reactstrap';
+import { Button } from 'react-bootstrap';
+import { Icon } from 'semantic-ui-react'
+class PurchaseSection extends React.Component {
+    /*
+        Cart Items has ALL the books right now.
+        We will need to pass a variable across to have all
+        items in the cart that stores the quantities as well
+    */
 
-const purchaseSection = () => {
-    const newbook = {
-        books: { id: 1, title: 'The wonderland Book', rating: '5' }
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            cartItems: [],
+            totalPrice: 0.00,
+        };
+    }
 
-    return (
-        <div className='container'>
-            <Table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Title</th>
-                        <th>Rating</th>
-                    </tr>
-                </thead>
+    getCartItems(item) {
 
-                <tbody>
-                    <tr key={newbook.books.id}>
-                        <td>{newbook.books.id}</td>
-                        <td>{newbook.books.title}</td>
-                        <td>{newbook.books.rating}</td>
-                        <td>
-                            <Button color='success' size='sm' className='mr-2'>
-                                Pay
+    }
+
+    componentDidMount() {
+        fetch('/books')
+            .then(res => res.json())
+            .then(books => {
+                let total = 0.00;
+                let quantity = 2; //Delete this line once the quantity property is added
+                let cart = books.map(item => {
+                    total += item.price * quantity;
+                    return(
+                        <tr key={item.bookId}>
+                            <td>{item.title}</td>
+                            <td>x {quantity}</td>
+                            <td>${item.price.toFixed(2)}</td>
+                            <td>
+                            <Button style={{backgroundColor:'rgba(0,0,0,0)', border:'none'}}>
+                                <Icon name='close' color='red'/>
                             </Button>
-                            <Button color='danger' size='sm' className='mr-2'>
-                                Delete
-                            </Button>
-                        </td>
-                    </tr>
-                </tbody>
-            </Table>
-        </div>
-    );
-};
+                            </td>
+                        </tr>
+                    )
+                })
+                this.setState({cartItems: cart, totalPrice: total});
+            });
 
-export default purchaseSection;
+    }
+
+    render() {
+        return (
+            <div id="purchase-container">
+                <div id="purchase-body">
+                    <h1 className='display-4' style={{marginBottom:'3%'}}>Your Cart</h1>
+                    <Table>
+                        <thead>
+                            <tr>
+                                <th>Book Title</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            {this.state.cartItems}
+                        </tbody>
+                    </Table>
+                    <div className="price-row">
+                        <h3>Total Price:  ${this.state.totalPrice.toFixed(2)}</h3>
+                    </div>
+                    <div className="price-row">
+                        <Button size="lg" style={{width:'30%'}} >
+                            Purchase
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+export default PurchaseSection;

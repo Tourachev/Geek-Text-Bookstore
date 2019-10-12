@@ -91,6 +91,12 @@ export class SignupForm extends Component {
                                     defaultValue={values.UserName}
                                 />
                                 <br />
+                                <TextField
+                                    hintText='Enter your Password'
+                                    floatingLabelText='Password'
+                                    onChange={handleChange('Password')}
+                                    defaultValue={values.Password}
+                                />
                             </div>
                             <div id='sign-up-right-col'>
                                 <TextField
@@ -99,6 +105,7 @@ export class SignupForm extends Component {
                                     onChange={handleChange('Nickname')}
                                     defaultValue={values.NickName}
                                 />
+                                <br />
                                 <TextField
                                     hintText='Enter your Address'
                                     floatingLabelText='Address'
@@ -108,7 +115,7 @@ export class SignupForm extends Component {
                                 <br />
                                 <TextField
                                     hintText='Enter your City'
-                                    floatingLabelText='Last City'
+                                    floatingLabelText='City'
                                     onChange={handleChange('City')}
                                     defaultValue={values.City}
                                 />
@@ -119,20 +126,6 @@ export class SignupForm extends Component {
                                     onChange={handleChange('State')}
                                     defaultValue={values.State}
                                 />
-
-                                <br />
-                            </div>
-                        </div>
-                        <div className='container'>
-                            <br />
-                            <hr className='sexy_line' />
-                            <div className='sign-up-bottom-row'>
-                                <TextField
-                                    hintText='Enter your Password'
-                                    floatingLabelText='Password'
-                                    onChange={handleChange('Password')}
-                                    defaultValue={values.Password}
-                                />
                                 <br />
                                 <TextField
                                     hintText='Confirm Entered Passoword'
@@ -140,8 +133,11 @@ export class SignupForm extends Component {
                                     onChange={handleChange('Password2')}
                                     defaultValue={values.Password2}
                                 />
-                                <br />
-
+                            </div>
+                        </div>
+                        <div className='container'>
+                            <br />
+                            <div className='sign-up-bottom-row' style={{justifyContent:'end'}}>
                                 <button
                                     type='button'
                                     class='btn btn-secondary btn-lg'

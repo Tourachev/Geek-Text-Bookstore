@@ -43,10 +43,9 @@ const NavBar2 = () => {
                             </li>
                             <li>
                                 <div
-                                    className='ui vertical large animated button'
+                                    className='ui vertical large button'
                                     tabIndex='0'
                                 >
-                                    <div className='hidden content'>Cart</div>
                                     <div className='visible content'>
                                         <Link to='/cart'>
                                             <i className='shop icon'></i>

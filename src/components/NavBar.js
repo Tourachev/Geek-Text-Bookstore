@@ -54,29 +54,13 @@ const NavBar = () => {
                     <div id='navbar-right'>
                         <ul className='navbar-nav navbar-items'>
                             <li>
-                                <Link to='/signUp'>
-                                    <div
-                                        className='ui vertical large animated button'
-                                        tabIndex='0'
-                                    >
-                                        <div className='hidden content'>
-                                            It's Free!
-                                        </div>
-                                        <div className='visible content'>
-                                            Sign up
-                                        </div>
-                                    </div>
-                                </Link>
                                 <Link to='/login'>
                                     <div
-                                        className='ui vertical large animated button'
+                                        className='ui vertical large button'
                                         tabIndex='0'
                                     >
-                                        <div className='hidden content'>
-                                            Welcome!
-                                        </div>
                                         <div className='visible content'>
-                                            Sign in
+                                            Login
                                         </div>
                                     </div>
                                 </Link>
