@@ -76,7 +76,7 @@ class Credit extends React.Component {
                     </div>
                     <div className='info-card-rc'>
                         <button type='button' class='btn btn-link btn-lg'
-                            onClick={() => this.handleInsert(creditInfo)}
+                            onClick={() => this.handleInsert(creditInfo)} //need form to input cc
                         >
                             ADD
                         </button>
