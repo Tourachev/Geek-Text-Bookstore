@@ -70,39 +70,6 @@ async function createUser(info, callback) {
                 callback(err, 0); //0 - connection error
             });
     });
-
-    /*
-
-    var step1 = "insert into credentials values(?, ?)";
-    var cols = [info.values.UserName, info.values.Email, info.values.FirstName, info.values.LastName,
-         info.values.State, info.values.City, info.values.Address, info.values.NickName];
-    var step2 = "insert into userinfo values(?, ?, ?, ?, ?, ?, ?, ?)";
-
-    pool.getConnection()
-      .then(conn => {
-        conn.query(step1, [info.values.UserName, hashedpw])
-          .then(() => {
-            conn.query(step2, cols)
-            .then(() => {
-              conn.commit();
-              conn.release();
-              callback(null, 3); //3 - success
-            })
-            .catch(err => {
-              conn.rollback();
-              conn.release();
-              callback(err, 2); //2 - email taken
-            })
-          })
-          .catch(err => {
-            conn.rollback();
-            conn.release();
-            callback(err, 1); //1 - username taken
-          })
-      })
-      .catch(err => {
-        callback(err, 0); //0 - connection error
-      })*/
 }
 
 /*
@@ -130,20 +97,10 @@ async function login(info, callback) {
         .catch(err => {
             console.log(err);
         });
-    /*
-    var query = "select exists (select * from credentials where userid=? and password=?)";
-    pool.query(query, [info.username, hashedpw])
-    .then(res => {
-
-        callback(null, res); //1 if authenticated, 0 if not
-    })
-    .catch(err => {
-        callback(err, null);
-    })*/
 }
 
 async function addPaymentInfo(info, callback) {
-    var step1 = 'insert into paymentinfo values(?, ?, ?, ?, ?)';
+    var query = 'insert into paymentinfo values(?, ?, ?, ?, ?)';
 
     var fields = [info.userid, info.ccnum, info.cvv, info.name, info.zip, info.expdate];
 
@@ -164,11 +121,11 @@ async function addPaymentInfo(info, callback) {
     param:  info - json including ccnum and userid
             callback - function that will include the result or error
 */
-async function removePaymentInfo(info, callback) {
-    var query = 'delete * from paymentinfo where ccnum=? and userid=?';
+async function remPaymentInfo(info, callback) {
+    var query = 'delete from paymentinfo where ccnum=? and userid=?';
 
     pool.query(query, [info.ccnum, info.userid])
-        ,then(res => {
+        .then(res => {
             callback(null, res);
         })
         .catch(err => {
@@ -185,6 +142,8 @@ async function removePaymentInfo(info, callback) {
 */
 async function addShippingAddress(info, callback) {
     var query = 'insert into shipaddresses values(?, ?, ?, ?, ?)';
+
+    var fields = [info.username, info.state, info.city, info.address, info.zip];
 
     pool.query(query, fields)
         .then(res => {
@@ -213,11 +172,11 @@ async function remShippingAddress(info, callback) {
             callback(null, res);
         })
         .catch(err => {
-            callback(err, null)
+            callback(err, null);
         })
 }
 
 module.exports = { 
-    createUser, login, removePaymentInfo, addPaymentInfo, addShippingAddress,
+    createUser, login, remPaymentInfo, addPaymentInfo, addShippingAddress,
     remShippingAddress 
 };
