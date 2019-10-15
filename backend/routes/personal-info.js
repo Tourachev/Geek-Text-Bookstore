@@ -1,4 +1,17 @@
 const queries = require('../custom_modules/user-transac');
+const mariadb = require('mariadb');
+
+const pool = mariadb.createPool({
+    host: 'virt-servers.mynetgear.com',
+    port: 30000,
+    user: 'team8',
+    password: 'WehaveControl',
+    database: 'GeekTextDB',
+    connectionLimit: 2,
+    dateStrings: 'date'
+    //rowsAsArray: true
+});
+
 var express = require('express');
 var router = express.Router();
 
@@ -19,7 +32,7 @@ router.post('/', (req, res, next) => {
 // });
 
 router.post('/update', (req, res) => {
-    
+
     res.send('Update info');
 });
 
