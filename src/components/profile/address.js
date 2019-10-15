@@ -1,5 +1,6 @@
 import React from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import AddressEditModal from '../profile/AddressEditModal';
 
 class Address extends React.Component {
     constructor(props) {
@@ -23,29 +24,30 @@ class Address extends React.Component {
             body: JSON.stringify({ username: this.state.username }),
             headers: { 'Content-Type': 'application/json' }
         })
-        .then(res => res.json())
-        .then(newInfo => {
-            this.setState({addressInfo: newInfo, loading: false});
-        })
-        .catch(err => {
-            console.log(err);
-        });
+            .then(res => res.json())
+            .then(newInfo => {
+                this.setState({ addressInfo: newInfo, loading: false });
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     handleInsert(addressInfo) {
         fetch('/address-info/insert', {
             method: 'POST',
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 username: this.state.username,
                 state: addressInfo.state,
                 city: addressInfo.city,
                 address: addressInfo.address,
-                zip: addressInfo.zip 
+                zip: addressInfo.zip
             }),
             headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
-            .then(newInfo => { //look at address-info for return values
+            .then(newInfo => {
+                //look at address-info for return values
                 this.getInfo();
             })
             .catch(err => {
@@ -56,18 +58,20 @@ class Address extends React.Component {
     handleDelete(addressInfo) {
         fetch('/address-info/delete', {
             method: 'POST',
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 username: this.state.username,
                 state: addressInfo.state,
                 city: addressInfo.city,
                 address: addressInfo.address,
-                zip: addressInfo.zip 
+                zip: addressInfo.zip
             }),
             headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
-            .then(newInfo => { //look at address-info for return values
+            .then(newInfo => {
+                //look at address-info for return values
                 this.getInfo();
+                alert('Deleted!');
             })
             .catch(err => {
                 console.log(err);
@@ -79,20 +83,21 @@ class Address extends React.Component {
             <div>
                 <div className='info-card'>
                     <div className='info-card-lc'>
-                        {/* <h1>{key + 1}</h1> */}
                         <h1>Address: {addressInfo.address}</h1>
                         <h1>City: {addressInfo.city}</h1>
                         <h1>State: {addressInfo.state}</h1>
                         <h1>Zip: {addressInfo.zip}</h1>
                     </div>
                     <div className='info-card-rc'>
-                        <button 
-                            type='button' 
+                        <button
+                            type='button'
                             class='btn btn-link btn-lg'
                             onClick={() => this.handleInsert(addressInfo)} //need form to input ADDRESS
                         >
                             EDIT
                         </button>
+
+                        {/* <AddressEditModal /> */}
                         <button
                             type='button'
                             class='btn btn-link btn-lg'

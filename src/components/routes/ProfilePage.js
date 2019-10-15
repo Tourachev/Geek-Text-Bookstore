@@ -4,6 +4,10 @@ import Footer from '../Footer';
 import Personal from '../profile/personal';
 import Credit from '../profile/credit';
 import Address from '../profile/address';
+import PersonalEditModal from '../profile/PersonalEditModal';
+import AddressAddModal from '../profile/AddressAddModal';
+import CreditEditModal from '../profile/CreditEditModal';
+import CreditAddModal from '../profile/CreditAddModal';
 
 class ProfilePage extends React.Component {
     constructor(props) {
@@ -29,6 +33,10 @@ class ProfilePage extends React.Component {
         //     .then(personalInfo => this.setState({ creditInfo: personalInfo }));
     }
 
+    handleAddAddress() {
+        console.log('clicked personal info edit');
+    }
+
     render() {
         return (
             <div>
@@ -40,12 +48,7 @@ class ProfilePage extends React.Component {
                         <div className='profile-card'>
                             <div className='profile-card-header'>
                                 <h1 className='display-4 '>Personal Info</h1>
-                                <button
-                                    type='button'
-                                    class='btn btn-link btn-lg'
-                                >
-                                    EDIT
-                                </button>
+                                <PersonalEditModal />
                             </div>
 
                             <div className='profile-card-content'>
@@ -59,12 +62,9 @@ class ProfilePage extends React.Component {
                                 <h1 className='display-4 '>
                                     Addresses On File
                                 </h1>
-                                <button
-                                    type='button'
-                                    class='btn btn-link btn-lg'
-                                >
-                                    ADD
-                                </button>
+                                <AddressAddModal
+                                    username={this.state.username}
+                                />
                             </div>
                             <div className='profile-card-content'>
                                 <Address username={this.state.username} />
@@ -77,12 +77,9 @@ class ProfilePage extends React.Component {
                                 <h1 className='display-4 '>
                                     Credit Cards On File
                                 </h1>
-                                <button
-                                    type='button'
-                                    class='btn btn-link btn-lg'
-                                >
-                                    ADD
-                                </button>
+                                <CreditAddModal
+                                    username={this.state.username}
+                                />
                             </div>
                             <div className='profile-card-content'>
                                 <Credit username={this.state.username} />

@@ -24,43 +24,50 @@ class Credit extends React.Component {
             body: JSON.stringify({ username: this.props.username }),
             headers: { 'Content-Type': 'application/json' }
         })
-        .then(res => res.json())
-        .then(newInfo => {
+            .then(res => res.json())
+            .then(newInfo => {
                 this.setState({ creditInfo: newInfo, loading: false });
-        })
-        .catch(err => {
-            console.log(err);
-        });
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     handleInsert(newEntry) {
         fetch('/credit-info/insert', {
             method: 'POST',
-            body: JSON.stringify({ username: this.props.username, info: newEntry }),
+            body: JSON.stringify({
+                username: this.props.username,
+                info: newEntry
+            }),
             headers: { 'Content-Type': 'application/json' }
         })
-        .then(res => res.json())
-        .then(newInfo => {
-            this.getInfo();
-        })
-        .catch(err => {
-            console.log(err);
-        });
+            .then(res => res.json())
+            .then(newInfo => {
+                this.getInfo();
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     handleDelete(entry) {
         fetch('/credit-info/delete', {
             method: 'POST',
-            body: JSON.stringify({ username: this.props.username, ccnum: entry }),
+            body: JSON.stringify({
+                username: this.props.username,
+                ccnum: entry
+            }),
             headers: { 'Content-Type': 'application/json' }
         })
-        .then(res => res.json())
-        .then(newInfo => {
-            this.getInfo();
-        })
-        .catch(err => {
-            console.log("Hello " + err);
-        });
+            .then(res => res.json())
+            .then(newInfo => {
+                this.getInfo();
+                alert('Deleted!');
+            })
+            .catch(err => {
+                console.log('Hello ' + err);
+            });
     }
 
     render() {
@@ -75,12 +82,16 @@ class Credit extends React.Component {
                         <h1>Zip: {creditInfo.zip}</h1>
                     </div>
                     <div className='info-card-rc'>
-                        <button type='button' class='btn btn-link btn-lg'
+                        <button
+                            type='button'
+                            class='btn btn-link btn-lg'
                             onClick={() => this.handleInsert(creditInfo)} //need form to input cc
                         >
                             EDIT
                         </button>
-                        <button type='button' class='btn btn-link btn-lg'
+                        <button
+                            type='button'
+                            class='btn btn-link btn-lg'
                             onClick={() => this.handleDelete(creditInfo.ccnum)}
                         >
                             DELETE

@@ -12,9 +12,12 @@ const saltRounds = 10;
 const NOT_UNIQUE = 45017; // error num for unique constraint from mariadb
 const mariadb = require('mariadb');
 const pool = mariadb.createPool({
-    host: 'virt-servers.mynetgear.com', port: 30000,
-    user: 'team8', password: 'WehaveControl',
-    database: 'GeekTextDB', connectionLimit: 2,
+    host: 'virt-servers.mynetgear.com',
+    port: 30000,
+    user: 'team8',
+    password: 'WehaveControl',
+    database: 'GeekTextDB',
+    connectionLimit: 2,
     dateStrings: 'date'
     //rowsAsArray: true
 });
@@ -30,10 +33,14 @@ async function createUser(info, callback) {
     bcrypt.hash(info.values.Password, saltRounds, function(err, hash) {
         var step1 = 'insert into credentials values(?, ?)';
         var cols = [
-            info.values.UserName, info.values.Email,
-            info.values.FirstName, info.values.LastName,
-            info.values.State, info.values.City,
-            info.values.Address, info.values.NickName
+            info.values.UserName,
+            info.values.Email,
+            info.values.FirstName,
+            info.values.LastName,
+            info.values.State,
+            info.values.City,
+            info.values.Address,
+            info.values.NickName
         ];
         var step2 = 'insert into userinfo values(?, ?, ?, ?, ?, ?, ?, ?)';
 
@@ -93,9 +100,16 @@ async function login(info, callback) {
 }
 
 async function addPaymentInfo(info, callback) {
-    var query = 'insert into paymentinfo values(?, ?, ?, ?, ?)';
+    var query = 'insert into paymentinfo values(?, ?, ?, ?, ?, ?)';
 
-    var fields = [info.username, info.ccnum, info.cvv, info.name, info.zip, info.expdate];
+    var fields = [
+        info.username,
+        info.ccnum,
+        info.cvv,
+        info.name,
+        info.zip,
+        info.expdate
+    ];
 
     pool.query(query, fields)
         .then(res => {
@@ -159,11 +173,12 @@ async function addAddress(info, callback) {
             callback - function to return result
 */
 async function delAddress(info, callback) {
-    var query = 'delete from shipaddresses where ('
-                + 'address=? and userid=? and state=? and city=? and zip=?)';
+    var query =
+        'delete from shipaddresses where (' +
+        'address=? and userid=? and state=? and city=? and zip=?)';
 
     var data = [info.address, info.username, info.state, info.city, info.zip];
-    
+
     pool.query(query, data)
         .then(res => {
             callback(null); // query successful
@@ -174,7 +189,8 @@ async function delAddress(info, callback) {
 }
 
 async function getAddresses(username, callback) {
-    var query = 'select state, city, address, zip from shipaddresses where userid=?';
+    var query =
+        'select state, city, address, zip from shipaddresses where userid=?';
 
     pool.query(query, [username])
         .then(res => {
@@ -186,7 +202,8 @@ async function getAddresses(username, callback) {
 }
 
 async function getPaymentInfo(username, callback) {
-    var query = 'select ccnum, cvv, name, zip, expdate from paymentinfo where userid=?';
+    var query =
+        'select ccnum, cvv, name, zip, expdate from paymentinfo where userid=?';
 
     pool.query(query, [username])
         .then(res => {
@@ -198,10 +215,17 @@ async function getPaymentInfo(username, callback) {
 }
 
 async function editPersonal(info, callback) {
-    var query = 'update userinfo set (email=?, fname=?, lname=?, nickname=?)' +
-                'where userid=?';
+    var query =
+        'update userinfo set (email=?, fname=?, lname=?, nickname=?)' +
+        'where userid=?';
 
-    var data = [info.email, info.fname, info.lname, info.nickname, info.username];
+    var data = [
+        info.email,
+        info.fname,
+        info.lname,
+        info.nickname,
+        info.username
+    ];
     pool.query(query, data)
         .then(res => {
             callback(null, res);
@@ -211,7 +235,14 @@ async function editPersonal(info, callback) {
         });
 }
 
-module.exports = { 
-    createUser, login, delPaymentInfo, addPaymentInfo, addAddress,
-    delAddress, getAddresses, getPaymentInfo, editPersonal
+module.exports = {
+    createUser,
+    login,
+    delPaymentInfo,
+    addPaymentInfo,
+    addAddress,
+    delAddress,
+    getAddresses,
+    getPaymentInfo,
+    editPersonal
 };
