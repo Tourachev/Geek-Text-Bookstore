@@ -13,24 +13,65 @@ class Address extends React.Component {
     }
 
     componentDidMount() {
+        this.getInfo();
+        // console.log(this.state.personalInfo);
+    }
+
+    getInfo() {
         fetch('/address-info', {
             method: 'POST',
             body: JSON.stringify({ username: this.state.username }),
             headers: { 'Content-Type': 'application/json' }
         })
+        .then(res => res.json())
+        .then(newInfo => {
+            this.setState({addressInfo: newInfo, loading: false});
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
+    handleInsert(addressInfo) {
+        fetch('/address-info/insert', {
+            method: 'POST',
+            body: JSON.stringify({ 
+                username: this.state.username,
+                state: addressInfo.state,
+                city: addressInfo.city,
+                address: addressInfo.address,
+                zip: addressInfo.zip 
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
             .then(res => res.json())
-            .then(addressInfo =>
-                this.setState({ addressInfo: addressInfo, loading: false })
-            );
-        // console.log(this.state.personalInfo);
+            .then(newInfo => { //look at address-info for return values
+                this.getInfo();
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     handleDelete(addressInfo) {
         fetch('/address-info/delete', {
             method: 'POST',
-            body: JSON.stringify({ address: addressInfo.address }),
+            body: JSON.stringify({ 
+                username: this.state.username,
+                state: addressInfo.state,
+                city: addressInfo.city,
+                address: addressInfo.address,
+                zip: addressInfo.zip 
+            }),
             headers: { 'Content-Type': 'application/json' }
-        });
+        })
+            .then(res => res.json())
+            .then(newInfo => { //look at address-info for return values
+                this.getInfo();
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     render() {
@@ -45,7 +86,11 @@ class Address extends React.Component {
                         <h1>Zip: {addressInfo.zip}</h1>
                     </div>
                     <div className='info-card-rc'>
-                        <button type='button' class='btn btn-link btn-lg'>
+                        <button 
+                            type='button' 
+                            class='btn btn-link btn-lg'
+                            onClick={() => this.handleInsert(addressInfo)} //need form to input ADDRESS
+                        >
                             EDIT
                         </button>
                         <button
