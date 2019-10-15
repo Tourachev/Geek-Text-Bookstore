@@ -8,6 +8,10 @@ class Personal extends React.Component {
         this.state = {
             username: this.props.username,
             personalInfo: [],
+            email: "",
+            fname: "",
+            lname: "",
+            nickname: "",
             inEditMode: false,
             loading: true
         };
@@ -22,7 +26,14 @@ class Personal extends React.Component {
         })
             .then(res => res.json())
             .then(personalInfo =>
-                this.setState({ personalInfo: personalInfo, loading: false })
+                this.setState({
+                    personalInfo: personalInfo,
+                    loading: false,
+                    email: personalInfo.email,
+                    fname: personalInfo.fname,
+                    lname: personalInfo.lname,
+                    nickname: personalInfo.nickname
+                })
             );
         console.log(this.state);
         // console.log(this.state.personalInfo);
@@ -34,12 +45,12 @@ class Personal extends React.Component {
         fetch("/personal-info/edit", {
             method: "POST",
             body: JSON.stringify({
-                username: this.state.personalInfo.username,
-                email: this.state.personalInfo.email,
-                fname: this.state.personalInfo.fname,
-                lname: this.state.personalInfo.lname,
-                nickname: this.state.personalInfo.nickname,
-                username: this.state.personalInfo.username
+                username: this.state.username,
+                email: this.state.email,
+                fname: this.state.fname,
+                lname: this.state.lname,
+                nickname: this.state.nickname,
+                username: this.state.username
             }),
             headers: { "Content-Type": "application/json" }
         })
@@ -61,12 +72,7 @@ class Personal extends React.Component {
     };
 
     handleChange(e) {
-        this.setState(prevState => {
-            console.log(e.target.value);
-            let userInfo = Object.assign({}, prevState.userInfo); // creating copy of state variable jasper
-            [userInfo.e.target.name] = e.target.value; // update the name property, assign a new value
-            return { userInfo }; // return new object jasper object
-        });
+        this.setState({ [e.target.name]: e.target.value });
     }
 
     renderEditView = () => {
@@ -82,7 +88,7 @@ class Personal extends React.Component {
                                     className='form-control'
                                     name='fname'
                                     onChange={this.handleChange}
-                                    value={this.state.personalInfo.fname}
+                                    value={this.state.fname}
                                 />
                             </h1>
                             <h1>
@@ -92,7 +98,7 @@ class Personal extends React.Component {
                                     className='form-control'
                                     name='lname'
                                     onChange={this.handleChange}
-                                    value={this.state.personalInfo.lname}
+                                    value={this.state.lname}
                                 />
                             </h1>
                             <h1>
@@ -102,7 +108,7 @@ class Personal extends React.Component {
                                     className='form-control'
                                     name='email'
                                     onChange={this.handleChange}
-                                    value={this.state.personalInfo.email}
+                                    value={this.state.email}
                                 />
                             </h1>
                             <h1>
@@ -112,7 +118,7 @@ class Personal extends React.Component {
                                     className='form-control'
                                     name='username'
                                     onChange={this.handleChange}
-                                    value={this.state.personalInfo.userid}
+                                    value={this.state.username}
                                 />
                             </h1>
                             <h1>
@@ -122,7 +128,7 @@ class Personal extends React.Component {
                                     className='form-control'
                                     name='nickname'
                                     onChange={this.handleChange}
-                                    value={this.state.personalInfo.nickname}
+                                    value={this.state.nickname}
                                 />
                             </h1>
                         </div>
