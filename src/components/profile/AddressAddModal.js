@@ -42,8 +42,6 @@ class MyForm extends React.Component {
     mySubmitHandler = event => {
         event.preventDefault();
 
-        alert('Submitted!');
-
         fetch('/address-info/insert', {
             method: 'POST',
             body: JSON.stringify({
@@ -63,6 +61,9 @@ class MyForm extends React.Component {
             .catch(err => {
                 console.log(err);
             });
+
+        alert('Submitted!');
+        window.location.reload();
     };
     render() {
         return (
