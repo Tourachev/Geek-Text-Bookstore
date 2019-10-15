@@ -1,5 +1,5 @@
-import React from 'react';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import React from "react";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 class Personal extends React.Component {
     constructor(props) {
@@ -15,10 +15,10 @@ class Personal extends React.Component {
     }
 
     componentDidMount() {
-        fetch('/personal-info', {
-            method: 'POST',
+        fetch("/personal-info", {
+            method: "POST",
             body: JSON.stringify({ username: this.state.username }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { "Content-Type": "application/json" }
         })
             .then(res => res.json())
             .then(personalInfo =>
@@ -29,10 +29,10 @@ class Personal extends React.Component {
     }
 
     mySubmitHandler = event => {
-        // event.preventDefault();
+        event.preventDefault();
 
-        fetch('/personal-info/edit', {
-            method: 'POST',
+        fetch("/personal-info/edit", {
+            method: "POST",
             body: JSON.stringify({
                 username: this.state.personalInfo.username,
                 email: this.state.personalInfo.email,
@@ -41,7 +41,7 @@ class Personal extends React.Component {
                 nickname: this.state.personalInfo.nickname,
                 username: this.state.personalInfo.username
             }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { "Content-Type": "application/json" }
         })
             .then(res => res.json())
             .then(newInfo => {
@@ -52,7 +52,7 @@ class Personal extends React.Component {
                 console.log(err);
             });
 
-        alert('Submitted!');
+        alert("Submitted!");
         window.location.reload();
     };
 
@@ -60,9 +60,12 @@ class Personal extends React.Component {
         this.setState({ inEditMode: true });
     };
 
-    handleChange(evt) {
-        this.setState({
-            [evt.target.name]: evt.target.value
+    handleChange(e) {
+        this.setState(prevState => {
+            console.log(e.target.value);
+            let userInfo = Object.assign({}, prevState.userInfo); // creating copy of state variable jasper
+            [userInfo.e.target.name] = e.target.value; // update the name property, assign a new value
+            return { userInfo }; // return new object jasper object
         });
     }
 
@@ -73,7 +76,7 @@ class Personal extends React.Component {
                     <form onSubmit={this.mySubmitHandler}>
                         <div className='info-card-lc'>
                             <h1>
-                                First Name:{' '}
+                                First Name:{" "}
                                 <input
                                     type='text'
                                     className='form-control'
@@ -83,7 +86,7 @@ class Personal extends React.Component {
                                 />
                             </h1>
                             <h1>
-                                Last Name:{' '}
+                                Last Name:{" "}
                                 <input
                                     type='text'
                                     className='form-control'
@@ -93,7 +96,7 @@ class Personal extends React.Component {
                                 />
                             </h1>
                             <h1>
-                                Email:{' '}
+                                Email:{" "}
                                 <input
                                     type='text'
                                     className='form-control'
@@ -103,7 +106,7 @@ class Personal extends React.Component {
                                 />
                             </h1>
                             <h1>
-                                Username:{' '}
+                                Username:{" "}
                                 <input
                                     type='text'
                                     className='form-control'
@@ -113,7 +116,7 @@ class Personal extends React.Component {
                                 />
                             </h1>
                             <h1>
-                                Nickname:{' '}
+                                Nickname:{" "}
                                 <input
                                     type='text'
                                     className='form-control'
