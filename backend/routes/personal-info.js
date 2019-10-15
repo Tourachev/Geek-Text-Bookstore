@@ -16,7 +16,7 @@ var express = require('express');
 var router = express.Router();
 
 router.post('/', (req, res, next) => {
-    var query = "select * from userinfo where userid=?";
+    var query = 'select * from userinfo where userid=?';
     pool.query(query, [req.body.username])
         .then(result => {
             console.log(result[0]);
@@ -31,9 +31,19 @@ router.post('/', (req, res, next) => {
 //     res.send('Add New Info');
 // });
 
-router.post('/update', (req, res) => {
-
-    res.send('Update info');
+router.post('/edit', (req, res) => {
+    queries.editPersonalInfo(req.body, (err, result) => {
+        if (err) {
+            console.log(
+                'Error in /backend/routes/credit-info : ' +
+                    'from addPaymentInfo\n' +
+                    err
+            );
+            res.json(null);
+        } else {
+            res.json({ decision: result }); //insert successful
+        }
+    });
 });
 
 router.delete('/:id', (req, res) => {

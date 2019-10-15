@@ -18,8 +18,10 @@
     flex-direction: column;
 }
 
-.info-card-rc {
-}
+/* .info-card-lc h1 {
+    display: flex;
+    flex-direction: row;
+} */
 
 /* CSS FOR MATERIAL UI ELEMENTS AND SIGN-UP FORMS */
 
@@ -39,7 +41,7 @@
 
 .sign-in-body,
 .tall-body {
-    height:100%;
+    height: 100%;
     margin-top: 3%;
     margin-bottom: 10%;
 }
@@ -113,9 +115,9 @@ body {
 }
 
 #purchase-container {
-    display:flex;
+    display: flex;
     justify-content: center;
-    width:100%;
+    width: 100%;
     min-height: 800px;
     height: 90%;
     margin: 5% 0% 7% 0%;
@@ -160,7 +162,7 @@ body {
     width: 80% !important;
 }
 
-#purchase-body th:nth-child(n+1) {
+#purchase-body th:nth-child(n + 1) {
     text-align: right;
 }
 
@@ -168,7 +170,7 @@ body {
     text-align: left !important;
 }
 
-#purchase-body td:nth-child(n+1) {
+#purchase-body td:nth-child(n + 1) {
     text-align: right;
 }
 

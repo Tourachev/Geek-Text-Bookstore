@@ -72,6 +72,28 @@ async function createUser(info, callback) {
     });
 }
 
+async function editUserInfo(info, callback) {
+    var query =
+        'UPDATE userinfo SET username = ?, email = ?, fname = ?,lname = ?,nickname = ?, WHERE userid = ?;';
+
+    var fields = [
+        info.username,
+        info.email,
+        info.fname,
+        info.lname,
+        info.nickname,
+        info.username
+    ];
+
+    pool.query(query, fields)
+        .then(res => {
+            callback(null, res);
+        })
+        .catch(err => {
+            callback(err, null);
+        });
+}
+
 /*
     check if username exists, then extract hashed pw, then test it
 */

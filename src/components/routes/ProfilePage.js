@@ -48,7 +48,6 @@ class ProfilePage extends React.Component {
                         <div className='profile-card'>
                             <div className='profile-card-header'>
                                 <h1 className='display-4 '>Personal Info</h1>
-                                <PersonalEditModal />
                             </div>
 
                             <div className='profile-card-content'>
