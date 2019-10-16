@@ -19,6 +19,10 @@ class Personal extends React.Component {
     }
 
     componentDidMount() {
+        this.getInfo();
+    }
+
+    getInfo() {
         fetch("/personal-info", {
             method: "POST",
             body: JSON.stringify({ username: this.state.username }),
@@ -34,9 +38,10 @@ class Personal extends React.Component {
                     lname: personalInfo.lname,
                     nickname: personalInfo.nickname
                 })
-            );
-        console.log(this.state);
-        // console.log(this.state.personalInfo);
+            )
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     mySubmitHandler = event => {
