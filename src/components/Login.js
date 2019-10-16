@@ -1,10 +1,9 @@
-import React from 'react';
-import { Button, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
-import Navbar from './NavBar';
-import Footer from './Footer';
-import { Link, Redirect } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import React from "react";
+import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import Footer from "./Footer";
+import { Link, Redirect } from "react-router-dom";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import Context from "./Context";
 
 // var username;
 
@@ -13,8 +12,8 @@ export default class Login extends React.Component {
         super(props);
 
         this.state = {
-            username: '',
-            password: '',
+            username: "",
+            password: "",
             hideIssue: true,
             redirect: false,
             hideLoader: true
@@ -46,10 +45,10 @@ export default class Login extends React.Component {
     handleSubmit = event => {
         this.setState({ hideLoader: false });
         event.preventDefault();
-        fetch('/auth', {
-            method: 'POST',
+        fetch("/auth", {
+            method: "POST",
             body: JSON.stringify(this.state),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { "Content-Type": "application/json" }
         })
             .then(res => res.json())
             .then(json => {
@@ -76,9 +75,9 @@ export default class Login extends React.Component {
     render() {
         const { username, password } = this.state;
 
-        const issueStyle = this.state.hideIssue ? { display: 'none' } : {};
+        const issueStyle = this.state.hideIssue ? { display: "none" } : {};
 
-        const loaderStyle = this.state.hideLoader ? { display: 'none' } : {};
+        const loaderStyle = this.state.hideLoader ? { display: "none" } : {};
 
         if (this.state.redirect) {
             console.log(this.state.username);
@@ -86,7 +85,7 @@ export default class Login extends React.Component {
                 <Redirect
                     push
                     to={{
-                        pathname: '/profile',
+                        pathname: "/profile",
                         state: { username: this.state.username }
                     }}
                 />
@@ -95,7 +94,6 @@ export default class Login extends React.Component {
 
         return (
             <div>
-                <Navbar />
                 <div className='container tall-body'>
                     <br />
                     <h1 className='display-4'>Login:</h1>
@@ -121,18 +119,28 @@ export default class Login extends React.Component {
                                 type='password'
                             />
                         </FormGroup>
-                            <div style={{width:'100%'}}>
-                            <Link to='/signUp' >
-                                <Button style={{width:'47%'}} >
+                        <div style={{ width: "100%" }}>
+                            <Link to='/signUp'>
+                                <Button style={{ width: "47%" }}>
                                     Sign Up
                                 </Button>
                             </Link>
-                            <Button style={{width:'47%', marginLeft:'6%'}} type='submit' >
-                                Login
-                                {/* <Link to='/profile'>Login</Link> */}
-                            </Button>
-                            </div>
-
+                            {/* This is wrong but hey. Status of logged in is changed when user clicks on login button */}
+                            <Context.Consumer>
+                                {context => (
+                                    <Button
+                                        style={{
+                                            width: "47%",
+                                            marginLeft: "6%"
+                                        }}
+                                        type='submit'
+                                        onClick={context.login}
+                                    >
+                                        Login
+                                    </Button>
+                                )}
+                            </Context.Consumer>
+                        </div>
 
                         <h1 style={loaderStyle}>
                             <LinearProgress />

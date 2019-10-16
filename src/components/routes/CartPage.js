@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import Navbar from '../NavBar';
-import Footer from '../Footer';
-import PurchaseSection from '../screens/PurchaseSection';
+import Navbar from "../NavBar";
+import Footer from "../Footer";
+import PurchaseSection from "../screens/PurchaseSection";
 
 class CartPage extends React.Component {
     constructor() {
@@ -13,7 +13,6 @@ class CartPage extends React.Component {
         return (
             <div>
                 <div className='body'>
-                    <Navbar />
                     <PurchaseSection />
                     <Footer />
                 </div>

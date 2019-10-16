@@ -1,22 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 class Header extends React.Component {
     constructor() {
         super();
-        this.state = { showBrowse: false };
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
-        this.setState({ showBrowse: true });
     }
 
     render() {
-        const style = this.state.showBrowse ? { display: 'none' } : {};
-
         return (
-            <div id='jumbo-container' style={style}>
+            <div id='jumbo-container'>
                 <div className='jumbotron header'>
                     <div className='container header-text'>
                         <h1 className='display-2'>Geek Text</h1>

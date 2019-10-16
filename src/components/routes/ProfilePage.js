@@ -1,13 +1,13 @@
-import React from 'react';
-import Navbar2 from '../NavBar2';
-import Footer from '../Footer';
-import Personal from '../profile/personal';
-import Credit from '../profile/credit';
-import Address from '../profile/address';
-import PersonalEditModal from '../profile/PersonalEditModal';
-import AddressAddModal from '../profile/AddressAddModal';
-import CreditEditModal from '../profile/CreditEditModal';
-import CreditAddModal from '../profile/CreditAddModal';
+import React from "react";
+import Navbar2 from "../NavBar2";
+import Footer from "../Footer";
+import Personal from "../profile/personal";
+import Credit from "../profile/credit";
+import Address from "../profile/address";
+import AddressAddModal from "../profile/AddressAddModal";
+import CreditAddModal from "../profile/CreditAddModal";
+import Consumer from "../Context";
+// import Provider from "../Context";
 
 class ProfilePage extends React.Component {
     constructor(props) {
@@ -21,29 +21,18 @@ class ProfilePage extends React.Component {
         };
     }
 
-    componentDidMount() {
-        // console.log(this.state.username);
-        // const addressPath = '/addressInfo' + this.user;
-        // fetch(addressPath)
-        //     .then(res => res.json())
-        //     .then(personalInfo => this.setState({ addressInfo: personalInfo }));
-        // const creditPath = '/creditInfo' + this.user;
-        // fetch(creditPath)
-        //     .then(res => res.json())
-        //     .then(personalInfo => this.setState({ creditInfo: personalInfo }));
-    }
-
-    handleAddAddress() {
-        console.log('clicked personal info edit');
-    }
+    // componentDidMount() {
+    //     <StatusContext.Consumer>
+    //         {({ isLoggedIn, setStatus }) => setStatus(true)}> )}
+    //     </StatusContext.Consumer>;
+    // }
 
     render() {
         return (
             <div>
                 <div className='body'>
-                    <Navbar2 />
                     <div className='container' id='profile-page'>
-                        <h1 className='display-3 '>Welcome Home </h1>
+                        <h1 className='display-3 '>Welcome Home</h1>
                         <hr />
                         <div className='profile-card'>
                             <div className='profile-card-header'>
@@ -92,4 +81,4 @@ class ProfilePage extends React.Component {
     }
 }
 
-export default ProfilePage;
+export { ProfilePage };
