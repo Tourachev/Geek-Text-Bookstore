@@ -6,13 +6,13 @@ class Credit extends React.Component {
         super(props);
 
         this.state = {
-            username: this.props.username,
+            username: this.props.username, //change to userid
             creditInfo: [],
-            // ccnum: "",
+            // ccnum: 0, //int(11)
             // expdate: "",
-            // cvv: "",
+            // cvv: 0, //int(3)
             // name: "",
-            // zip: "",
+            // zip: 0, //int(5)
             inEditMode: false,
             loading: true
         };
@@ -26,7 +26,7 @@ class Credit extends React.Component {
     getInfo() {
         fetch("/credit-info", {
             method: "POST",
-            body: JSON.stringify({ username: this.props.username }),
+            body: JSON.stringify({ username: this.props.username }), //change to userid
             headers: { "Content-Type": "application/json" }
         })
             .then(res => res.json())
@@ -51,7 +51,7 @@ class Credit extends React.Component {
         fetch("/credit-info/insert", {
             method: "POST",
             body: JSON.stringify({
-                username: this.props.username,
+                username: this.props.username, //change to userid
                 info: newEntry
             }),
             headers: { "Content-Type": "application/json" }
@@ -69,7 +69,7 @@ class Credit extends React.Component {
         fetch("/credit-info/delete", {
             method: "POST",
             body: JSON.stringify({
-                username: this.props.username,
+                username: this.props.username, //change to userid
                 ccnum: entry
             }),
             headers: { "Content-Type": "application/json" }

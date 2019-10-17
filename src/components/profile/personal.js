@@ -6,7 +6,8 @@ class Personal extends React.Component {
         super(props);
 
         this.state = {
-            username: this.props.username,
+            //userid: 0
+            username: this.props.username, 
             personalInfo: [],
             email: "",
             fname: "",
@@ -25,12 +26,13 @@ class Personal extends React.Component {
     getInfo() {
         fetch("/personal-info", {
             method: "POST",
-            body: JSON.stringify({ username: this.state.username }),
+            body: JSON.stringify({ username: this.state.username }), //change to userid
             headers: { "Content-Type": "application/json" }
         })
             .then(res => res.json())
             .then(personalInfo =>
                 this.setState({
+                    //username: personalInfo.username,
                     personalInfo: personalInfo,
                     loading: false,
                     email: personalInfo.email,

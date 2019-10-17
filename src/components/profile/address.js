@@ -7,6 +7,7 @@ class Address extends React.Component {
         super(props);
 
         this.state = {
+            //this needs to change to userid using the context
             username: this.props.username,
             addressInfo: [],
             loading: true
@@ -21,7 +22,7 @@ class Address extends React.Component {
     getInfo() {
         fetch('/address-info', {
             method: 'POST',
-            body: JSON.stringify({ username: this.state.username }),
+            body: JSON.stringify({ username: this.state.username }), //change to userid
             headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
@@ -37,7 +38,7 @@ class Address extends React.Component {
         fetch('/address-info/insert', {
             method: 'POST',
             body: JSON.stringify({
-                username: this.state.username,
+                username: this.state.username, //change to userid
                 state: addressInfo.state,
                 city: addressInfo.city,
                 address: addressInfo.address,
@@ -59,7 +60,7 @@ class Address extends React.Component {
         fetch('/address-info/delete', {
             method: 'POST',
             body: JSON.stringify({
-                username: this.state.username,
+                username: this.state.username, //change to userid
                 state: addressInfo.state,
                 city: addressInfo.city,
                 address: addressInfo.address,
