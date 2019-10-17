@@ -16,7 +16,7 @@ const pool = mariadb.createPool({
     port: 30000,
     user: 'team8',
     password: 'WehaveControl',
-    database: 'GeekTextDB',
+    database: 'geektext',
     connectionLimit: 2,
     dateStrings: 'date'
     //rowsAsArray: true
@@ -31,7 +31,6 @@ const pool = mariadb.createPool({
 */
 async function createUser(info, callback) {
     bcrypt.hash(info.values.Password, saltRounds, function(err, hash) {
-        var step1 = 'insert into credentials values(?, ?)';
         var cols = [
             info.values.UserName,
             info.values.Email,
@@ -40,10 +39,20 @@ async function createUser(info, callback) {
             info.values.State,
             info.values.City,
             info.values.Address,
-            info.values.NickName
+            info.values.NickName,
+            hash
         ];
-        var step2 = 'insert into userinfo values(?, ?, ?, ?, ?, ?, ?, ?)';
-
+        var query = 'insert into userinfo(username, email, fname, lname'
+            +', homestate, homecity, homeaddress, nickname, password)' 
+            + 'values(?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        pool.query(query, cols)
+        .then(res => {
+            callback(null, 3); //account created 
+        })
+        .catch(err => {
+            callback(err, null);
+        })
+        /*
         pool.getConnection()
             .then(conn => {
                 conn.query(step1, [info.values.UserName, hash])
@@ -68,7 +77,7 @@ async function createUser(info, callback) {
             })
             .catch(err => {
                 callback(err, 0); //0 - connection error
-            });
+            });*/
     });
 }
 
@@ -98,7 +107,7 @@ async function editUserInfo(info, callback) {
     check if username exists, then extract hashed pw, then test it
 */
 async function login(info, callback) {
-    var query = 'select password from credentials where userid=?';
+    var query = 'select password from userinfo where username=?';
     pool.query(query, [info.username])
         .then(res => {
             if (res.length > 0) {
