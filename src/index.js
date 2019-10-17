@@ -17,7 +17,7 @@ class Provider extends React.Component {
     }
 
     state = {
-        username: "Bubba",
+        username: "",
         isLoggedIn: false,
         login: () => {
             this.setState({ isLoggedIn: true });
@@ -68,10 +68,22 @@ class App extends Component {
                                     path='/signUp'
                                     component={ApplicationForm}
                                 />
-                                <Route
-                                    path='/profile'
-                                    component={ProfilePage}
-                                />
+                                {/* Below I am passing the context state into the Profile component*/}
+
+                                <Context.Consumer>
+                                    {context => (
+                                        <Route
+                                            path='/profile'
+                                            component={() => (
+                                                <ProfilePage
+                                                    isLoggedIn={
+                                                        context.isLoggedIn
+                                                    }
+                                                />
+                                            )}
+                                        />
+                                    )}
+                                </Context.Consumer>
                             </Switch>
                         </React.Fragment>
                     </Router>
