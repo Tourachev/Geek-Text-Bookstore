@@ -1,0 +1,23 @@
+{
+    "sqltools.connections": [
+        {
+            "askForPassword": false,
+            "database": "company",
+            "dialect": "MariaDB",
+            "name": "cop4722",
+            "port": 3306,
+            "server": "localhost",
+            "username": "root"
+        },
+        {
+            "connectionTimeout": 0,
+            "database": "GeekTextDB",
+            "dialect": "MariaDB",
+            "name": "CEN",
+            "password": "WehaveControl",
+            "port": 30000,
+            "server": "virt-servers.mynetgear.com",
+            "username": "team8"
+        }
+    ]
+}
