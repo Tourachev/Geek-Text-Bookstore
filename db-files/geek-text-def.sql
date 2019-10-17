@@ -27,17 +27,15 @@ create table if not exists credentials
 create table if not exists userinfo
 (
     userid int,
-    username varchar(40),
-    email varchar(100),
+    username varchar(40) unique,
+    email varchar(100) unique,
     fname varchar(40),
     lname varchar(40),
     homestate varchar(2),
     homecity varchar(40),
     homeaddress varchar(140),
-    nickname varchar(40)
-    foreign key(userid) references credentials(userid),
-    constraint email_const unique(email),
-    constraint username_const unique(username)
+    nickname varchar(40),
+    foreign key(userid) references credentials(userid)
 );
 
 create table if not exists paymentinfo
@@ -70,6 +68,6 @@ create table if not exists shoppingcart
     price double,
     total double as (price * quantity),
     foreign key(userid) references credentials(userid),
-    foreign key(bookid) references Book(bookid),
+    foreign key(bookid) references book(bookid),
     constraint book_const unique(userid, bookid)
 );
