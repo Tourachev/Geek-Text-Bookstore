@@ -19,7 +19,7 @@ create table if not exists book
 
 create table if not exists userinfo
 (
-    userid int,
+    userid int auto_increment,
     username varchar(40) unique,
     email varchar(100) unique,
     fname varchar(40),
