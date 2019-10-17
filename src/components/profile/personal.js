@@ -1,5 +1,6 @@
 import React from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import PropTypes from 'prop-types';
 
 class Personal extends React.Component {
     constructor(props) {
@@ -17,6 +18,16 @@ class Personal extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
     }
+
+    static contextTypes = {
+        router: PropTypes.shape({
+            history: PropTypes.shape({
+                push: PropTypes.func.isRequired,
+                replace: PropTypes.func.isRequired
+            }).isRequired,
+            staticContext: PropTypes.object
+        }).isRequired
+    };
 
     componentDidMount() {
         this.getInfo();
@@ -66,10 +77,8 @@ class Personal extends React.Component {
             // })
             .catch(err => {
                 console.log(err);
-            });
-
-        alert('Submitted!');
-        window.location.reload();
+            })
+            .then(alert('Submitted!'));
     };
 
     changeEditMode = () => {
@@ -141,7 +150,7 @@ class Personal extends React.Component {
                             <button
                                 type='submit'
                                 class='btn btn-link btn-lg'
-                                onClick={() => this.mySubmitHandler()}
+                                onClick={event => this.mySubmitHandler(event)}
                             >
                                 SAVE
                             </button>

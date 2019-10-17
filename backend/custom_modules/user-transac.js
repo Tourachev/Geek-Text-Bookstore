@@ -220,6 +220,7 @@ async function editPersonalInfo(info, callback) {
         'where userid=?';
 
     var data = [
+        info.username,
         info.email,
         info.fname,
         info.lname,
