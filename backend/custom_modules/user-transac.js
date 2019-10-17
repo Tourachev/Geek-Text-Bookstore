@@ -216,8 +216,7 @@ async function getPaymentInfo(username, callback) {
 
 async function editPersonalInfo(info, callback) {
     var query =
-        'update userinfo set (userid=?, email=?, fname=?, lname=?, nickname=?)' +
-        'where userid=?';
+        'update userinfo set userid=?, email=?, fname=?, lname=?, nickname=? where userid=?';
 
     var data = [
         info.username,
