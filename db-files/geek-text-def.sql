@@ -36,8 +36,8 @@ create table if not exists userinfo
     homeaddress varchar(140),
     nickname varchar(40)
     foreign key(userid) references credentials(userid),
-    unique(email),
-    unique(username)
+    constraint email_const unique(email),
+    constraint username_const unique(username)
 );
 
 create table if not exists paymentinfo
@@ -49,7 +49,7 @@ create table if not exists paymentinfo
     zip int(5) not null,
     expdate date not null,
     foreign key(userid) references credentials(userid),
-    unique(ccnum, userid)
+    constraint cc_const unique(ccnum, userid)
 );
 
 create table if not exists addresses
@@ -71,5 +71,5 @@ create table if not exists shoppingcart
     total double as (price * quantity),
     foreign key(userid) references credentials(userid),
     foreign key(bookid) references Book(bookid),
-    unique(userid, bookid)
+    constraint book_const unique(userid, bookid)
 );
