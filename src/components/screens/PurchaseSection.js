@@ -12,18 +12,55 @@ class PurchaseSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            cartItems: [],
+            cartBooks: [],  //Actual Books in the cart
+            cartItems: [],  //HTML of the Table
             totalPrice: 0.0
         };
+        this.getCartItems = this.getCartItems.bind(this);
+        this.removeCartItems = this.removeCartItems.bind(this);
     }
 
-    getCartItems(item) {}
+    getCartItems(books) {
+        let total = 0.0;
+        let quantity = 2; //Delete this line once the quantity property is added
+
+        //Below all books get mapped onto the cart. Delete after
+        let cart = books.map(item => {
+            total += item.price * quantity;
+            return (
+                <tr key={item.bookId}>
+                    <td>{item.title}</td>
+                    <td>x {quantity}</td>
+                    <td>${item.price.toFixed(2)}</td>
+                    <td>
+                        <Button
+                                onClick={this.removeCartItems.bind(this, item)}
+                                style={{
+                                    backgroundColor: "rgba(0,0,0,0)",
+                                    border: "none"
+                                }}
+                        >
+                            <Icon name='close' color='red' />
+                        </Button>
+                    </td>
+                </tr>
+            );
+        });
+        this.setState({cartBooks:books, cartItems: cart, totalPrice: total});
+        this.forceUpdate();
+    }
+
+    removeCartItems(item){
+        this.state.cartBooks.splice(this.state.cartBooks.findIndex(book => book.bookID === item.bookID), 1);
+        this.getCartItems(this.state.cartBooks);
+    }
 
     componentDidMount() {
         fetch("/books")
             .then(res => res.json())
             .then(books => {
-                let total = 0.0;
+                this.getCartItems(books);
+                /*let total = 0.0;
 
                 let quantity = 2; //Delete this line once the quantity property is added
 
@@ -37,18 +74,18 @@ class PurchaseSection extends React.Component {
                             <td>${item.price.toFixed(2)}</td>
                             <td>
                                 <Button
-                                    style={{
-                                        backgroundColor: "rgba(0,0,0,0)",
-                                        border: "none"
-                                    }}
+                                        onClick={this.removeCartItems.bind(this, item)}
+                                        style={{
+                                            backgroundColor: "rgba(0,0,0,0)",
+                                            border: "none"
+                                        }}
                                 >
                                     <Icon name='close' color='red' />
                                 </Button>
                             </td>
                         </tr>
                     );
-                });
-                this.setState({ cartItems: cart, totalPrice: total });
+                });*/
             });
     }
 
