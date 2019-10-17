@@ -6,16 +6,16 @@ var router = express.Router();
 const bookFilter = require('../custom_modules/book-filter');
 
 //Have to execute the function in the body of the GET request
-router.get('/', function(req, res, next) {
+router.get('/', (req, res) => {
     console.log(req);
     //res.json(bookData);
-    bookFilter.byTitle(false, POOL, function(err, result, fields) {
-        if (err) {
-            console.log('Error :' + err);
-        } else {
-            res.json(result);
-        }
-    });
+    POOL.query('select * from books')
+    .then(result => {
+        res.json(result);
+    })
+    .catch(err => {
+        console.log("Error getting book data: " + err);
+    })
 });
 
 module.exports = router;
