@@ -48,7 +48,6 @@ class PurchaseSection extends React.Component {
                 </tr>
             );
         });
-        console.log(books);
         this.setState({cartBooks:books, cartItems: cart, totalPrice: total});
         this.forceUpdate();
     }
@@ -86,7 +85,8 @@ class PurchaseSection extends React.Component {
         })*/
             .then(res => res.json())
             .then(books => {
-                let total = 0.0;
+                this.getCartItems(books);
+                /*let total = 0.0;
 
                 //let quantity = 2; //Delete this line once the quantity property is added
 
@@ -100,18 +100,18 @@ class PurchaseSection extends React.Component {
                             <td>${item.price.toFixed(2)}</td>
                             <td>
                                 <Button
-                                    style={{
-                                        backgroundColor: "rgba(0,0,0,0)",
-                                        border: "none"
-                                    }}
+                                        onClick={this.removeCartItems.bind(this, item)}
+                                        style={{
+                                            backgroundColor: "rgba(0,0,0,0)",
+                                            border: "none"
+                                        }}
                                 >
                                     <Icon name='close' color='red' />
                                 </Button>
                             </td>
                         </tr>
                     );
-                });
-                this.setState({ cartItems: cart, totalPrice: total });
+                });*/
             });
     }
 
