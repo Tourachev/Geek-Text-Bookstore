@@ -9,7 +9,7 @@ const bookFilter = require('../custom_modules/book-filter');
 router.get('/', (req, res) => {
     console.log(req);
     //res.json(bookData);
-    POOL.query('select * from books')
+    POOL.query('select * from book')
     .then(result => {
         res.json(result);
     })
