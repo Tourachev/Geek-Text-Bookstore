@@ -48,7 +48,6 @@ class PurchaseSection extends React.Component {
                 </tr>
             );
         });
-        console.log(books);
         this.setState({cartBooks:books, cartItems: cart, totalPrice: total});
         this.forceUpdate();
     }
@@ -84,11 +83,8 @@ class PurchaseSection extends React.Component {
         fetch("/books")
             .then(res => res.json())
             .then(books => {
-                books.map(item => {
-                    item["quantity"] = 2;
-                })
                 this.getCartItems(books);
-            });
+            })
     }
 
     render() {
