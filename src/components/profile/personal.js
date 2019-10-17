@@ -1,5 +1,5 @@
-import React from "react";
-import LinearProgress from "@material-ui/core/LinearProgress";
+import React from 'react';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 class Personal extends React.Component {
     constructor(props) {
@@ -8,10 +8,10 @@ class Personal extends React.Component {
         this.state = {
             username: this.props.username,
             personalInfo: [],
-            email: "",
-            fname: "",
-            lname: "",
-            nickname: "",
+            email: '',
+            fname: '',
+            lname: '',
+            nickname: '',
             inEditMode: false,
             loading: true
         };
@@ -23,10 +23,10 @@ class Personal extends React.Component {
     }
 
     getInfo() {
-        fetch("/personal-info", {
-            method: "POST",
+        fetch('/personal-info', {
+            method: 'POST',
             body: JSON.stringify({ username: this.state.username }),
-            headers: { "Content-Type": "application/json" }
+            headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
             .then(personalInfo =>
@@ -47,8 +47,8 @@ class Personal extends React.Component {
     mySubmitHandler = event => {
         event.preventDefault();
 
-        fetch("/personal-info/edit", {
-            method: "POST",
+        fetch('/personal-info/edit', {
+            method: 'POST',
             body: JSON.stringify({
                 username: this.state.username,
                 email: this.state.email,
@@ -57,18 +57,18 @@ class Personal extends React.Component {
                 nickname: this.state.nickname,
                 username: this.state.username
             }),
-            headers: { "Content-Type": "application/json" }
+            headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
-            .then(newInfo => {
-                //look at address-info for return values
-                this.getInfo();
-            })
+            // .then(newInfo => {
+            //     //look at address-info for return values
+            //     this.getInfo();
+            // })
             .catch(err => {
                 console.log(err);
             });
 
-        alert("Submitted!");
+        alert('Submitted!');
         window.location.reload();
     };
 
@@ -87,7 +87,7 @@ class Personal extends React.Component {
                     <form onSubmit={this.mySubmitHandler}>
                         <div className='info-card-lc'>
                             <h1>
-                                First Name:{" "}
+                                First Name:{' '}
                                 <input
                                     type='text'
                                     className='form-control'
@@ -97,7 +97,7 @@ class Personal extends React.Component {
                                 />
                             </h1>
                             <h1>
-                                Last Name:{" "}
+                                Last Name:{' '}
                                 <input
                                     type='text'
                                     className='form-control'
@@ -107,7 +107,7 @@ class Personal extends React.Component {
                                 />
                             </h1>
                             <h1>
-                                Email:{" "}
+                                Email:{' '}
                                 <input
                                     type='text'
                                     className='form-control'
@@ -117,7 +117,7 @@ class Personal extends React.Component {
                                 />
                             </h1>
                             <h1>
-                                Username:{" "}
+                                Username:{' '}
                                 <input
                                     type='text'
                                     className='form-control'
@@ -127,7 +127,7 @@ class Personal extends React.Component {
                                 />
                             </h1>
                             <h1>
-                                Nickname:{" "}
+                                Nickname:{' '}
                                 <input
                                     type='text'
                                     className='form-control'

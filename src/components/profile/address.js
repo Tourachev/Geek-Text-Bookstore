@@ -1,6 +1,5 @@
 import React from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import AddressEditModal from '../profile/AddressEditModal';
 
 class Address extends React.Component {
     constructor(props) {
