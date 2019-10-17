@@ -214,7 +214,7 @@ async function getPaymentInfo(username, callback) {
         });
 }
 
-async function editPersonal(info, callback) {
+async function editPersonalInfo(info, callback) {
     var query =
         'update userinfo set (userid=?, email=?, fname=?, lname=?, nickname=?)' +
         'where userid=?';
@@ -260,5 +260,5 @@ module.exports = {
     getAddresses,
     getPaymentInfo,
     editPaymentInfo,
-    editPersonal
+    editPersonalInfo
 };
