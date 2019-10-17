@@ -1,6 +1,6 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -19,10 +19,10 @@ function getModalStyle() {
 
 const useStyles = makeStyles(theme => ({
     paper: {
-        position: 'absolute',
+        position: "absolute",
         width: 600,
         backgroundColor: theme.palette.background.paper,
-        border: '1px solid #000',
+        border: "1px solid #000",
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3)
     }
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 class MyForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { state: '', city: '', address: '', zip: '' };
+        this.state = { state: "", city: "", address: "", zip: "" };
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -42,8 +42,8 @@ class MyForm extends React.Component {
     mySubmitHandler = event => {
         event.preventDefault();
 
-        fetch('/address-info/insert', {
-            method: 'POST',
+        fetch("/address-info/insert", {
+            method: "POST",
             body: JSON.stringify({
                 username: this.props.username,
                 state: this.state.state,
@@ -51,7 +51,7 @@ class MyForm extends React.Component {
                 address: this.state.address,
                 zip: this.state.zip
             }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { "Content-Type": "application/json" }
         })
             .then(res => res.json())
             .then(newInfo => {
@@ -62,13 +62,11 @@ class MyForm extends React.Component {
                 console.log(err);
             });
 
-        alert('Submitted!');
-        window.location.reload();
+        alert("Submitted!");
     };
     render() {
         return (
             <form onSubmit={this.mySubmitHandler}>
-                {/* <h1>Hello {this.state.username}</h1> */}
                 <p>Enter Address:</p>
                 <input
                     type='text'

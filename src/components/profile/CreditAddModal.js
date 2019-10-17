@@ -65,7 +65,6 @@ class MyForm extends React.Component {
             });
 
         alert("Submitted!");
-        window.location.reload();
     };
     render() {
         return (
