@@ -20,6 +20,7 @@ create table if not exists book
 create table if not exists credentials
 (
     userid int auto_increment, 
+    username varchar(40) not null,
     password varchar(256) not null,
     primary key(userid)
 );
