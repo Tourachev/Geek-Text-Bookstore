@@ -1,4 +1,4 @@
-const mariadb = require('mariadb/callback');
+const mariadb = require('mariadb');
 
 const POOL = mariadb.createPool({
     host: 'virt-servers.mynetgear.com',
