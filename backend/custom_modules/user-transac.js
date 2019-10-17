@@ -72,28 +72,6 @@ async function createUser(info, callback) {
     });
 }
 
-async function editUserInfo(info, callback) {
-    var query =
-        'UPDATE userinfo SET username = ?, email = ?, fname = ?,lname = ?,nickname = ?, WHERE userid = ?;';
-
-    var fields = [
-        info.username,
-        info.email,
-        info.fname,
-        info.lname,
-        info.nickname,
-        info.username
-    ];
-
-    pool.query(query, fields)
-        .then(res => {
-            callback(null, res);
-        })
-        .catch(err => {
-            callback(err, null);
-        });
-}
-
 /*
     check if username exists, then extract hashed pw, then test it
 */
@@ -238,7 +216,7 @@ async function getPaymentInfo(username, callback) {
 
 async function editPersonal(info, callback) {
     var query =
-        'update userinfo set (email=?, fname=?, lname=?, nickname=?)' +
+        'update userinfo set (userid=?, email=?, fname=?, lname=?, nickname=?)' +
         'where userid=?';
 
     var data = [
@@ -257,6 +235,21 @@ async function editPersonal(info, callback) {
         });
 }
 
+async function editPaymentInfo(info, callback) {
+    var query =
+        'update paymentinfo set (ccnum=?, cvv=?, name=?, zip=?, expdate=?)' +
+        'where userid=?';
+
+    var data = [info.ccnum, info.cvv, info.name, info.zip, info.expdate];
+    pool.query(query, data)
+        .then(res => {
+            callback(null, res);
+        })
+        .catch(err => {
+            callback(err, null);
+        });
+}
+
 module.exports = {
     createUser,
     login,
@@ -266,5 +259,6 @@ module.exports = {
     delAddress,
     getAddresses,
     getPaymentInfo,
+    editPaymentInfo,
     editPersonal
 };

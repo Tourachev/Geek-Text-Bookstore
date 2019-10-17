@@ -1,5 +1,5 @@
-import React from "react";
-import LinearProgress from "@material-ui/core/LinearProgress";
+import React from 'react';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 class Credit extends React.Component {
     constructor(props) {
@@ -8,11 +8,6 @@ class Credit extends React.Component {
         this.state = {
             username: this.props.username,
             creditInfo: [],
-            // ccnum: "",
-            // expdate: "",
-            // cvv: "",
-            // name: "",
-            // zip: "",
             inEditMode: false,
             loading: true
         };
@@ -24,21 +19,16 @@ class Credit extends React.Component {
     }
 
     getInfo() {
-        fetch("/credit-info", {
-            method: "POST",
+        fetch('/credit-info', {
+            method: 'POST',
             body: JSON.stringify({ username: this.props.username }),
-            headers: { "Content-Type": "application/json" }
+            headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
             .then(newInfo => {
                 this.setState({
                     creditInfo: newInfo,
                     loading: false
-                    // ccnum: newInfo.ccnum,
-                    // expdate: newInfo.expdate,
-                    // cvv: newInfo.cvv,
-                    // name: newInfo.name,
-                    // zip: newInfo.zip
                 });
                 console.log(this.state);
             })
@@ -48,13 +38,13 @@ class Credit extends React.Component {
     }
 
     handleInsert(newEntry) {
-        fetch("/credit-info/insert", {
-            method: "POST",
+        fetch('/credit-info/insert', {
+            method: 'POST',
             body: JSON.stringify({
                 username: this.props.username,
                 info: newEntry
             }),
-            headers: { "Content-Type": "application/json" }
+            headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
             .then(newInfo => {
@@ -66,25 +56,50 @@ class Credit extends React.Component {
     }
 
     handleDelete(entry) {
-        fetch("/credit-info/delete", {
-            method: "POST",
+        fetch('/credit-info/delete', {
+            method: 'POST',
             body: JSON.stringify({
                 username: this.props.username,
                 ccnum: entry
             }),
-            headers: { "Content-Type": "application/json" }
+            headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
             .then(newInfo => {
                 this.getInfo();
-                alert("Deleted!");
+                alert('Deleted!');
             })
             .catch(err => {
-                console.log("Hello " + err);
+                console.log('Hello ' + err);
             });
     }
 
-    mySubmitHandler = () => {};
+    mySubmitHandler = event => {
+        event.preventDefault();
+
+        fetch('/personal-info/edit', {
+            method: 'POST',
+            body: JSON.stringify({
+                ccnum: this.state.ccnum,
+                cvv: this.state.cvv,
+                name: this.state.name,
+                zip: this.state.zip,
+                expdate: this.state.expdate,
+                username: this.state.username
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(res => res.json())
+            // .then(newInfo => {
+            //     //look at address-info for return values
+            //     this.getInfo();
+            // })
+            .catch(err => {
+                console.log(err);
+            });
+
+        alert('Submitted!');
+    };
 
     changeEditMode = () => {
         this.setState({ inEditMode: true });
@@ -130,7 +145,7 @@ class Credit extends React.Component {
                 <div className='info-card'>
                     <div className='info-card-lc'>
                         <h1>
-                            Credit Card Number:{" "}
+                            Credit Card Number:{' '}
                             <input
                                 type='text'
                                 className='form-control'
@@ -140,7 +155,7 @@ class Credit extends React.Component {
                             />
                         </h1>
                         <h1>
-                            Expiration Date:{" "}
+                            Expiration Date:{' '}
                             <input
                                 type='text'
                                 className='form-control'
@@ -150,7 +165,7 @@ class Credit extends React.Component {
                             />
                         </h1>
                         <h1>
-                            CVV:{" "}
+                            CVV:{' '}
                             <input
                                 type='text'
                                 className='form-control'
@@ -160,7 +175,7 @@ class Credit extends React.Component {
                             />
                         </h1>
                         <h1>
-                            Name On Card:{" "}
+                            Name On Card:{' '}
                             <input
                                 type='text'
                                 className='form-control'
@@ -170,7 +185,7 @@ class Credit extends React.Component {
                             />
                         </h1>
                         <h1>
-                            Zip:{" "}
+                            Zip:{' '}
                             <input
                                 type='text'
                                 className='form-control'
