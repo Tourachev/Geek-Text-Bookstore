@@ -12,6 +12,10 @@ import ApplicationForm from "./components/ApplicationForm";
 import Context from "./components/Context";
 
 class Provider extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     state = {
         username: "Bubba",
         isLoggedIn: false,
@@ -20,6 +24,9 @@ class Provider extends React.Component {
         },
         logout: () => {
             this.setState({ isLoggedIn: false });
+        },
+        setUsername: name => {
+            this.setState({ username: name });
         }
     };
 
@@ -73,5 +80,7 @@ class App extends Component {
         );
     }
 }
+
+export default Provider;
 
 ReactDOM.render(<App />, document.getElementById("root"));

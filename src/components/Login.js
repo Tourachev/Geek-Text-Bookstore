@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import { Link, Redirect } from "react-router-dom";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Context from "./Context";
+import Provider from "../index";
 
 // var username;
 
@@ -23,6 +24,10 @@ export default class Login extends React.Component {
         this.handleIssue = this.handleIssue.bind(this);
         this.handleLoader = this.handleLoader.bind(this);
     }
+
+    setUsername(name) {}
+
+    //Handles input in form
 
     handleChange = event => {
         this.setState({
@@ -61,7 +66,6 @@ export default class Login extends React.Component {
                     this.setState({ hideLoader: true });
                     this.handleIssue();
                 }
-
                 // else if (json.result == 2) {
                 //     this.setState({ hideLoader: true });
                 //     this.handleIssue();
@@ -80,15 +84,18 @@ export default class Login extends React.Component {
         const loaderStyle = this.state.hideLoader ? { display: "none" } : {};
 
         if (this.state.redirect) {
-            console.log(this.state.username);
             return (
-                <Redirect
-                    push
-                    to={{
-                        pathname: "/profile",
-                        state: { username: this.state.username }
-                    }}
-                />
+                <Context.Consumer>
+                    {context => (
+                        <Redirect
+                            push
+                            to={{
+                                pathname: "/profile",
+                                state: { username: context.username }
+                            }}
+                        />
+                    )}
+                </Context.Consumer>
             );
         }
 
@@ -125,7 +132,7 @@ export default class Login extends React.Component {
                                     Sign Up
                                 </Button>
                             </Link>
-                            {/* This is wrong but hey. Status of logged in is changed when user clicks on login button */}
+                            {/* This is wrong but hey. Status of logged in is changed when user clicks on login button. Username is passed into context */}
                             <Context.Consumer>
                                 {context => (
                                     <Button
@@ -134,7 +141,12 @@ export default class Login extends React.Component {
                                             marginLeft: "6%"
                                         }}
                                         type='submit'
-                                        onClick={context.login}
+                                        onClick={() => {
+                                            context.login();
+                                            context.setUsername(
+                                                this.state.username
+                                            );
+                                        }}
                                     >
                                         Login
                                     </Button>
