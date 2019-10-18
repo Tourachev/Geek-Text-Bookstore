@@ -15,6 +15,7 @@ class PurchaseSection extends React.Component {
             cartBooks: [],  //Actual Books in the cart
             cartItems: [],  //HTML of the Table
             quantity: 0,
+            username: "blanket", //should use context here
             totalPrice: 0.0
         };
         this.changeQuantity = this.changeQuantity.bind(this);
@@ -72,12 +73,45 @@ class PurchaseSection extends React.Component {
     componentDidMount() {
         //userid, bookid, quantity, price, total
         fetch("/books")
-            .then(res => res.json())
+            /* .then(res => res.json())
             .then(books => {
-                books.map(item => {
+               books.map(item => {
                     item["quantity"] = 2;
                 })
                 this.getCartItems(books);
+        fetch("/cart", {
+            method: 'post',
+            body: JSON.stringify({username: this.state.username}),
+            headers: {'Content-Type': 'application/json'},
+        })*/
+            .then(res => res.json())
+            .then(books => {
+                let total = 0.0;
+
+                //let quantity = 2; //Delete this line once the quantity property is added
+
+                //Below all books get mapped onto the cart. Delete after
+                let cart = books.map(item => {
+                    total += item.price * item.quantity;
+                    return (
+                        <tr key={item.bookId}>
+                            <td>{item.title}</td>
+                            <td>x {item.quantity}</td>
+                            <td>${item.price.toFixed(2)}</td>
+                            <td>
+                                <Button
+                                    style={{
+                                        backgroundColor: "rgba(0,0,0,0)",
+                                        border: "none"
+                                    }}
+                                >
+                                    <Icon name='close' color='red' />
+                                </Button>
+                            </td>
+                        </tr>
+                    );
+                });
+                this.setState({ cartItems: cart, totalPrice: total });
             });
     }
 
