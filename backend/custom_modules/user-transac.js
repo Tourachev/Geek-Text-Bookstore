@@ -16,7 +16,7 @@ const pool = mariadb.createPool({
     port: 30000,
     user: 'team8',
     password: 'WehaveControl',
-    database: 'GeekTextDB',
+    database: 'geektext',
     connectionLimit: 2,
     dateStrings: 'date'
     //rowsAsArray: true
