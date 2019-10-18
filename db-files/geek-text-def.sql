@@ -17,13 +17,6 @@ create table if not exists book
     primary key(bookid)
 );
 
-create table if not exists credentials
-(
-    userid int, 
-    password varchar(256) not null,
-    primary key(userid)
-);
-
 create table if not exists userinfo
 (
     userid int,
@@ -35,39 +28,42 @@ create table if not exists userinfo
     homecity varchar(40),
     homeaddress varchar(140),
     nickname varchar(40),
-    foreign key(userid) references credentials(userid)
+    primary key(userid)
 );
 
 create table if not exists paymentinfo
 (
-    userid int,
+    username varchar(40),
     ccnum int not null,
     cvv int(3) not null,
     name varchar(100) not null,
     zip int(5) not null,
     expdate date not null,
-    foreign key(userid) references credentials(userid),
+    foreign key(username) references userinfo(username)
+        on update cascade,
     constraint cc_const unique(ccnum, userid)
 );
 
 create table if not exists addresses
 (
-    userid int,
+    username varchar(40),
     state varchar(2),
     city varchar(40),
     address varchar(140),
     zip int(5),
-    foreign key(userid) references credentials(userid)
+    foreign key(username) references userinfo(username)
+        on update cascade
 );
 
 create table if not exists shoppingcart
 (
-    userid int,
+    username varchar(40),
     bookid int,
     quantity int,
     price double,
     total double as (price * quantity),
-    foreign key(userid) references credentials(userid),
+    foreign key(username) references userinfo(username)
+        on update cascade,
     foreign key(bookid) references book(bookid),
     constraint book_const unique(userid, bookid)
 );
