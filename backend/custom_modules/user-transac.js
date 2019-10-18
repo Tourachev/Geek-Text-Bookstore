@@ -7,18 +7,18 @@
         Modification of shipping addresses
 */
 
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const NOT_UNIQUE = 45017; // error num for unique constraint from mariadb
-const mariadb = require('mariadb');
+const mariadb = require("mariadb");
 const pool = mariadb.createPool({
-    host: 'virt-servers.mynetgear.com',
+    host: "virt-servers.mynetgear.com",
     port: 30000,
-    user: 'team8',
-    password: 'WehaveControl',
-    database: 'geektext',
+    user: "team8",
+    password: "WehaveControl",
+    database: "geektext",
     connectionLimit: 2,
-    dateStrings: 'date'
+    dateStrings: "date"
     //rowsAsArray: true
 });
 
@@ -31,7 +31,7 @@ const pool = mariadb.createPool({
 */
 async function createUser(info, callback) {
     bcrypt.hash(info.values.Password, saltRounds, function(err, hash) {
-        var step1 = 'insert into credentials values(?, ?)';
+        var step1 = "insert into credentials values(?, ?)";
         var cols = [
             info.values.UserName,
             info.values.Email,
@@ -42,7 +42,7 @@ async function createUser(info, callback) {
             info.values.Address,
             info.values.NickName
         ];
-        var step2 = 'insert into userinfo values(?, ?, ?, ?, ?, ?, ?, ?)';
+        var step2 = "insert into userinfo values(?, ?, ?, ?, ?, ?, ?, ?)";
 
         pool.getConnection()
             .then(conn => {
@@ -76,7 +76,7 @@ async function createUser(info, callback) {
     check if username exists, then extract hashed pw, then test it
 */
 async function login(info, callback) {
-    var query = 'select password from credentials where userid=?';
+    var query = "select password from credentials where userid=?";
     pool.query(query, [info.username])
         .then(res => {
             if (res.length > 0) {
@@ -100,7 +100,7 @@ async function login(info, callback) {
 }
 
 async function addPaymentInfo(info, callback) {
-    var query = 'insert into paymentinfo values(?, ?, ?, ?, ?, ?)';
+    var query = "insert into paymentinfo values(?, ?, ?, ?, ?, ?)";
 
     var fields = [
         info.username,
@@ -129,7 +129,7 @@ async function addPaymentInfo(info, callback) {
             callback - function that will include the result or error
 */
 async function delPaymentInfo(info, callback) {
-    var query = 'delete from paymentinfo where ccnum=? and userid=?';
+    var query = "delete from paymentinfo where ccnum=? and userid=?";
 
     pool.query(query, [info.ccnum, info.username])
         .then(res => {
@@ -148,7 +148,7 @@ async function delPaymentInfo(info, callback) {
             callback - function that will include the result or error
 */
 async function addAddress(info, callback) {
-    var query = 'insert into addresses values(?, ?, ?, ?, ?)';
+    var query = "insert into addresses values(?, ?, ?, ?, ?)";
 
     var fields = [info.username, info.state, info.city, info.address, info.zip];
 
@@ -174,8 +174,8 @@ async function addAddress(info, callback) {
 */
 async function delAddress(info, callback) {
     var query =
-        'delete from addresses where (' +
-        'address=? and userid=? and state=? and city=? and zip=?)';
+        "delete from addresses where (" +
+        "address=? and userid=? and state=? and city=? and zip=?)";
 
     var data = [info.address, info.username, info.state, info.city, info.zip];
 
@@ -190,7 +190,7 @@ async function delAddress(info, callback) {
 
 async function getAddresses(username, callback) {
     var query =
-        'select state, city, address, zip from addresses where userid=?';
+        "select state, city, address, zip from addresses where userid=?";
 
     pool.query(query, [username])
         .then(res => {
@@ -203,7 +203,7 @@ async function getAddresses(username, callback) {
 
 async function getPaymentInfo(username, callback) {
     var query =
-        'select ccnum, cvv, name, zip, expdate from paymentinfo where userid=?';
+        "select ccnum, cvv, name, zip, expdate from paymentinfo where userid=?";
 
     pool.query(query, [username])
         .then(res => {
@@ -216,7 +216,7 @@ async function getPaymentInfo(username, callback) {
 
 async function editPersonalInfo(info, callback) {
     var query =
-        'update userinfo set userid=?, email=?, fname=?, lname=?, nickname=? where userid=?';
+        "update userinfo set userid=?, email=?, fname=?, lname=?, nickname=? where userid=?";
 
     var data = [
         info.username,
@@ -237,10 +237,17 @@ async function editPersonalInfo(info, callback) {
 
 async function editPaymentInfo(info, callback) {
     var query =
-        'update paymentinfo set (ccnum=?, cvv=?, name=?, zip=?, expdate=?)' +
-        'where userid=?';
+        "update paymentinfo set (ccnum=?, cvv=?, name=?, zip=?, expdate=?)" +
+        "where userid=?";
 
-    var data = [info.ccnum, info.cvv, info.name, info.zip, info.expdate];
+    var data = [
+        info.ccnum,
+        info.cvv,
+        info.name,
+        info.zip,
+        info.expdate,
+        info.username
+    ];
     pool.query(query, data)
         .then(res => {
             callback(null, res);
@@ -251,27 +258,26 @@ async function editPaymentInfo(info, callback) {
 }
 
 async function getCart(info, callback) {
-    var query = 'select * from shoppingcart where userid=?';
+    var query = "select * from shoppingcart where userid=?";
     pool.query(query, [info.username])
         .then(result => {
             callback(null, result);
         })
         .catch(err => {
             callback(err, null);
-        })
+        });
 }
 
 async function addToCart(info, callback) {
-    var query1 = 'select bookid from shoppingcart where userid=? and bookid=?';
+    var query1 = "select bookid from shoppingcart where userid=? and bookid=?";
     pool.query(query1, [info.username, info.bookid])
         .then(result => {
             console.log(result);
         })
         .catch(err => {
             console.log(err);
-        })
+        });
 }
-
 
 module.exports = {
     createUser,
@@ -284,5 +290,6 @@ module.exports = {
     getPaymentInfo,
     editPaymentInfo,
     editPersonalInfo,
-    getCart
+    getCart,
+    addToCart
 };

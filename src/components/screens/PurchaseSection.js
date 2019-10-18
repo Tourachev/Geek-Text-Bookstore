@@ -12,8 +12,8 @@ class PurchaseSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            cartBooks: [],  //Actual Books in the cart
-            cartItems: [],  //HTML of the Table
+            cartBooks: [], //Actual Books in the cart
+            cartItems: [], //HTML of the Table
             quantity: 0,
             username: "blanket", //should use context here
             totalPrice: 0.0
@@ -32,15 +32,23 @@ class PurchaseSection extends React.Component {
             return (
                 <tr key={item.bookId}>
                     <td>{item.title}</td>
-                    <td>x<input class="purchase-input" type="text" value={item.quantity} onChange={this.changeQuantity.bind(this, item)}/></td>
+                    <td>
+                        x
+                        <input
+                            class='purchase-input'
+                            type='text'
+                            value={item.quantity}
+                            onChange={this.changeQuantity.bind(this, item)}
+                        />
+                    </td>
                     <td>${item.price.toFixed(2)}</td>
                     <td>
                         <Button
-                                onClick={this.removeCartItems.bind(this, item)}
-                                style={{
-                                    backgroundColor: "rgba(0,0,0,0)",
-                                    border: "none"
-                                }}
+                            onClick={this.removeCartItems.bind(this, item)}
+                            style={{
+                                backgroundColor: "rgba(0,0,0,0)",
+                                border: "none"
+                            }}
                         >
                             <Icon name='close' color='red' />
                         </Button>
@@ -49,22 +57,27 @@ class PurchaseSection extends React.Component {
             );
         });
         console.log(books);
-        this.setState({cartBooks:books, cartItems: cart, totalPrice: total});
+        this.setState({ cartBooks: books, cartItems: cart, totalPrice: total });
         this.forceUpdate();
     }
 
     changeQuantity(item, event) {
-        let isNum = new RegExp('^[0-9]+$');
+        let isNum = new RegExp("^[0-9]+$");
         if (isNum.test(event.target.value) && event.target.value.length < 6) {
             let id = item.bookID;
-            let value = parseInt(event.target.value, 10)
-            this.state.cartBooks.find(book => book.bookID === id).quantity = value;
+            let value = parseInt(event.target.value, 10);
+            this.state.cartBooks.find(
+                book => book.bookID === id
+            ).quantity = value;
             this.getCartItems(this.state.cartBooks);
         }
     }
 
-    removeCartItems(item){
-        this.state.cartBooks.splice(this.state.cartBooks.findIndex(book => book.bookID === item.bookID), 1);
+    removeCartItems(item) {
+        this.state.cartBooks.splice(
+            this.state.cartBooks.findIndex(book => book.bookID === item.bookID),
+            1
+        );
         this.getCartItems(this.state.cartBooks);
     }
 
@@ -78,8 +91,7 @@ class PurchaseSection extends React.Component {
             .then(res => res.json())
             .then(books => {
                 this.getCartItems(books);
-            })
-        })
+            });
     }
 
     render() {

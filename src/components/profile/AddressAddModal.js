@@ -105,7 +105,6 @@ class MyForm extends React.Component {
                 <button type='submit' class='btn btn-outline-secondary'>
                     Submit
                 </button>
-                {/* <input type='submit' value='submit' /> */}
             </form>
         );
     }

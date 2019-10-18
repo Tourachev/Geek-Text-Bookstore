@@ -1,5 +1,5 @@
-import React from 'react';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import React from "react";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 class Address extends React.Component {
     constructor(props) {
@@ -14,14 +14,13 @@ class Address extends React.Component {
 
     componentDidMount() {
         this.getInfo();
-        // console.log(this.state.personalInfo);
     }
 
     getInfo() {
-        fetch('/address-info', {
-            method: 'POST',
+        fetch("/address-info", {
+            method: "POST",
             body: JSON.stringify({ username: this.state.username }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { "Content-Type": "application/json" }
         })
             .then(res => res.json())
             .then(newInfo => {
@@ -33,8 +32,8 @@ class Address extends React.Component {
     }
 
     handleInsert(addressInfo) {
-        fetch('/address-info/insert', {
-            method: 'POST',
+        fetch("/address-info/insert", {
+            method: "POST",
             body: JSON.stringify({
                 username: this.state.username,
                 state: addressInfo.state,
@@ -42,7 +41,7 @@ class Address extends React.Component {
                 address: addressInfo.address,
                 zip: addressInfo.zip
             }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { "Content-Type": "application/json" }
         })
             .then(res => res.json())
             .then(newInfo => {
@@ -55,8 +54,8 @@ class Address extends React.Component {
     }
 
     handleDelete(addressInfo) {
-        fetch('/address-info/delete', {
-            method: 'POST',
+        fetch("/address-info/delete", {
+            method: "POST",
             body: JSON.stringify({
                 username: this.state.username,
                 state: addressInfo.state,
@@ -64,13 +63,13 @@ class Address extends React.Component {
                 address: addressInfo.address,
                 zip: addressInfo.zip
             }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { "Content-Type": "application/json" }
         })
             .then(res => res.json())
             .then(newInfo => {
                 //look at address-info for return values
                 this.getInfo();
-                alert('Deleted!');
+                alert("Deleted!");
             })
             .catch(err => {
                 console.log(err);
