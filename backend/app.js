@@ -6,6 +6,7 @@ const logger = require('morgan');
 const cors = require('cors');
 let bodyParser = require('body-parser');
 
+const cartRouter = require('./routes/cart');
 const indexRouter = require('./routes/index');
 const booksRouter = require('./routes/books');
 const personalInfoRouter = require('./routes/personal-info');
@@ -39,6 +40,7 @@ app.use('/address-info', addressInfoRouter);
 app.use('/credit-info', creditInfoRouter);
 app.use('/registration', usersRouter);
 app.use('/auth', authRouter);
+app.use('/cart', cartRouter);
 
 //purchase router
 app.use('/purchase', purchaseRouter);
