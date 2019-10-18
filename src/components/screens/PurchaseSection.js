@@ -84,9 +84,6 @@ class PurchaseSection extends React.Component {
         fetch("/books")
             .then(res => res.json())
             .then(books => {
-                books.map(item => {
-                    item["quantity"] = 2;
-                })
                 this.getCartItems(books);
             })
     }
