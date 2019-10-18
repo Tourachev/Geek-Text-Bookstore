@@ -28,6 +28,7 @@ create table if not exists userinfo
     homecity varchar(40),
     homeaddress varchar(140),
     nickname varchar(40),
+    password varchar(256),
     primary key(userid)
 );
 
@@ -41,7 +42,7 @@ create table if not exists paymentinfo
     expdate date not null,
     foreign key(username) references userinfo(username)
         on update cascade,
-    constraint cc_const unique(ccnum, userid)
+    constraint cc_const unique(ccnum, username)
 );
 
 create table if not exists addresses
@@ -65,5 +66,5 @@ create table if not exists shoppingcart
     foreign key(username) references userinfo(username)
         on update cascade,
     foreign key(bookid) references book(bookid),
-    constraint book_const unique(userid, bookid)
+    constraint book_const unique(username, bookid)
 );
