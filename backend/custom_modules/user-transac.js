@@ -250,6 +250,29 @@ async function editPaymentInfo(info, callback) {
         });
 }
 
+async function getCart(info, callback) {
+    var query = 'select * from shoppingcart where userid=?';
+    pool.query(query, [info.username])
+        .then(result => {
+            callback(null, result);
+        })
+        .catch(err => {
+            callback(err, null);
+        })
+}
+
+async function addToCart(info, callback) {
+    var query1 = 'select bookid from shoppingcart where userid=? and bookid=?';
+    pool.query(query1, [info.username, info.bookid])
+        .then(result => {
+            console.log(result);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}
+
+
 module.exports = {
     createUser,
     login,
@@ -260,5 +283,6 @@ module.exports = {
     getAddresses,
     getPaymentInfo,
     editPaymentInfo,
-    editPersonalInfo
+    editPersonalInfo,
+    getCart
 };
