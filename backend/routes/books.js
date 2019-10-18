@@ -1,21 +1,30 @@
-const POOL = require('../custom_modules/db-pool');
+const mariadb = require('mariadb');
+const pool = mariadb.createPool({
+    host: 'virt-servers.mynetgear.com',
+    port: 30000,
+    user: 'team8',
+    password: 'WehaveControl',
+    database: 'geektext',
+    connectionLimit: 2,
+    dateStrings: 'date'
+    //rowsAsArray: true
+});
 
 var express = require('express');
 var router = express.Router();
-
-const bookFilter = require('../custom_modules/book-filter');
 
 //Have to execute the function in the body of the GET request
 router.get('/', function(req, res, next) {
     console.log(req);
     //res.json(bookData);
-    bookFilter.byTitle(false, POOL, function(err, result, fields) {
-        if (err) {
-            console.log('Error :' + err);
-        } else {
+    pool.query('select * from book')
+        .then(result => {
+            console.log(result);
             res.json(result);
-        }
-    });
+        })
+        .catch(err => {
+            console.log(err);
+        })
 });
 
 module.exports = router;
