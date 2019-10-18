@@ -69,14 +69,7 @@ class PurchaseSection extends React.Component {
     }
 
     componentDidMount() {
-        //userid, bookid, quantity, price, total
-            /* .then(res => res.json())
-            .then(books => {
-               books.map(item => {
-                    item["quantity"] = 2;
-                })
-                this.getCartItems(books);
-        fetch("/cart", {
+        /*fetch("/cart", {
             method: 'post',
             body: JSON.stringify({username: this.state.username}),
             headers: {'Content-Type': 'application/json'},
@@ -86,6 +79,7 @@ class PurchaseSection extends React.Component {
             .then(books => {
                 this.getCartItems(books);
             })
+        })
     }
 
     render() {
