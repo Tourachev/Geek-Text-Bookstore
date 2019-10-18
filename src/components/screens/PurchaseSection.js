@@ -14,23 +14,24 @@ class PurchaseSection extends React.Component {
         this.state = {
             cartBooks: [],  //Actual Books in the cart
             cartItems: [],  //HTML of the Table
+            quantity: 0,
             totalPrice: 0.0
         };
+        this.changeQuantity = this.changeQuantity.bind(this);
         this.getCartItems = this.getCartItems.bind(this);
         this.removeCartItems = this.removeCartItems.bind(this);
     }
 
     getCartItems(books) {
         let total = 0.0;
-        let quantity = 2; //Delete this line once the quantity property is added
 
         //Below all books get mapped onto the cart. Delete after
         let cart = books.map(item => {
-            total += item.price * quantity;
+            total += item.price * item.quantity;
             return (
                 <tr key={item.bookId}>
                     <td>{item.title}</td>
-                    <td>x {quantity}</td>
+                    <td>x<input class="purchase-input" type="text" value={item.quantity} onChange={this.changeQuantity.bind(this, item)}/></td>
                     <td>${item.price.toFixed(2)}</td>
                     <td>
                         <Button
@@ -46,8 +47,21 @@ class PurchaseSection extends React.Component {
                 </tr>
             );
         });
+        console.log(books);
         this.setState({cartBooks:books, cartItems: cart, totalPrice: total});
         this.forceUpdate();
+    }
+
+    changeQuantity(item, event) {
+        let isNum = new RegExp('^[0-9]+$');
+        if (isNum.test(event.target.value) && event.target.value.length < 6) {
+            console.log("is a num")
+            let id = item.bookID;
+            let value = parseInt(event.target.value, 10)
+            //console.log(this.state.cartBooks.find(book => book.bookID === id))
+            this.state.cartBooks.find(book => book.bookID === id).quantity = value;
+            this.getCartItems(this.state.cartBooks);
+        }
     }
 
     removeCartItems(item){
@@ -56,36 +70,14 @@ class PurchaseSection extends React.Component {
     }
 
     componentDidMount() {
+        //userid, bookid, quantity, price, total
         fetch("/books")
             .then(res => res.json())
             .then(books => {
+                books.map(item => {
+                    item["quantity"] = 2;
+                })
                 this.getCartItems(books);
-                /*let total = 0.0;
-
-                let quantity = 2; //Delete this line once the quantity property is added
-
-                //Below all books get mapped onto the cart. Delete after
-                let cart = books.map(item => {
-                    total += item.price * quantity;
-                    return (
-                        <tr key={item.bookId}>
-                            <td>{item.title}</td>
-                            <td>x {quantity}</td>
-                            <td>${item.price.toFixed(2)}</td>
-                            <td>
-                                <Button
-                                        onClick={this.removeCartItems.bind(this, item)}
-                                        style={{
-                                            backgroundColor: "rgba(0,0,0,0)",
-                                            border: "none"
-                                        }}
-                                >
-                                    <Icon name='close' color='red' />
-                                </Button>
-                            </td>
-                        </tr>
-                    );
-                });*/
             });
     }
 
