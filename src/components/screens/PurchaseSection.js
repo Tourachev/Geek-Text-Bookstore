@@ -70,7 +70,6 @@ class PurchaseSection extends React.Component {
 
     componentDidMount() {
         //userid, bookid, quantity, price, total
-        fetch("/books")
             /* .then(res => res.json())
             .then(books => {
                books.map(item => {
