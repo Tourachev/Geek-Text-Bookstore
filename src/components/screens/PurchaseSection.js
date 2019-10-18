@@ -48,6 +48,7 @@ class PurchaseSection extends React.Component {
                 </tr>
             );
         });
+        console.log(books);
         this.setState({cartBooks:books, cartItems: cart, totalPrice: total});
         this.forceUpdate();
     }
@@ -55,10 +56,8 @@ class PurchaseSection extends React.Component {
     changeQuantity(item, event) {
         let isNum = new RegExp('^[0-9]+$');
         if (isNum.test(event.target.value) && event.target.value.length < 6) {
-            console.log("is a num")
             let id = item.bookID;
             let value = parseInt(event.target.value, 10)
-            //console.log(this.state.cartBooks.find(book => book.bookID === id))
             this.state.cartBooks.find(book => book.bookID === id).quantity = value;
             this.getCartItems(this.state.cartBooks);
         }
@@ -83,35 +82,13 @@ class PurchaseSection extends React.Component {
             body: JSON.stringify({username: this.state.username}),
             headers: {'Content-Type': 'application/json'},
         })*/
+        fetch("/books")
             .then(res => res.json())
             .then(books => {
+                books.map(item => {
+                    item["quantity"] = 2;
+                })
                 this.getCartItems(books);
-                /*let total = 0.0;
-
-                //let quantity = 2; //Delete this line once the quantity property is added
-
-                //Below all books get mapped onto the cart. Delete after
-                let cart = books.map(item => {
-                    total += item.price * item.quantity;
-                    return (
-                        <tr key={item.bookId}>
-                            <td>{item.title}</td>
-                            <td>x {item.quantity}</td>
-                            <td>${item.price.toFixed(2)}</td>
-                            <td>
-                                <Button
-                                        onClick={this.removeCartItems.bind(this, item)}
-                                        style={{
-                                            backgroundColor: "rgba(0,0,0,0)",
-                                            border: "none"
-                                        }}
-                                >
-                                    <Icon name='close' color='red' />
-                                </Button>
-                            </td>
-                        </tr>
-                    );
-                });*/
             });
     }
 
