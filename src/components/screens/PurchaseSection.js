@@ -8,7 +8,7 @@ class PurchaseSection extends React.Component {
         We will need to pass a variable across to have all
         items in the cart that stores the quantities as well
     */
-
+    //
     constructor(props) {
         super(props);
         this.state = {
