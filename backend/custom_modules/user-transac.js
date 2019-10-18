@@ -215,24 +215,39 @@ async function getPaymentInfo(username, callback) {
 }
 
 async function editPersonalInfo(info, callback) {
-    var query =
-        "update userinfo set userid=?, email=?, fname=?, lname=?, nickname=? where userid=?";
-
+    var step1 = 'update credentials set userid=? where userid=?' 
+    var step2 = 
+        'update userinfo set email=?, fname=?, lname=?, nickname=? where userid=?';
     var data = [
-        info.username,
         info.email,
         info.fname,
         info.lname,
         info.nickname,
-        info.username
+        info.newuser
     ];
-    pool.query(query, data)
-        .then(res => {
-            callback(null, res);
+    pool.getConnection()
+        .then(conn => {
+            conn.query(step1, [info.newuser, info.username])
+                .then(() => {
+                    conn.query(step2, data)
+                        .then(() => {
+                            conn.commit();
+                            conn.release();
+                            callback(null, 3); //info updated
+                        })
+                        .catch(err => {
+                            conn.rollback();
+                            conn.release();
+                            callback(err, 2); //email taken
+                        })
+                })
+                .catch(err => {
+                    callback(err, 1); //username taken
+                })
         })
         .catch(err => {
-            callback(err, null);
-        });
+            callback(err, null); //connection error
+        })
 }
 
 async function editPaymentInfo(info, callback) {
