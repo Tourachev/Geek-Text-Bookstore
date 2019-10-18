@@ -148,7 +148,7 @@ async function delPaymentInfo(info, callback) {
             callback - function that will include the result or error
 */
 async function addAddress(info, callback) {
-    var query = 'insert into shipaddresses values(?, ?, ?, ?, ?)';
+    var query = 'insert into addresses values(?, ?, ?, ?, ?)';
 
     var fields = [info.username, info.state, info.city, info.address, info.zip];
 
@@ -174,7 +174,7 @@ async function addAddress(info, callback) {
 */
 async function delAddress(info, callback) {
     var query =
-        'delete from shipaddresses where (' +
+        'delete from addresses where (' +
         'address=? and userid=? and state=? and city=? and zip=?)';
 
     var data = [info.address, info.username, info.state, info.city, info.zip];
@@ -190,7 +190,7 @@ async function delAddress(info, callback) {
 
 async function getAddresses(username, callback) {
     var query =
-        'select state, city, address, zip from shipaddresses where userid=?';
+        'select state, city, address, zip from addresses where userid=?';
 
     pool.query(query, [username])
         .then(res => {
