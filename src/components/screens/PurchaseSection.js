@@ -1,7 +1,7 @@
-import React from 'react';
-import { Table } from 'reactstrap';
-import { Button } from 'react-bootstrap';
-import { Icon } from 'semantic-ui-react';
+import React from "react";
+import { Table } from "reactstrap";
+import { Button } from "react-bootstrap";
+import { Icon } from "semantic-ui-react";
 class PurchaseSection extends React.Component {
     /*
         Cart Items has ALL the books right now.
@@ -12,8 +12,8 @@ class PurchaseSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            cartBooks: [], //Actual Books in the cart
-            cartItems: [], //HTML of the Table
+            cartBooks: [],  //Actual Books in the cart
+            cartItems: [],  //HTML of the Table
             quantity: 0,
             username: "blanket2", //should use context here
             totalPrice: 0.0
@@ -32,15 +32,7 @@ class PurchaseSection extends React.Component {
             return (
                 <tr key={item.bookId}>
                     <td>{item.title}</td>
-                    <td>
-                        x
-                        <input
-                            class='purchase-input'
-                            type='text'
-                            value={item.quantity}
-                            onChange={this.changeQuantity.bind(this, item)}
-                        />
-                    </td>
+                    <td>x<input class="purchase-input" type="text" value={item.quantity} onChange={this.changeQuantity.bind(this, item)}/></td>
                     <td>${item.price.toFixed(2)}</td>
                     <td>
                         <Button
@@ -57,7 +49,7 @@ class PurchaseSection extends React.Component {
             );
         });
         console.log(books);
-        this.setState({ cartBooks: books, cartItems: cart, totalPrice: total });
+        this.setState({cartBooks:books, cartItems: cart, totalPrice: total});
         this.forceUpdate();
     }
 
@@ -104,7 +96,7 @@ class PurchaseSection extends React.Component {
         return (
             <div id='purchase-container'>
                 <div id='purchase-body'>
-                    <h1 className='display-4' style={{ marginBottom: '3%' }}>
+                    <h1 className='display-4' style={{ marginBottom: "3%" }}>
                         Your Cart
                     </h1>
                     <Table>
