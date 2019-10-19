@@ -17,7 +17,7 @@ const pool = mariadb.createPool({
     user: 'team8',
     password: 'WehaveControl',
     database: 'geektext',
-    connectionLimit: 2,
+    connectionLimit: 1,
     dateStrings: 'date'
     //rowsAsArray: true
 });
@@ -258,7 +258,7 @@ async function getCart(info, callback) {
         })
         .catch(err => {
             callback(err, null);
-        })
+        });
 }
 
 async function addToCart(info, callback) {
@@ -269,9 +269,8 @@ async function addToCart(info, callback) {
         })
         .catch(err => {
             console.log(err);
-        })
+        });
 }
-
 
 module.exports = {
     createUser,
