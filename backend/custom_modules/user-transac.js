@@ -17,7 +17,7 @@ const pool = mariadb.createPool({
     user: 'team8',
     password: 'WehaveControl',
     database: 'geektext',
-    connectionLimit: 1,
+    connectionLimit: 2,
     dateStrings: 'date'
     //rowsAsArray: true
 });
@@ -258,19 +258,54 @@ async function getCart(info, callback) {
         })
         .catch(err => {
             callback(err, null);
-        });
+        })
 }
 
 async function addToCart(info, callback) {
-    var query1 = 'select bookid from shoppingcart where userid=? and bookid=?';
-    pool.query(query1, [info.username, info.bookid])
-        .then(result => {
-            console.log(result);
+    var query = "insert into shoppingcart values(?,?,?,?,?,?)";
+    var fields = [info.userid, info.bookid, info.quantity, info.price, info.total, info.title];
+
+    pool.query(query, fields).then(res => {
+        callback(null,2); //book added
+    }).catch(err => {
+        if (err.errno === NOT_UNIQUE) {
+            callback(null, 1) //book already in the cart
+        }
+        else {
+            callback (err,null);
+        }
+    })
+}
+
+async function editQuantity(info, callback) {
+    var query = "update shoppingcart set quantity=?, price=?, total=?, title=? where userid=? and bookid=?";
+
+    var fields = [info.quantity, info.price, info.total, info.title, info.userid, info.bookid];
+    pool.query(query, fields)
+        .then(res => {
+            callback(null, res);
+        })
+        .catch(err => {
+            callback(err, null);
+        });
+}
+
+async function delCartItems(info, callback) {
+    var query =
+        "delete from shoppingcart where (" +
+        "userid=? and bookid=?)";
+
+    var data = [info.userid, info.bookid];
+    console.log("I WORKED");
+    pool.query(query, data)
+        .then(res => {
+            callback(null); // query successful
         })
         .catch(err => {
             console.log(err);
-        });
+        })
 }
+
 
 module.exports = {
     createUser,
@@ -284,5 +319,7 @@ module.exports = {
     editPaymentInfo,
     editPersonalInfo,
     getCart,
-    addToCart
+    addToCart,
+    delCartItems,
+    editQuantity,
 };
