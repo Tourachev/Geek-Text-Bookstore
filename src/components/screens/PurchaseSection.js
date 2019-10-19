@@ -120,11 +120,11 @@ class PurchaseSection extends React.Component {
             body: JSON.stringify({username: this.state.username}),
             headers: {'Content-Type': 'application/json'},
         })*/
-        fetch('/books')
-            .then(res => res.json())
-            .then(books => {
-                this.getCartItems(books);
-            });
+        // fetch('/books')
+        //     .then(res => res.json())
+        //     .then(books => {
+        //         this.getCartItems(books);
+        //     });
     }
     render() {
         return (
