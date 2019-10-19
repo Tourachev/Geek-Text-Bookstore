@@ -283,5 +283,6 @@ module.exports = {
     getPaymentInfo,
     editPaymentInfo,
     editPersonalInfo,
-    getCart
+    getCart,
+    addToCart
 };
