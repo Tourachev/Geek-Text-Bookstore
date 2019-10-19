@@ -7,6 +7,8 @@ class BrowseSection extends React.Component {
     constructor(props) {
         super(props);
         this.handlePageChange = this.handlePageChange.bind(this);
+        this.updateBooksPerPage10 = this.updateBooksPerPage10.bind(this);
+        this.updateBooksPerPage20 = this.updateBooksPerPage20.bind(this);
         this.state = {
             books: [],
             ogBooks: [],
@@ -135,9 +137,20 @@ class BrowseSection extends React.Component {
         this.forceUpdate();
     }
 
+    updateBooksPerPage10() {
+        this.setState({booksPerPage:'10'});
+        this.forceUpdate();
+    }
+
+    updateBooksPerPage20() {
+        this.setState({booksPerPage:'20'});
+        this.forceUpdate();
+    }
+    
+
     render() {
         const card = this.state.books
-            .slice((this.state.activePage - 1) * 10, this.state.activePage * 10)
+            .slice((this.state.activePage - 1) * this.state.booksPerPage, this.state.activePage * this.state.booksPerPage)
             .map(book => (
                 <BookCard
                     bookID={book.bookid}
@@ -360,10 +373,10 @@ class BrowseSection extends React.Component {
                                 Books Per Page:
                             </button>
                             <div class='dropdown-menu'>
-                                <a class='dropdown-item' href='#'>
+                                <a onClick={this.updateBooksPerPage10} class='dropdown-item' href='#'>
                                     10
                                 </a>
-                                <a class='dropdown-item' href='#'>
+                                <a onClick={this.updateBooksPerPage20} class='dropdown-item' href='#'>
                                     20
                                 </a>
                             </div>
@@ -378,7 +391,7 @@ class BrowseSection extends React.Component {
                     <Pagination
                         activePage={this.state.activePage}
                         itemsCountPerPage={this.state.booksPerPage}
-                        totalItemsCount={30}
+                        totalItemsCount={this.state.books.length}
                         pageRangeDisplayed={5}
                         onChange={this.handlePageChange}
                         linkClass='page-link'
