@@ -23,16 +23,10 @@ const BookCard = props => {
                     {/* <li class='list-group-item'>Book ID: {props.bookID}</li> */}
                 </ul>
                 <div class='card-body card-links'>
-                    <button
-                        type='button'
-                        class='btn btn-outline-primary card-link'
-                    >
+                    <button type='button' class='btn btn-secondary cart-button'>
                         Add to Cart
                     </button>
-                    <button
-                        type='button'
-                        class='btn btn-outline-primary card-link'
-                    >
+                    <button type='button' class='btn btn-secondary cart-button'>
                         Save For later
                     </button>
                 </div>
