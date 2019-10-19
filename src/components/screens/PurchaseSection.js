@@ -54,17 +54,36 @@ class PurchaseSection extends React.Component {
     }
 
     changeQuantity(item, event) {
-        console.log(event.target.value)
+        let value = parseInt(event.target.value, 10);
         let id = item.bookID;
-            let value = parseInt(event.target.value, 10);
-            this.state.cartBooks.find(
-                book => book.bookID === id
-            ).quantity = value;
+        if (event.target.value == "") {
+            value = 0;
+        }
+        fetch("/cart/edit", {
+            method: "POST",
+            body: JSON.stringify({
+                quantity: value,
+                price: item.price,
+                total: (item.price * value).toFixed(2),
+                title: item.title,
+                userid: this.state.username,
+                bookid:item.bookid
+            }),
+            headers: { "Content-Type": "application/json" }
+        })
+            .then(res => res.json())
+            .then(newInfo => {
+                console.log("ITEM EDITED")
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+        this.state.cartBooks.find(book => book.bookID === id).quantity = value;
         this.getCartItems(this.state.cartBooks);
     }
 
     removeCartItems(item) {
-        console.log(item.bookid);
         this.state.cartBooks.splice(this.state.cartBooks.findIndex(book => book.bookID === item.bookid),1);
         this.getCartItems(this.state.cartBooks);
         fetch("/cart/delete", {
@@ -75,7 +94,7 @@ class PurchaseSection extends React.Component {
             }),
             headers: { "Content-Type": "application/json" }
         }).then(res => console.log(res.body) ).then(newInfo => {
-                alert("Deleted!");
+                console.log("Item Deleted")
             })
             .catch(err => {
                 console.log(err);
