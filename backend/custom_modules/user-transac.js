@@ -287,12 +287,11 @@ async function addToCart(info, callback) {
 
 async function editQuantity(info, callback) {
     var query =
-        'update shoppingcart set quantity=?, price=?, total=?, title=? where userid=? and bookid=?';
+        'update shoppingcart set quantity=?, price=?, title=? where userid=? and bookid=?';
 
     var fields = [
         info.quantity,
         info.price,
-        info.total,
         info.title,
         info.userid,
         info.bookid
