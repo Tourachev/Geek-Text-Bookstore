@@ -145,7 +145,7 @@ class BrowseSection extends React.Component {
                     {context => (
                         <BookCard
                             username={context.username}
-                            bookID={book.bookID}
+                            bookID={book.bookid}
                             title={book.title}
                             author={book.author}
                             genre={book.genre}

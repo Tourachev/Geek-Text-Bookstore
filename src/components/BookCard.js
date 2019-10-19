@@ -14,9 +14,8 @@ class BookCard extends React.Component {
             body: JSON.stringify({
                 username: this.props.username,
                 bookID: this.props.bookID,
-                quantity: 1,
+                quantity: '1',
                 price: this.props.price,
-                total: 1,
                 title: this.props.title
             }),
             headers: { 'Content-Type': 'application/json' }

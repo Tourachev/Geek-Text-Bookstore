@@ -262,13 +262,13 @@ async function getCart(info, callback) {
 }
 
 async function addToCart(info, callback) {
-    var query = 'insert into shoppingcart values(?,?,?,?,?,?)';
+    var query =
+        'insert into shoppingcart(userid, bookid, quantity, price, title) values(?,?,?,?,?)';
     var fields = [
         info.userid,
         info.bookid,
         info.quantity,
         info.price,
-        info.total,
         info.title
     ];
 
