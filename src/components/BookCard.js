@@ -14,9 +14,9 @@ class BookCard extends React.Component {
             body: JSON.stringify({
                 username: this.props.username,
                 bookID: this.props.bookID,
-                quantity: '1',
+                quantity: 1,
                 price: this.props.price,
-                total: '1',
+                total: 1,
                 title: this.props.title
             }),
             headers: { 'Content-Type': 'application/json' }
@@ -29,6 +29,10 @@ class BookCard extends React.Component {
             .catch(err => {
                 console.log(err);
             })
+            .then(console.log(this.props.username))
+            .then(console.log(this.props.bookID))
+            .then(console.log(this.props.price))
+            .then(console.log(this.props.title))
             .then(alert('Submitted!'));
     };
 
