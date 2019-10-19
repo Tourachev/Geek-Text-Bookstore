@@ -1,7 +1,7 @@
-import React from 'react';
-import { Table } from 'reactstrap';
-import { Button } from 'react-bootstrap';
-import { Icon } from 'semantic-ui-react';
+import React from "react";
+import { Table } from "reactstrap";
+import { Button } from "react-bootstrap";
+import { Icon } from "semantic-ui-react";
 class PurchaseSection extends React.Component {
     /*
         Cart Items has ALL the books right now.
@@ -12,10 +12,10 @@ class PurchaseSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            cartBooks: [], //Actual Books in the cart
-            cartItems: [], //HTML of the Table
+            cartBooks: [],  //Actual Books in the cart
+            cartItems: [],  //HTML of the Table
             quantity: 0,
-            username: 'blanket', //should use context here
+            username: "blanket", //should use context here
             totalPrice: 0.0
         };
         this.changeQuantity = this.changeQuantity.bind(this);
@@ -32,23 +32,15 @@ class PurchaseSection extends React.Component {
             return (
                 <tr key={item.bookId}>
                     <td>{item.title}</td>
-                    <td>
-                        x
-                        <input
-                            class='purchase-input'
-                            type='text'
-                            value={item.quantity}
-                            onChange={this.changeQuantity.bind(this, item)}
-                        />
-                    </td>
+                    <td>x<input class="purchase-input" type="text" value={item.quantity} onChange={this.changeQuantity.bind(this, item)}/></td>
                     <td>${item.price.toFixed(2)}</td>
                     <td>
                         <Button
-                            onClick={this.removeCartItems.bind(this, item)}
-                            style={{
-                                backgroundColor: 'rgba(0,0,0,0)',
-                                border: 'none'
-                            }}
+                                onClick={this.removeCartItems.bind(this, item)}
+                                style={{
+                                    backgroundColor: "rgba(0,0,0,0)",
+                                    border: "none"
+                                }}
                         >
                             <Icon name='close' color='red' />
                         </Button>
@@ -57,7 +49,7 @@ class PurchaseSection extends React.Component {
             );
         });
         console.log(books);
-        this.setState({ cartBooks: books, cartItems: cart, totalPrice: total });
+        this.setState({cartBooks:books, cartItems: cart, totalPrice: total});
         this.forceUpdate();
     }
 
@@ -65,19 +57,14 @@ class PurchaseSection extends React.Component {
         let isNum = new RegExp('^[0-9]+$');
         if (isNum.test(event.target.value) && event.target.value.length < 6) {
             let id = item.bookID;
-            let value = parseInt(event.target.value, 10);
-            this.state.cartBooks.find(
-                book => book.bookID === id
-            ).quantity = value;
+            let value = parseInt(event.target.value, 10)
+            this.state.cartBooks.find(book => book.bookID === id).quantity = value;
             this.getCartItems(this.state.cartBooks);
         }
     }
 
-    removeCartItems(item) {
-        this.state.cartBooks.splice(
-            this.state.cartBooks.findIndex(book => book.bookID === item.bookID),
-            1
-        );
+    removeCartItems(item){
+        this.state.cartBooks.splice(this.state.cartBooks.findIndex(book => book.bookID === item.bookID), 1);
         this.getCartItems(this.state.cartBooks);
     }
 
@@ -87,18 +74,19 @@ class PurchaseSection extends React.Component {
             body: JSON.stringify({username: this.state.username}),
             headers: {'Content-Type': 'application/json'},
         })*/
-        fetch('/books')
+        fetch("/books")
             .then(res => res.json())
             .then(books => {
                 this.getCartItems(books);
-            });
+            })
+        })
     }
 
     render() {
         return (
             <div id='purchase-container'>
                 <div id='purchase-body'>
-                    <h1 className='display-4' style={{ marginBottom: '3%' }}>
+                    <h1 className='display-4' style={{ marginBottom: "3%" }}>
                         Your Cart
                     </h1>
                     <Table>
@@ -118,7 +106,7 @@ class PurchaseSection extends React.Component {
                         </h3>
                     </div>
                     <div className='price-row'>
-                        <Button size='lg' style={{ width: '30%' }}>
+                        <Button size='lg' style={{ width: "30%" }}>
                             Purchase
                         </Button>
                     </div>
