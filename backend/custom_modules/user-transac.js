@@ -144,7 +144,7 @@ async function delPaymentInfo(info, callback) {
     This function adds a shipping address to the specified user.
     --------------------------------------------------------------
 
-    param:  info - json including shipping address and specified user 
+    param:  info - json including shipping address and specified user
             callback - function that will include the result or error
 */
 async function addAddress(info, callback) {
@@ -215,8 +215,8 @@ async function getPaymentInfo(username, callback) {
 }
 
 async function editPersonalInfo(info, callback) {
-    var step1 = 'update credentials set userid=? where userid=?' 
-    var step2 = 
+    var step1 = 'update credentials set userid=? where userid=?'
+    var step2 =
         'update userinfo set email=?, fname=?, lname=?, nickname=? where userid=?';
     var data = [
         info.email,
@@ -284,13 +284,34 @@ async function getCart(info, callback) {
 }
 
 async function addToCart(info, callback) {
-    var query1 = "select bookid from shoppingcart where userid=? and bookid=?";
-    pool.query(query1, [info.username, info.bookid])
-        .then(result => {
-            console.log(result);
+    var query = "insert into shoppingcart values(?,?,?,?,?,?)";
+    var fields = [info.userid, info.bookid, info.quantity, info.price, info.total, info.title];
+
+    pool.query(query, fields).then(res => {
+        callback(null,2); //book added
+    }).catch(err => {
+        if (err.errno === NOT_UNIQUE) {
+            callback(null, 1) //book already in the cart
+        }
+        else {
+            callback (err,null);
+        }
+    })
+}
+
+async function delCartItems(info, callback) {
+    var query =
+        "delete from shoppingcart where (" +
+        "userid=? and bookid=?)";
+
+    var data = [info.userid, info.bookid];
+    console.log("I WORKED");
+    pool.query(query, data)
+        .then(res => {
+            callback(null); // query successful
         })
         .catch(err => {
-            console.log(err);
+            callback(err); // query error
         });
 }
 
@@ -306,5 +327,6 @@ module.exports = {
     editPaymentInfo,
     editPersonalInfo,
     getCart,
-    addToCart
+    addToCart,
+    delCartItems,
 };
