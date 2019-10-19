@@ -18,35 +18,10 @@ class PurchaseSection extends React.Component {
             username: "blanket2", //should use context here
             totalPrice: 0.0
         };
-        //this.addItem = this.addItem.bind(this);  //Delete when cart adding has been implemented
         this.changeQuantity = this.changeQuantity.bind(this);
         this.getCartItems = this.getCartItems.bind(this);
         this.removeCartItems = this.removeCartItems.bind(this);
     }
-
-    //For Testing Purposes. Delete when cart adding has been implemented
-    /*addItem(){
-        console.log("ADD ITEM");
-        fetch("/cart/insert", {
-            method: "POST",
-            body: JSON.stringify({
-                userid: this.state.username,
-                bookid:3,
-                quantity: 2,
-                price: 33.59,
-                total: 33.59*2,
-                title: "Harry Potter & the Chamber of Secrets",
-            }),
-            headers: { "Content-Type": "application/json" }
-        })
-            .then(res => res.json())
-            .then(newInfo => {
-                console.log("ITEM ADDED")
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    }*/
 
     getCartItems(books) {
         let total = 0.0;
@@ -61,7 +36,7 @@ class PurchaseSection extends React.Component {
                         x
                         <input
                             class='purchase-input'
-                            type='number'
+                            type='text'
                             value={item.quantity}
                             onChange={this.changeQuantity.bind(this, item)}
                         />
