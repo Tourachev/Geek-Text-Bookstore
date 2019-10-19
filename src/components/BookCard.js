@@ -6,7 +6,11 @@ const BookCard = props => {
     return (
         <div>
             <div class='card'>
-                <img src={faker.image.cats()} class='card-img-top' alt={props.title} />
+                <img
+                    src={faker.image.cats()}
+                    class='card-img-top'
+                    alt={props.title}
+                />
                 <div class='card-body'>
                     <h5 class='card-title'>{props.author}</h5>
                     <p class='card-text'>{props.title}</p>
@@ -19,12 +23,18 @@ const BookCard = props => {
                     {/* <li class='list-group-item'>Book ID: {props.bookID}</li> */}
                 </ul>
                 <div class='card-body card-links'>
-                    <a href='#' class='card-link'>
-                        Add To Cart
-                    </a>
-                    <a href='#' class='card-link'>
-                        Save For Later
-                    </a>
+                    <button
+                        type='button'
+                        class='btn btn-outline-primary card-link'
+                    >
+                        Add to Cart
+                    </button>
+                    <button
+                        type='button'
+                        class='btn btn-outline-primary card-link'
+                    >
+                        Save For later
+                    </button>
                 </div>
             </div>
         </div>
