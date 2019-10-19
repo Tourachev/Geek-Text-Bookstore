@@ -6,6 +6,28 @@ class BookCard extends React.Component {
         super(props);
     }
 
+    mySubmitHandler = event => {
+        event.preventDefault();
+
+        fetch('/personal-info/edit', {
+            method: 'POST',
+            body: JSON.stringify({
+                username: this.state.username,
+                email: this.state.email
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(res => res.json())
+            // .then(newInfo => {
+            //     //look at address-info for return values
+            //     this.getInfo();
+            // })
+            .catch(err => {
+                console.log(err);
+            })
+            .then(alert('Submitted!'));
+    };
+
     render() {
         return (
             <div>
@@ -38,6 +60,7 @@ class BookCard extends React.Component {
                         <button
                             type='button'
                             class='btn btn-secondary cart-button'
+                            onClick={event => this.mySubmitHandler(event)}
                         >
                             Add to Cart
                         </button>
