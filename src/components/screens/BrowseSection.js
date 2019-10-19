@@ -3,6 +3,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import BookCard from '../BookCard';
 import Pagination from 'react-js-pagination';
+import Context from '../Context';
+
 class BrowseSection extends React.Component {
     constructor(props) {
         super(props);
@@ -139,15 +141,20 @@ class BrowseSection extends React.Component {
         const card = this.state.books
             .slice((this.state.activePage - 1) * 10, this.state.activePage * 10)
             .map(book => (
-                <BookCard
-                    bookID={book.bookID}
-                    title={book.title}
-                    author={book.author}
-                    genre={book.genre}
-                    price={book.price}
-                    rating={book.rating}
-                    date={book.date}
-                />
+                <Context.Consumer>
+                    {context => (
+                        <BookCard
+                            username={context.username}
+                            bookID={book.bookID}
+                            title={book.title}
+                            author={book.author}
+                            genre={book.genre}
+                            price={book.price}
+                            rating={book.rating}
+                            date={book.date}
+                        />
+                    )}
+                </Context.Consumer>
             ));
 
         return (

@@ -9,10 +9,10 @@ class BookCard extends React.Component {
     mySubmitHandler = event => {
         event.preventDefault();
 
-        fetch('/personal-info/edit', {
+        fetch('/cart/insert', {
             method: 'POST',
             body: JSON.stringify({
-                username: this.state.username,
+                username: this.props.username,
                 email: this.state.email
             }),
             headers: { 'Content-Type': 'application/json' }
