@@ -15,13 +15,38 @@ class PurchaseSection extends React.Component {
             cartBooks: [], //Actual Books in the cart
             cartItems: [], //HTML of the Table
             quantity: 0,
-            username: "blanket", //should use context here
+            username: "blanket2", //should use context here
             totalPrice: 0.0
         };
+        //this.addItem = this.addItem.bind(this);  //Delete when cart adding has been implemented
         this.changeQuantity = this.changeQuantity.bind(this);
         this.getCartItems = this.getCartItems.bind(this);
         this.removeCartItems = this.removeCartItems.bind(this);
     }
+
+    //For Testing Purposes. Delete when cart adding has been implemented
+    /*addItem(){
+        console.log("ADD ITEM");
+        fetch("/cart/insert", {
+            method: "POST",
+            body: JSON.stringify({
+                userid: this.state.username,
+                bookid:3,
+                quantity: 2,
+                price: 33.59,
+                total: 33.59*2,
+                title: "Harry Potter & the Chamber of Secrets",
+            }),
+            headers: { "Content-Type": "application/json" }
+        })
+            .then(res => res.json())
+            .then(newInfo => {
+                console.log("ITEM ADDED")
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }*/
 
     getCartItems(books) {
         let total = 0.0;
@@ -36,7 +61,7 @@ class PurchaseSection extends React.Component {
                         x
                         <input
                             class='purchase-input'
-                            type='text'
+                            type='number'
                             value={item.quantity}
                             onChange={this.changeQuantity.bind(this, item)}
                         />
@@ -62,36 +87,42 @@ class PurchaseSection extends React.Component {
     }
 
     changeQuantity(item, event) {
-        let isNum = new RegExp("^[0-9]+$");
-        if (isNum.test(event.target.value) && event.target.value.length < 6) {
-            let id = item.bookID;
+        console.log(event.target.value)
+        let id = item.bookID;
             let value = parseInt(event.target.value, 10);
             this.state.cartBooks.find(
                 book => book.bookID === id
             ).quantity = value;
-            this.getCartItems(this.state.cartBooks);
-        }
-    }
-
-    removeCartItems(item) {
-        this.state.cartBooks.splice(
-            this.state.cartBooks.findIndex(book => book.bookID === item.bookID),
-            1
-        );
         this.getCartItems(this.state.cartBooks);
     }
 
-    componentDidMount() {
-        /*fetch("/cart", {
-            method: 'post',
-            body: JSON.stringify({username: this.state.username}),
-            headers: {'Content-Type': 'application/json'},
-        })*/
-        fetch("/books")
-            .then(res => res.json())
-            .then(books => {
-                this.getCartItems(books);
+    removeCartItems(item) {
+        console.log(item.bookid);
+        this.state.cartBooks.splice(this.state.cartBooks.findIndex(book => book.bookID === item.bookid),1);
+        this.getCartItems(this.state.cartBooks);
+        fetch("/cart/delete", {
+            method: "POST",
+            body: JSON.stringify({
+                userid: this.state.username,
+                bookid: item.bookid,
+            }),
+            headers: { "Content-Type": "application/json" }
+        }).then(res => console.log(res.body) ).then(newInfo => {
+                alert("Deleted!");
+            })
+            .catch(err => {
+                console.log(err);
             });
+    }
+
+    componentDidMount() {
+        fetch("/cart", {
+            method: "POST",
+            body: JSON.stringify({ username: this.state.username }),
+            headers: { "Content-Type": "application/json" }
+        }).then(res => res.json()).then(cart => {
+            this.getCartItems(cart.result);
+        })
     }
 
     render() {
@@ -118,7 +149,7 @@ class PurchaseSection extends React.Component {
                         </h3>
                     </div>
                     <div className='price-row'>
-                        <Button size='lg' style={{ width: "30%" }}>
+                        <Button size='lg' style={{ width: "30%" }} onClick={this.addItem}>
                             Purchase
                         </Button>
                     </div>
