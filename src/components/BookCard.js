@@ -13,7 +13,11 @@ class BookCard extends React.Component {
             method: 'POST',
             body: JSON.stringify({
                 username: this.props.username,
-                email: this.state.email
+                bookID: this.props.bookID,
+                quantity: 1,
+                price: this.props.price,
+                total: 1,
+                title: this.props.title
             }),
             headers: { 'Content-Type': 'application/json' }
         })
