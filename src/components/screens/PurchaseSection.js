@@ -32,7 +32,7 @@ class PurchaseSection extends React.Component {
             return (
                 <tr key={item.bookId}>
                     <td>{item.title}</td>
-                    <td>x<input class="purchase-input" type="text" value={item.quantity} onChange={this.changeQuantity.bind(this, item)}/></td>
+                    <td>x<input class="purchase-input" type="number" value={item.quantity} onChange={this.changeQuantity.bind(this, item)}/></td>
                     <td>${item.price.toFixed(2)}</td>
                     <td>
                         <Button
