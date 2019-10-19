@@ -15,7 +15,7 @@ class PurchaseSection extends React.Component {
             cartBooks: [],  //Actual Books in the cart
             cartItems: [],  //HTML of the Table
             quantity: 0,
-            username: "blanket2", //should use context here
+            username: "blanket", //should use context here
             totalPrice: 0.0
         };
         this.changeQuantity = this.changeQuantity.bind(this);
@@ -36,11 +36,11 @@ class PurchaseSection extends React.Component {
                     <td>${item.price.toFixed(2)}</td>
                     <td>
                         <Button
-                            onClick={this.removeCartItems.bind(this, item)}
-                            style={{
-                                backgroundColor: "rgba(0,0,0,0)",
-                                border: "none"
-                            }}
+                                onClick={this.removeCartItems.bind(this, item)}
+                                style={{
+                                    backgroundColor: "rgba(0,0,0,0)",
+                                    border: "none"
+                                }}
                         >
                             <Icon name='close' color='red' />
                         </Button>
@@ -102,12 +102,16 @@ class PurchaseSection extends React.Component {
     }
 
     componentDidMount() {
-        fetch("/cart", {
-            method: "POST",
-            body: JSON.stringify({ username: this.state.username }),
-            headers: { "Content-Type": "application/json" }
-        }).then(res => res.json()).then(cart => {
-            this.getCartItems(cart.result);
+        /*fetch("/cart", {
+            method: 'post',
+            body: JSON.stringify({username: this.state.username}),
+            headers: {'Content-Type': 'application/json'},
+        })*/
+        fetch("/books")
+            .then(res => res.json())
+            .then(books => {
+                this.getCartItems(books);
+            })
         })
     }
 
@@ -135,7 +139,7 @@ class PurchaseSection extends React.Component {
                         </h3>
                     </div>
                     <div className='price-row'>
-                        <Button size='lg' style={{ width: "30%" }} onClick={this.addItem}>
+                        <Button size='lg' style={{ width: "30%" }}>
                             Purchase
                         </Button>
                     </div>

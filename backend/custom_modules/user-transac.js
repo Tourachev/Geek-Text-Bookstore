@@ -144,7 +144,7 @@ async function delPaymentInfo(info, callback) {
     This function adds a shipping address to the specified user.
     --------------------------------------------------------------
 
-    param:  info - json including shipping address and specified user
+    param:  info - json including shipping address and specified user 
             callback - function that will include the result or error
 */
 async function addAddress(info, callback) {
