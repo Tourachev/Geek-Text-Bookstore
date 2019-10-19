@@ -140,7 +140,7 @@ class BrowseSection extends React.Component {
             .slice((this.state.activePage - 1) * 10, this.state.activePage * 10)
             .map(book => (
                 <BookCard
-                    bookID={book.bookID}
+                    bookID={book.bookid}
                     title={book.title}
                     author={book.author}
                     genre={book.genre}
