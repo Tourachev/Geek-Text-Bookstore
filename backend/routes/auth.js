@@ -1,4 +1,3 @@
-const POOL = require('../custom_modules/db-pool');
 const log = require('../custom_modules/user-transac');
 
 var express = require('express');
