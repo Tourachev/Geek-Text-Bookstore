@@ -36,7 +36,7 @@ class PurchaseSection extends React.Component {
                         x
                         <input
                             class='purchase-input'
-                            type='text'
+                            type='number'
                             value={item.quantity}
                             onChange={this.changeQuantity.bind(this, item)}
                         />
@@ -62,23 +62,56 @@ class PurchaseSection extends React.Component {
     }
 
     changeQuantity(item, event) {
-        let isNum = new RegExp('^[0-9]+$');
-        if (isNum.test(event.target.value) && event.target.value.length < 6) {
-            let id = item.bookID;
-            let value = parseInt(event.target.value, 10);
-            this.state.cartBooks.find(
-                book => book.bookID === id
-            ).quantity = value;
-            this.getCartItems(this.state.cartBooks);
+        let value = parseInt(event.target.value, 10);
+        let id = item.bookID;
+        if (event.target.value == '') {
+            value = 0;
         }
+        fetch('/cart/edit', {
+            method: 'POST',
+            body: JSON.stringify({
+                quantity: value,
+                price: item.price,
+                total: (item.price * value).toFixed(2),
+                title: item.title,
+                userid: this.state.username,
+                bookid: item.bookid
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(res => res.json())
+            .then(newInfo => {
+                console.log('ITEM EDITED');
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+        this.state.cartBooks.find(book => book.bookID === id).quantity = value;
+        this.getCartItems(this.state.cartBooks);
     }
 
     removeCartItems(item) {
         this.state.cartBooks.splice(
-            this.state.cartBooks.findIndex(book => book.bookID === item.bookID),
+            this.state.cartBooks.findIndex(book => book.bookID === item.bookid),
             1
         );
         this.getCartItems(this.state.cartBooks);
+        fetch('/cart/delete', {
+            method: 'POST',
+            body: JSON.stringify({
+                userid: this.state.username,
+                bookid: item.bookid
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(res => console.log(res.body))
+            .then(newInfo => {
+                console.log('Item Deleted');
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     componentDidMount() {
