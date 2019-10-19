@@ -32,13 +32,7 @@ const useStyles = makeStyles(theme => ({
 class MyForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            ccnum: "",
-            cvv: "",
-            name: "",
-            zip: "",
-            expdate: ""
-        };
+        this.state = { state: "", city: "", address: "", zip: "" };
         this.handleChange = this.handleChange.bind(this);
     }
 

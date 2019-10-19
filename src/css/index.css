@@ -3,12 +3,8 @@
     background-color: rgba(0,0,0,0);
     border: none;
     text-align: right;
-    width:20%;
-    max-width: 130px;
-    margin-left: 6px;
+    width:35%;
 }
-
-.purchase-input:focus {outline:0;}
 
 #purchase-container {
     display: flex;
