@@ -73,32 +73,30 @@ class App extends Component {
 
                                 <Context.Consumer>
                                     {context => (
-                                        <Route
-                                            path='/profile'
-                                            component={() => (
-                                                <ProfilePage
-                                                    isLoggedIn={
-                                                        context.isLoggedIn
-                                                    }
-                                                />
-                                            )}
-                                        />
-                                    )}
-                                </Context.Consumer>
+                                        <div>
+                                            <Route
+                                                path='/profile'
+                                                component={() => (
+                                                    <ProfilePage
+                                                        isLoggedIn={
+                                                            context.isLoggedIn
+                                                        }
+                                                    />
+                                                )}
+                                            />
 
-                                <Context.Consumer>
-                                    {context => (
-                                        <Route
-                                            path='/cart'
-                                            component={() => (
-                                                <CartPage
-                                                    isLoggedIn={
-                                                        context.isLoggedIn
-                                                    }
-                                                    name={context.username}
-                                                />
-                                            )}
-                                        />
+                                            <Route
+                                                path='/cart'
+                                                component={() => (
+                                                    <CartPage
+                                                        isLoggedIn={
+                                                            context.isLoggedIn
+                                                        }
+                                                        name={context.username}
+                                                    />
+                                                )}
+                                            />
+                                        </div>
                                     )}
                                 </Context.Consumer>
                             </Switch>
