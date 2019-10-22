@@ -63,21 +63,6 @@ class App extends Component {
                                 <Route exact path='/' component={Home} />
                                 <Route path='/index.html' component={Home} />
                                 <Route path='/browse' component={Browse} />
-                                <Context.Consumer>
-                                    {context => (
-                                        <Route
-                                            path='/cart'
-                                            component={() => (
-                                                <CartPage
-                                                    isLoggedIn={
-                                                        context.isLoggedIn
-                                                    }
-                                                    name={context.username}
-                                                />
-                                            )}
-                                        />
-                                    )}
-                                </Context.Consumer>
                                 <Route path='/cart' component={Cart} />
                                 <Route path='/login' component={Login} />
                                 <Route
@@ -85,7 +70,6 @@ class App extends Component {
                                     component={ApplicationForm}
                                 />
                                 {/* Below I am passing the context state into the Profile component*/}
-
                                 <Context.Consumer>
                                     {context => (
                                         <Route
