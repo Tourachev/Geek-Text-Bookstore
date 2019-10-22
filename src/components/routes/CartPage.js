@@ -1,8 +1,7 @@
 import React from 'react';
-
-import Navbar from '../NavBar';
 import Footer from '../Footer';
 import PurchaseSection from '../screens/PurchaseSection';
+import Context from './components/Context';
 
 class CartPage extends React.Component {
     constructor(props) {
@@ -13,10 +12,17 @@ class CartPage extends React.Component {
         return (
             <div>
                 <div className='body'>
-                    <PurchaseSection
-                        username={this.props.username}
-                        isLoggedIn={this.props.isLoggedIn}
-                    />
+                    <Context.Consumer>
+                        {context => (
+                            <div>
+                                <PurchaseSection
+                                    username={context.username}
+                                    isLoggedIn={context.isLoggedIn}
+                                />
+                            </div>
+                        )}
+                    </Context.Consumer>
+
                     <Footer />
                 </div>
             </div>

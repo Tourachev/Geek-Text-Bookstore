@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import Home from './components/routes/HomePage';
 import Cart from './components/routes/CartPage';
 import Browse from './components/routes/BrowsePage';
+import { ProfilePage } from './components/routes/ProfilePage';
 import CartPage from './components/routes/CartPage';
-import ProfilePage from './components/routes/ProfilePage';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import './css/index.css';
 import Login from './components/Login';
@@ -63,6 +63,21 @@ class App extends Component {
                                 <Route exact path='/' component={Home} />
                                 <Route path='/index.html' component={Home} />
                                 <Route path='/browse' component={Browse} />
+                                <Context.Consumer>
+                                    {context => (
+                                        <Route
+                                            path='/cart'
+                                            component={() => (
+                                                <CartPage
+                                                    isLoggedIn={
+                                                        context.isLoggedIn
+                                                    }
+                                                    name={context.username}
+                                                />
+                                            )}
+                                        />
+                                    )}
+                                </Context.Consumer>
                                 <Route path='/cart' component={Cart} />
                                 <Route path='/login' component={Login} />
                                 <Route
@@ -73,30 +88,16 @@ class App extends Component {
 
                                 <Context.Consumer>
                                     {context => (
-                                        <div>
-                                            <Route
-                                                path='/profile'
-                                                component={() => (
-                                                    <ProfilePage
-                                                        isLoggedIn={
-                                                            context.isLoggedIn
-                                                        }
-                                                    />
-                                                )}
-                                            />
-
-                                            <Route
-                                                path='/cart'
-                                                component={() => (
-                                                    <CartPage
-                                                        isLoggedIn={
-                                                            context.isLoggedIn
-                                                        }
-                                                        name={context.username}
-                                                    />
-                                                )}
-                                            />
-                                        </div>
+                                        <Route
+                                            path='/profile'
+                                            component={() => (
+                                                <ProfilePage
+                                                    isLoggedIn={
+                                                        context.isLoggedIn
+                                                    }
+                                                />
+                                            )}
+                                        />
                                     )}
                                 </Context.Consumer>
                             </Switch>
