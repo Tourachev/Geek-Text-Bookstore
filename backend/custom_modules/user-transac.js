@@ -265,8 +265,8 @@ async function addToCart(info, callback) {
     var query =
         'insert into shoppingcart(userid, bookid, quantity, price, title) values(?,?,?,?,?)';
     var fields = [
-        info.userid,
-        info.bookid,
+        info.username,
+        info.bookID,
         info.quantity,
         info.price,
         info.title
@@ -274,9 +274,11 @@ async function addToCart(info, callback) {
 
     pool.query(query, fields)
         .then(res => {
+            console.log(res);
             callback(null, 2); //book added
         })
         .catch(err => {
+            console.log(err);
             if (err.errno === NOT_UNIQUE) {
                 callback(null, 1); //book already in the cart
             } else {
