@@ -9,7 +9,7 @@
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const NOT_UNIQUE = 45017; // error num for unique constraint from mariadb
+const NOT_UNIQUE = 1062; // error num for unique constraint from mariadb
 const mariadb = require('mariadb');
 const pool = mariadb.createPool({
     host: 'virt-servers.mynetgear.com',
@@ -278,8 +278,8 @@ async function addToCart(info, callback) {
             callback(null, 2); //book added
         })
         .catch(err => {
-            console.log(err);
             if (err.errno === NOT_UNIQUE) {
+                console.log(err.errno);
                 callback(null, 1); //book already in the cart
             } else {
                 callback(err, null);
