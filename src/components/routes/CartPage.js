@@ -1,7 +1,7 @@
 import React from 'react';
 import Footer from '../Footer';
 import PurchaseSection from '../screens/PurchaseSection';
-import Context from './components/Context';
+import Context from '../Context';
 
 class CartPage extends React.Component {
     constructor(props) {
