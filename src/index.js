@@ -24,7 +24,7 @@ class Provider extends React.Component {
             this.setState({ isLoggedIn: true });
         },
         logout: () => {
-            this.setState({ isLoggedIn: false });
+            this.setState({ isLoggedIn: false, usernmae: '' });
         },
         setUsername: name => {
             this.setState({ username: name });
