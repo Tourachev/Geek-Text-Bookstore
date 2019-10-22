@@ -1,19 +1,22 @@
-import React from "react";
+import React from 'react';
 
-import Navbar from "../NavBar";
-import Footer from "../Footer";
-import PurchaseSection from "../screens/PurchaseSection";
+import Navbar from '../NavBar';
+import Footer from '../Footer';
+import PurchaseSection from '../screens/PurchaseSection';
 
 class CartPage extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
 
     render() {
         return (
             <div>
                 <div className='body'>
-                    <PurchaseSection />
+                    <PurchaseSection
+                        username={this.props.username}
+                        isLoggedIn={this.props.isLoggedIn}
+                    />
                     <Footer />
                 </div>
             </div>

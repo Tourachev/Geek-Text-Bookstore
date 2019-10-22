@@ -1,15 +1,16 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import Home from "./components/routes/HomePage";
-import Cart from "./components/routes/CartPage";
-import Browse from "./components/routes/BrowsePage";
-import { ProfilePage } from "./components/routes/ProfilePage";
-import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
-import "./css/index.css";
-import Login from "./components/Login";
-import Navbar from "./components/NavBar";
-import ApplicationForm from "./components/ApplicationForm";
-import Context from "./components/Context";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import Home from './components/routes/HomePage';
+import Cart from './components/routes/CartPage';
+import Browse from './components/routes/BrowsePage';
+import CartPage from './components/routes/CartPage';
+import ProfilePage from './components/routes/ProfilePage';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import './css/index.css';
+import Login from './components/Login';
+import Navbar from './components/NavBar';
+import ApplicationForm from './components/ApplicationForm';
+import Context from './components/Context';
 
 class Provider extends React.Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class Provider extends React.Component {
     }
 
     state = {
-        username: "",
+        username: '',
         isLoggedIn: false,
         login: () => {
             this.setState({ isLoggedIn: true });
@@ -84,6 +85,22 @@ class App extends Component {
                                         />
                                     )}
                                 </Context.Consumer>
+
+                                <Context.Consumer>
+                                    {context => (
+                                        <Route
+                                            path='/cart'
+                                            component={() => (
+                                                <CartPage
+                                                    isLoggedIn={
+                                                        context.isLoggedIn
+                                                    }
+                                                    name={context.username}
+                                                />
+                                            )}
+                                        />
+                                    )}
+                                </Context.Consumer>
                             </Switch>
                         </React.Fragment>
                     </Router>
@@ -95,4 +112,4 @@ class App extends Component {
 
 export default Provider;
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));

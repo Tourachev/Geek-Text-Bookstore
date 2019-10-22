@@ -15,7 +15,7 @@ class PurchaseSection extends React.Component {
             cartBooks: [], //Actual Books in the cart
             cartItems: [], //HTML of the Table
             quantity: 0,
-            username: 'blanket2', //should use context here
+            username: this.props.username, //should use context here
             totalPrice: 0.0
         };
         // this.addItems = this.addItems.bind(this);
@@ -139,13 +139,15 @@ class PurchaseSection extends React.Component {
     }
 
     componentDidMount() {
-        fetch("/cart", {
+        fetch('/cart', {
             method: 'post',
-            body: JSON.stringify({username: this.state.username}),
-            headers: {'Content-Type': 'application/json'},
-        }).then(res => res.json()).then(books => {
-            this.getCartItems(books.result);
-        });
+            body: JSON.stringify({ username: this.state.username }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(res => res.json())
+            .then(books => {
+                this.getCartItems(books.result);
+            });
         /*fetch("/books")
             .then(res => res.json())
             .then(books => {
@@ -154,7 +156,6 @@ class PurchaseSection extends React.Component {
                 })
                 this.getCartItems(books);
             })*/
-
     }
     render() {
         return (
@@ -180,7 +181,11 @@ class PurchaseSection extends React.Component {
                         </h3>
                     </div>
                     <div className='price-row'>
-                        <Button size='lg' style={{ width: '30%' }} onClick={this.addItems}>
+                        <Button
+                            size='lg'
+                            style={{ width: '30%' }}
+                            onClick={this.addItems}
+                        >
                             Purchase
                         </Button>
                     </div>
