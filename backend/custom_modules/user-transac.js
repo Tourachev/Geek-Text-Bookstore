@@ -327,42 +327,92 @@ async function delCartItems(info, callback) {
         });
 }
 
-//pass bookid and userid as info
+//This query does the entire transaction, based on only userid and bookid
+
 async function cartToWish(info, callback) {
-    var step1 = 'select userid, bookid, quantity, price from shoppingcart where userid=? and bookid=?';
+    var step1 = 'select userid, bookid, quantity, price, title from shoppingcart where userid=? and bookid=?';
     var entry;
     var step2 = 
-        'insert into wishlist(userid, bookid, quantity, price)' + 
-        'values(?,?,?,?)';
+        'insert into wishlist(userid, bookid, quantity, price, title)' + 
+        'values(?,?,?,?,?)';
     var step3 = 'delete from shoppingcart where userid=? and bookid=?';
 
-    pool.getConnection()
-      .then(con => {
-        con.query(step1, info)
-          .then(res => {
-            console.log(res);
+    pool.query(step1, info)
+      .then(res => {
+        entry = [res[0].userid, 
+                res[0].bookid, 
+                res[0].quantity, 
+                res[0].price, 
+                res[0].title
+            ];
+        pool.getConnection()
+          .then(con => {
             con.query(step2, entry)
-              .then(res => {
-                console.log(res);
+              .then(() => {
                 con.query(step3, info)
-                  .then(res => {
-                    console.log(res);
+                  .then(() => {
+                    con.commit();
+                    con.release();
+                    callback(null, 5); //sucess
                   })
                   .catch(err => {
-                    callback(err, null)
+                      con.rollback();
+                      con.release();
+                      callback(err, 4); //error in step3
                   })
               })
               .catch(err => {
-                callback(err, null)
+                con.rollback();
+                con.release();
+                callback(err, 3); //error in step 2
               })
           })
           .catch(err => {
-            callback(err, null)
+            con.rollback();
+            con.release();
+            callback(err, 2); //error in step 1
           })
       })
       .catch(err => {
-        callback(err, null)
-      });
+        callback(err, 1); //error making connection
+    });
+}
+
+async function addToWish(info, callback) {
+    var fields = [
+        info.userid,
+        info.bookid,
+        info.quantity,
+        info.price,
+        info.title
+    ];
+    var step1 = 
+        'insert into wishlist(userid, bookid, quantity, price, title)' +
+        'values(?,?,?,?,?)';
+    var step2 = 
+        'update wishlist set quantity=quantity+1 where userid=? and bookid=?'
+    pool.query(step1, fields)
+        .then(res => {
+            callback(null, 4) //successfully added to wishlist
+        })
+        .catch(err => {
+            if (err.errno == NOT_UNIQUE) {
+                pool.query(step2, [info.userid, info.bookid])
+                    .then(res => {
+                        callback(null, 3); //quantity updated
+                    })
+                    .catch(err => {
+                        callback(err, 2); //error updating wishlist quantity
+                    })
+            }
+            else {
+                callback(err, 1); //error making connection
+            }
+        })
+}
+
+async function cartToWish() {
+
 }
 
 module.exports = {
@@ -380,5 +430,6 @@ module.exports = {
     addToCart,
     delCartItems,
     editQuantity,
-    cartToWish
+    cartToWish,
+    addToWish
 };
