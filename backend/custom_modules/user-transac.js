@@ -327,6 +327,44 @@ async function delCartItems(info, callback) {
         });
 }
 
+//pass bookid and userid as info
+async function cartToWish(info, callback) {
+    var step1 = 'select userid, bookid, quantity, price from shoppingcart where userid=? and bookid=?';
+    var entry;
+    var step2 = 
+        'insert into wishlist(userid, bookid, quantity, price)' + 
+        'values(?,?,?,?)';
+    var step3 = 'delete from shoppingcart where userid=? and bookid=?';
+
+    pool.getConnection()
+      .then(con => {
+        con.query(step1, info)
+          .then(res => {
+            console.log(res);
+            con.query(step2, entry)
+              .then(res => {
+                console.log(res);
+                con.query(step3, info)
+                  .then(res => {
+                    console.log(res);
+                  })
+                  .catch(err => {
+                    callback(err, null)
+                  })
+              })
+              .catch(err => {
+                callback(err, null)
+              })
+          })
+          .catch(err => {
+            callback(err, null)
+          })
+      })
+      .catch(err => {
+        callback(err, null)
+      });
+}
+
 module.exports = {
     createUser,
     login,
@@ -341,5 +379,6 @@ module.exports = {
     getCart,
     addToCart,
     delCartItems,
-    editQuantity
+    editQuantity,
+    cartToWish
 };
