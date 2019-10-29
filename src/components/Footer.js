@@ -35,17 +35,23 @@ const Footer = () => {
                             </ul>
                         </div>
                     </div>
-                    <div class='col-md-2 footer-social animated fadeInDown'>
+                    <div class='col-md-2 footer-social animated fadeInDown footer-links'>
                         <h4>Follow Us</h4>
                         <ul>
                             <li>
-                                <a href='#'>Facebook</a>
+                                <a href='#' className='footer-links'>
+                                    Facebook
+                                </a>
                             </li>
                             <li>
-                                <a href='#'>Twitter</a>
+                                <a href='#' className='footer-links'>
+                                    Twitter
+                                </a>
                             </li>
                             <li>
-                                <a href='#'>Instagram</a>
+                                <a href='#' className='footer-links'>
+                                    Instagram
+                                </a>
                             </li>
                         </ul>
                     </div>
