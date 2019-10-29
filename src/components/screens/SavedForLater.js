@@ -43,6 +43,9 @@ class SavedForLater extends React.Component {
                     </td>
                     <td>${item.price.toFixed(2)}</td>
                     <td>
+                        <button type='button' class='btn btn-outline-dark'>
+                            Move To Cart
+                        </button>
                         <Button
                             onClick={this.removeCartItems.bind(this, item)}
                             style={{
@@ -147,15 +150,6 @@ class SavedForLater extends React.Component {
                         <h3>
                             Total Price: ${this.state.totalPrice.toFixed(2)}
                         </h3>
-                    </div>
-                    <div className='price-row'>
-                        <Button
-                            size='lg'
-                            style={{ width: "30%" }}
-                            onClick={this.addItems}
-                        >
-                            Purchase
-                        </Button>
                     </div>
                 </div>
             </div>
