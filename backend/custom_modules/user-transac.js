@@ -9,7 +9,7 @@
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const NOT_UNIQUE = 45017; // error num for unique constraint from mariadb
+const NOT_UNIQUE = 1062; // error num for unique constraint from mariadb
 const mariadb = require('mariadb');
 const pool = mariadb.createPool({
     host: 'virt-servers.mynetgear.com',
@@ -264,9 +264,10 @@ async function getCart(info, callback) {
 async function addToCart(info, callback) {
     var query =
         'insert into shoppingcart(userid, bookid, quantity, price, title) values(?,?,?,?,?)';
+    var query2 = 'update shoppingcart set quantity = quantity + 1 where userid=? and bookid=?';
     var fields = [
-        info.userid,
-        info.bookid,
+        info.username,
+        info.bookID,
         info.quantity,
         info.price,
         info.title
@@ -274,11 +275,18 @@ async function addToCart(info, callback) {
 
     pool.query(query, fields)
         .then(res => {
+            console.log(res);
             callback(null, 2); //book added
         })
         .catch(err => {
             if (err.errno === NOT_UNIQUE) {
-                callback(null, 1); //book already in the cart
+                pool.query(query2, [info.username, info.bookID])
+                    .then(result => {
+                        callback(null, 1) //quantity updated 
+                    })
+                    .catch(err => {
+                        callback(err, null);
+                    })
             } else {
                 callback(err, null);
             }
@@ -319,6 +327,94 @@ async function delCartItems(info, callback) {
         });
 }
 
+//This query does the entire transaction, based on only userid and bookid
+
+async function cartToWish(info, callback) {
+    var step1 = 'select userid, bookid, quantity, price, title from shoppingcart where userid=? and bookid=?';
+    var entry;
+    var step2 = 
+        'insert into wishlist(userid, bookid, quantity, price, title)' + 
+        'values(?,?,?,?,?)';
+    var step3 = 'delete from shoppingcart where userid=? and bookid=?';
+
+    pool.query(step1, info)
+      .then(res => {
+        entry = [res[0].userid, 
+                res[0].bookid, 
+                res[0].quantity, 
+                res[0].price, 
+                res[0].title
+            ];
+        pool.getConnection()
+          .then(con => {
+            con.query(step2, entry)
+              .then(() => {
+                con.query(step3, info)
+                  .then(() => {
+                    con.commit();
+                    con.release();
+                    callback(null, 5); //sucess
+                  })
+                  .catch(err => {
+                      con.rollback();
+                      con.release();
+                      callback(err, 4); //error in step3
+                  })
+              })
+              .catch(err => {
+                con.rollback();
+                con.release();
+                callback(err, 3); //error in step 2
+              })
+          })
+          .catch(err => {
+            con.rollback();
+            con.release();
+            callback(err, 2); //error in step 1
+          })
+      })
+      .catch(err => {
+        callback(err, 1); //error making connection
+    });
+}
+
+async function addToWish(info, callback) {
+    var fields = [
+        info.userid,
+        info.bookid,
+        info.quantity,
+        info.price,
+        info.title
+    ];
+    var step1 = 
+        'insert into wishlist(userid, bookid, quantity, price, title)' +
+        'values(?,?,?,?,?)';
+    var step2 = 
+        'update wishlist set quantity=quantity+1 where userid=? and bookid=?'
+    pool.query(step1, fields)
+        .then(res => {
+            callback(null, 4) //successfully added to wishlist
+        })
+        .catch(err => {
+            if (err.errno == NOT_UNIQUE) {
+                pool.query(step2, [info.userid, info.bookid])
+                    .then(res => {
+                        callback(null, 3); //quantity updated
+                    })
+                    .catch(err => {
+                        callback(err, 2); //error updating wishlist quantity
+                    })
+            }
+            else {
+                callback(err, 1); //error making connection
+            }
+        })
+}
+
+async function cartToWish() {
+
+}
+
 module.exports = {
     createUser,
     login,
@@ -333,5 +429,7 @@ module.exports = {
     getCart,
     addToCart,
     delCartItems,
-    editQuantity
+    editQuantity,
+    cartToWish,
+    addToWish
 };

@@ -1,15 +1,16 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import Home from "./components/routes/HomePage";
-import Cart from "./components/routes/CartPage";
-import Browse from "./components/routes/BrowsePage";
-import { ProfilePage } from "./components/routes/ProfilePage";
-import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
-import "./css/index.css";
-import Login from "./components/Login";
-import Navbar from "./components/NavBar";
-import ApplicationForm from "./components/ApplicationForm";
-import Context from "./components/Context";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import Home from './components/routes/HomePage';
+import Cart from './components/routes/CartPage';
+import Browse from './components/routes/BrowsePage';
+import { ProfilePage } from './components/routes/ProfilePage';
+import CartPage from './components/routes/CartPage';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import './css/index.css';
+import Login from './components/Login';
+import Navbar from './components/NavBar';
+import ApplicationForm from './components/ApplicationForm';
+import Context from './components/Context';
 
 class Provider extends React.Component {
     constructor(props) {
@@ -17,13 +18,13 @@ class Provider extends React.Component {
     }
 
     state = {
-        username: "",
+        username: '',
         isLoggedIn: false,
         login: () => {
             this.setState({ isLoggedIn: true });
         },
         logout: () => {
-            this.setState({ isLoggedIn: false });
+            this.setState({ isLoggedIn: false, usernmae: '' });
         },
         setUsername: name => {
             this.setState({ username: name });
@@ -69,7 +70,6 @@ class App extends Component {
                                     component={ApplicationForm}
                                 />
                                 {/* Below I am passing the context state into the Profile component*/}
-
                                 <Context.Consumer>
                                     {context => (
                                         <Route
@@ -95,4 +95,4 @@ class App extends Component {
 
 export default Provider;
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));

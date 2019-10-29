@@ -1,19 +1,33 @@
 import React from "react";
-
-import Navbar from "../NavBar";
 import Footer from "../Footer";
 import PurchaseSection from "../screens/PurchaseSection";
+import SavedForLater from "../screens/SavedForLater";
+import Context from "../Context";
 
 class CartPage extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
 
     render() {
         return (
             <div>
                 <div className='body'>
-                    <PurchaseSection />
+                    <Context.Consumer>
+                        {context => (
+                            <div>
+                                <PurchaseSection
+                                    username={context.username}
+                                    isLoggedIn={context.isLoggedIn}
+                                />
+                                <SavedForLater
+                                    username={context.username}
+                                    isLoggedIn={context.isLoggedIn}
+                                />
+                            </div>
+                        )}
+                    </Context.Consumer>
+
                     <Footer />
                 </div>
             </div>

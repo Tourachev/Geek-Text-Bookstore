@@ -2,13 +2,12 @@ import React from "react";
 import { Table } from "reactstrap";
 import { Button } from "react-bootstrap";
 import { Icon } from "semantic-ui-react";
-class PurchaseSection extends React.Component {
+class SavedForLater extends React.Component {
     /*
         Cart Items has ALL the books right now.
         We will need to pass a variable across to have all
         items in the cart that stores the quantities as well
     */
-    //
     constructor(props) {
         super(props);
         this.state = {
@@ -23,29 +22,6 @@ class PurchaseSection extends React.Component {
         this.getCartItems = this.getCartItems.bind(this);
         this.removeCartItems = this.removeCartItems.bind(this);
     }
-
-    // addItems(){
-    //     fetch('/cart/insert', {
-    //         method: 'POST',
-    //         body: JSON.stringify({
-    //             username: 'blanket2',
-    //             bookID: 1,
-    //             quantity: 1,
-    //             price: 9.99,
-    //             title: 'Things Fall apart'
-    //         }),
-    //         headers: { 'Content-Type': 'application/json' }
-    //     })
-    //         .then(res => res.json())
-    //         // .then(newInfo => {
-    //         //     //look at address-info for return values
-    //         //     this.getInfo();
-    //         // })
-    //         .catch(err => {
-    //             console.log(err);
-    //      })
-    //      console.log("INSERT MADE");
-    // }
 
     getCartItems(books) {
         let total = 0.0;
@@ -66,10 +42,9 @@ class PurchaseSection extends React.Component {
                         />
                     </td>
                     <td>${item.price.toFixed(2)}</td>
-
                     <td>
                         <button type='button' class='btn btn-outline-dark'>
-                            Save For Later
+                            Move To Cart
                         </button>
                         <Button
                             onClick={this.removeCartItems.bind(this, item)}
@@ -142,8 +117,6 @@ class PurchaseSection extends React.Component {
             });
     }
 
-    saveForLater() {}
-
     componentDidMount() {
         fetch("/cart", {
             method: "post",
@@ -154,21 +127,13 @@ class PurchaseSection extends React.Component {
             .then(books => {
                 this.getCartItems(books.result);
             });
-        /*fetch("/books")
-            .then(res => res.json())
-            .then(books => {
-                books.map(item => {
-                    item["quantity"] = 2;
-                })
-                this.getCartItems(books);
-            })*/
     }
     render() {
         return (
             <div id='purchase-container'>
                 <div id='purchase-body'>
                     <h1 className='display-4' style={{ marginBottom: "3%" }}>
-                        Your Cart
+                        Saved For Later
                     </h1>
                     <Table>
                         <thead>
@@ -186,19 +151,10 @@ class PurchaseSection extends React.Component {
                             Total Price: ${this.state.totalPrice.toFixed(2)}
                         </h3>
                     </div>
-                    <div className='price-row'>
-                        <Button
-                            size='lg'
-                            style={{ width: "30%" }}
-                            onClick={this.addItems}
-                        >
-                            Purchase
-                        </Button>
-                    </div>
                 </div>
             </div>
         );
     }
 }
 
-export default PurchaseSection;
+export default SavedForLater;
