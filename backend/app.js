@@ -9,6 +9,7 @@ let bodyParser = require('body-parser');
 const cartRouter = require('./routes/cart');
 const indexRouter = require('./routes/index');
 const booksRouter = require('./routes/books');
+const wishlistRouter = require('./routes/wishlist');
 const personalInfoRouter = require('./routes/personal-info');
 const addressInfoRouter = require('./routes/address-info');
 const creditInfoRouter = require('./routes/credit-info');
@@ -41,6 +42,7 @@ app.use('/credit-info', creditInfoRouter);
 app.use('/registration', usersRouter);
 app.use('/auth', authRouter);
 app.use('/cart', cartRouter);
+app.use('/wishlist', wishlistRouter);
 
 //purchase router
 app.use('/purchase', purchaseRouter);
