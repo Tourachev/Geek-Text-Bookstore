@@ -66,9 +66,7 @@ class App extends Component {
                                 <Route exact path='/' component={Home} />
                                 <Route path='/index.html' component={Home} />
                                 <Route path='/browse' component={Browse} />
-                                <Route path='/cart' component={Cart} />
                                 <Route path='/login' component={Login} />
-
                                 <Route
                                     path='/signUp'
                                     component={ApplicationForm}
@@ -92,6 +90,20 @@ class App extends Component {
                                                 path='/wishlist'
                                                 component={() => (
                                                     <Wishlist
+                                                        isLoggedIn={
+                                                            context.isLoggedIn
+                                                        }
+                                                        username={
+                                                            context.username
+                                                        }
+                                                    />
+                                                )}
+                                            />
+
+                                            <Route
+                                                path='/cart'
+                                                component={() => (
+                                                    <Cart
                                                         isLoggedIn={
                                                             context.isLoggedIn
                                                         }
