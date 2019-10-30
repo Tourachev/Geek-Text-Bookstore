@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+
+import './css/index.css';
+
 import Home from './components/routes/HomePage';
 import Cart from './components/routes/CartPage';
 import Browse from './components/routes/BrowsePage';
 import { ProfilePage } from './components/routes/ProfilePage';
-import CartPage from './components/routes/CartPage';
-import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-import './css/index.css';
+import Wishlist from './components/routes/WishlistPage';
+
 import Login from './components/Login';
 import Navbar from './components/NavBar';
 import ApplicationForm from './components/ApplicationForm';
@@ -65,6 +68,7 @@ class App extends Component {
                                 <Route path='/browse' component={Browse} />
                                 <Route path='/cart' component={Cart} />
                                 <Route path='/login' component={Login} />
+
                                 <Route
                                     path='/signUp'
                                     component={ApplicationForm}
@@ -72,16 +76,32 @@ class App extends Component {
                                 {/* Below I am passing the context state into the Profile component*/}
                                 <Context.Consumer>
                                     {context => (
-                                        <Route
-                                            path='/profile'
-                                            component={() => (
-                                                <ProfilePage
-                                                    isLoggedIn={
-                                                        context.isLoggedIn
-                                                    }
-                                                />
-                                            )}
-                                        />
+                                        <div>
+                                            <Route
+                                                path='/profile'
+                                                component={() => (
+                                                    <ProfilePage
+                                                        isLoggedIn={
+                                                            context.isLoggedIn
+                                                        }
+                                                    />
+                                                )}
+                                            />
+
+                                            <Route
+                                                path='/wishlist'
+                                                component={() => (
+                                                    <Wishlist
+                                                        isLoggedIn={
+                                                            context.isLoggedIn
+                                                        }
+                                                        username={
+                                                            context.username
+                                                        }
+                                                    />
+                                                )}
+                                            />
+                                        </div>
                                     )}
                                 </Context.Consumer>
                             </Switch>

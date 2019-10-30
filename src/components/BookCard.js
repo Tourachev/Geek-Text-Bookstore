@@ -28,11 +28,6 @@ class BookCard extends React.Component {
             .catch(err => {
                 console.log(err);
             })
-            .then(console.log(this.props.username))
-            .then(console.log(this.props.bookID))
-            .then(console.log(this.quantity))
-            .then(console.log(this.props.price))
-            .then(console.log(this.props.title))
             .then(alert('Submitted!'));
     };
 
