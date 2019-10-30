@@ -1,5 +1,6 @@
 import React from 'react';
 import faker from 'faker';
+import { Link } from 'react-router-dom';
 
 class BookCard extends React.Component {
     constructor(props) {
@@ -32,51 +33,94 @@ class BookCard extends React.Component {
     };
 
     render() {
-        return (
-            <div>
-                <div class='card'>
-                    <img
-                        src={faker.image.cats()}
-                        class='card-img-top'
-                        alt={this.props.title}
-                    />
-                    <div class='card-body'>
-                        <h5 class='card-title'>{this.props.author}</h5>
-                        <p class='card-text'>{this.props.title}</p>
-                    </div>
-                    <ul class='list-group list-group-flush'>
-                        <li class='list-group-item'>
-                            Genre: {this.props.genre}
-                        </li>
-                        <li class='list-group-item'>
-                            Price: ${this.props.price}
-                        </li>
-                        <li class='list-group-item'>
-                            Rating: {this.props.rating}
-                        </li>
-                        <li class='list-group-item'>
-                            Release Date: {this.props.date}
-                        </li>
-                        {/* <li class='list-group-item'>Book ID: {props.bookID}</li> */}
-                    </ul>
-                    <div class='card-body card-links'>
-                        <button
-                            type='button'
-                            class='btn btn-secondary cart-button'
-                            onClick={event => this.mySubmitHandler(event)}
-                        >
-                            Add to Cart
-                        </button>
-                        <button
-                            type='button'
-                            class='btn btn-secondary cart-button'
-                        >
-                            Save For later
-                        </button>
+        if (this.props.isLoggedIn) {
+            return (
+                <div>
+                    <div class='card'>
+                        <img
+                            src={faker.image.cats()}
+                            class='card-img-top'
+                            alt={this.props.title}
+                        />
+                        <div class='card-body'>
+                            <h5 class='card-title'>{this.props.author}</h5>
+                            <p class='card-text'>{this.props.title}</p>
+                        </div>
+                        <ul class='list-group list-group-flush'>
+                            <li class='list-group-item'>
+                                Genre: {this.props.genre}
+                            </li>
+                            <li class='list-group-item'>
+                                Price: ${this.props.price}
+                            </li>
+                            <li class='list-group-item'>
+                                Rating: {this.props.rating}
+                            </li>
+                            <li class='list-group-item'>
+                                Release Date: {this.props.date}
+                            </li>
+                            {/* <li class='list-group-item'>Book ID: {props.bookID}</li> */}
+                        </ul>
+                        <div class='card-body card-links'>
+                            <button
+                                type='button'
+                                class='btn btn-secondary cart-button'
+                                onClick={event => this.mySubmitHandler(event)}
+                            >
+                                Add to Cart
+                            </button>
+                            <button
+                                type='button'
+                                class='btn btn-secondary cart-button'
+                            >
+                                Save For later
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        } else {
+            return (
+                <div>
+                    <div class='card'>
+                        <img
+                            src={faker.image.cats()}
+                            class='card-img-top'
+                            alt={this.props.title}
+                        />
+                        <div class='card-body'>
+                            <h5 class='card-title'>{this.props.author}</h5>
+                            <p class='card-text'>{this.props.title}</p>
+                        </div>
+                        <ul class='list-group list-group-flush'>
+                            <li class='list-group-item'>
+                                Genre: {this.props.genre}
+                            </li>
+                            <li class='list-group-item'>
+                                Price: ${this.props.price}
+                            </li>
+                            <li class='list-group-item'>
+                                Rating: {this.props.rating}
+                            </li>
+                            <li class='list-group-item'>
+                                Release Date: {this.props.date}
+                            </li>
+                            {/* <li class='list-group-item'>Book ID: {props.bookID}</li> */}
+                        </ul>
+                        <div class='card-body card-links'>
+                            <Link to='/login'>
+                                <button
+                                    type='button'
+                                    className='btn btn-secondary btn-lg btn-block'
+                                >
+                                    Add To Cart
+                                </button>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
     }
 }
 

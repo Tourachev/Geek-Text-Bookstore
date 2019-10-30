@@ -12,6 +12,7 @@ class Wishlist extends React.Component {
         this.state = {
             username: this.props.username,
             isLoggedIn: this.props.isLoggedIn,
+            //Array of objects
             wishlists: []
         };
     }
@@ -60,8 +61,10 @@ class Wishlist extends React.Component {
     render() {
         //Incomplete. Doesn't work... YET
         //This maps all lists onto the wishlistcards effectively showing all lists, need to pass the right data.
+
+        //Map array of objects onto component. Each component receives an object.
         const card = this.state.wishlists.map(wishlist => (
-            <WishlistCard content={wishlist.book} />
+            <WishlistCard content={wishlist.books} />
         ));
 
         return (

@@ -8,6 +8,7 @@ class WishlistCard extends React.Component {
 
     render() {
         //This don't work either yet.
+        //Not sure how to map the data being received
         const list = this.props.wishlist.map(wishlist => this.whishlists);
         return (
             <div>

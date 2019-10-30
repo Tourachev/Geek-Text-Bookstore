@@ -162,6 +162,7 @@ class BrowseSection extends React.Component {
                     {context => (
                         <BookCard
                             username={context.username}
+                            isLoggedIn={context.isLoggedIn}
                             bookID={book.bookid}
                             title={book.title}
                             author={book.author}
