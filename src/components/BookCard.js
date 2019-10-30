@@ -44,10 +44,9 @@ class BookCard extends React.Component {
                         />
                         <div class='card-body'>
                             <h5 class='card-title'>{this.props.author}</h5>
-                            <Link to={{pathname: "/book/" + this.props.bookID,
-                                   }}>
-                                        <p class='card-text'>{this.props.title}</p>
-                        </Link>
+                            <Link to={{pathname: "/book/" + this.props.bookID,}}>
+                              <p class='card-text'>{this.props.title}</p>
+                            </Link>
                         </div>
                         <ul class='list-group list-group-flush'>
                             <li class='list-group-item'>
