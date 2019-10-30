@@ -8,9 +8,7 @@ import Context from '../Context';
 class BrowseSection extends React.Component {
     constructor(props) {
         super(props);
-        this.handlePageChange = this.handlePageChange.bind(this);
-        this.updateBooksPerPage10 = this.updateBooksPerPage10.bind(this);
-        this.updateBooksPerPage20 = this.updateBooksPerPage20.bind(this);
+
         this.state = {
             books: [],
             ogBooks: [],
@@ -19,6 +17,18 @@ class BrowseSection extends React.Component {
             activePage: 1,
             loading: true
         };
+
+        this.handlePageChange = this.handlePageChange.bind(this);
+        this.updateBooksPerPage10 = this.updateBooksPerPage10.bind(this);
+        this.updateBooksPerPage20 = this.updateBooksPerPage20.bind(this);
+    }
+
+    componentDidMount() {
+        fetch('/books')
+            .then(res => res.json())
+            .then(books =>
+                this.setState({ books: books, ogBooks: books, loading: false })
+            );
     }
 
     handlePageChange(pageNumber) {
@@ -69,14 +79,6 @@ class BrowseSection extends React.Component {
         );
 
         console.log(this.state.books);
-    }
-
-    componentDidMount() {
-        fetch('/books')
-            .then(res => res.json())
-            .then(books =>
-                this.setState({ books: books, ogBooks: books, loading: false })
-            );
     }
 
     sortAuthorA2Z(props) {
@@ -140,19 +142,21 @@ class BrowseSection extends React.Component {
     }
 
     updateBooksPerPage10() {
-        this.setState({booksPerPage:'10'});
+        this.setState({ booksPerPage: '10' });
         this.forceUpdate();
     }
 
     updateBooksPerPage20() {
-        this.setState({booksPerPage:'20'});
+        this.setState({ booksPerPage: '20' });
         this.forceUpdate();
     }
-    
 
     render() {
         const card = this.state.books
-            .slice((this.state.activePage - 1) * this.state.booksPerPage, this.state.activePage * this.state.booksPerPage)
+            .slice(
+                (this.state.activePage - 1) * this.state.booksPerPage,
+                this.state.activePage * this.state.booksPerPage
+            )
             .map(book => (
                 <Context.Consumer>
                     {context => (
@@ -380,10 +384,18 @@ class BrowseSection extends React.Component {
                                 Books Per Page:
                             </button>
                             <div class='dropdown-menu'>
-                                <a onClick={this.updateBooksPerPage10} class='dropdown-item' href='#'>
+                                <a
+                                    onClick={this.updateBooksPerPage10}
+                                    class='dropdown-item'
+                                    href='#'
+                                >
                                     10
                                 </a>
-                                <a onClick={this.updateBooksPerPage20} class='dropdown-item' href='#'>
+                                <a
+                                    onClick={this.updateBooksPerPage20}
+                                    class='dropdown-item'
+                                    href='#'
+                                >
                                     20
                                 </a>
                             </div>

@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Context from "./Context";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Context from './Context';
 
 // Navbar accepts the context as props and then we can render conditionally depending on if the user is logged in.
 
@@ -113,7 +113,9 @@ const NavBar = props => {
                                         tabIndex='0'
                                     >
                                         <div className='visible content'>
-                                            Wishlist
+                                            <Link to='/wishlist'>
+                                                Wishlists
+                                            </Link>
                                         </div>
                                     </div>
                                 </li>
