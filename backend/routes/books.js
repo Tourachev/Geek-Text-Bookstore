@@ -1,4 +1,5 @@
 const mariadb = require('mariadb');
+const queries = require('../custom_modules/book-funct');
 const pool = mariadb.createPool({
     host: 'virt-servers.mynetgear.com',
     port: 30000,
@@ -25,6 +26,15 @@ router.get('/', function(req, res, next) {
         .catch(err => {
             console.log(err);
         })
+});
+
+router.post('/getBook', (req, res) => {
+    console.log(req.body)
+    queries.getBook(req.body, (err, result) => {
+        console.log('here we are');
+        console.log(result);
+        res.json({ result: result });
+    });
 });
 
 module.exports = router;
