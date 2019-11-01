@@ -16,12 +16,23 @@ class SavedForLater extends React.Component {
             username: this.props.username, //should use context here
         };
         // this.addItems = this.addItems.bind(this);
-        this.getWishItems = this.getWishItems.bind(this);
-        this.removeWishItems = this.removeWishItems.bind(this);
+        this.getCartItems = this.getCartItems.bind(this);
+        this.removeCartItems = this.removeCartItems.bind(this);
     }
 
-    getWishItems(books) {
-        let total = 0.0;
+    componentDidMount() {
+        fetch("/cart", {
+            method: "post",
+            body: JSON.stringify({ username: this.state.username }),
+            headers: { "Content-Type": "application/json" }
+        })
+            .then(res => res.json())
+            .then(books => {
+                this.getCartItems(books.result);
+            });
+    }
+
+    getCartItems(books) {
 
         //Below all books get mapped onto the cart. Delete after
         let cart = books.map(item => {
@@ -47,16 +58,16 @@ class SavedForLater extends React.Component {
             );
         });
         console.log(books);
-        this.setState({ cartBooks: books, cartItems: cart, totalPrice: total });
+        this.setState({ cartBooks: books, cartItems: cart });
         this.forceUpdate();
     }
     
-    removeWishItems(item) {
+    removeCartItems(item) {
         this.state.cartBooks.splice(
             this.state.cartBooks.findIndex(book => book.bookID === item.bookid),
             1
         );
-        this.getWishItems(this.state.cartBooks);
+        this.getCartItems(this.state.cartBooks);
         fetch("/cart/delete", {
             method: "POST",
             body: JSON.stringify({
@@ -74,17 +85,7 @@ class SavedForLater extends React.Component {
             });
     }
 
-    componentDidMount() {
-        fetch("/cart", {
-            method: "post",
-            body: JSON.stringify({ username: this.state.username }),
-            headers: { "Content-Type": "application/json" }
-        })
-            .then(res => res.json())
-            .then(books => {
-                this.getCartItems(books.result);
-            });
-    }
+    
     render() {
         return (
             <div id='purchase-container'>
@@ -96,7 +97,7 @@ class SavedForLater extends React.Component {
                         <thead>
                             <tr>
                                 <th>Book Title</th>
-                                <th>Quantity</th>
+                                <th>Price</th>
                                 <th></th>
                             </tr>
                         </thead>

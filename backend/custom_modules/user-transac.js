@@ -411,8 +411,8 @@ async function addToWish(info, callback) {
         })
 }
 
-async function cartToWish() {
-
+async function addToLater() {
+    
 }
 
 module.exports = {
