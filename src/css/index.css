@@ -1,3 +1,76 @@
+/* BOOK DETAILS CSS */
+.book-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 90%;
+    margin: 5% 0% 7% 0%;
+}
+
+.book-body {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+}
+
+.section {
+    margin: 5%;
+}
+
+.book-details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+}
+
+.book-details p {
+    font-size: 15px;
+    margin-right: 5vw;
+}
+
+.book-imgcontainer {
+    justify-content: center;
+    display: flex;
+    width: 80vw;
+    margin: 5%;
+    margin-right:0;
+}
+
+.book-img {
+    width: 27vw;
+}
+
+#book-rating {
+    display: flex;
+    flex-direction: row;
+}
+
+.option-button {
+    height: 5vh;
+    width: 20vw;
+    margin-right: 15px;
+}
+
+#stars{
+    margin-top: 3px;
+    margin-right: 5px;
+}
+
+#rating-text {
+    font-size: 13px;
+    margin-top: 5px;
+    color: rgb(119, 119, 119);
+}
+
+#subtitle {
+    height: 5vh;
+    color: rgb(72, 72, 72);
+    margin-top: 0
+}
+
 /* CART CSS */
 .purchase-input {
     background-color: rgba(0, 0, 0, 0);
@@ -39,7 +112,6 @@
 }
 
 /* PROFILE MANAGEMENT CSS */
-
 .info-card {
     width: 100%;
     margin-top: 2%;
@@ -76,7 +148,6 @@
 } */
 
 /* CSS FOR MATERIAL UI ELEMENTS AND SIGN-UP FORMS */
-
 .app-bar,
 .raised-button {
     background: #212529 !important;

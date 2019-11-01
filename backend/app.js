@@ -42,7 +42,7 @@ app.use('/credit-info', creditInfoRouter);
 app.use('/registration', usersRouter);
 app.use('/auth', authRouter);
 app.use('/cart', cartRouter);
-app.use('/wishlist', wishlistRouter);
+//Gave me a type error -> app.use('/wishlist', wishlistRouter);
 
 //purchase router
 app.use('/purchase', purchaseRouter);
