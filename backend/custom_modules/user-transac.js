@@ -476,12 +476,7 @@ async function cartToLater(info, callback) {
 
     pool.query(step1, info)
         .then(res => {
-            entry = [
-                res[0].userid,
-                res[0].bookid,
-                res[0].price,
-                res[0].title
-            ];
+            entry = [res[0].userid, res[0].bookid, res[0].price, res[0].title];
             pool.getConnection()
                 .then(con => {
                     con.query(step2, entry)

@@ -22,6 +22,7 @@ class PurchaseSection extends React.Component {
         this.changeQuantity = this.changeQuantity.bind(this);
         this.getCartItems = this.getCartItems.bind(this);
         this.removeCartItems = this.removeCartItems.bind(this);
+        this.onSaveForLater = this.onSaveForLater.bind(this);
     }
 
     componentDidMount() {
@@ -56,6 +57,7 @@ class PurchaseSection extends React.Component {
             headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
+            .then(console.log(item.price))
             .then(books => {
                 this.getCartItems(books.result);
             });
@@ -91,7 +93,7 @@ class PurchaseSection extends React.Component {
         let cart = books.map(item => {
             total += item.price * item.quantity;
             return (
-                <tr key={item.bookId}>
+                <tr key={item.bookid}>
                     <td>{item.title}</td>
                     <td>
                         x
