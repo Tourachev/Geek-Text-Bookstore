@@ -328,6 +328,31 @@ async function delCartItems(info, callback) {
         });
 }
 
+async function getLater(info, callback) {
+    var query = 'select * from saveforlater where userid=?';
+    pool.query(query, [info.username])
+        .then(result => {
+            callback(null, result);
+        })
+        .catch(err => {
+            callback(err, null);
+        });
+}
+
+async function delLater(info, callback) {
+    var query = 'delete from saveforlater where (' + 'userid=? and bookid=?)';
+
+    var data = [info.userid, info.bookid];
+    console.log('I WORKED');
+    pool.query(query, data)
+        .then(res => {
+            callback(null); // query successful
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
+
 //This query does the entire transaction, based on only userid and bookid
 
 async function cartToWish(info, callback) {
@@ -509,5 +534,7 @@ module.exports = {
     cartToWish,
     addToWish,
     addToLater,
-    cartToLater
+    cartToLater,
+    getLater,
+    delLater
 };
