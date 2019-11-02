@@ -165,6 +165,7 @@ class BrowseSection extends React.Component {
                             isLoggedIn={context.isLoggedIn}
                             bookID={book.bookid}
                             title={book.title}
+                            image = {book.imagelink}
                             author={book.author}
                             genre={book.genre}
                             price={book.price}

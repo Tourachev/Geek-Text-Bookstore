@@ -18,6 +18,7 @@ class AuthorWorksSection extends React.Component {
     }
 
     render() {
+        console.log(this.state.relatedBooks)
         const card = this.state.relatedBooks.map(book =>
         <BookCard
                             username={"context.username"}
@@ -29,10 +30,11 @@ class AuthorWorksSection extends React.Component {
                             price={book.price}
                             rating={book.rating}
                             date={book.date}
+                            image={book.imagelink}
                         />)
         return (
-            <div class='book-container'>
-                <h1>Other Works</h1>
+            <div class='author-container'>
+                <h1>{this.props.author}'s Other Works</h1>
                 <div class='book-body'>{card}</div>
             </div>
         );

@@ -60,12 +60,8 @@ class DetailsSection extends React.Component {
         return (
             <div clsas='book-container'>
                 <div class='book-body'>
-                <div className='popup'>
-<div className='popup\_inner'>
-<h1>{this.props.text}</h1>
-<button onClick={this.props.closePopup}>close me</button>
-</div>
-</div>
+                    <h1>{this.props.text}</h1>
+
                     <div class="book-imgcontainer">
                         <img class="book-img" src={this.state.bookData.imagelink}></img>
                     </div>
