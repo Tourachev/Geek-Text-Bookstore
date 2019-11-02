@@ -17,7 +17,7 @@ class BrowseSection extends React.Component {
             activePage: 1,
             loading: true
         };
-
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handlePageChange = this.handlePageChange.bind(this);
         this.updateBooksPerPage10 = this.updateBooksPerPage10.bind(this);
         this.updateBooksPerPage20 = this.updateBooksPerPage20.bind(this);
@@ -186,7 +186,7 @@ class BrowseSection extends React.Component {
                                 name='genre'
                                 value='Sci-Fi'
                                 type='checkbox'
-                                onChange={this.handleInputChange.bind(this)}
+                                onChange={event => this.handleInputChange(event)}
                             />
                         </p>
                         <p>
@@ -195,7 +195,7 @@ class BrowseSection extends React.Component {
                                 name='genre'
                                 value='Biography'
                                 type='checkbox'
-                                onChange={this.handleInputChange.bind(this)}
+                                onChange={event => this.handleInputChange(event)}
                             />
                         </p>
                         <p>
@@ -204,7 +204,7 @@ class BrowseSection extends React.Component {
                                 name='genre'
                                 value='Horror'
                                 type='checkbox'
-                                onChange={this.handleInputChange.bind(this)}
+                                onChange={event => this.handleInputChange(event)}
                             />
                         </p>
                         <p>
@@ -213,7 +213,7 @@ class BrowseSection extends React.Component {
                                 name='genre'
                                 value='Pulp Fiction'
                                 type='checkbox'
-                                onChange={this.handleInputChange.bind(this)}
+                                onChange={event => this.handleInputChange(event)}
                             />
                         </p>
                         <p>
@@ -222,7 +222,7 @@ class BrowseSection extends React.Component {
                                 name='genre'
                                 value='Drama'
                                 type='checkbox'
-                                onChange={this.handleInputChange.bind(this)}
+                                onChange={event => this.handleInputChange(event)}
                             />
                         </p>
                         <p>
@@ -231,7 +231,7 @@ class BrowseSection extends React.Component {
                                 name='genre'
                                 value='Comedy'
                                 type='checkbox'
-                                onChange={this.handleInputChange.bind(this)}
+                                onChange={event => this.handleInputChange(event)}
                             />
                         </p>
                         <hr />
@@ -250,7 +250,7 @@ class BrowseSection extends React.Component {
                                 name='rating'
                                 value='5'
                                 type='checkbox'
-                                onChange={this.handleInputChange.bind(this)}
+                                onChange={event => this.handleInputChange(event)}
                             />
                         </p>
                         <p>
@@ -262,7 +262,7 @@ class BrowseSection extends React.Component {
                                 name='rating'
                                 value='4'
                                 type='checkbox'
-                                onChange={this.handleInputChange.bind(this)}
+                                onChange={event => this.handleInputChange(event)}
                             />
                         </p>
                         <p>
@@ -273,7 +273,7 @@ class BrowseSection extends React.Component {
                                 name='rating'
                                 value='3'
                                 type='checkbox'
-                                onChange={this.handleInputChange.bind(this)}
+                                onChange={event => this.handleInputChange(event)}
                             />
                         </p>
                         <p>
@@ -283,7 +283,7 @@ class BrowseSection extends React.Component {
                                 name='rating'
                                 value='2'
                                 type='checkbox'
-                                onChange={this.handleInputChange.bind(this)}
+                                onChange={event => this.handleInputChange(event)}
                             />
                         </p>
                         <p>
@@ -292,7 +292,7 @@ class BrowseSection extends React.Component {
                                 name='rating'
                                 value='1'
                                 type='checkbox'
-                                onChange={this.handleInputChange.bind(this)}
+                                onChange={event => this.handleInputChange(event)}
                             />
                         </p>
                     </div>

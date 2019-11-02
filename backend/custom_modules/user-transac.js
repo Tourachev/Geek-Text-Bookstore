@@ -413,6 +413,84 @@ async function addToWish(info, callback) {
         });
 }
 
+async function addToLater(info, callback) {
+    var fields = [info.userid, info.bookid, info.price, info.title];
+
+    var step1 =
+        'insert into saveforlater(userid, bookid, price, title)' +
+        'values(?,?,?,?)';
+    var step2 =
+        'update saveforlater set quantity=quantity+1 where userid=? and bookid=?';
+    pool.query(step1, fields)
+        .then(res => {
+            callback(null, 4); // successfully added to wishlist
+        })
+        .catch(err => {
+            if (err.errno == NOT_UNIQUE) {
+                pool.query(step2, [info.userid, info.bookid])
+                    .then(res => {
+                        callback(null, 3);
+                    })
+                    .catch(err => {
+                        callback(err, 2);
+                    });
+            } else {
+                callback(err, 1); //error making connection
+            }
+        });
+}
+
+async function cartToLater(info, callback) {
+    var step1 =
+        'select userid, bookid, price, title from shoppingcart where userid=? and bookid=?';
+    var entry;
+    var step2 =
+        'insert into saveforlater(userid, bookid, price, title)' +
+        'values(?,?,?,?)';
+    var step3 = 'delete from shoppingcart where userid=? and bookid=?';
+
+    pool.query(step1, info)
+        .then(res => {
+            entry = [
+                res[0].userid,
+                res[0].bookid,
+                res[0].quantity,
+                res[0].price,
+                res[0].title
+            ];
+            pool.getConnection()
+                .then(con => {
+                    con.query(step2, entry)
+                        .then(() => {
+                            con.query(step3, info)
+                                .then(() => {
+                                    con.commit();
+                                    con.release();
+                                    callback(null, 5); //sucess
+                                })
+                                .catch(err => {
+                                    con.rollback();
+                                    con.release();
+                                    callback(err, 4); //error in step3
+                                });
+                        })
+                        .catch(err => {
+                            con.rollback();
+                            con.release();
+                            callback(err, 3); //error in step 2
+                        });
+                })
+                .catch(err => {
+                    con.rollback();
+                    con.release();
+                    callback(err, 2); //error in step 1
+                });
+        })
+        .catch(err => {
+            callback(err, 1); //error making connection
+        });
+}
+
 module.exports = {
     createUser,
     login,
@@ -429,5 +507,7 @@ module.exports = {
     delCartItems,
     editQuantity,
     cartToWish,
-    addToWish
+    addToWish,
+    addToLater,
+    cartToLater
 };

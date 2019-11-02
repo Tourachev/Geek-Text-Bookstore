@@ -44,7 +44,7 @@ app.use('/registration', usersRouter);
 app.use('/saved-for-later', savedForLaterRouter);
 app.use('/auth', authRouter);
 app.use('/cart', cartRouter);
-//Gave me a type error -> app.use('/wishlist', wishlistRouter);
+//app.use('/wishlist', wishlistRouter);
 
 //purchase router
 app.use('/purchase', purchaseRouter);
