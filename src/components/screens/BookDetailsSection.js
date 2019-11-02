@@ -5,6 +5,8 @@ import { Table } from "reactstrap";
 import { Button } from "react-bootstrap";
 import { Icon } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
+
+
 class DetailsSection extends React.Component {
     constructor(props) {
         super(props);
@@ -59,9 +61,16 @@ class DetailsSection extends React.Component {
         return (
             <div clsas='book-container'>
                 <div class='book-body'>
+                <div className='popup'>  
+<div className='popup\_inner'>  
+<h1>{this.props.text}</h1>  
+<button onClick={this.props.closePopup}>close me</button>  
+</div>  
+</div>  
                     <div class="book-imgcontainer">
                         <img class="book-img" src={this.state.bookData.imagelink}></img>
                     </div>
+                    
                     <div class="book-details">
                         <h1>{this.state.bookData.title}</h1>
                         <h2 id="subtitle">{this.state.bookData.author}</h2>

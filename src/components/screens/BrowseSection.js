@@ -208,10 +208,10 @@ class BrowseSection extends React.Component {
                             />
                         </p>
                         <p>
-                            Pulp Fiction{' '}
+                             Fiction{' '}
                             <input
                                 name='genre'
-                                value='Pulp Fiction'
+                                value='Fiction'
                                 type='checkbox'
                                 onChange={event => this.handleInputChange(event)}
                             />
