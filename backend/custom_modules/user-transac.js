@@ -466,6 +466,7 @@ async function addToLater(info, callback) {
 }
 
 async function cartToLater(info, callback) {
+    console.log(info.bookid);
     var step1 =
         'select userid, bookid, price, title from shoppingcart where userid=? and bookid=?';
     var entry;
@@ -474,14 +475,14 @@ async function cartToLater(info, callback) {
         'values(?,?,?,?)';
     var step3 = 'delete from shoppingcart where userid=? and bookid=?';
 
-    pool.query(step1, info)
+    pool.query(step1, [info.userid, info.bookid])
         .then(res => {
             entry = [res[0].userid, res[0].bookid, res[0].price, res[0].title];
             pool.getConnection()
                 .then(con => {
                     con.query(step2, entry)
                         .then(() => {
-                            con.query(step3, info)
+                            con.query(step3, [info.userid, info.bookid])
                                 .then(() => {
                                     con.commit();
                                     con.release();
@@ -500,8 +501,6 @@ async function cartToLater(info, callback) {
                         });
                 })
                 .catch(err => {
-                    con.rollback();
-                    con.release();
                     callback(err, 2); //error in step 1
                 });
         })
