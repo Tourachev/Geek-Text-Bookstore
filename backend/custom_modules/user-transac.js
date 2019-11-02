@@ -367,11 +367,11 @@ async function cartToWish(info, callback) {
     pool.query(step1, info)
         .then(res => {
             entry = [
-                res[0].userid,
-                res[0].bookid,
-                res[0].quantity,
-                res[0].price,
-                res[0].title
+                info.userid,
+                info.bookid,
+                info.quantity,
+                info.price,
+                info.title
             ];
             pool.getConnection()
                 .then(con => {
@@ -476,7 +476,13 @@ async function cartToLater(info, callback) {
 
     pool.query(step1, info)
         .then(res => {
-            entry = [res[0].userid, res[0].bookid, res[0].price, res[0].title];
+            entry = [
+                info.userid,
+                info.bookid,
+                info.quantity,
+                info.price,
+                info.title
+            ];
             pool.getConnection()
                 .then(con => {
                     con.query(step2, entry)
@@ -500,8 +506,6 @@ async function cartToLater(info, callback) {
                         });
                 })
                 .catch(err => {
-                    con.rollback();
-                    con.release();
                     callback(err, 2); //error in step 1
                 });
         })
