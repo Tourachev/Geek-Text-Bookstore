@@ -264,7 +264,8 @@ async function getCart(info, callback) {
 async function addToCart(info, callback) {
     var query =
         'insert into shoppingcart(userid, bookid, quantity, price, title) values(?,?,?,?,?)';
-    var query2 = 'update shoppingcart set quantity = quantity + 1 where userid=? and bookid=?';
+    var query2 =
+        'update shoppingcart set quantity = quantity + 1 where userid=? and bookid=?';
     var fields = [
         info.username,
         info.bookID,
@@ -282,11 +283,11 @@ async function addToCart(info, callback) {
             if (err.errno === NOT_UNIQUE) {
                 pool.query(query2, [info.username, info.bookID])
                     .then(result => {
-                        callback(null, 1) //quantity updated 
+                        callback(null, 1); //quantity updated
                     })
                     .catch(err => {
                         callback(err, null);
-                    })
+                    });
             } else {
                 callback(err, null);
             }
@@ -330,52 +331,54 @@ async function delCartItems(info, callback) {
 //This query does the entire transaction, based on only userid and bookid
 
 async function cartToWish(info, callback) {
-    var step1 = 'select userid, bookid, quantity, price, title from shoppingcart where userid=? and bookid=?';
+    var step1 =
+        'select userid, bookid, quantity, price, title from shoppingcart where userid=? and bookid=?';
     var entry;
-    var step2 = 
-        'insert into wishlist(userid, bookid, quantity, price, title)' + 
+    var step2 =
+        'insert into wishlist(userid, bookid, quantity, price, title)' +
         'values(?,?,?,?,?)';
     var step3 = 'delete from shoppingcart where userid=? and bookid=?';
 
     pool.query(step1, info)
-      .then(res => {
-        entry = [res[0].userid, 
-                res[0].bookid, 
-                res[0].quantity, 
-                res[0].price, 
+        .then(res => {
+            entry = [
+                res[0].userid,
+                res[0].bookid,
+                res[0].quantity,
+                res[0].price,
                 res[0].title
             ];
-        pool.getConnection()
-          .then(con => {
-            con.query(step2, entry)
-              .then(() => {
-                con.query(step3, info)
-                  .then(() => {
-                    con.commit();
+            pool.getConnection()
+                .then(con => {
+                    con.query(step2, entry)
+                        .then(() => {
+                            con.query(step3, info)
+                                .then(() => {
+                                    con.commit();
+                                    con.release();
+                                    callback(null, 5); //sucess
+                                })
+                                .catch(err => {
+                                    con.rollback();
+                                    con.release();
+                                    callback(err, 4); //error in step3
+                                });
+                        })
+                        .catch(err => {
+                            con.rollback();
+                            con.release();
+                            callback(err, 3); //error in step 2
+                        });
+                })
+                .catch(err => {
+                    con.rollback();
                     con.release();
-                    callback(null, 5); //sucess
-                  })
-                  .catch(err => {
-                      con.rollback();
-                      con.release();
-                      callback(err, 4); //error in step3
-                  })
-              })
-              .catch(err => {
-                con.rollback();
-                con.release();
-                callback(err, 3); //error in step 2
-              })
-          })
-          .catch(err => {
-            con.rollback();
-            con.release();
-            callback(err, 2); //error in step 1
-          })
-      })
-      .catch(err => {
-        callback(err, 1); //error making connection
-    });
+                    callback(err, 2); //error in step 1
+                });
+        })
+        .catch(err => {
+            callback(err, 1); //error making connection
+        });
 }
 
 async function addToWish(info, callback) {
@@ -386,14 +389,14 @@ async function addToWish(info, callback) {
         info.price,
         info.title
     ];
-    var step1 = 
+    var step1 =
         'insert into wishlist(userid, bookid, quantity, price, title)' +
         'values(?,?,?,?,?)';
-    var step2 = 
-        'update wishlist set quantity=quantity+1 where userid=? and bookid=?'
+    var step2 =
+        'update wishlist set quantity=quantity+1 where userid=? and bookid=?';
     pool.query(step1, fields)
         .then(res => {
-            callback(null, 4) //successfully added to wishlist
+            callback(null, 4); //successfully added to wishlist
         })
         .catch(err => {
             if (err.errno == NOT_UNIQUE) {
@@ -403,16 +406,11 @@ async function addToWish(info, callback) {
                     })
                     .catch(err => {
                         callback(err, 2); //error updating wishlist quantity
-                    })
-            }
-            else {
+                    });
+            } else {
                 callback(err, 1); //error making connection
             }
-        })
-}
-
-async function cartToWish() {
-
+        });
 }
 
 module.exports = {
