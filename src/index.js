@@ -4,6 +4,8 @@ import Home from "./components/routes/HomePage";
 import Cart from "./components/routes/CartPage";
 import Browse from "./components/routes/BrowsePage";
 import Profile from "./components/routes/ProfilePage";
+import Comment from "./components/form";
+import star from "./components/star";
 
 import { Route, BrowserRouter as Router } from "react-router-dom";
 
@@ -21,6 +23,8 @@ const routes = (
       <Route path="/cart" component={Cart} />
       <Route path="/login" component={ValidationLoginForm} />
       <Route path="/signUp" component={ApplicationForm} />
+      <Route path="/comment" component={Comment} />
+      <Route path="/star" component={star} />
     </div>
   </Router>
 );

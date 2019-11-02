@@ -1,0 +1,13 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "books_api",
+            "dialect": "PostgreSQL",
+            "name": "api",
+            "password": "alex1230",
+            "port": 5432,
+            "server": "localhost",
+            "username": "postgres"
+        }
+    ]
+}
