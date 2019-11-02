@@ -16,7 +16,7 @@ class SavedForLater extends React.Component {
     }
 
     componentDidMount() {
-        fetch('/cart', {
+        fetch('/saved-for-later', {
             method: 'post',
             body: JSON.stringify({ username: this.state.username }),
             headers: { 'Content-Type': 'application/json' }
@@ -62,7 +62,7 @@ class SavedForLater extends React.Component {
             1
         );
         this.getCartItems(this.state.cartBooks);
-        fetch('/cart/delete', {
+        fetch('/saved-for-later/delete', {
             method: 'POST',
             body: JSON.stringify({
                 userid: this.state.username,

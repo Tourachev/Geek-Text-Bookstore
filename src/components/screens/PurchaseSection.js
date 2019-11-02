@@ -44,6 +44,18 @@ class PurchaseSection extends React.Component {
             })*/
     }
 
+    onSaveForLater() {
+        fetch('/saved-for-later/cart-to-later', {
+            method: 'post',
+            body: JSON.stringify({ username: this.state.username }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(res => res.json())
+            .then(books => {
+                this.getCartItems(books.result);
+            });
+    }
+
     // addItems(){
     //     fetch('/cart/insert', {
     //         method: 'POST',
