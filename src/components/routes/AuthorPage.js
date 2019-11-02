@@ -1,14 +1,18 @@
 import React from "react";
 
-import BrowseSection from "../screens/BrowseSection";
+import AuthorWorksSection from '../screens/AuthorWorksSection'
 import Navbar from "../NavBar";
 import Footer from "../Footer";
 
 class Body extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <div>
-                <BrowseSection />
+                <AuthorWorksSection author={this.props.match.params.name}/>
                 <Footer />
             </div>
         );

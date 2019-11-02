@@ -7,7 +7,6 @@ import { withRouter } from "react-router-dom";
 class ViewBookPage extends React.Component {
     constructor(props) {
         super(props);
-
     }
 
     render() {
