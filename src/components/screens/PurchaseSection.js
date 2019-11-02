@@ -56,11 +56,11 @@ class PurchaseSection extends React.Component {
             }),
             headers: { 'Content-Type': 'application/json' }
         })
-            .then(res => res.json())
-            .then(console.log(item.price))
-            .then(books => {
-                this.getCartItems(books.result);
-            });
+            // .then(res => res.json())
+            // .then(console.log(item.price))
+            // .then(books => {
+            //     this.getCartItems(books.result);
+            // });
     }
 
     // addItems(){
