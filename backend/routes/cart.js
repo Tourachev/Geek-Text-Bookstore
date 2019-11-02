@@ -19,28 +19,24 @@ router.post('/', (req, res) => {
 
 router.post('/insert', (req, res) => {
     queries.addToCart(req.body, (err, result) => {
-       if(err) {
-           console.log(err);
-           res.send(QUERY_ERR); // -1
-       }
-       else {
-           if (result === CART_ADDED) {
-               res.json ( {decision: CART_ADDED} );//2
-           }
-           else {
-               res.json( {descision: NOT_UNIQUE} );//1
-           }
-       }
+        if (err) {
+            console.log(err);
+            res.send(QUERY_ERR); // -1
+        } else {
+            if (result === CART_ADDED) {
+                res.json({ decision: CART_ADDED }); //2
+            } else {
+                res.json({ descision: NOT_UNIQUE }); //1
+            }
+        }
     });
-})
+});
 
 router.post('/edit', (req, res) => {
     queries.editQuantity(req.body, (err, result) => {
         if (err) {
             console.log(
-                'Error in /backend/routes/cart : ' +
-                    'from editQuantity\n' +
-                    err
+                'Error in /backend/routes/cart : ' + 'from editQuantity\n' + err
             );
             res.json(null);
         } else {
@@ -49,9 +45,8 @@ router.post('/edit', (req, res) => {
     });
 });
 
-
 router.post('/delete', (req, res) => {
-    queries.delCartItems(req.body, (err) => {
+    queries.delCartItems(req.body, err => {
         if (err) {
             console.log(
                 'Error in /backend/routes/credit-info : ' +

@@ -7,6 +7,8 @@ import './css/index.css';
 import Home from './components/routes/HomePage';
 import Cart from './components/routes/CartPage';
 import Browse from './components/routes/BrowsePage';
+import ViewBook from './components/routes/ViewBookPage'
+import BookCard from './components/BookCard'
 import { ProfilePage } from './components/routes/ProfilePage';
 import Wishlist from './components/routes/WishlistPage';
 
@@ -67,6 +69,7 @@ class App extends Component {
                                 <Route path='/index.html' component={Home} />
                                 <Route path='/browse' component={Browse} />
                                 <Route path='/login' component={Login} />
+                                <Route path='/book/:id' component={ViewBook}/>
                                 <Route
                                     path='/signUp'
                                     component={ApplicationForm}
