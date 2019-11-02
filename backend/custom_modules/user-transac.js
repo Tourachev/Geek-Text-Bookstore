@@ -480,7 +480,6 @@ async function cartToLater(info, callback) {
             entry = [
                 info.userid,
                 info.bookid,
-                info.quantity,
                 info.price,
                 info.title
             ];
