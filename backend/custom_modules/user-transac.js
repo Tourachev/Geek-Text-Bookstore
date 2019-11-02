@@ -479,7 +479,6 @@ async function cartToLater(info, callback) {
             entry = [
                 res[0].userid,
                 res[0].bookid,
-                res[0].quantity,
                 res[0].price,
                 res[0].title
             ];
