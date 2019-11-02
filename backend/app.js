@@ -41,10 +41,10 @@ app.use('/personal-info', personalInfoRouter);
 app.use('/address-info', addressInfoRouter);
 app.use('/credit-info', creditInfoRouter);
 app.use('/registration', usersRouter);
-app.use('/saved-for-later', savedForLaterRouter);
 app.use('/auth', authRouter);
 app.use('/cart', cartRouter);
-//app.use('/wishlist', wishlistRouter);
+app.use('/saved-for-later', savedForLaterRouter);
+app.use('/wishlist', wishlistRouter);
 
 //purchase router
 app.use('/purchase', purchaseRouter);

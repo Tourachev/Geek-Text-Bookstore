@@ -38,8 +38,8 @@ class BookCard extends React.Component {
                 <div>
                     <div class='card'>
                         <img
-                            src={faker.image.cats()}
-                            class='card-img-top'
+                            src={this.props.image}
+                            class="card-top"
                             alt={this.props.title}
                         />
                         <div class='card-body'>
@@ -86,8 +86,8 @@ class BookCard extends React.Component {
                 <div>
                     <div class='card'>
                         <img
-                            src={faker.image.cats()}
-                            class='card-img-top'
+                            src={this.props.image}
+                            class="card-top"
                             alt={this.props.title}
                         />
                         <div class='card-body'>

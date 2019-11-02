@@ -8,6 +8,7 @@ import Home from './components/routes/HomePage';
 import Cart from './components/routes/CartPage';
 import Browse from './components/routes/BrowsePage';
 import ViewBook from './components/routes/ViewBookPage'
+import AuthorWorks from './components/routes/AuthorPage'
 import BookCard from './components/BookCard'
 import { ProfilePage } from './components/routes/ProfilePage';
 import Wishlist from './components/routes/WishlistPage';
@@ -70,6 +71,7 @@ class App extends Component {
                                 <Route path='/browse' component={Browse} />
                                 <Route path='/login' component={Login} />
                                 <Route path='/book/:id' component={ViewBook}/>
+                                <Route path='/author/:name' component={AuthorWorks}/>
                                 <Route
                                     path='/signUp'
                                     component={ApplicationForm}
