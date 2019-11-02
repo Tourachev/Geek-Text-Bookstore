@@ -2,7 +2,7 @@
 --   id serial primary key,
 --   name varchar(30),
 --   message varchar(200),
---   date timestamptz default now()
+--   time INTEGER
 -- );
 -- insert into comment (name, message)
 -- values
@@ -18,8 +18,10 @@
 --   );
 --  select *
 --  from comment
-delete from comment
-where id = 23
+-- delete from comment
+-- where id = 13
 
 -- UPDATE comment SET  name = 'Ashley', message = 'cant wait to read this book!'
 -- where id = 18
+
+-- INSERT INTO comment (name, message) VALUES ('julia', 'I read this book many times, I love it!!')

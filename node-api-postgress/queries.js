@@ -85,7 +85,7 @@ const deleteComment = (request, response) => {
 /*************comment Table ******************* */
 // Table comment get all the names and messages
 const getComment = (request, response) => {
-  pool.query("SELECT * FROM comment ORDER BY date DESC", (error, results) => {
+  pool.query("SELECT * FROM comment ORDER BY time DESC", (error, results) => {
     if (error) {
       throw error;
     }
@@ -98,7 +98,7 @@ const getCommentById = (request, response) => {
   const id = request.params.id;
 
   pool.query(
-    "SELECT * FROM comment WHERE id = $1 ORDER BY date DESC",
+    "SELECT * FROM comment WHERE id = $1 ORDER BY time DESC",
     [id],
     (error, results) => {
       if (error) {
@@ -111,17 +111,18 @@ const getCommentById = (request, response) => {
 
 //FROM the comment table create a new message and name
 const createcomment = (request, response) => {
-  const { name, message } = request.body;
+  // const { name, message, date } = request.body;
+  const values = [request.body.name, request.body.message]
   pool.query(
-    'INSERT INTO comment (name, message) VALUES (?, ?)',name
-    [name, message],
-    error => {
-      if (error) {
+    `INSERT INTO comment (name, message) VALUES ($1, $2)`,
+    values,
+    (error, results)=> {
+      if (error ) {
         throw error;
       }
       response
         .status(201)
-        .json({ status: "success", message: "New comment added." });
+        .json(results.rows);
     }
   );
 };

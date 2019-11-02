@@ -81,6 +81,7 @@ export default class form extends Component {
           <div>
             <img src={imageName} />
             <br />
+            <h2>harryPotter And the Goblet of Fire</h2>
             <br />
             <Rating maxRating={5} defaultRating={3} icon="star" />
           </div>

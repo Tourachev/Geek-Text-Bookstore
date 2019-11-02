@@ -51,7 +51,8 @@ export class FormComponent extends Component {
     let { comment } = this.state;
     fetch("/comment", {
       method: "post",
-      body: JSON.stringify(comment)
+      body: JSON.stringify(comment),
+      headers: { 'Content-Type': 'application/json' }
     })
       .then(res => res.json())
       .then(res => {
@@ -61,11 +62,12 @@ export class FormComponent extends Component {
           // add time return from api and push comment to parent state
           comment.time = res.time;
           this.props.addComment(comment);
+          
 
           // clear the message box
           this.setState({
             loading: false,
-            comment: { ...comment, message: "" }
+            comments: { ...comment, message: "" }
           });
         }
       })
@@ -76,6 +78,7 @@ export class FormComponent extends Component {
         });
       });
   }
+
 
   isFormValid() {
     return this.state.comment.name !== "" && this.state.comment.message !== "";
