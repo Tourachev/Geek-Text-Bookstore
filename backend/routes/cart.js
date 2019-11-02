@@ -11,7 +11,6 @@ var router = express.Router();
 router.post('/', (req, res) => {
     console.log(req.body);
     queries.getCart(req.body, (err, result) => {
-        console.log('here we are');
         console.log(result);
         res.json({ result: result });
     });
