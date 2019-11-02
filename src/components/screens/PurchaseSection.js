@@ -44,10 +44,15 @@ class PurchaseSection extends React.Component {
             })*/
     }
 
-    onSaveForLater() {
+    onSaveForLater(item) {
         fetch('/saved-for-later/cart-to-later', {
             method: 'post',
-            body: JSON.stringify({ username: this.state.username }),
+            body: JSON.stringify({
+                userid: this.state.username,
+                bookid: item.bookid,
+                price: item.price,
+                title: item.title
+            }),
             headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
@@ -100,7 +105,11 @@ class PurchaseSection extends React.Component {
                     <td>${item.price.toFixed(2)}</td>
 
                     <td>
-                        <button type='button' class='btn btn-outline-dark'>
+                        <button
+                            type='button'
+                            class='btn btn-outline-dark'
+                            onClick={this.onSaveForLater.bind(this, item)}
+                        >
                             Save For Later
                         </button>
                         <Button
