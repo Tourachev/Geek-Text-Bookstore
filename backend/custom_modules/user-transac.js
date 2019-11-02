@@ -411,8 +411,38 @@ async function addToWish(info, callback) {
         })
 }
 
-async function addToLater() {
-    
+async function addToLater(info, callback) {
+
+    var fields = [
+        info.userid,
+        info.bookid,
+        info.price,
+        info.title
+    ];
+
+    var step1 = 
+        'insert into saveforlater(userid, bookid, price, title)' + 
+        'values(?,?,?,?)';
+    var step2 = 
+        'update saveforlater set quantity=quantity+1 where userid=? and bookid=?';
+    pool.query(step1, fields)
+        .then(res => {
+            callback(null, 4) // successfully added to wishlist
+        })
+        .catch(err => {
+            if (err.errno == NOT_UNIQUE) {
+                pool.query(step2, [info.userid, info.bookid])
+                    .then(res => {
+                        callback(null, 3);
+                    })
+                    .catch(err => {
+                        callback(err, 2);
+                    })
+            }
+            else {
+                callback(err, 1); //error making connection
+            }
+        })
 }
 
 module.exports = {
@@ -431,5 +461,6 @@ module.exports = {
     delCartItems,
     editQuantity,
     cartToWish,
-    addToWish
+    addToWish,
+    addToLater
 };
