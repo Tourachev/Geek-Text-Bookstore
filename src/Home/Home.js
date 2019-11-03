@@ -7,9 +7,9 @@ export class Home extends Component {
   render() {
     return (
       <div>
-        <NavBar />
-        <Body />
-        <Foorter />
+        {/* <NavBar /> */}
+        {/* <Body />
+        <Foorter /> */}
       </div>
     );
   }

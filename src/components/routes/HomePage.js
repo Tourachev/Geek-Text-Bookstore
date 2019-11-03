@@ -12,8 +12,8 @@ class HomePage extends React.Component {
         return (
             <div>
                 <div className='body'>
-                    <Header />
                     <NavBar />
+                    <Header />                    
                     <Footer />
                 </div>
             </div>

@@ -42,6 +42,11 @@ const NavBar = () => {
                 <div className="ui vertical large button" tabIndex="0">
                   <div className="visible content">Wishlist</div>
                 </div>
+                <div className="ui vertical large button" tabIndex="0">
+                  <div className="visible content">
+                    <Link to="/comment">Comment</Link>
+                    </div>
+                </div>
               </li>
             </ul>
           </div>
