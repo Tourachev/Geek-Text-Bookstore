@@ -28,7 +28,7 @@ const Footer = () => {
                             <ul class='pages'>
                                 <li>Slav Tourachev</li>
                                 <li>Steven Valle</li>
-                                <li>Shannah Sit</li>
+                                <li>Shanna Sit</li>
                                 <li>Steven Villa</li>
                                 <li>Lalliet Vila</li>
                                 <li>Noe Velasquez</li>
