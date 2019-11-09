@@ -39,6 +39,7 @@ class DetailsSection extends React.Component {
             this.setState({bookData:details.result[0]})
             console.log(this.state.bookData);
         });
+
     }
 
     getRating(rating) {
@@ -69,6 +70,7 @@ class DetailsSection extends React.Component {
                     <div class="book-details">
                         <h1>{this.state.bookData.title}</h1>
                         <Link to={{pathname: "/author/" + this.state.bookData.author}}><h2 id="subtitle">{this.state.bookData.author}</h2></Link>
+                        <p>Published By X</p>
                         <div id="book-rating">
                             <div id="stars">
                                 {this.getRating(this.state.bookData.rating)}
@@ -87,7 +89,10 @@ class DetailsSection extends React.Component {
                 </div>
                 <div class="section">
                     <h1>ABOUT THE AUTHOR</h1>
-                    <p>Skid on floor, crash into wall dismember a mouse and then regurgitate parts of it on the family room floor, munch on tasty moths. I bet my nine lives on you-oooo-ooo-hooo purr as loud as possible, be the most annoying cat that you can, and, knock everything off the table, for cough furball yowling nonstop the whole night. Stare at ceiling pretend not to be evil. Cough hairball, eat toilet paper. Cough hairball, eat toilet paper jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human around for not waking up request food, purr loud scratch the walls, the floor, the windows, the humans and you call this cat food and drool. Spit up on light gray carpet</p>
+                    <div>
+                        <img></img>
+                        <p>Skid on floor, crash into wall dismember a mouse and then regurgitate parts of it on the family room floor, munch on tasty moths. I bet my nine lives on you-oooo-ooo-hooo purr as loud as possible, be the most annoying cat that you can, and, knock everything off the table, for cough furball yowling nonstop the whole night. Stare at ceiling pretend not to be evil. Cough hairball, eat toilet paper. Cough hairball, eat toilet paper jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human around for not waking up request food, purr loud scratch the walls, the floor, the windows, the humans and you call this cat food and drool. Spit up on light gray carpet</p>
+                    </div>
                 </div>
                 <div class="section">
                     <h1>Ratings AND Comments</h1>

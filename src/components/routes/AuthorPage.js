@@ -11,7 +11,7 @@ class Body extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className='body'>
                 <AuthorWorksSection author={this.props.match.params.name}/>
                 <Footer />
             </div>

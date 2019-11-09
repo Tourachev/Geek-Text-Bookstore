@@ -1,11 +1,24 @@
 /* BOOK DETAILS CSS */
+.card-text:hover {
+    text-decoration: underline;
+}
+
 .author-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 100%;
     height: 90%;
-    margin: 5%;
+    margin: 5% 0 15% 5%;
+}
+
+.author-body {
+    display: flex;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    overflow: auto;
 }
 
 .book-container {
@@ -100,6 +113,10 @@
     height: 5vh;
     color: rgb(72, 72, 72);
     margin-top: 0
+}
+
+#subtitle:hover {
+    text-decoration: underline;
 }
 
 /* CART CSS */

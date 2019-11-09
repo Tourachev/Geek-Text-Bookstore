@@ -22,7 +22,6 @@ class PurchaseSection extends React.Component {
         this.changeQuantity = this.changeQuantity.bind(this);
         this.getCartItems = this.getCartItems.bind(this);
         this.removeCartItems = this.removeCartItems.bind(this);
-        this.onSaveForLater = this.onSaveForLater.bind(this);
     }
 
     componentDidMount() {
@@ -43,24 +42,6 @@ class PurchaseSection extends React.Component {
                 })
                 this.getCartItems(books);
             })*/
-    }
-
-    onSaveForLater(item) {
-        fetch('/saved-for-later/cart-to-later', {
-            method: 'post',
-            body: JSON.stringify({
-                userid: this.state.username,
-                bookid: item.bookid,
-                price: item.price,
-                title: item.title
-            }),
-            headers: { 'Content-Type': 'application/json' }
-        })
-            // .then(res => res.json())
-            // .then(console.log(item.price))
-            // .then(books => {
-            //     this.getCartItems(books.result);
-            // });
     }
 
     // addItems(){
@@ -93,7 +74,7 @@ class PurchaseSection extends React.Component {
         let cart = books.map(item => {
             total += item.price * item.quantity;
             return (
-                <tr key={item.bookid}>
+                <tr key={item.bookId}>
                     <td>{item.title}</td>
                     <td>
                         x
@@ -107,11 +88,7 @@ class PurchaseSection extends React.Component {
                     <td>${item.price.toFixed(2)}</td>
 
                     <td>
-                        <button
-                            type='button'
-                            class='btn btn-outline-dark'
-                            onClick={this.onSaveForLater.bind(this, item)}
-                        >
+                        <button type='button' class='btn btn-outline-dark'>
                             Save For Later
                         </button>
                         <Button
