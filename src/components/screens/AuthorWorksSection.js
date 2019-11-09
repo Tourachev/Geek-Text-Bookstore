@@ -1,6 +1,6 @@
 import React from "react";
 import BookCard from '../BookCard'
-
+import { Button } from "react-bootstrap";
 class AuthorWorksSection extends React.Component {
     constructor(props) {
         super(props);
@@ -33,9 +33,10 @@ class AuthorWorksSection extends React.Component {
                             image={book.imagelink}
                         />)
         return (
-            <div class='author-container'>
+            <div class="author-container">
                 <h1>{this.props.author}'s Other Works</h1>
-                <div class='book-body'>{card}</div>
+                <p>Check out what we have in stock for {this.props.author}!</p>
+                <div class="author-body">{card}</div>
             </div>
         );
     }

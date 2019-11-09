@@ -31,7 +31,16 @@ router.get('/', function(req, res, next) {
 router.post('/getBook', (req, res) => {
     console.log(req.body)
     queries.getBook(req.body, (err, result) => {
-        console.log('here we are');
+        console.log("Getting the Book's Information");
+        console.log(result);
+        res.json({ result: result });
+    });
+});
+
+router.post('/getAuthInfo', (req, res) => {
+    console.log(req.body)
+    queries.getAuthorInfo(req.body, (err, result) => {
+        console.log("Getting the Author's Information");
         console.log(result);
         res.json({ result: result });
     });

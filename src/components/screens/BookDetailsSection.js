@@ -5,23 +5,31 @@ import { Button } from "react-bootstrap";
 import { Icon } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
+import { BookImgModal } from '../BookImgModal'
 
 class DetailsSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             bookData: {
-                author: "Chinua Achebe",
-                authorid: null,
-                bookid: 1,
-                date: "1958-01-01",
-                genre: "Nonfiction",
-                imagelink: "https://images-na.ssl-images-amazon.com/images/I/91yNF5xdR4L.jpg",
-                price: 9.99,
-                rating: 4,
-                sales: 400,
-                title: "Things Fall apart",
-                topseller: 0
+                author: "Author Name",
+                authorid: 999,
+                bookDesc: "Book Description",
+                bookid: 9999,
+                date: "1000-01-01",
+                genre: "A Genre",
+                imagelink: "A URL",
+                price: 0.99,
+                publisher: "Publisher's Inc",
+                rating: 1,
+                title: "Book Title"
+            },
+
+            authorData: {
+                authorid: 999,
+                bio: "Author's Life History",
+                name: "Author Name",
+                img: "A URL"
             }
         }
 
@@ -36,6 +44,17 @@ class DetailsSection extends React.Component {
             }),
             headers: { 'Content-Type': 'application/json' }
         }).then(res => res.json()).then(details => {
+            console.log(details.result[0].authorid);
+            fetch('/books/getAuthInfo', {
+                method: 'POST',
+                body: JSON.stringify({
+                    authorid: details.result[0].authorid,
+                }),
+                headers: { 'Content-Type': 'application/json' }
+            }).then(res => res.json()).then(author => {
+                this.setState({authorData:author.result[0]})
+                console.log(this.state.authorData);
+            });
             this.setState({bookData:details.result[0]})
             console.log(this.state.bookData);
         });
@@ -63,12 +82,13 @@ class DetailsSection extends React.Component {
                     <h1>{this.props.text}</h1>
 
                     <div class="book-imgcontainer">
-                        <img class="book-img" src={this.state.bookData.imagelink}></img>
+                        <BookImgModal img={this.state.bookData.imagelink}></BookImgModal>
                     </div>
 
                     <div class="book-details">
                         <h1>{this.state.bookData.title}</h1>
                         <Link to={{pathname: "/author/" + this.state.bookData.author}}><h2 id="subtitle">{this.state.bookData.author}</h2></Link>
+                        <p>Published By <b>{this.state.bookData.publisher}</b></p>
                         <div id="book-rating">
                             <div id="stars">
                                 {this.getRating(this.state.bookData.rating)}
@@ -76,9 +96,7 @@ class DetailsSection extends React.Component {
                             <p id="rating-text"> 10 Reviews | 10 Comments</p>
                         </div>
                         <h3>${this.state.bookData.price}</h3>
-                        <p>
-                            Skid on floor, crash into wall dismember a mouse and then regurgitate parts of it on the family room floor, munch on tasty moths. I bet my nine lives on you-oooo-ooo-hooo purr as loud as possible, be the most annoying cat that you can, and, knock everything off the table, for cough furball yowling nonstop the whole night. Stare at ceiling pretend not to be evil. Cough hairball, eat toilet paper. Cough hairball, eat toilet paper jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human around for not waking up request food, purr loud scratch the walls, the floor, the windows, the humans and you call this cat food and drool. Spit up on light gray carpet
-                        </p>
+                        <p>{this.state.bookData.bookDesc}</p>
                         <div class="book-rating">
                             <Button size="lg" style={{ width: "30%", marginRight:"5vw" }}>Purchase</Button>
                             <Button size="lg" style={{ width:"30%"}} class="option-button">Save to Wishlist</Button>
@@ -86,8 +104,11 @@ class DetailsSection extends React.Component {
                     </div>
                 </div>
                 <div class="section">
-                    <h1>ABOUT THE AUTHOR</h1>
-                    <p>Skid on floor, crash into wall dismember a mouse and then regurgitate parts of it on the family room floor, munch on tasty moths. I bet my nine lives on you-oooo-ooo-hooo purr as loud as possible, be the most annoying cat that you can, and, knock everything off the table, for cough furball yowling nonstop the whole night. Stare at ceiling pretend not to be evil. Cough hairball, eat toilet paper. Cough hairball, eat toilet paper jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human around for not waking up request food, purr loud scratch the walls, the floor, the windows, the humans and you call this cat food and drool. Spit up on light gray carpet</p>
+                    <h1>About the Author</h1>
+                    <div class="author-details">
+                        <img class="author-img" src={this.state.authorData.img}></img>
+                        <p><h1 style={{ marginBottom: "3%" }}>{this.state.bookData.author}</h1>{this.state.authorData.bio}</p>
+                    </div>
                 </div>
                 <div class="section">
                     <h1>Ratings AND Comments</h1>

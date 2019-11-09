@@ -182,19 +182,19 @@ class BrowseSection extends React.Component {
                     <div>
                         <h2>Genre</h2>
                         <p>
-                            Sci-Fi{' '}
+                            Comedy{' '}
                             <input
                                 name='genre'
-                                value='Sci-Fi'
+                                value='Comedy'
                                 type='checkbox'
                                 onChange={event => this.handleInputChange(event)}
                             />
                         </p>
                         <p>
-                            Biography{' '}
+                            Fantasy{' '}
                             <input
                                 name='genre'
-                                value='Biography'
+                                value='Fantasy'
                                 type='checkbox'
                                 onChange={event => this.handleInputChange(event)}
                             />
@@ -209,28 +209,37 @@ class BrowseSection extends React.Component {
                             />
                         </p>
                         <p>
-                             Fiction{' '}
+                            Nonfiction{' '}
                             <input
                                 name='genre'
-                                value='Fiction'
+                                value='Nonfiction'
                                 type='checkbox'
                                 onChange={event => this.handleInputChange(event)}
                             />
                         </p>
                         <p>
-                            Drama{' '}
+                            Mystery{' '}
                             <input
                                 name='genre'
-                                value='Drama'
+                                value='Mystery'
                                 type='checkbox'
                                 onChange={event => this.handleInputChange(event)}
                             />
                         </p>
                         <p>
-                            Comedy{' '}
+                            Romance{' '}
                             <input
                                 name='genre'
-                                value='Comedy'
+                                value='Romance'
+                                type='checkbox'
+                                onChange={event => this.handleInputChange(event)}
+                            />
+                        </p>
+                        <p>
+                            Sci-Fi{' '}
+                            <input
+                                name='genre'
+                                value='Sci-Fi'
                                 type='checkbox'
                                 onChange={event => this.handleInputChange(event)}
                             />

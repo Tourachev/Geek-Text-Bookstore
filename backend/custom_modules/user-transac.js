@@ -367,11 +367,11 @@ async function cartToWish(info, callback) {
     pool.query(step1, info)
         .then(res => {
             entry = [
-                info.userid,
-                info.bookid,
-                info.quantity,
-                info.price,
-                info.title
+                res[0].userid,
+                res[0].bookid,
+                res[0].quantity,
+                res[0].price,
+                res[0].title
             ];
             pool.getConnection()
                 .then(con => {
@@ -466,7 +466,6 @@ async function addToLater(info, callback) {
 }
 
 async function cartToLater(info, callback) {
-    console.log(info.bookid);
     var step1 =
         'select userid, bookid, price, title from shoppingcart where userid=? and bookid=?';
     var entry;
@@ -475,19 +474,20 @@ async function cartToLater(info, callback) {
         'values(?,?,?,?)';
     var step3 = 'delete from shoppingcart where userid=? and bookid=?';
 
-    pool.query(step1, [info.userid, info.bookid])
+    pool.query(step1, info)
         .then(res => {
             entry = [
-                info.userid,
-                info.bookid,
-                info.price,
-                info.title
+                res[0].userid,
+                res[0].bookid,
+                res[0].quantity,
+                res[0].price,
+                res[0].title
             ];
             pool.getConnection()
                 .then(con => {
                     con.query(step2, entry)
                         .then(() => {
-                            con.query(step3, [info.userid, info.bookid])
+                            con.query(step3, info)
                                 .then(() => {
                                     con.commit();
                                     con.release();
@@ -506,6 +506,8 @@ async function cartToLater(info, callback) {
                         });
                 })
                 .catch(err => {
+                    con.rollback();
+                    con.release();
                     callback(err, 2); //error in step 1
                 });
         })

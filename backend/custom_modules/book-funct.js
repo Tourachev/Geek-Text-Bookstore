@@ -24,6 +24,18 @@ async function getBook(info, callback) {
         });
 }
 
+async function getAuthorInfo(info, callback) {
+    var query = 'select * from author where authorid=?';
+    pool.query(query, [info.authorid])
+        .then(result => {
+            callback(null, result);
+        })
+        .catch(err => {
+            callback(err, null);
+        });
+}
+
 module.exports = {
     getBook,
+    getAuthorInfo,
 };
