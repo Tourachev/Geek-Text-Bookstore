@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import CommentList from "./CommentList";
 import FormComponent from "./FormComponent";
-// import CommentForm from "./CommentForm";
-import { Rating } from "semantic-ui-react";
+
 import NavBar2 from "./NavBar2";
 import Footer from "./Footer";
 import "../css/comment.css";
-import { AvQueuePlayNext } from "material-ui/svg-icons";
-import dateRange from "material-ui/svg-icons/action/date-range";
 
 export default class form extends Component {
   constructor(props) {
@@ -82,8 +79,6 @@ export default class form extends Component {
             <img src={imageName} />
             <br />
             <h2>Harry Potter And the Goblet of Fire</h2>
-            <br />
-            <Rating maxRating={5} defaultRating={3} icon="star" />
           </div>
           <header className="App-header">
             {/* <img src={logo} className={loadingSpin} alt="logo" /> */}

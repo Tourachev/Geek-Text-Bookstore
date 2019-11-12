@@ -2,24 +2,24 @@
 --   id serial primary key,
 --   name varchar(30),
 --   message varchar(200),
---   time INTEGER
+--   rating INTEGER
 -- );
--- insert into comment (name, message)
+-- insert into comment (name, message, rating)
 -- values
---   ('Alex', 'This book is amazing!!!');
--- insert into comment (name, message)
+--   ('Alex', 'This book is amazing!!!', 5);
+-- insert into comment (name, message, rating)
 -- values
---   ('Kevin', 'I recommended this book.');
--- insert into comment (name, message)
+--   ('Kevin', 'I recommended this book.', 4);
+-- insert into comment (name, message, rating)
 -- values
 --   (
 --     'Amanda',
---     'I love this book and my kids loves it. '
+--     'I love this book and my kids loves it. ', 3
 --   );
 --  select *
 --  from comment
 -- delete from comment
--- where id = 13
+-- where id = 29
 
 -- UPDATE comment SET  name = 'Ashley', message = 'cant wait to read this book!'
 -- where id = 18
