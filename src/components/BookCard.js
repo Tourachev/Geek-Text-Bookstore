@@ -1,5 +1,5 @@
 import React from "react";
-import faker from "faker";
+import ModalImage from "react-modal-image";
 import { Link } from "react-router-dom";
 
 class BookCard extends React.Component {
@@ -87,9 +87,15 @@ class BookCard extends React.Component {
             return (
                 <div>
                     <div class='card'>
-                        <img
+                        {/* <img
                             src={this.props.image}
                             className='card-top image-zoom'
+                            alt={this.props.title}
+                        /> */}
+                        <ModalImage
+                            small={this.props.image}
+                            large={this.props.image}
+                            className='card-top'
                             alt={this.props.title}
                         />
                         <div class='card-body'>
