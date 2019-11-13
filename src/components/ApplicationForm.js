@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import SignupForm from './SignupForm';
-import ConfirmForm from './ConfirmForm';
-import SuccessForm from './SuccessForm';
+import React, { Component } from "react";
+import SignupForm from "./SignupForm";
+import ConfirmForm from "./ConfirmForm";
+import SuccessForm from "./SuccessForm";
 
 export class ApplicationForm extends Component {
     state = {
         step: 1,
-        FirstName: '',
-        LastName: '',
-        Email: '',
-        UserName: '',
-        NickName: '',
-        Password: '',
-        Password2: '',
-        Address: '',
-        City: '',
-        State: ''
+        FirstName: "",
+        LastName: "",
+        Email: "",
+        UserName: "",
+        NickName: "",
+        Password: "",
+        Password2: "",
+        Address: "",
+        City: "",
+        State: ""
     };
 
     // Proceed to next Step

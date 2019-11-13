@@ -81,10 +81,11 @@ class MyForm extends React.Component {
                 />
                 <p>Enter Expiration Date:</p>
                 <input
-                    type='text'
+                    type='date'
                     name='expdate'
                     onChange={this.handleChange}
-                    placeholder='Format: 2020/01/01'
+                    placeholder='Format: Year/Month/Date'
+                    min='2019-11-02'
                     required
                     className='form-control'
                 />
@@ -94,7 +95,7 @@ class MyForm extends React.Component {
                     name='cvv'
                     onChange={this.handleChange}
                     minlength='3'
-                    maxlength='3'
+                    maxlength='4'
                     required
                     className='form-control'
                 />
