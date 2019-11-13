@@ -9,7 +9,7 @@ let bodyParser = require("body-parser");
 const cartRouter = require("./routes/cart");
 const indexRouter = require("./routes/index");
 const booksRouter = require("./routes/books");
-// const wishlistRouter = require('./routes/wishlist');
+const wishlistRouter = require('./routes/wishlist');
 const savedForLaterRouter = require("./routes/saved-for-later");
 const personalInfoRouter = require("./routes/personal-info");
 const addressInfoRouter = require("./routes/address-info");
@@ -44,7 +44,7 @@ app.use("/registration", usersRouter);
 app.use("/auth", authRouter);
 app.use("/cart", cartRouter);
 app.use("/saved-for-later", savedForLaterRouter);
-// app.use('/wishlist', wishlistRouter);
+app.use('/wishlist', wishlistRouter);
 
 //purchase router
 app.use("/purchase", purchaseRouter);
