@@ -141,8 +141,35 @@ async function nameList(info, callback) {
         })
 }
 
+/* getWishLists
+ *-----------------------------------------------------
+ * Get all the wishlists from a specified user.
+ * 
+ * params: userid - userid to get wishlists of
+ *         callback - callback function to return values
+ * 
+ * return: wishlists or null(error)
+ */
+async function getWishLists(userid, callback) {
+
+    var query = "select * from wishlist where userid=? group by listnum "
+                + "order by listnum";
+    pool.query(query, [userid])
+        .then(res => {
+            callback(null, res);
+        })
+        .catch(err => {
+            callback(err, null);
+        })
+}
+
+async function toCart() {
+    var query = "";
+}
+
 module.exports = {
     wishToWish,
     addToWish,
-    nameList
+    nameList,
+    getWishLists
 };
