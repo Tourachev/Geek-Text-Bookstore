@@ -17,8 +17,7 @@ create table if not exists listnames
     listnum int(1),
     listname varchar(60),
     userid varchar(40),
-    foreign key(listnum) references wishlist(listnum),
     foreign key(userid) references credentials(userid)
         on update cascade,
-    constraint name_const unique(userid, listnum)
+    constraint name_const unique(listnum, userid)
 );
