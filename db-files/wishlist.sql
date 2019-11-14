@@ -9,5 +9,5 @@ create table if not exists wishlist
     foreign key(userid) references credentials(userid)
         on update cascade,
     foreign key(bookid) references book(bookid),
-    constraint list_const unqiue(bookid, userid, listnum)
+    constraint list_const unique(bookid, userid, listnum)
 );
