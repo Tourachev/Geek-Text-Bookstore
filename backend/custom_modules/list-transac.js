@@ -163,6 +163,31 @@ async function getWishLists(userid, callback) {
         })
 }
 
+/* removeFromWish
+ *--------------------------------------------
+ * Remove a book from a specified wishlist.
+ * 
+ * params: info - json containing listnum, bookid, userid
+ *         callback - callback function to return result
+ * 
+ * return: null(error) or result(success)
+ */
+async function removeFromWish(info, callback) {
+
+    var query = "delete from wishlist where listnum=? and bookid=? and userid=?";
+    var fields = [
+        info.listnum, info.bookid, info.userid
+    ];
+
+    pool.query(query, fields)
+        .then(res => {
+            callback(null, res); //book deleted from list
+        })
+        .catch(err => {
+            callback(err, null); //query error
+        })
+}
+
 async function toCart() {
     var query = "";
 }
@@ -171,5 +196,7 @@ module.exports = {
     wishToWish,
     addToWish,
     nameList,
-    getWishLists
+    getWishLists,
+    toCart,
+    removeFromWish
 };
