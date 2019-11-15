@@ -1,7 +1,7 @@
-import React from 'react';
-import { Table } from 'reactstrap';
-import { Button } from 'react-bootstrap';
-import { Icon } from 'semantic-ui-react';
+import React from "react";
+import { Table } from "reactstrap";
+import { Button } from "react-bootstrap";
+import { Icon } from "semantic-ui-react";
 class SavedForLater extends React.Component {
     constructor(props) {
         super(props);
@@ -16,10 +16,10 @@ class SavedForLater extends React.Component {
     }
 
     componentDidMount() {
-        fetch('/cart', {
-            method: 'post',
+        fetch("/saved-for-later", {
+            method: "post",
             body: JSON.stringify({ username: this.state.username }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { "Content-Type": "application/json" }
         })
             .then(res => res.json())
             .then(books => {
@@ -41,8 +41,8 @@ class SavedForLater extends React.Component {
                         <Button
                             onClick={this.removeCartItems.bind(this, item)}
                             style={{
-                                backgroundColor: 'rgba(0,0,0,0)',
-                                border: 'none'
+                                backgroundColor: "rgba(0,0,0,0)",
+                                border: "none"
                             }}
                         >
                             <Icon name='close' color='red' />
@@ -62,17 +62,17 @@ class SavedForLater extends React.Component {
             1
         );
         this.getCartItems(this.state.cartBooks);
-        fetch('/cart/delete', {
-            method: 'POST',
+        fetch("/saved-for-later/delete", {
+            method: "POST",
             body: JSON.stringify({
                 userid: this.state.username,
                 bookid: item.bookid
             }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { "Content-Type": "application/json" }
         })
             .then(res => console.log(res.body))
             .then(newInfo => {
-                console.log('Item Deleted');
+                console.log("Item Deleted");
             })
             .catch(err => {
                 console.log(err);
@@ -83,7 +83,7 @@ class SavedForLater extends React.Component {
         return (
             <div id='purchase-container'>
                 <div id='purchase-body'>
-                    <h1 className='display-4' style={{ marginBottom: '3%' }}>
+                    <h1 className='display-4' style={{ marginBottom: "3%" }}>
                         Saved For Later
                     </h1>
                     <Table>
