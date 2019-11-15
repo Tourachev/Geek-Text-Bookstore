@@ -95,7 +95,7 @@ export class ConfirmForm extends Component {
                         </List>
                         <div className='sign-up-bottom-row'>
                             <button
-                                type='button'
+                                type='submit'
                                 class='btn btn-secondary btn-lg'
                                 label='Back'
                                 primary={true}
@@ -105,12 +105,12 @@ export class ConfirmForm extends Component {
                                 BACK
                             </button>
                             <button
-                                type='button'
+                                type='submit'
                                 class='btn btn-secondary btn-lg'
-                                label='Confirm & Continue'
+                                label='continue'
                                 primary={true}
                                 style={styles.button}
-                                onClick={this.validate}
+                                onClick={this.continue}
                             >
                                 CONTINUE
                             </button>

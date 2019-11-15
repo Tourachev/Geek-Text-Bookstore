@@ -37,8 +37,9 @@ class BookCard extends React.Component {
             return (
                 <div>
                     <div class='card'>
-                        <img
-                            src={this.props.image}
+                        <ModalImage
+                            small={this.props.image}
+                            large={this.props.image}
                             className='card-top'
                             alt={this.props.title}
                         />
