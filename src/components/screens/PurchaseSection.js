@@ -56,15 +56,15 @@ class PurchaseSection extends React.Component {
             }),
             headers: { "Content-Type": "application/json" }
         })
-        fetch("/saved-for-later", {
-            method: "post",
-            body: JSON.stringify({ username: this.state.username }),
-            headers: { "Content-Type": "application/json" }
-        })
-            .then(res => res.json())
-            .then(books => {
-                this.getCartItems(books.result);
-            });
+        // fetch("/saved-for-later", {
+        //     method: "post",
+        //     body: JSON.stringify({ username: this.state.username }),
+        //     headers: { "Content-Type": "application/json" }
+        // })
+        //     .then(res => res.json())
+        //     .then(books => {
+        //         this.getCartItems(books.result);
+        //     });
     }
 
     // addItems(){
