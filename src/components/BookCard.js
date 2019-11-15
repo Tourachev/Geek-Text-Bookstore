@@ -7,10 +7,41 @@ class BookCard extends React.Component {
         super(props);
     }
 
-    mySubmitHandler = event => {
+    addToCartHandler = event => {
         event.preventDefault();
 
+        console.log(this.props.username);
+        console.log(this.props.bookID);
+
         fetch("/cart/insert", {
+            method: "POST",
+            body: JSON.stringify({
+                username: this.props.username,
+                bookID: this.props.bookID,
+                quantity: 1,
+                price: this.props.price,
+                title: this.props.title
+            }),
+            headers: { "Content-Type": "application/json" }
+        })
+            .then(res => res.json())
+            // .then(newInfo => {
+            //     //look at address-info for return values
+            //     this.getInfo();
+            // })
+            .catch(err => {
+                console.log(err);
+            })
+            .then(alert("Submitted!"));
+    };
+
+    addToLaterHandler = event => {
+        event.preventDefault();
+
+        console.log(this.props.username);
+        console.log(this.props.bookID);
+
+        fetch("/saved-for-later/insert", {
             method: "POST",
             body: JSON.stringify({
                 username: this.props.username,
@@ -70,13 +101,14 @@ class BookCard extends React.Component {
                             <button
                                 type='button'
                                 class='btn btn-secondary cart-button'
-                                onClick={event => this.mySubmitHandler(event)}
+                                onClick={event => this.addToCartHandler(event)}
                             >
                                 Add to Cart
                             </button>
                             <button
                                 type='button'
                                 class='btn btn-secondary cart-button'
+                                onClick={event => this.addToLaterHandler(event)}
                             >
                                 Save For later
                             </button>
