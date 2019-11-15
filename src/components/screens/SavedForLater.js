@@ -17,6 +17,10 @@ class SavedForLater extends React.Component {
     }
 
     componentDidMount() {
+        this.fetchLaterData();
+    }
+
+    fetchLaterData() {
         fetch("/saved-for-later", {
             method: "post",
             body: JSON.stringify({ username: this.state.username }),
@@ -89,7 +93,9 @@ class SavedForLater extends React.Component {
 
     removeCartItems(item) {
         this.state.laterBooks.splice(
-            this.state.laterBooks.findIndex(book => book.bookID === item.bookid),
+            this.state.laterBooks.findIndex(
+                book => book.bookID === item.bookid
+            ),
             1
         );
         this.getCartItems(this.state.cartBooks);
