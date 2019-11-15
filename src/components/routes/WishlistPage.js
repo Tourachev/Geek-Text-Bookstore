@@ -12,15 +12,17 @@ class Wishlist extends React.Component {
         this.state = {
             username: this.props.username,
             isLoggedIn: this.props.isLoggedIn,
-            //Array of objects
-            wishlists: []
+            wishlists: {
+                1: [],
+                2: [],
+                3: []
+            }
         };
     }
 
     //Component must be dynamic, so here we are.....
     //Context is implemented. After user is logged in, the compenent will receive the data as props and execute queries.
 
-    //Done, should work
     componentDidMount() {
         fetch('/wishlist', {
             method: 'post',
@@ -28,45 +30,14 @@ class Wishlist extends React.Component {
             headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
-            .then(wishlists => {
-                this.setState({ wishlists: wishlists });
+            .then(lists => {
+                this.setState({
+                    wishlists: lists
+                });
             });
     }
 
-    //Ignore below, please don't delete.
-
-    // handleDelete(addressInfo) {
-    //     fetch('/address-info/delete', {
-    //         method: 'POST',
-    //         body: JSON.stringify({
-    //             username: this.state.username,
-    //             state: addressInfo.state,
-    //             city: addressInfo.city,
-    //             address: addressInfo.address,
-    //             zip: addressInfo.zip
-    //         }),
-    //         headers: { 'Content-Type': 'application/json' }
-    //     })
-    //         .then(res => res.json())
-    //         .then(newInfo => {
-    //             //look at address-info for return values
-    //             this.getInfo();
-    //             alert('Deleted!');
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         });
-    // }
-
     render() {
-        //Incomplete. Doesn't work... YET
-        //This maps all lists onto the wishlistcards effectively showing all lists, need to pass the right data.
-
-        //Map array of objects onto component. Each component receives an object.
-        const card = this.state.wishlists.map(wishlist => (
-            <WishlistCard content={wishlist.books} />
-        ));
-
         return (
             <div>
                 <Context.Consumer>
@@ -76,13 +47,31 @@ class Wishlist extends React.Component {
                                 <h1 className='display-3 '>
                                     Your Personal Wishlists
                                 </h1>
-                                <hr />
-                                {this.state.loading ? (
-                                    <CircularProgress />
-                                ) : (
-                                    card
-                                )}
                             </div>
+                            <div>
+                                <WishlistCard
+                                    username={this.state.username}
+                                    wishlist={this.state.wishlists[1]}
+                                    listnum={1}
+                                    listname={'Wishlist1'}
+                                />
+                            </div>
+                            <div>
+                                <WishlistCard
+                                    username={this.state.username}
+                                    wishlist={this.state.wishlists[2]}
+                                    listnum={2}
+                                    listname={'Wishlist2'}
+                                />
+                            </div>  
+                            <div>
+                                <WishlistCard
+                                    username={this.state.username}
+                                    wishlist={this.state.wishlists[3]}
+                                    listnum={3}
+                                    listname={'Wishlist3'}
+                                />
+                            </div>    
                         </div>
                     )}
                 </Context.Consumer>
