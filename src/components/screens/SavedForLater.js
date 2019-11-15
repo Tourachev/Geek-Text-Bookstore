@@ -39,7 +39,6 @@ class SavedForLater extends React.Component {
             body: JSON.stringify({
                 username: this.state.username,
                 bookID: item.bookid,
-                quantity: 1,
                 price: item.price,
                 title: item.title
             }),

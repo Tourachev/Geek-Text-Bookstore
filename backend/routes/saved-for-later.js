@@ -61,4 +61,19 @@ router.post("/delete", (req, res) => {
     });
 });
 
+router.post("/cart-to-later", (req, res) => {
+    queries.cartToLater(req.body, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.send(QUERY_ERR); // -1
+        } else {
+            if (result === CART_ADDED) {
+                res.json({ decision: CART_ADDED }); //2
+            } else {
+                res.json({ descision: NOT_UNIQUE }); //1
+            }
+        }
+    });
+});
+
 module.exports = router;
