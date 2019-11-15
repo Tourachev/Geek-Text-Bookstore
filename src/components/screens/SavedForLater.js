@@ -13,6 +13,7 @@ class SavedForLater extends React.Component {
         // this.addItems = this.addItems.bind(this);
         this.getCartItems = this.getCartItems.bind(this);
         this.removeCartItems = this.removeCartItems.bind(this);
+        this.moveToCartHandler = this.moveToCartHandler.bind(this);
     }
 
     componentDidMount() {
@@ -27,6 +28,33 @@ class SavedForLater extends React.Component {
             });
     }
 
+    moveToCartHandler = (event, item) => {
+        this.state.cartBooks.splice(
+            this.state.cartBooks.findIndex(book => book.bookID === item.bookid),
+            1
+        );
+
+        fetch("/saved-for-later/swap", {
+            method: "POST",
+            body: JSON.stringify({
+                username: this.state.username,
+                bookID: item.bookid,
+                quantity: 1,
+                price: item.price,
+                title: item.title
+            }),
+            headers: { "Content-Type": "application/json" }
+        })
+            .then(res => res.json())
+            // .then(newInfo => {
+            //     //look at address-info for return values
+            //     this.getInfo();
+            // })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+
     getCartItems(books) {
         //Below all books get mapped onto the cart. Delete after
         let cart = books.map(item => {
@@ -35,7 +63,11 @@ class SavedForLater extends React.Component {
                     <td>{item.title}</td>
                     <td>${item.price.toFixed(2)}</td>
                     <td>
-                        <button type='button' class='btn btn-outline-dark'>
+                        <button
+                            onClick={this.moveToCartHandler.bind(this, item)}
+                            type='button'
+                            class='btn btn-outline-dark'
+                        >
                             Move To Cart
                         </button>
                         <Button

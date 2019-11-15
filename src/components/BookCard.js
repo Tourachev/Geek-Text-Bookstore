@@ -10,9 +10,6 @@ class BookCard extends React.Component {
     addToCartHandler = event => {
         event.preventDefault();
 
-        console.log(this.props.username);
-        console.log(this.props.bookID);
-
         fetch("/cart/insert", {
             method: "POST",
             body: JSON.stringify({
@@ -37,9 +34,6 @@ class BookCard extends React.Component {
 
     addToLaterHandler = event => {
         event.preventDefault();
-
-        console.log(this.props.username);
-        console.log(this.props.bookID);
 
         fetch("/saved-for-later/insert", {
             method: "POST",

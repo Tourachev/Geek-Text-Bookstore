@@ -516,6 +516,57 @@ async function cartToLater(info, callback) {
         });
 }
 
+async function laterToCart(info, callback) {
+    var step1 =
+        "select userid, bookid, price, title from saveforlater where userid=? and bookid=?";
+    var entry;
+    var step2 =
+        "insert into shoppingcart(userid, bookid, price, title)" +
+        "values(?,?,?,?)";
+    var step3 = "delete from saveforlater where userid=? and bookid=?";
+
+    pool.query(step1, info)
+        .then(res => {
+            entry = [
+                res[0].userid,
+                res[0].bookid,
+                res[0].quantity,
+                res[0].price,
+                res[0].title
+            ];
+            pool.getConnection()
+                .then(con => {
+                    con.query(step2, entry)
+                        .then(() => {
+                            con.query(step3, info)
+                                .then(() => {
+                                    con.commit();
+                                    con.release();
+                                    callback(null, 5); //sucess
+                                })
+                                .catch(err => {
+                                    con.rollback();
+                                    con.release();
+                                    callback(err, 4); //error in step3
+                                });
+                        })
+                        .catch(err => {
+                            con.rollback();
+                            con.release();
+                            callback(err, 3); //error in step 2
+                        });
+                })
+                .catch(err => {
+                    con.rollback();
+                    con.release();
+                    callback(err, 2); //error in step 1
+                });
+        })
+        .catch(err => {
+            callback(err, 1); //error making connection
+        });
+}
+
 module.exports = {
     createUser,
     login,
@@ -536,5 +587,6 @@ module.exports = {
     addToLater,
     cartToLater,
     getLater,
-    delLater
+    delLater,
+    laterToCart
 };
