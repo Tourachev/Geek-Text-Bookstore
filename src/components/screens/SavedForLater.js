@@ -6,8 +6,8 @@ class SavedForLater extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            cartBooks: [], //Actual Books in the cart
-            cartItems: [], //HTML of the Table
+            laterBooks: [], //Actual Books in the cart
+            laterItems: [], //HTML of the Table
             username: this.props.username //should use context here
         };
         // this.addItems = this.addItems.bind(this);
@@ -88,8 +88,8 @@ class SavedForLater extends React.Component {
     }
 
     removeCartItems(item) {
-        this.state.cartBooks.splice(
-            this.state.cartBooks.findIndex(book => book.bookID === item.bookid),
+        this.state.laterBooks.splice(
+            this.state.laterBooks.findIndex(book => book.bookID === item.bookid),
             1
         );
         this.getCartItems(this.state.cartBooks);
@@ -125,7 +125,7 @@ class SavedForLater extends React.Component {
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody>{this.state.cartItems}</tbody>
+                        <tbody>{this.state.laterItems}</tbody>
                     </Table>
                 </div>
             </div>
