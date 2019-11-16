@@ -1,6 +1,5 @@
 const NOT_UNIQUE = 1062; // error num for unique constraint from mariadb
 const mariadb = require('mariadb');
-const NOT_UNIQUE = 1062; // error num for unique constraint from mariadb
 const pool = mariadb.createPool({
     host: 'virt-servers.mynetgear.com',
     port: 30000,
@@ -57,7 +56,7 @@ async function wishToWish(info, callback) {
         })
         .catch(err => {
             callback(err, null); //query error
-        })
+        });
 }
 
 /* addToWish
@@ -86,7 +85,7 @@ async function addToWish(info, callback) {
             } else {
                 callback(err, null) //query error
             }
-        })
+        });
 }
 
 /* nameList
@@ -138,29 +137,50 @@ async function nameList(info, callback) {
         })
         .catch(err => {
             callback(err, null); //query error
-        })
+        });
 }
 
 /* getWishLists
  *-----------------------------------------------------
- * Get all the wishlists from a specified user.
+ * Get wishlist for users.
  * 
  * params: userid - userid to get wishlists of
  *         callback - callback function to return values
  * 
  * return: wishlists or null(error)
  */
-async function getWishLists(userid, callback) {
+async function getWishLists(info, callback) {
 
-    var query = "select * from wishlist where userid=? group by listnum "
-                + "order by listnum";
-    pool.query(query, [userid])
-        .then(res => {
-            callback(null, res);
+    var query = 'select * from wishlist where userid=? and listnum=?';
+
+    var i;
+    var names = [];
+    var query2 = 'select listname from listnames where userid=? order by listnum';
+
+    data = {books: [], names: []};
+
+
+    pool.query(query, [info.userid, info.listnum])
+        .then(res1 => {
+            res1 = res1.splice(0, res1.length);
+            data.books = res1;
+            pool.query(query2, [info.userid])
+                .then(res2 => {
+                    res2 = res2.splice(0, res2.length);
+                    for (i = 0; i <= 2; i++) {
+                        names.push(res2[i].listname);
+                    }
+                    data.names = names;
+                    callback(null, data);
+                })
+                .catch(err => {
+                    callback(err, null);
+                })
+            
         })
         .catch(err => {
             callback(err, null);
-        })
+        });
 }
 
 /* removeFromWish
@@ -185,11 +205,30 @@ async function removeFromWish(info, callback) {
         })
         .catch(err => {
             callback(err, null); //query error
-        })
+        });
 }
 
 async function toCart() {
     var query = "";
+}
+
+async function getListNames(info, callback) {
+    //ascending order by default 1 - 3
+    var names = [];
+    var i;
+    var query = 'select listname from listnames where userid=? order by listnum';
+
+    pool.query(query, [info.userid])
+        .then(res => {
+            res = res.splice(0, res.length);
+            for (i = 0; i <= 2; i++) {
+                names.push(res[i].listname);
+            }
+            callback(null, names);
+        })
+        .catch(err => {
+            callback(err, null);
+        });
 }
 
 module.exports = {
@@ -198,5 +237,6 @@ module.exports = {
     nameList,
     getWishLists,
     toCart,
-    removeFromWish
+    removeFromWish,
+    getListNames
 };
