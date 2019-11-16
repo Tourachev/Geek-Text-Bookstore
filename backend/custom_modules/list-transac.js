@@ -24,12 +24,12 @@ const pool = mariadb.createPool({
 async function wishToWish(info, callback) {
 
     var step1 = "delete from wishlist where bookid=? and userid=? and listnum=?";
-    var step2 = "insert into wishlist values(?,?,?,?,?)";
+    var step2 = "insert into wishlist values(?,?,?,?)";
     var original = [
         info.bookid, info.userid, info.listnum
     ];
     var newList = [
-        info.bookid, info.userid, info.title, info.listnum
+        info.bookid, info.userid, info.title, info.othernum
     ];
 
     pool.getConnection()
@@ -37,10 +37,10 @@ async function wishToWish(info, callback) {
             conn.query(step1, original)
                 .then(() => {
                     conn.query(step2, newList)
-                        .then(() => {
+                        .then(res => {
                             conn.commit();
                             conn.release();
-                            callback(null, 1); //success! book moved
+                            callback(null, res); //success! book moved
                         })
                         .catch(err => {
                             conn.rollback();
@@ -90,7 +90,7 @@ async function addToWish(info, callback) {
 
 /* nameList
  *------------------------------------------------------------------
- * Name a wishlist or rename one.
+ * Rename wishlist.
  *
  * params: info - json containing listnum, listname, userid
  * 
@@ -212,31 +212,11 @@ async function toCart() {
     var query = "";
 }
 
-async function getListNames(info, callback) {
-    //ascending order by default 1 - 3
-    var names = [];
-    var i;
-    var query = 'select listname from listnames where userid=? order by listnum';
-
-    pool.query(query, [info.userid])
-        .then(res => {
-            res = res.splice(0, res.length);
-            for (i = 0; i <= 2; i++) {
-                names.push(res[i].listname);
-            }
-            callback(null, names);
-        })
-        .catch(err => {
-            callback(err, null);
-        });
-}
-
 module.exports = {
     wishToWish,
     addToWish,
     nameList,
     getWishLists,
     toCart,
-    removeFromWish,
-    getListNames
+    removeFromWish
 };
