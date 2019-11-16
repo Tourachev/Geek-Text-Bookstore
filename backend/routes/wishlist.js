@@ -17,5 +17,57 @@ router.post('/', (req, res) => {
     });
 });
 
+router.post('/toWish', (req, res) => {
+    console.log(req.body);
+    queries.wishToWish(req.body, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.json({decision: false});
+        } else {
+            console.log(result);
+            res.json({decision: true});
+        }
+    })
+});
+
+router.post('/remove', (req, res) => {
+    console.log(req.body);
+    queries.removeFromWish(req.body, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.json({decision: false});
+        } else {
+            console.log(result);
+            res.json({decision: true});
+        }   
+    })
+});
+
+router.post('/toCart', (req, res) => {
+    console.log(req.body);
+    queries.wishToWish(req.body, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.json({decision: false});
+        } else {
+            console.log(result);
+            res.json({decision: true});
+        }
+    })
+});
+
+router.post('/rename', (req, res) => {
+    console.log(req.body);
+    queries.nameList(req.body, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.json({decision: false});
+        } else {
+            console.log(result);
+            res.json({decision: true});
+        }   
+    })
+});
+
 
 module.exports = router;

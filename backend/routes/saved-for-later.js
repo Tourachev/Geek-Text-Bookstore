@@ -1,5 +1,4 @@
 const queries = require('../custom_modules/user-transac');
-
 const CART_ADDED = 2; //New shipping address added
 const CART_DELETED = 1; //shipping address removed
 const NOT_UNIQUE = 1; //Duplicate address on insert
