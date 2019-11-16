@@ -21,6 +21,7 @@ class WishlistCard extends React.Component {
         this.moveToWish = this.moveToWish.bind(this);
         this.remove = this.remove.bind(this);
         this.changeName = this.changeName.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     getBooks() {
@@ -71,7 +72,7 @@ class WishlistCard extends React.Component {
         })
             .then(res => res.json())
             .then(data => {
-                this.getBooks();
+                this.setState({listname: name});
             });
     }
 
@@ -171,13 +172,25 @@ class WishlistCard extends React.Component {
         });
     }
 
+    handleChange(event) {
+        this.setState({value: event.target.value});
+    }
+
     render() {
+        var check = 1;
+        var html;
+        
 
         return(
             <div id='purchase-container'>
                 <div id='purchase-body'>
                     <h1 className='display-4' style={{ marginBottom: '3%' }}>
-                        { this.state.listname } 
+                        { this.state.listname }
+                        <form onSubmit={this.changeName}>
+                            change list name to:
+                            <input type='text' value={this.state.listname} onChange={this.handleChange}/>
+                            <input type='submit' value='Submit'/>
+                        </form>
                     </h1>
                     <Table>
                         <thead>
