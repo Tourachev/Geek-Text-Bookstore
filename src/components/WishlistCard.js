@@ -1,8 +1,8 @@
 import React from 'react';
 import { Table } from 'reactstrap';
-import { Button, DropdownButton, Dropdown } from 'react-bootstrap';
+import { Button, DropdownButton, Dropdown, Modal } from 'react-bootstrap';
 import { Icon } from 'semantic-ui-react'
-import CircularProgress from '@material-ui/core/CircularProgress';
+import ModalHeader from 'react-bootstrap/ModalHeader';
 
 class WishlistCard extends React.Component {
     constructor(props) {
@@ -14,14 +14,16 @@ class WishlistCard extends React.Component {
             listnum: this.props.listnum,
             username: this.props.username,
         }
+
+        this.getBooks = this.getBooks.bind(this);
         this.getBody = this.getBody.bind(this);
         this.toCart = this.toCart.bind(this);
         this.moveToWish = this.moveToWish.bind(this);
         this.remove = this.remove.bind(this);
+        this.changeName = this.changeName.bind(this);
     }
 
-    componentDidMount() {
-
+    getBooks() {
         fetch('/wishlist', {
             method: 'POST',
             body: JSON.stringify({
@@ -36,16 +38,75 @@ class WishlistCard extends React.Component {
             });
     }
 
+    componentDidMount() {
+
+        this.getBooks();
+    }
+
     remove(bookid) {
-
+        fetch('/wishlist/remove', {
+            method: 'POST',
+            body: JSON.stringify({
+                userid: this.state.username,
+                listnum: this.state.listnum,
+                bookid: bookid
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(res => res.json())
+            .then(data => {
+                this.getBooks();
+            });
     }
 
-    toCart(bookid) {
-        
+    changeName(name) {
+        fetch('/wishlist/rename', {
+            method: 'POST',
+            body: JSON.stringify({
+                userid: this.state.username,
+                listnum: this.state.listnum,
+                newname: name
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(res => res.json())
+            .then(data => {
+                this.getBooks();
+            });
     }
 
-    moveToWish(num) {
+    toCart(bid) {
+        fetch('/wishlist/toCart', {
+            method: 'POST',
+            body: JSON.stringify({
+                userid: this.state.username,
+                listnum: this.state.listnum,
+                bookid: bid
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(res => res.json())
+            .then(data => {
+                this.getBooks();
+            });
+    }
 
+    moveToWish(num, bid, btitle) {
+        fetch('/wishlist/toWish', {
+            method: 'POST',
+            body: JSON.stringify({
+                userid: this.state.username,
+                listnum: this.state.listnum,
+                title: btitle,
+                bookid: bid,
+                othernum: num
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(res => res.json())
+            .then(data => {
+                this.getBooks();
+            });
     }
 
     getBody(books, names) {
@@ -65,6 +126,7 @@ class WishlistCard extends React.Component {
         }
 
         let body = books.map(entry => {
+
             return (
                 <tr key={entry.bookid}>
                     <td>{entry.title}</td>
@@ -90,12 +152,12 @@ class WishlistCard extends React.Component {
                         title="Move to other wish list"
                     >
                         <Dropdown.Item 
-                            onClick={this.moveToWish.bind(this, index1)}>
-                                {names[index1 - 1]}
+                            onClick={this.moveToWish.bind(this, index1, entry.bookid, 
+                            entry.title)}>{names[index1 - 1]}
                         </Dropdown.Item>
                         <Dropdown.Item 
-                            onClick={this.moveToWish.bind(this, index2)}>
-                                {names[index2 - 1]}
+                            onClick={this.moveToWish.bind(this, index2, entry.bookid,
+                            entry.title)}>{names[index2 - 1]}
                         </Dropdown.Item>
                     </DropdownButton>
                     </td>
@@ -107,15 +169,15 @@ class WishlistCard extends React.Component {
             wishlist: books, 
             listname: names[this.state.listnum - 1]
         });
-        this.forceUpdate();
     }
 
     render() {
+
         return(
             <div id='purchase-container'>
                 <div id='purchase-body'>
                     <h1 className='display-4' style={{ marginBottom: '3%' }}>
-                        { this.state.listname }
+                        { this.state.listname } 
                     </h1>
                     <Table>
                         <thead>
