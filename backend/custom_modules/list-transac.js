@@ -157,7 +157,7 @@ async function getWishLists(info, callback) {
     var names = [];
     var query2 = 'select listname from listnames where userid=? order by listnum';
 
-    data = {books: [], names: []};
+    var data = {books: [], names: []};
 
 
     pool.query(query, [info.userid, info.listnum])
