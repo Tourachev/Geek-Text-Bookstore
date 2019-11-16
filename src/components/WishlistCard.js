@@ -60,19 +60,19 @@ class WishlistCard extends React.Component {
             });
     }
 
-    changeName(name) {
+    changeName() {
         fetch('/wishlist/rename', {
             method: 'POST',
             body: JSON.stringify({
                 userid: this.state.username,
                 listnum: this.state.listnum,
-                newname: name
+                newname: this.state.listname
             }),
             headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
             .then(data => {
-                this.setState({listname: name});
+                this.setState(this.state);
             });
     }
 
@@ -177,20 +177,15 @@ class WishlistCard extends React.Component {
     }
 
     render() {
-        var check = 1;
-        var html;
-        
 
         return(
             <div id='purchase-container'>
                 <div id='purchase-body'>
                     <h1 className='display-4' style={{ marginBottom: '3%' }}>
                         { this.state.listname }
-                        <form onSubmit={this.changeName}>
-                            change list name to:
-                            <input type='text' value={this.state.listname} onChange={this.handleChange}/>
-                            <input type='submit' value='Submit'/>
-                        </form>
+                    <Button>
+                        <Icon name='edit' inverted={true}/>
+                    </Button>
                     </h1>
                     <Table>
                         <thead>
