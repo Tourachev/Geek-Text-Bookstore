@@ -1,5 +1,6 @@
 import React from 'react';
 import Footer from '../Footer';
+import { Link } from 'react-router-dom';
 import Context from '../Context';
 import WishlistCard from '../WishlistCard';
 
@@ -17,25 +18,47 @@ class Wishlist extends React.Component {
     //Context is implemented. After user is logged in, the compenent will receive the data as props and execute queries.
 
     render() {
-        return (
-            <div>
-                <div className='body'>
-                <WishlistCard 
-                    listnum={1}
-                    username={this.state.username}
-                />
-                <WishlistCard 
-                    listnum={2}
-                    username={this.state.username}
-                />
-                <WishlistCard 
-                    listnum={3}
-                    username={this.state.username}
-                />
-                <Footer />
+        if (this.state.isLoggedIn) {
+            return (
+                <div>
+                    <div className='body'>
+                    <WishlistCard 
+                        listnum={1}
+                        username={this.state.username}
+                    />
+                    <WishlistCard 
+                        listnum={2}
+                        username={this.state.username}
+                    />
+                    <WishlistCard 
+                        listnum={3}
+                        username={this.state.username}
+                    />
+                    <Footer />
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
+        else {
+            return (
+                <div class='ohoh'>
+                    <h1 class='display-4'>Oh, Oh!</h1>
+                    <p class='lead'>Looks like you're not logged in!</p>
+                    <p class='lead'>Click below to get to the login page.</p>
+                    <hr class='my-4' />
+                    <p class='lead'>
+                        <Link to='/login'>
+                            <button
+                                type='button'
+                                class='btn btn-outline-primary btn-block'
+                            >
+                                Take Me There!
+                            </button>
+                        </Link>
+                    </p>
+                </div>
+            );
+        }
     }
 }
 
