@@ -2,6 +2,7 @@ import React from "react";
 import { Table } from "reactstrap";
 import { Button } from "react-bootstrap";
 import { Icon } from "semantic-ui-react";
+import SaveForLater from "./SavedForLater"
 class PurchaseSection extends React.Component {
     /*
         Cart Items has ALL the books right now.
@@ -56,12 +57,8 @@ class PurchaseSection extends React.Component {
             }),
             headers: { "Content-Type": "application/json" }
         })
-        // fetch("/saved-for-later", {
-        //     method: "post",
-        //     body: JSON.stringify({ username: this.state.username }),
-        //     headers: { "Content-Type": "application/json" }
-        // })
-        //     .then(res => res.json())
+        // const s = new SaveForLater();
+        // s.fetchLaterData();
         //     .then(books => {
         //         this.getCartItems(books.result);
         //     });

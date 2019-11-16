@@ -6,8 +6,8 @@ class SavedForLater extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            laterBooks: [], //Actual Books in the cart
-            laterItems: [], //HTML of the Table
+            cartBooks: [], //Actual Books in the cart
+            cartItems: [], //HTML of the Table
             username: this.props.username //should use context here
         };
         // this.addItems = this.addItems.bind(this);
@@ -17,10 +17,6 @@ class SavedForLater extends React.Component {
     }
 
     componentDidMount() {
-        this.fetchLaterData();
-    }
-
-    fetchLaterData() {
         fetch("/saved-for-later", {
             method: "post",
             body: JSON.stringify({ username: this.state.username }),
@@ -30,6 +26,10 @@ class SavedForLater extends React.Component {
             .then(books => {
                 this.getCartItems(books.result);
             });
+    }
+
+    fetchLaterData() {
+        
     }
 
     moveToCartHandler = (event, item) => {
@@ -131,7 +131,7 @@ class SavedForLater extends React.Component {
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody>{this.state.laterItems}</tbody>
+                        <tbody>{this.state.cartItems}</tbody>
                     </Table>
                 </div>
             </div>
