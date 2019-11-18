@@ -2,7 +2,7 @@ import React from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import BookCard from "../BookCard";
-// import Pagination from "react-js-pagination";
+import Pagination from "react-js-pagination";
 // import Context from '../Context';
 
 class BrowseSection extends React.Component {
@@ -367,14 +367,14 @@ class BrowseSection extends React.Component {
             {this.state.loading ? <CircularProgress /> : card}
           </div>
           <br />
-          {/* <Pagination
-                        activePage={this.state.activePage}
-                        itemsCountPerPage={this.state.booksPerPage}
-                        totalItemsCount={this.state.books.length}
-                        pageRangeDisplayed={5}
-                        onChange={this.handlePageChange}
-                        linkClass='page-link'
-                    /> */}
+          <Pagination
+            activePage={this.state.activePage}
+            itemsCountPerPage={this.state.booksPerPage}
+            totalItemsCount={this.state.books.length}
+            pageRangeDisplayed={5}
+            onChange={this.handlePageChange}
+            linkClass='page-link'
+          />
         </div>
       </div>
     );
