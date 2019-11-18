@@ -1,3 +1,4 @@
+
 import React from "react";
 import Comment from "./Comment";
 
@@ -11,7 +12,7 @@ export default function CommentList(props) {
 
       {props.comments.length === 0 && !props.loading ? (
         <div className="alert text-center alert-info">
-          Be the first to comment about this book
+          Be the first to comment
         </div>
       ) : null}
 

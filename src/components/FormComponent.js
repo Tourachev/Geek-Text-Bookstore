@@ -1,18 +1,4 @@
 import React, { Component } from "react";
-import { Rating } from "semantic-ui-react";
-import SetRating from "./SetRating";
-
-import PropTypes from "prop-types";
-import "../css/stars.css";
-
-const Star = ({ selected = false, onClick = f => f }) => (
-  <div className={selected ? "star selected" : "star"} onClick={onClick}></div>
-);
-
-Star.propTypes = {
-  selected: PropTypes.bool,
-  onClick: PropTypes.func
-};
 
 export class FormComponent extends Component {
   constructor(props) {
@@ -20,27 +6,16 @@ export class FormComponent extends Component {
     this.state = {
       loading: false,
       error: "",
-      totalStars: 5,
 
       comment: {
         name: "",
-        message: "",
-        rating: 0 // adding the star rating system
+        message: ""
       }
     };
 
     //bind context to methods
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    //bind the starChange
-    this.starChange = this.starChange.bind(this);
-  }
-
-  starChange(event) {
-    this.setState({
-      ...this.state,
-      comment: { ...this.state.comment, rating: event } // adding the star rating system
-    });
   }
 
   /**
@@ -77,7 +52,7 @@ export class FormComponent extends Component {
     fetch("/comment", {
       method: "post",
       body: JSON.stringify(comment),
-      headers: { "Content-Type": "application/json" }
+      headers: { 'Content-Type': 'application/json' }
     })
       .then(res => res.json())
       .then(res => {
@@ -85,8 +60,9 @@ export class FormComponent extends Component {
           this.setState({ loading: false, error: res.error });
         } else {
           // add time return from api and push comment to parent state
-          // comment.rating = res.rating;
+          comment.time = res.time;
           this.props.addComment(comment);
+          
 
           // clear the message box
           this.setState({
@@ -103,12 +79,9 @@ export class FormComponent extends Component {
       });
   }
 
+
   isFormValid() {
-    return (
-      this.state.comment.name !== "" &&
-      this.state.comment.message !== "" &&
-      this.state.comment.rating !== 0
-    );
+    return this.state.comment.name !== "" && this.state.comment.message !== "";
   }
 
   renderError() {
@@ -144,21 +117,6 @@ export class FormComponent extends Component {
           </div>
 
           {this.renderError()}
-
-          {/* <SetRating/> */}
-          <div className="star-rating">
-            {[...Array(this.state.totalStars)].map((x, i) => (
-              <Star
-                key={i}
-                selected={i < this.state.comment.rating}
-                onClick={() => this.starChange(i + 1)}
-              />
-            ))}
-            <p>
-              {this.state.comment.rating} of {this.state.totalStars} stars
-            </p>
-          </div>
-          <br />
 
           <div className="form-group">
             <button disabled={this.state.loading} className="btn btn-primary">
