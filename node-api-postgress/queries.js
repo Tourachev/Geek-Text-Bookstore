@@ -85,7 +85,7 @@ const deleteComment = (request, response) => {
 /*************comment Table ******************* */
 // Table comment get all the names and messages
 const getComment = (request, response) => {
-  pool.query("SELECT * FROM comment ORDER BY time DESC", (error, results) => {
+  pool.query("SELECT * FROM comment ORDER BY rating DESC", (error, results) => {
     if (error) {
       throw error;
     }
@@ -98,7 +98,7 @@ const getCommentById = (request, response) => {
   const id = request.params.id;
 
   pool.query(
-    "SELECT * FROM comment WHERE id = $1 ORDER BY time DESC",
+    "SELECT * FROM comment WHERE id = $1 ORDER BY rating DESC",
     [id],
     (error, results) => {
       if (error) {
@@ -109,12 +109,13 @@ const getCommentById = (request, response) => {
   );
 };
 
+
 //FROM the comment table create a new message and name
 const createcomment = (request, response) => {
   // const { name, message, date } = request.body;
-  const values = [request.body.name, request.body.message]
+  const values = [request.body.name, request.body.message, request.body.rating]
   pool.query(
-    `INSERT INTO comment (name, message) VALUES ($1, $2)`,
+    `INSERT INTO comment (name, message, rating) VALUES ($1, $2, $3)`,
     values,
     (error, results)=> {
       if (error ) {
@@ -129,12 +130,13 @@ const createcomment = (request, response) => {
 
 // From the table comment update the message and names
 const updatecomment = (request, response) => {
-  const { name, message } = request.body;
+  //const { name, message, rating } = request.body;
+  const values = [request.body.name, request.body.message, request.body.rating]
   const id = parseInt(request.params.id);
 
   pool.query(
-    "UPDATE comment SET name = '$1', message = '$2' WHERE id = $3",
-    [name, message, id],
+    "UPDATE comment SET name = '$1', message = '$2', rating = $3 WHERE id = $4",
+    [values, id],
     error => {
       if (error) {
         throw error;
