@@ -18,8 +18,9 @@
 --   );
 --  select *
 --  from comment
--- delete from comment
--- where id = 29
+delete from comment
+where id = 78
+
 
 -- UPDATE comment SET  name = 'Ashley', message = 'cant wait to read this book!'
 -- where id = 18

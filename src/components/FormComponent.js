@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Rating } from "semantic-ui-react";
 import SetRating from "./SetRating";
+import { Button, Dropdown } from "semantic-ui-react";
 
 import PropTypes from "prop-types";
 import "../css/stars.css";
@@ -18,6 +19,7 @@ export class FormComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isFeteching: false,
       loading: false,
       error: "",
       totalStars: 5,
@@ -113,40 +115,102 @@ export class FormComponent extends Component {
 
   renderError() {
     return this.state.error ? (
-      <div className="alert alert-danger">{this.state.error}</div>
+      <div className='alert alert-danger'>{this.state.error}</div>
     ) : null;
   }
 
+  fetchOptions = () => {
+    this.setState({
+      isFeteching: true,
+      comment: { ...this.state.comment, name: "anonymous" }
+    });
+  };
+
   render() {
+    const friendOptions = [
+      {
+        key: "Jenny Hess",
+        text: "Jenny Hess",
+        value: "Jenny Hess",
+        image: {
+          avatar: true,
+          src: `https://api.adorable.io/avatars/265/abot@adorable.io.png`
+        }
+      },
+      {
+        key: "Elliot Fu",
+        text: "Elliot Fu",
+        value: "Elliot Fu",
+        image: {
+          avatar: true,
+          src: `https://api.adorable.io/avatars/265/abot@adorable.io.png`
+        }
+      },
+      {
+        key: "Stevie Feliciano",
+        text: "Stevie Feliciano",
+        value: "Stevie Feliciano",
+        image: { avatar: true, src: "/images/avatar/small/stevie.jpg" }
+      },
+      {
+        key: "Christian",
+        text: "Christian",
+        value: "Christian",
+        image: { avatar: true, src: "/images/avatar/small/christian.jpg" }
+      },
+      {
+        key: "Matt",
+        text: "Matt",
+        value: "Matt",
+        image: { avatar: true, src: "/images/avatar/small/matt.jpg" }
+      },
+      {
+        key: "Justen Kitsune",
+        text: "Justen Kitsune",
+        value: "Justen Kitsune",
+        image: { avatar: true, src: "/images/avatar/small/justen.jpg" }
+      }
+    ];
     return (
       <React.Fragment>
-        <form method="post" onSubmit={this.onSubmit}>
-          <div className="form-group">
+        <button className='btn btn-primary' onClick={this.fetchOptions}>
+          anonymous
+        </button>
+        <br />
+        <br />
+        {/* <Dropdown
+          placeholder='Select Friend'
+          fluid
+          selection
+          options={friendOptions}
+        /> */}
+        <form method='post' onSubmit={this.onSubmit}>
+          <div className='form-group'>
             <input
               onChange={this.handleFieldChange}
               value={this.state.comment.name}
-              className="form-control"
-              placeholder="🙂 Your Name"
-              name="name"
-              type="text"
+              className='form-control'
+              placeholder='🙂 Your Name'
+              name='name'
+              type='text'
             />
           </div>
 
-          <div className="form-group">
+          <div className='form-group'>
             <textarea
               onChange={this.handleFieldChange}
               value={this.state.comment.message}
-              className="form-control"
-              placeholder="📚 Your Comment"
-              name="message"
-              rows="5"
+              className='form-control'
+              placeholder='📚 Your Comment'
+              name='message'
+              rows='5'
             />
           </div>
 
           {this.renderError()}
 
           {/* <SetRating/> */}
-          <div className="star-rating">
+          <div className='star-rating'>
             {[...Array(this.state.totalStars)].map((x, i) => (
               <Star
                 key={i}
@@ -160,8 +224,8 @@ export class FormComponent extends Component {
           </div>
           <br />
 
-          <div className="form-group">
-            <button disabled={this.state.loading} className="btn btn-primary">
+          <div className='form-group'>
+            <button disabled={this.state.loading} className='btn btn-primary'>
               Comment ➤
             </button>
           </div>

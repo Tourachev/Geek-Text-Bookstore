@@ -74,29 +74,29 @@ export default class form extends Component {
     return (
       <React.Fragment>
         <NavBar2 />
-        <div className="App container bg-light shadow">
+        <div className='App container bg-light shadow'>
           <div>
             <img src={imageName} />
             <br />
             <h2>Harry Potter And the Goblet of Fire</h2>
           </div>
-          <header className="App-header">
+          <header className='App-header'>
             {/* <img src={logo} className={loadingSpin} alt="logo" /> */}
-            <h1 className="App-title">
+            <h1 className='App-title'>
               Geek Text Comments
-              <span className="px-2" role="img" aria-label="Chat">
+              <span className='px-2' role='img' aria-label='Chat'>
                 💬
               </span>
             </h1>
           </header>
 
-          <div className="row">
-            <div className="col-4  pt-3 border-right">
+          <div className='row'>
+            <div className='col-4  pt-3 border-right'>
               <h6>Say something about your purchase</h6>
               {/* Comment Form Component */}
               <FormComponent addComment={this.addComment} />
             </div>
-            <div className="col-8  pt-3 bg-white">
+            <div className='col-8  pt-3 bg-white'>
               {/* Comment List Component */}
               <CommentList
                 loading={this.state.loading}
