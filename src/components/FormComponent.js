@@ -1,4 +1,8 @@
 import React, { Component } from "react";
+import { Rating } from "semantic-ui-react";
+import SetRating from "./SetRating";
+import { Button, Dropdown } from "semantic-ui-react";
+
 import PropTypes from "prop-types";
 import "../css/stars.css";
 
@@ -15,6 +19,7 @@ export class FormComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isFeteching: false,
       loading: false,
       error: "",
       totalStars: 5,
@@ -114,9 +119,71 @@ export class FormComponent extends Component {
     ) : null;
   }
 
+  fetchOptions = () => {
+    this.setState({
+      isFeteching: true,
+      comment: { ...this.state.comment, name: "anonymous" }
+    });
+  };
+
   render() {
+    const friendOptions = [
+      {
+        key: "Jenny Hess",
+        text: "Jenny Hess",
+        value: "Jenny Hess",
+        image: {
+          avatar: true,
+          src: `https://api.adorable.io/avatars/265/abot@adorable.io.png`
+        }
+      },
+      {
+        key: "Elliot Fu",
+        text: "Elliot Fu",
+        value: "Elliot Fu",
+        image: {
+          avatar: true,
+          src: `https://api.adorable.io/avatars/265/abot@adorable.io.png`
+        }
+      },
+      {
+        key: "Stevie Feliciano",
+        text: "Stevie Feliciano",
+        value: "Stevie Feliciano",
+        image: { avatar: true, src: "/images/avatar/small/stevie.jpg" }
+      },
+      {
+        key: "Christian",
+        text: "Christian",
+        value: "Christian",
+        image: { avatar: true, src: "/images/avatar/small/christian.jpg" }
+      },
+      {
+        key: "Matt",
+        text: "Matt",
+        value: "Matt",
+        image: { avatar: true, src: "/images/avatar/small/matt.jpg" }
+      },
+      {
+        key: "Justen Kitsune",
+        text: "Justen Kitsune",
+        value: "Justen Kitsune",
+        image: { avatar: true, src: "/images/avatar/small/justen.jpg" }
+      }
+    ];
     return (
       <React.Fragment>
+        <button className='btn btn-primary' onClick={this.fetchOptions}>
+          anonymous
+        </button>
+        <br />
+        <br />
+        {/* <Dropdown
+          placeholder='Select Friend'
+          fluid
+          selection
+          options={friendOptions}
+        /> */}
         <form method='post' onSubmit={this.onSubmit}>
           <div className='form-group'>
             <input
@@ -142,6 +209,7 @@ export class FormComponent extends Component {
 
           {this.renderError()}
 
+          {/* <SetRating/> */}
           <div className='star-rating'>
             {[...Array(this.state.totalStars)].map((x, i) => (
               <Star
