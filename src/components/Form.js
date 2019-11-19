@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import CommentList from "./ListComment";
+import CommentList from "./CommentList";
 import FormComponent from "./FormComponent";
-import Footer from "./Footer";
-import ListComment from "./ListComment";
 
-export default class form extends Component {
+import NavBar2 from "./NavBar2";
+import Footer from "./Footer";
+import "../css/comment.css";
+
+export default class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,10 +68,12 @@ export default class form extends Component {
   }
 
   render() {
+    // const loadingSpin = this.state.loading ? "App-logo Spin" : "App-logo";
     // const { comments, loading } = this.state;
     var imageName = require("../img/harryPotter.jpg");
     return (
       <React.Fragment>
+        <NavBar2 />
         <div className='App container bg-light shadow'>
           <div>
             <img src={imageName} />
@@ -77,6 +81,7 @@ export default class form extends Component {
             <h2>Harry Potter And the Goblet of Fire</h2>
           </div>
           <header className='App-header'>
+            {/* <img src={logo} className={loadingSpin} alt="logo" /> */}
             <h1 className='App-title'>
               Geek Text Comments
               <span className='px-2' role='img' aria-label='Chat'>
@@ -88,10 +93,12 @@ export default class form extends Component {
           <div className='row'>
             <div className='col-4  pt-3 border-right'>
               <h6>Say something about your purchase</h6>
+              {/* Comment Form Component */}
               <FormComponent addComment={this.addComment} />
             </div>
             <div className='col-8  pt-3 bg-white'>
-              <ListComment
+              {/* Comment List Component */}
+              <CommentList
                 loading={this.state.loading}
                 comments={this.state.comments}
               />
