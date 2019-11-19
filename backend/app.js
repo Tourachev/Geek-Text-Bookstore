@@ -16,6 +16,7 @@ const addressInfoRouter = require("./routes/address-info");
 const creditInfoRouter = require("./routes/credit-info");
 const authRouter = require("./routes/auth.js");
 const usersRouter = require("./routes/registration.js");
+const commentsRouter = require('./routes/comments');
 
 //purchase router
 const purchaseRouter = require("./routes/purchase");
@@ -45,6 +46,7 @@ app.use("/auth", authRouter);
 app.use("/cart", cartRouter);
 app.use("/saved-for-later", savedForLaterRouter);
 app.use('/wishlist', wishlistRouter);
+app.use('/comments', commentsRouter);
 
 //purchase router
 app.use("/purchase", purchaseRouter);
