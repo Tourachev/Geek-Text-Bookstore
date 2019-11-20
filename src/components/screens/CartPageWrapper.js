@@ -111,6 +111,10 @@ class CartPageWrapper extends React.Component {
                         </button>
                         <Button
                             onClick={this.removeCartItems.bind(this, item)}
+                        />
+                    </td>
+                </tr>
+            )})
         this.setState({ savedBooks: books, savedItems: cart });
         this.forceUpdate();
     }
@@ -208,9 +212,12 @@ class CartPageWrapper extends React.Component {
         );
         this.getCartItems(this.state.cartBooks);
         fetch("/cart/delete", {
-        .then(res => console.log(res.body))
-        .then(newInfo => {
-            console.log("Item Deleted");
+            method: "POST",
+            body: JSON.stringify({
+                userid: this.props.username,
+                bookid: item.bookid
+            }),
+            headers: { "Content-Type": "application/json" }
         })
         .catch(err => {
             console.log(err);
