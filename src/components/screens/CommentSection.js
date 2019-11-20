@@ -69,19 +69,15 @@ export default class CommentSection extends Component {
   render() {
     // const loadingSpin = this.state.loading ? "App-logo Spin" : "App-logo";
     // const { comments, loading } = this.state;
-    // var imageName = require("../img/harryPotter.jpg");
     return (
       <React.Fragment>
         <div className='App container bg-light shadow'>
           <div>
-            {/* <img src={imageName} /> */}
-            {/* <img class="author-img" src={this.context.imagelink}></img> */}
+            <img class="author-img" src={this.props.imagelink}></img>
             <br />
-            {/* <h2>Harry Potter And the Goblet of Fire</h2> */}
-            {/* <h2>{this.context.title}</h2> */}
+            <h2>{this.props.title}</h2>
           </div>
           <header className='App-header'>
-            {/* <img src={logo} className={loadingSpin} alt="logo" /> */}
             <h1 className='App-title'>
               Geek Text Comments
               <span className='px-2' role='img' aria-label='Chat'>

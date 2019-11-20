@@ -6,6 +6,8 @@ import { Icon } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { BookImgModal } from '../BookImgModal'
+import Context from "../Context";
+import CommentSection from './CommentSection';
 
 class DetailsSection extends React.Component {
     constructor(props) {
@@ -112,9 +114,13 @@ class DetailsSection extends React.Component {
                 </div>
                 <div class="section">
                     <h1>Ratings AND Comments</h1>
-                    <Link to={{pathname:"/comments"+"/book/" + this.props.bookid}} >
+                    {/* <Context.Provider value={{state: this.state.bookData}}>
+                    <Link to={{pathname:"/comments" + "/book/" + this.props.bookid }} >
                     <Button size="lg" style={{ width: "30%", marginRight:"5vw" }}>Comments</Button>
                     </Link>
+                    </Context.Provider> */}
+
+                    <CommentSection imagelink={this.state.bookData.imagelink} title={this.state.bookData.title}/>
                 </div>
             </div>
         );
