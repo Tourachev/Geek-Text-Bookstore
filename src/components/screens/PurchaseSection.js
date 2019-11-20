@@ -29,7 +29,7 @@ class PurchaseSection extends React.Component {
     componentWillReceiveProps(nextProps) {
         console.log(nextProps.cartBooks.result);
         if (nextProps.cartBooks.result) {
-            this.getCartItems(Array.from(nextProps.cartBooks.result));
+           //this.getCartItems(Array.from(nextProps.cartBooks.result));
         }
     }
 
