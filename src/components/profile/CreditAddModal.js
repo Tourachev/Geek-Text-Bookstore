@@ -67,6 +67,8 @@ class MyForm extends React.Component {
             });
 
         alert('Submitted!');
+        this.props.closeMethod();
+        this.props.getInfo();
     };
     render() {
         return (
@@ -160,7 +162,11 @@ export default function SimpleModal(props) {
             >
                 <div style={modalStyle} className={classes.paper}>
                     <h2 id='simple-modal-title'>Add A New Credit Card</h2>
-                    <MyForm username={props.username} />
+                    <MyForm
+                        username={props.username}
+                        closeMethod={handleClose}
+                        getInfo={props.getInfo}
+                    />
                 </div>
             </Modal>
         </div>

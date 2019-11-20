@@ -3,8 +3,6 @@ import Footer from '../Footer';
 import Personal from '../profile/personal';
 import Credit from '../profile/credit';
 import Address from '../profile/address';
-import AddressAddModal from '../profile/AddressAddModal';
-import CreditAddModal from '../profile/CreditAddModal';
 import {Link} from 'react-router-dom';
 import Context from '../Context';
 
@@ -45,14 +43,6 @@ class ProfilePage extends React.Component {
                                     <hr />
 
                                     <div className='profile-card'>
-                                        <div className='profile-card-header'>
-                                            <h1 className='display-4 '>
-                                                Addresses On File
-                                            </h1>
-                                            <AddressAddModal
-                                                username={context.username}
-                                            />
-                                        </div>
                                         <div className='profile-card-content'>
                                             <Address
                                                 username={context.username}
@@ -62,14 +52,6 @@ class ProfilePage extends React.Component {
                                     <hr />
 
                                     <div className='profile-card'>
-                                        <div className='profile-card-header'>
-                                            <h1 className='display-4 '>
-                                                Credit Cards On File
-                                            </h1>
-                                            <CreditAddModal
-                                                username={context.username}
-                                            />
-                                        </div>
                                         <div className='profile-card-content'>
                                             <Credit
                                                 username={context.username}
