@@ -5,7 +5,7 @@ import Credit from '../profile/credit';
 import Address from '../profile/address';
 import AddressAddModal from '../profile/AddressAddModal';
 import CreditAddModal from '../profile/CreditAddModal';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Context from '../Context';
 
 class ProfilePage extends React.Component {
@@ -106,4 +106,4 @@ class ProfilePage extends React.Component {
     }
 }
 
-export { ProfilePage };
+export {ProfilePage};
