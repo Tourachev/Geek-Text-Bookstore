@@ -20,12 +20,12 @@ class Address extends React.Component {
     getInfo() {
         fetch('/address-info', {
             method: 'POST',
-            body: JSON.stringify({ username: this.state.username }),
-            headers: { 'Content-Type': 'application/json' }
+            body: JSON.stringify({username: this.state.username}),
+            headers: {'Content-Type': 'application/json'}
         })
             .then(res => res.json())
             .then(newInfo => {
-                this.setState({ addressInfo: newInfo, loading: false });
+                this.setState({addressInfo: newInfo, loading: false});
             })
             .catch(err => {
                 console.log(err);
@@ -42,7 +42,7 @@ class Address extends React.Component {
                 address: addressInfo.address,
                 zip: addressInfo.zip
             }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: {'Content-Type': 'application/json'}
         })
             .then(res => res.json())
             .then(newInfo => {
@@ -64,7 +64,7 @@ class Address extends React.Component {
                 address: addressInfo.address,
                 zip: addressInfo.zip
             }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: {'Content-Type': 'application/json'}
         })
             .then(res => res.json())
             .then(newInfo => {
@@ -88,13 +88,13 @@ class Address extends React.Component {
                         <h1>Zip: {addressInfo.zip}</h1>
                     </div>
                     <div className='info-card-rc'>
-                        <button
+                        {/* <button
                             type='button'
                             class='btn btn-link btn-lg'
                             onClick={() => this.handleInsert(addressInfo)} //need form to input ADDRESS
                         >
                             EDIT
-                        </button>
+                        </button> */}
 
                         {/* <AddressEditModal /> */}
                         <button

@@ -21,8 +21,8 @@ class Credit extends React.Component {
     getInfo() {
         fetch('/credit-info', {
             method: 'POST',
-            body: JSON.stringify({ username: this.props.username }),
-            headers: { 'Content-Type': 'application/json' }
+            body: JSON.stringify({username: this.props.username}),
+            headers: {'Content-Type': 'application/json'}
         })
             .then(res => res.json())
             .then(newInfo => {
@@ -44,7 +44,7 @@ class Credit extends React.Component {
                 username: this.props.username,
                 info: newEntry
             }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: {'Content-Type': 'application/json'}
         })
             .then(res => res.json())
             .then(newInfo => {
@@ -62,7 +62,7 @@ class Credit extends React.Component {
                 username: this.props.username,
                 ccnum: entry
             }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: {'Content-Type': 'application/json'}
         })
             .then(res => res.json())
             .then(newInfo => {
@@ -87,7 +87,7 @@ class Credit extends React.Component {
                 expdate: this.state.expdate,
                 username: this.state.username
             }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: {'Content-Type': 'application/json'}
         })
             .then(res => res.json())
             // .then(newInfo => {
@@ -102,11 +102,11 @@ class Credit extends React.Component {
     };
 
     changeEditMode = () => {
-        this.setState({ inEditMode: true });
+        this.setState({inEditMode: true});
     };
 
     handleChange(e) {
-        this.setState({ [e.target.name]: e.target.value });
+        this.setState({[e.target.name]: e.target.value});
     }
 
     render() {
@@ -121,13 +121,13 @@ class Credit extends React.Component {
                         <h1>Zip: {creditInfo.zip}</h1>
                     </div>
                     <div className='info-card-rc'>
-                        <button
+                        {/* <button
                             type='button'
                             class='btn btn-link btn-lg'
                             onClick={() => this.changeEditMode()} //need form to input cc
                         >
                             EDIT
-                        </button>
+                        </button> */}
                         <button
                             type='button'
                             class='btn btn-link btn-lg'
