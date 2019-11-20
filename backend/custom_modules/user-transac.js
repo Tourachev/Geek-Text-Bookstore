@@ -24,7 +24,7 @@ const pool = mariadb.createPool({
 
 async function changePassword(info, callback) {
     bcrypt.hash(info.newPassword, saltRounds, function(err, hash) {
-        var step1 = 'update credentials password=? where userid=?';
+        var step1 = 'update credentials set password=? where userid=?';
         pool.getConnection()
             .then(conn => {
                 conn.query(step1, [hash, info.username]).catch(err => {
