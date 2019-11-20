@@ -6,6 +6,7 @@ import { Icon } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { BookImgModal } from '../BookImgModal'
+import ModalImage from "react-modal-image";
 
 class DetailsSection extends React.Component {
     constructor(props) {
@@ -82,7 +83,12 @@ class DetailsSection extends React.Component {
                     <h1>{this.props.text}</h1>
 
                     <div class="book-imgcontainer">
-                        <BookImgModal img={this.state.bookData.imagelink}></BookImgModal>
+                        <ModalImage
+                            small={this.state.bookData.imagelink}
+                            large={this.state.bookData.imagelink}
+                            className='card-top'
+                            alt={this.state.bookData.title}
+                        />
                     </div>
 
                     <div class="book-details">

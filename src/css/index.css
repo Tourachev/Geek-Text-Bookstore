@@ -82,9 +82,9 @@
 .book-imgcontainer {
     justify-content: center;
     display: flex;
-    width: 80vw;
+    width: 35vw;
     margin: 5%;
-    margin-right: 0;
+    margin-right: 15px;
 }
 
 .book-img {
