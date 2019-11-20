@@ -26,28 +26,28 @@ class PurchaseSection extends React.Component {
         this.onSaveForLater = this.onSaveForLater.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps.cartBooks.result);
-        if (nextProps.cartBooks.result) {
-           //this.getCartItems(Array.from(nextProps.cartBooks.result));
-        }
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     console.log(nextProps.cartBooks.result);
+    //     if (nextProps.cartBooks.result) {
+    //         this.getCartItems(Array.from(nextProps.cartBooks.result));
+    //     }
+    // }
 
-   componentDidMount() {
-        console.log("I RAN");
+//    componentDidMount() {
+//         console.log("I RAN");
 
 
-        /*fetch("/cart", {
-            method: "post",
-            body: JSON.stringify({ username: this.state.username }),
-            headers: { "Content-Type": "application/json" }
-        })
-        .then(res => res.json())
-        .then(books => {
-            this.getCartItems(books.result);
-        });
-        this.forceUpdate();*/
-    }
+//         /*fetch("/cart", {
+//             method: "post",
+//             body: JSON.stringify({ username: this.state.username }),
+//             headers: { "Content-Type": "application/json" }
+//         })
+//         .then(res => res.json())
+//         .then(books => {
+//             this.getCartItems(books.result);
+//         });
+//         this.forceUpdate();*/
+//     }
 
     onSaveForLater(item) {
         fetch("/saved-for-later/cart-to-later", {
