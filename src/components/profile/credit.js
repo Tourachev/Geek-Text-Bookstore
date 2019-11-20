@@ -1,5 +1,7 @@
 import React from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import CreditAddModal from '../profile/CreditAddModal';
+import Context from '../Context';
 
 class Credit extends React.Component {
     constructor(props) {
@@ -36,6 +38,8 @@ class Credit extends React.Component {
                 console.log(err);
             });
     }
+
+    handleRefresh = () => this.getInfo();
 
     handleInsert(newEntry) {
         fetch('/credit-info/insert', {
@@ -121,13 +125,6 @@ class Credit extends React.Component {
                         <h1>Zip: {creditInfo.zip}</h1>
                     </div>
                     <div className='info-card-rc'>
-                        {/* <button
-                            type='button'
-                            class='btn btn-link btn-lg'
-                            onClick={() => this.changeEditMode()} //need form to input cc
-                        >
-                            EDIT
-                        </button> */}
                         <button
                             type='button'
                             class='btn btn-link btn-lg'
@@ -140,84 +137,24 @@ class Credit extends React.Component {
             </div>
         ));
 
-        const editCard = this.state.creditInfo.map(creditInfo => (
-            <div>
-                <div className='info-card'>
-                    <div className='info-card-lc'>
-                        <h1>
-                            Credit Card Number:{' '}
-                            <input
-                                type='text'
-                                className='form-control'
-                                name='ccnum'
-                                onChange={this.handleChange}
-                                value={creditInfo.ccnum}
+        const result = (
+            <Context.Consumer>
+                {context => (
+                    <div className='profile-card'>
+                        <div className='profile-card-header'>
+                            <h1 className='display-4 '>Credit Cards On File</h1>
+                            <CreditAddModal
+                                username={context.username}
+                                getInfo={this.handleRefresh}
                             />
-                        </h1>
-                        <h1>
-                            Expiration Date:{' '}
-                            <input
-                                type='text'
-                                className='form-control'
-                                name='expdate'
-                                onChange={this.handleChange}
-                                value={creditInfo.expdate}
-                            />
-                        </h1>
-                        <h1>
-                            CVV:{' '}
-                            <input
-                                type='text'
-                                className='form-control'
-                                name='cvv'
-                                onChange={this.handleChange}
-                                value={creditInfo.cvv}
-                            />
-                        </h1>
-                        <h1>
-                            Name On Card:{' '}
-                            <input
-                                type='text'
-                                className='form-control'
-                                name='name'
-                                onChange={this.handleChange}
-                                value={creditInfo.name}
-                            />
-                        </h1>
-                        <h1>
-                            Zip:{' '}
-                            <input
-                                type='text'
-                                className='form-control'
-                                name='zip'
-                                onChange={this.handleChange}
-                                value={creditInfo.zip}
-                            />
-                        </h1>
+                        </div>
+                        <div className='profile-card-content'>{card}</div>
                     </div>
-                    <div className='info-card-rc'>
-                        <button
-                            type='button'
-                            class='btn btn-link btn-lg'
-                            onClick={() => this.mySubmitHandler()} //need form to input cc
-                        >
-                            SAVE
-                        </button>
-                    </div>
-                </div>
-            </div>
-        ));
-        return (
-            <div>
-                {this.state.loading ? (
-                    <LinearProgress />
-                ) : this.state.inEditMode ? (
-                    editCard
-                ) : (
-                    card
                 )}
-            </div>
+            </Context.Consumer>
         );
+
+        return <div>{this.state.loading ? <LinearProgress /> : result}</div>;
     }
 }
 

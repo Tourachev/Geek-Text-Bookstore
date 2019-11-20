@@ -1,5 +1,7 @@
 import React from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import AddressAddModal from '../profile/AddressAddModal';
+import Context from '../Context';
 
 class Address extends React.Component {
     constructor(props) {
@@ -13,7 +15,7 @@ class Address extends React.Component {
     }
 
     componentDidMount() {
-        this.getInfo();
+        this.getInfo(this.state.username);
         // console.log(this.state.personalInfo);
     }
 
@@ -31,6 +33,8 @@ class Address extends React.Component {
                 console.log(err);
             });
     }
+
+    handleRefresh = () => this.getInfo();
 
     handleInsert(addressInfo) {
         fetch('/address-info/insert', {
@@ -69,7 +73,7 @@ class Address extends React.Component {
             .then(res => res.json())
             .then(newInfo => {
                 //look at address-info for return values
-                this.getInfo();
+                this.getInfo(this.state.username);
                 alert('Deleted!');
             })
             .catch(err => {
@@ -88,15 +92,6 @@ class Address extends React.Component {
                         <h1>Zip: {addressInfo.zip}</h1>
                     </div>
                     <div className='info-card-rc'>
-                        {/* <button
-                            type='button'
-                            class='btn btn-link btn-lg'
-                            onClick={() => this.handleInsert(addressInfo)} //need form to input ADDRESS
-                        >
-                            EDIT
-                        </button> */}
-
-                        {/* <AddressEditModal /> */}
                         <button
                             type='button'
                             class='btn btn-link btn-lg'
@@ -109,7 +104,24 @@ class Address extends React.Component {
             </div>
         ));
 
-        return <div>{this.state.loading ? <LinearProgress /> : card}</div>;
+        const result = (
+            <Context.Consumer>
+                {context => (
+                    <div className='profile-card'>
+                        <div className='profile-card-header'>
+                            <h1 className='display-4 '>Addresses On File</h1>
+                            <AddressAddModal
+                                username={context.username}
+                                getInfo={this.handleRefresh}
+                            />
+                        </div>
+                        <div className='profile-card-content'> {card} </div>
+                    </div>
+                )}
+            </Context.Consumer>
+        );
+
+        return <div>{this.state.loading ? <LinearProgress /> : result}</div>;
     }
 }
 
