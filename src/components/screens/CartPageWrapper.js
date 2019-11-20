@@ -62,7 +62,7 @@ class CartPageWrapper extends React.Component {
                     username={this.props.username}
                     isLoggedIn={this.props.isLoggedIn}
                     cartBooks={this.state.cartBooks}
-                    changeQuantity={this.changeQuantity}
+                    changedQuantity={this.changeQuantity}
                 />
                 <SavedForLater
                     username={this.props.username}

@@ -67,9 +67,9 @@ class PurchaseSection extends React.Component {
         //     });
     }
 
-    changeQuantityEvent(item, event) {
+    changeQuantityEvent = () =>  {
         console.log("I RAN");
-        this.props.changeQuantity.bind(item, event)
+        this.props.changeQuantity(item, event)
     }
 
     getCartItems(books) {
@@ -88,7 +88,7 @@ class PurchaseSection extends React.Component {
                             class='purchase-input'
                             type='number'
                             value={item.quantity}
-                            onChange={this.changeQuantityEvent.bind(this,item)}
+                            onChange={this.changeQuantityEvent.bind(this.item,this)}
                         />
                     </td>
                     <td>${item.price.toFixed(2)}</td>
