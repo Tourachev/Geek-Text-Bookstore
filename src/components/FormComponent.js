@@ -127,50 +127,7 @@ export class FormComponent extends Component {
   };
 
   render() {
-    const friendOptions = [
-      {
-        key: "Jenny Hess",
-        text: "Jenny Hess",
-        value: "Jenny Hess",
-        image: {
-          avatar: true,
-          src: `https://api.adorable.io/avatars/265/abot@adorable.io.png`
-        }
-      },
-      {
-        key: "Elliot Fu",
-        text: "Elliot Fu",
-        value: "Elliot Fu",
-        image: {
-          avatar: true,
-          src: `https://api.adorable.io/avatars/265/abot@adorable.io.png`
-        }
-      },
-      {
-        key: "Stevie Feliciano",
-        text: "Stevie Feliciano",
-        value: "Stevie Feliciano",
-        image: { avatar: true, src: "/images/avatar/small/stevie.jpg" }
-      },
-      {
-        key: "Christian",
-        text: "Christian",
-        value: "Christian",
-        image: { avatar: true, src: "/images/avatar/small/christian.jpg" }
-      },
-      {
-        key: "Matt",
-        text: "Matt",
-        value: "Matt",
-        image: { avatar: true, src: "/images/avatar/small/matt.jpg" }
-      },
-      {
-        key: "Justen Kitsune",
-        text: "Justen Kitsune",
-        value: "Justen Kitsune",
-        image: { avatar: true, src: "/images/avatar/small/justen.jpg" }
-      }
-    ];
+
     return (
       <React.Fragment>
         <button className='btn btn-primary' onClick={this.fetchOptions}>
@@ -178,12 +135,7 @@ export class FormComponent extends Component {
         </button>
         <br />
         <br />
-        {/* <Dropdown
-          placeholder='Select Friend'
-          fluid
-          selection
-          options={friendOptions}
-        /> */}
+    
         <form method='post' onSubmit={this.onSubmit}>
           <div className='form-group'>
             <input

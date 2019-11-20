@@ -112,6 +112,9 @@ class DetailsSection extends React.Component {
                 </div>
                 <div class="section">
                     <h1>Ratings AND Comments</h1>
+                    <Link to={{pathname:"/comments"+"/book/" + this.props.bookid}} >
+                    <Button size="lg" style={{ width: "30%", marginRight:"5vw" }}>Comments</Button>
+                    </Link>
                 </div>
             </div>
         );

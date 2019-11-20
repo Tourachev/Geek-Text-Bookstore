@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import CommentList from "./CommentList";
-import FormComponent from "./FormComponent";
-import Footer from "./Footer";
+import CommentList from "../CommentList";
+import FormComponent from "../FormComponent";
+import Footer from "../Footer";
 // import "../css/comment.css";
-import Context from "./Context";
+import Context from "../Context";
 
-export default class Form extends Component {
+export default class CommentSection extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,7 +53,7 @@ export default class Form extends Component {
     this.setState({ loading: true });
 
     //get all the comments
-    fetch("/comments")
+    fetch("/getComments")
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -69,14 +69,16 @@ export default class Form extends Component {
   render() {
     // const loadingSpin = this.state.loading ? "App-logo Spin" : "App-logo";
     // const { comments, loading } = this.state;
-    var imageName = require("../img/harryPotter.jpg");
+    // var imageName = require("../img/harryPotter.jpg");
     return (
       <React.Fragment>
         <div className='App container bg-light shadow'>
           <div>
-            <img src={imageName} />
+            {/* <img src={imageName} /> */}
+            {/* <img class="author-img" src={this.context.imagelink}></img> */}
             <br />
-            <h2>Harry Potter And the Goblet of Fire</h2>
+            {/* <h2>Harry Potter And the Goblet of Fire</h2> */}
+            {/* <h2>{this.context.title}</h2> */}
           </div>
           <header className='App-header'>
             {/* <img src={logo} className={loadingSpin} alt="logo" /> */}

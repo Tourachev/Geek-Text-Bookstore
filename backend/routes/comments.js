@@ -20,7 +20,20 @@ var router = express.Router();
 //   });
 // });
 
-router.post("/", (req, res) => {
+router.get('/', function(req, res, next) {
+  console.log(req);
+  //res.json(bookData);
+  pool.query('select * from comments')
+      .then(result => {
+          console.log(result);
+          res.json(result);
+      })
+      .catch(err => {
+          console.log(err);
+      })
+});
+
+router.post("/getComments", (req, res) => {
   queries.getComments(req.body, (err, result) => {
     if (err) {
       console.log(
@@ -28,6 +41,7 @@ router.post("/", (req, res) => {
       );
       res.json(null);
     } else {
+      console.log(result);
       res.json(result);
     }
   });
@@ -41,7 +55,8 @@ router.post("/insertComment", (req, res) => {
       );
       res.json(null);
     } else {
-      res.json({ decision: result }); //insert successful
+      console.log(result);
+      res.json({ result: result }); //insert successful
     }
   });
 });

@@ -17,7 +17,7 @@ import Login from "./components/Login";
 import Navbar from "./components/NavBar";
 import ApplicationForm from "./components/ApplicationForm";
 import Context from "./components/Context";
-import Comment from "./components/Form";
+import Comment from "./components/routes/CommentPage";
 
 class Provider extends React.Component {
   constructor(props) {
