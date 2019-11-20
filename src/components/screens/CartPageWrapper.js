@@ -80,7 +80,7 @@ class CartPageWrapper extends React.Component {
             });
         console.log(this.state.cartBooks.find(book => book.bookid === id));
         this.state.cartBooks.find(book => book.bookid === id).quantity = value;
-        this.forceUpdate();
+        this.getCartItems(this.state.cartBooks);
     }
 
     getCartItems(books) {
@@ -99,7 +99,7 @@ class CartPageWrapper extends React.Component {
                             class='purchase-input'
                             type='number'
                             value={item.quantity}
-                            onChange={this.changeQuantity.bind(item,this)}
+                            onChange={this.changeQuantity.bind(this, item)}
                         />
                     </td>
                     <td>${item.price.toFixed(2)}</td>
@@ -153,47 +153,36 @@ class CartPageWrapper extends React.Component {
     }
 
     //SAVED FOR LATER METHODS HERE
-    moveToCartHandler = (event, item) => {
+    moveToCartHandler (item) {
         let bookIndx = this.state.savedBooks.findIndex(
             book => book.bookid === item.bookid
         );
-        console.log("BOOK" + bookIndx);
-        console.log(item);
-
-        //Removing the item from SavedBooks
         console.log(this.state.savedBooks[bookIndx]);
-        //this.state.savedBooks.splice(bookIndx, 1);
-
-        //this.getCartItems(this.state.savedBooks);
-
-        //this.state.cartBooks.push(this.state.savedBooks.find(book => book.bookid === item.bookid))
 
         //Adding the item to the Cart
+        this.state.cartBooks.push(this.state.savedBooks[bookIndx]);
+        this.getCartItems(this.state.cartBooks);
 
-
-        /* this.state.savedBooks.splice(
-            this.state.savedBooks.findIndex(book => book.bookID === item.bookid),
-            1
-        );
-
+        //Removing the item from Saved for Later
         fetch("/saved-for-later/swap", {
             method: "POST",
             body: JSON.stringify({
-                username: this.state.username,
-                bookID: item.bookid,
+                userid: this.state.username,
+                bookid: item.bookid,
                 price: item.price,
-                title: item.title
+                title: item.title,
             }),
             headers: { "Content-Type": "application/json" }
         })
-            .then(res => res.json())
-            // .then(newInfo => {
-            //     //look at address-info for return values
-            //     this.getInfo();
-            // })
-            .catch(err => {
-                console.log(err);
-            });*/
+        .then(res => res.json())
+        .catch(err => {
+            console.log(err);
+        });
+
+        this.state.savedBooks.splice(bookIndx, 1);
+        this.getSavedItems(this.state.savedBooks);
+
+
     };
 
     getSavedItems(books) {

@@ -161,7 +161,7 @@ async function delPaymentInfo(info, callback) {
     This function adds a shipping address to the specified user.
     --------------------------------------------------------------
 
-    param:  info - json including shipping address and specified user 
+    param:  info - json including shipping address and specified user
             callback - function that will include the result or error
 */
 async function addAddress(info, callback) {
@@ -528,16 +528,16 @@ async function cartToLater(info, callback) {
 
 async function laterToCart(info, callback) {
     var step1 =
-        'select userid, bookid, price, title from saveforlater where userid=? and bookid=?';
+        'select userid, bookid from saveforlater where userid=? and bookid=?';
     var entry;
     var step2 =
-        'insert into shoppingcart(userid, bookid, price, title)' +
-        'values(?,?,?,?)';
+        'insert into shoppingcart(userid, bookid, price, title, quantity)' +
+        'values(?,?,?,?,?)';
     var step3 = 'delete from saveforlater where userid=? and bookid=?';
 
     pool.query(step1, [info.userid, info.bookid])
         .then(res => {
-            entry = [info.userid, info.bookid, info.price, info.title];
+            entry = [info.userid, info.bookid, info.price, info.title, 1];
             pool.getConnection()
                 .then(con => {
                     con.query(step2, entry)
