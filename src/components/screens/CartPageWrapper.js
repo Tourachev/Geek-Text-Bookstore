@@ -1,27 +1,27 @@
 import React from 'react';
-import PurchaseSection from '../screens/PurchaseSection';
 import { Table } from "reactstrap";
 import { Button } from "react-bootstrap";
 import { Icon } from "semantic-ui-react";
-import SavedForLater from '../screens/SavedForLater';
-
 
 class CartPageWrapper extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             cartBooks: [], //Actual Books in the cart
-            savedItems: [], //HTML of the Table
-            cartItems:[],
-            savedBooks: [],
+            cartItems:[], //HTML of the table for the cart
             quantity: 0,
+            totalPrice: 0.0,
+            savedItems: [], //Actual items in saved for later
+            savedBooks: [], //HTML of table for saved for later
             username: this.props.username, //should use context here
-            totalPrice: 0.0
         }
-        this.changeQuantity = this.changeQuantity.bind(this);
+
+        //Cart Methods
         this.getCartItems = this.getCartItems.bind(this);
         this.removeCartItems = this.removeCartItems.bind(this);
         this.changeQuantity = this.changeQuantity.bind(this);
+
+        //Saved for Later Methods
         this.getSavedItems = this.getSavedItems.bind(this);
         this.removeSavedItems = this.removeSavedItems.bind(this);
         this.moveToCartHandler = this.moveToCartHandler.bind(this);
@@ -43,17 +43,19 @@ class CartPageWrapper extends React.Component {
             body: JSON.stringify({ username: this.state.username }),
             headers: { "Content-Type": "application/json" }
         })
-            .then(res => res.json())
-            .then(books => {
-                this.getSavedItems(books.result);
-            });
+        .then(res => res.json())
+        .then(books => {
+            this.getSavedItems(books.result);
+        });
 
         this.forceUpdate();
     }
 
+
+    //METHODS FOR THE CART
     changeQuantity(item, event) {
         let value = parseInt(event.target.value, 10);
-        let id = item.bookID;
+        let id = item.bookid;
         if (event.target.value == "") {
             value = 0;
         }
@@ -76,11 +78,12 @@ class CartPageWrapper extends React.Component {
             .catch(err => {
                 console.log(err);
             });
-        console.log(this.state.cartBooks.result.find(book => book.bookID === id));
-        this.state.cartBooks.result.find(book => book.bookID === id).quantity = value;
+        console.log(this.state.cartBooks.find(book => book.bookid === id));
+        this.state.cartBooks.find(book => book.bookid === id).quantity = value;
         this.forceUpdate();
     }
-     getCartItems(books) {
+
+    getCartItems(books) {
         let total = 0.0;
         console.log("BOOKS START:")
         console.log(books);
@@ -111,42 +114,63 @@ class CartPageWrapper extends React.Component {
                         </button>
                         <Button
                             onClick={this.removeCartItems.bind(this, item)}
-                        />
+                            style={{
+                                backgroundColor: "rgba(0,0,0,0)",
+                                border: "none"
+                            }}
+                        >
+                            <Icon name='close' color='red' />
+                        </Button>
                     </td>
                 </tr>
-            )})
-        this.setState({ savedBooks: books, savedItems: cart });
+            )
+        })
+        this.setState({ cartBooks: books, cartItems: cart, totalPrice: total });
         this.forceUpdate();
     }
 
-    removeSavedItems(item) {
-        this.state.savedBooks.splice(
-            this.state.savedBooks.findIndex(
-                book => book.bookid === item.bookid
-            ), 1
+    removeCartItems(item) {
+        this.state.cartBooks.splice(
+            this.state.cartBooks.findIndex(book => book.bookid === item.bookid),
+            1
         );
-        this.getSavedItems(this.state.savedBooks);
-        fetch("/saved-for-later/delete", {
-                      method: "POST",
+        this.getCartItems(this.state.cartBooks);
+        fetch("/cart/delete", {
+            method: "POST",
             body: JSON.stringify({
                 userid: this.state.username,
                 bookid: item.bookid
             }),
             headers: { "Content-Type": "application/json" }
-        })            .then(res => console.log(res.body))
-            .then(newInfo => {
-                console.log("Item Deleted");
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        })
+        .then(res => console.log(res.body))
+        .then(newInfo => {
+            console.log("Item Deleted");
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
-
-
 
     //SAVED FOR LATER METHODS HERE
     moveToCartHandler = (event, item) => {
-        console.log("I WORKED!")
+        let bookIndx = this.state.savedBooks.findIndex(
+            book => book.bookid === item.bookid
+        );
+        console.log("BOOK" + bookIndx);
+        console.log(item);
+
+        //Removing the item from SavedBooks
+        console.log(this.state.savedBooks[bookIndx]);
+        //this.state.savedBooks.splice(bookIndx, 1);
+
+        //this.getCartItems(this.state.savedBooks);
+
+        //this.state.cartBooks.push(this.state.savedBooks.find(book => book.bookid === item.bookid))
+
+        //Adding the item to the Cart
+
+
         /* this.state.savedBooks.splice(
             this.state.savedBooks.findIndex(book => book.bookID === item.bookid),
             1
@@ -201,27 +225,31 @@ class CartPageWrapper extends React.Component {
             );
         });
         console.log(books);
-        this.setState({ cartBooks: books, cartItems: cart, totalPrice: total });
+        this.setState({ savedBooks: books, savedItems: cart });
         this.forceUpdate();
     }
 
-    removeCartItems(item) {
-        this.state.cartBooks.splice(
-            this.state.cartBooks.findIndex(book => book.bookID === item.bookid),
-            1
+    removeSavedItems(item) {
+        this.state.savedBooks.splice(
+            this.state.savedBooks.findIndex(
+                book => book.bookid === item.bookid
+            ), 1
         );
-        this.getCartItems(this.state.cartBooks);
-        fetch("/cart/delete", {
-            method: "POST",
+        this.getSavedItems(this.state.savedBooks);
+        fetch("/saved-for-later/delete", {
+                      method: "POST",
             body: JSON.stringify({
-                userid: this.props.username,
+                userid: this.state.username,
                 bookid: item.bookid
             }),
             headers: { "Content-Type": "application/json" }
-        })
-        .catch(err => {
-            console.log(err);
-        });
+        })            .then(res => console.log(res.body))
+            .then(newInfo => {
+                console.log("Item Deleted");
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     render() {
@@ -229,37 +257,39 @@ class CartPageWrapper extends React.Component {
             <div>
                 {/* CART RENDER */}
                 <div id='purchase-container'>
-                <div id='purchase-body'>
-                    <h1 className='display-4' style={{ marginBottom: "3%" }}>
-                        Your Cart
-                    </h1>
-                    <Table>
-                        <thead>
-                            <tr>
-                                <th>Book Title</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>{this.state.cartItems}</tbody>
-                    </Table>
-                    <div className='price-row'>
-                        <h3>
-                            Total Price: ${this.state.totalPrice.toFixed(2)}
-                        </h3>
-                    </div>
-                    <div className='price-row'>
-                        <Button
-                            size='lg'
-                            style={{ width: "30%" }}
-                            onClick={this.addItems}
-                        >
-                            Purchase
-                        </Button>
+                    <div id='purchase-body'>
+                        <h1 className='display-4' style={{ marginBottom: "3%" }}>
+                            Your Cart
+                        </h1>
+                        <Table>
+                            <thead>
+                                <tr>
+                                    <th>Book Title</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>{this.state.cartItems}</tbody>
+                        </Table>
+                        <div className='price-row'>
+                            <h3>
+                                Total Price: ${this.state.totalPrice.toFixed(2)}
+                            </h3>
+                        </div>
+                        <div className='price-row'>
+                            <Button
+                                size='lg'
+                                style={{ width: "30%" }}
+                                onClick={this.addItems}
+                            >
+                                Purchase
+                            </Button>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                {/* SAVEDFORLATER RENDER */}
                 <div id='purchase-container'>
                     <div id='purchase-body'>
                         <h1 className='display-4' style={{ marginBottom: "3%" }}>
@@ -277,9 +307,7 @@ class CartPageWrapper extends React.Component {
                         </Table>
                     </div>
                 </div>
-
             </div>
-
         )
     }
 }
