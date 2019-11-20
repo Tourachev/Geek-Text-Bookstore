@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import CommentList from "./CommentList";
 import FormComponent from "./FormComponent";
-
-import NavBar2 from "./NavBar2";
 import Footer from "./Footer";
-import "../css/comment.css";
+// import "../css/comment.css";
 
 export default class Form extends Component {
   constructor(props) {
@@ -73,7 +71,6 @@ export default class Form extends Component {
     var imageName = require("../img/harryPotter.jpg");
     return (
       <React.Fragment>
-        <NavBar2 />
         <div className='App container bg-light shadow'>
           <div>
             <img src={imageName} />
