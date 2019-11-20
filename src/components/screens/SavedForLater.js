@@ -6,7 +6,7 @@ class SavedForLater extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            cartBooks: [], //Actual Books in the cart
+            savedBooks: [], //Actual Books in the cart
             cartItems: [], //HTML of the Table
             username: this.props.username //should use context here
         };
@@ -29,12 +29,12 @@ class SavedForLater extends React.Component {
     }
 
     fetchLaterData() {
-        
+
     }
 
     moveToCartHandler = (event, item) => {
-        this.state.cartBooks.splice(
-            this.state.cartBooks.findIndex(book => book.bookID === item.bookid),
+        this.state.savedBooks.splice(
+            this.state.savedBooks.findIndex(book => book.bookID === item.bookid),
             1
         );
 
@@ -87,7 +87,7 @@ class SavedForLater extends React.Component {
             );
         });
         console.log(books);
-        this.setState({ cartBooks: books, cartItems: cart });
+        this.setState({ savedBooks: books, cartItems: cart });
         this.forceUpdate();
     }
 
@@ -98,7 +98,7 @@ class SavedForLater extends React.Component {
             ),
             1
         );
-        this.getCartItems(this.state.cartBooks);
+        this.getCartItems(this.state.savedBooks);
         fetch("/saved-for-later/delete", {
             method: "POST",
             body: JSON.stringify({

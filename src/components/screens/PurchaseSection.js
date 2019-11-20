@@ -20,37 +20,40 @@ class PurchaseSection extends React.Component {
             totalPrice: 0.0
         };
         // this.addItems = this.addItems.bind(this);
-        this.changeQuantity = this.changeQuantity.bind(this);
+        this.changeQuantityEvent = this.changeQuantityEvent.bind(this);
         this.getCartItems = this.getCartItems.bind(this);
         this.removeCartItems = this.removeCartItems.bind(this);
         this.onSaveForLater = this.onSaveForLater.bind(this);
     }
 
-    componentDidMount() {
-        fetch("/cart", {
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps.cartBooks.result);
+        if (nextProps.cartBooks.result) {
+            this.getCartItems(Array.from(nextProps.cartBooks.result));
+        }
+    }
+
+   componentDidMount() {
+        console.log("I RAN");
+
+
+        /*fetch("/cart", {
             method: "post",
             body: JSON.stringify({ username: this.state.username }),
             headers: { "Content-Type": "application/json" }
         })
-            .then(res => res.json())
-            .then(books => {
-                this.getCartItems(books.result);
-            });
-        /*fetch("/books")
-            .then(res => res.json())
-            .then(books => {
-                books.map(item => {
-                    item["quantity"] = 2;
-                })
-                this.getCartItems(books);
-            })*/
+        .then(res => res.json())
+        .then(books => {
+            this.getCartItems(books.result);
+        });
+        this.forceUpdate();*/
     }
 
     onSaveForLater(item) {
         fetch("/saved-for-later/cart-to-later", {
             method: "post",
             body: JSON.stringify({
-                userid: this.state.username,
+                userid: this.props.username,
                 bookid: item.bookid,
                 price: item.price,
                 title: item.title
@@ -64,32 +67,15 @@ class PurchaseSection extends React.Component {
         //     });
     }
 
-    // addItems(){
-    //     fetch('/cart/insert', {
-    //         method: 'POST',
-    //         body: JSON.stringify({
-    //             username: 'blanket2',
-    //             bookID: 1,
-    //             quantity: 1,
-    //             price: 9.99,
-    //             title: 'Things Fall apart'
-    //         }),
-    //         headers: { 'Content-Type': 'application/json' }
-    //     })
-    //         .then(res => res.json())
-    //         // .then(newInfo => {
-    //         //     //look at address-info for return values
-    //         //     this.getInfo();
-    //         // })
-    //         .catch(err => {
-    //             console.log(err);
-    //      })
-    //      console.log("INSERT MADE");
-    // }
+    changeQuantityEvent(item, event) {
+        console.log("I RAN");
+        this.props.changeQuantity.bind(item, event)
+    }
 
     getCartItems(books) {
         let total = 0.0;
-
+        console.log("BOOKS START:")
+        console.log(books);
         //Below all books get mapped onto the cart. Delete after
         let cart = books.map(item => {
             total += item.price * item.quantity;
@@ -102,7 +88,7 @@ class PurchaseSection extends React.Component {
                             class='purchase-input'
                             type='number'
                             value={item.quantity}
-                            onChange={this.changeQuantity.bind(this, item)}
+                            onChange={this.changeQuantityEvent.bind(this,item)}
                         />
                     </td>
                     <td>${item.price.toFixed(2)}</td>
@@ -133,36 +119,6 @@ class PurchaseSection extends React.Component {
         this.forceUpdate();
     }
 
-    changeQuantity(item, event) {
-        let value = parseInt(event.target.value, 10);
-        let id = item.bookID;
-        if (event.target.value == "") {
-            value = 0;
-        }
-        fetch("/cart/edit", {
-            method: "POST",
-            body: JSON.stringify({
-                quantity: value,
-                price: item.price,
-                total: (item.price * value).toFixed(2),
-                title: item.title,
-                userid: this.state.username,
-                bookid: item.bookid
-            }),
-            headers: { "Content-Type": "application/json" }
-        })
-            .then(res => res.json())
-            .then(newInfo => {
-                console.log("ITEM EDITED");
-            })
-            .catch(err => {
-                console.log(err);
-            });
-
-        this.state.cartBooks.find(book => book.bookID === id).quantity = value;
-        this.getCartItems(this.state.cartBooks);
-    }
-
     removeCartItems(item) {
         this.state.cartBooks.splice(
             this.state.cartBooks.findIndex(book => book.bookID === item.bookid),
@@ -172,7 +128,7 @@ class PurchaseSection extends React.Component {
         fetch("/cart/delete", {
             method: "POST",
             body: JSON.stringify({
-                userid: this.state.username,
+                userid: this.props.username,
                 bookid: item.bookid
             }),
             headers: { "Content-Type": "application/json" }
