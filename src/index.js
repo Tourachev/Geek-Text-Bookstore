@@ -73,7 +73,7 @@ class App extends Component {
                 <Route path='/login' component={Login} />
                 <Route path='/book/:id' component={ViewBook} />
                 <Route path='/author/:name' component={AuthorWorks} />
-                <Route path='/comment' component={Comment} />
+                <Route path='/comments' component={Comment} />
                 <Route path='/signUp' component={ApplicationForm} />
                 {/* Below I am passing the context state into the Profile component*/}
                 <Context.Consumer>

@@ -76,7 +76,7 @@ export class FormComponent extends Component {
 
     // persist the comments on server
     let { comment } = this.state;
-    fetch("/comment", {
+    fetch("comments/insertComment", {
       method: "post",
       body: JSON.stringify(comment),
       headers: { "Content-Type": "application/json" }

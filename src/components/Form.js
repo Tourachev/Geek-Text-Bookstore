@@ -3,6 +3,7 @@ import CommentList from "./CommentList";
 import FormComponent from "./FormComponent";
 import Footer from "./Footer";
 // import "../css/comment.css";
+import Context from "./Context";
 
 export default class Form extends Component {
   constructor(props) {
@@ -52,7 +53,7 @@ export default class Form extends Component {
     this.setState({ loading: true });
 
     //get all the comments
-    fetch("/comment")
+    fetch("/comments")
       .then(res => res.json())
       .then(res => {
         this.setState({
