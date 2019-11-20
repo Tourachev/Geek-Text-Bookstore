@@ -108,7 +108,7 @@ class CartPageWrapper extends React.Component {
                         <button
                             type='button'
                             class='btn btn-outline-dark'
-                            // onClick={this.onSaveForLater.bind(this, item)}
+                            onClick={this.onSaveForLater.bind(this, item)}
                         >
                             Save For Later
                         </button>
@@ -134,7 +134,7 @@ class CartPageWrapper extends React.Component {
             this.state.cartBooks.findIndex(book => book.bookid === item.bookid),
             1
         );
-        this.getCartItems(this.state.cartBooks);
+        
         fetch("/cart/delete", {
             method: "POST",
             body: JSON.stringify({
@@ -150,8 +150,40 @@ class CartPageWrapper extends React.Component {
         .catch(err => {
             console.log(err);
         });
+        this.getCartItems(this.state.cartBooks);
     }
-
+    
+    onSaveForLater(item) {
+        let bookIndx = this.state.cartBooks.findIndex(
+            book => book.bookid === item.bookid
+        );
+        console.log(this.state.cartBooks[bookIndx]);
+        
+        //Adding item to Saved for later
+        this.state.savedBooks.push(this.state.cartBooks[bookIndx]);
+        this.getSavedItems(this.state.savedBooks)
+        
+        //Removing item from Cart
+        fetch("/saved-for-later/cart-to-later", {
+            method: "post",
+            body: JSON.stringify({
+                userid: this.state.username,
+                bookid: item.bookid,
+                price: item.price,
+                title: item.title
+            }),
+            headers: { "Content-Type": "application/json" }
+        })
+        .then(res => console.log(res.body))
+        .then(newInfo => {
+            console.log("Item Moved");
+        })
+        .catch(err => {
+            console.log(err);
+        });
+        this.state.cartBooks.splice(bookIndx, 1);
+        this.getCartItems(this.state.cartBooks)
+    }
     //SAVED FOR LATER METHODS HERE
     moveToCartHandler (item) {
         let bookIndx = this.state.savedBooks.findIndex(
@@ -181,8 +213,6 @@ class CartPageWrapper extends React.Component {
 
         this.state.savedBooks.splice(bookIndx, 1);
         this.getSavedItems(this.state.savedBooks);
-
-
     };
 
     getSavedItems(books) {
