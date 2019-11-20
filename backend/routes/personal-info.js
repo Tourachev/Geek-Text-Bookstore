@@ -41,7 +41,22 @@ router.post('/edit', (req, res) => {
             );
             res.json(null);
         } else {
-            res.json({ decision: result }); //insert successful
+            res.json({decision: result}); //insert successful
+        }
+    });
+});
+
+router.post('/change-password', (req, res) => {
+    queries.changePassword(req.body, (err, result) => {
+        if (err) {
+            console.log(
+                'Error in /backend/routes/credit-info : ' +
+                    'from addPaymentInfo\n' +
+                    err
+            );
+            res.json(null);
+        } else {
+            res.json({decision: result}); //insert successful
         }
     });
 });

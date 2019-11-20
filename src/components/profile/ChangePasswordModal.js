@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 class MyForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {state: '', city: '', address: '', zip: ''};
+        this.state = {username: this.props.username, newPassword: ''};
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -42,22 +42,15 @@ class MyForm extends React.Component {
     mySubmitHandler = event => {
         event.preventDefault();
 
-        fetch('/address-info/insert', {
+        fetch('/personal-info/change-password', {
             method: 'POST',
             body: JSON.stringify({
                 username: this.props.username,
-                state: this.state.state,
-                city: this.state.city,
-                address: this.state.address,
-                zip: this.state.zip
+                newPassword: this.state.newPassword
             }),
             headers: {'Content-Type': 'application/json'}
         })
             .then(res => res.json())
-            .then(newInfo => {
-                //look at address-info for return values
-                this.getInfo();
-            })
             .catch(err => {
                 console.log(err);
             });
@@ -70,24 +63,23 @@ class MyForm extends React.Component {
                 <p>Enter New Password:</p>
                 <input
                     type='password'
-                    name='address'
+                    name='newPassword'
                     onChange={this.handleChange}
                     className='form-control'
                     required
                 />
-                <p>Verify New Password:</p>
+                {/* <p>Verify New Password:</p>
                 <input
                     type='password'
                     name='city'
                     onChange={this.handleChange}
                     className='form-control'
                     required
-                />
+                /> */}
                 <br />
                 <button type='submit' class='btn btn-outline-secondary'>
                     Submit
                 </button>
-                {/* <input type='submit' value='submit' /> */}
             </form>
         );
     }
