@@ -121,7 +121,7 @@ class DetailsSection extends React.Component {
                     </Context.Provider> */}
                     <Context.Consumer>
                     {context => (
-                    <CommentSection bookid={this.state.bookData.bookid} imagelink={this.state.bookData.imagelink} title={this.state.bookData.title} username={context.username} />
+                    <CommentSection bookid={this.props.bookid} imagelink={this.state.bookData.imagelink} title={this.state.bookData.title} username={context.username} />
                     )}
                     </Context.Consumer>
                 </div>

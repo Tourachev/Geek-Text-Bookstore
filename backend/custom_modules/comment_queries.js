@@ -44,11 +44,11 @@ async function addComment(info, callback) {
   //  var cols = [info.body.message, info.body.name, info.body.rating]
   // const newbookid = info.match.params.bookid;
   //callback if a function in router
-  const bookid = parseInt(info.params.bookid);
+  // const bookid = parseInt(info.params.bookid);
 
   var query = "insert into comments values(?, ?, ?, ?)";
   pool
-    .query(query, [bookid, info.message, info.name, info.rating ])
+    .query(query, [info.bookid, info.message, info.name, info.rating ])
     .then(res => {
       // use the splice function to cut out the last member
       // of resulting array form query, (its just metadata)

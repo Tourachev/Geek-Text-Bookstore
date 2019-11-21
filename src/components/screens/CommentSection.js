@@ -55,7 +55,7 @@ export default class CommentSection extends Component {
         this.setState({loading: true});
 
         //get all the comments
-        fetch('/getComments', {
+        fetch('/comments/getComments', {
             method: 'POST',
             body: JSON.stringify({
                 bookid: this.props.bookid
@@ -119,6 +119,7 @@ export default class CommentSection extends Component {
                                         loading={this.state.loading}
                                         comments={this.state.comments}
                                         username={this.props.username}
+                                        bookid={this.props.bookid}
                                     />
                                 </div>
                             </div>
