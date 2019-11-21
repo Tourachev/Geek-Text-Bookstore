@@ -30,6 +30,7 @@ export class FormComponent extends Component {
 
             comment: {
                 name: this.props.username,
+                nickname: this.state.nickname,
                 message: '',
                 rating: 0, // adding the star rating system
                 bookid: this.props.bookid,
