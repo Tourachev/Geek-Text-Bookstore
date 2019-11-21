@@ -35,13 +35,11 @@ router.post("/swap", (req, res) => {
     queries.laterToCart(req.body, err => {
         if (err) {
             console.log(
-                "Error in /backend/routes/credit-info : " +
-                    "from addPaymentInfo\n" +
+                "Error in /backend/routes/saved-for-later : " +
+                    "from swapping Saved For Later\n" +
                     err
             );
             res.json(null);
-        } else {
-            res.json({ decision: result }); //insert successful
         }
     });
 });
