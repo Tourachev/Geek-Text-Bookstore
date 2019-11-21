@@ -26,7 +26,7 @@ export class FormComponent extends Component {
             loading: false,
             error: '',
             totalStars: 5,
-           
+            nickname: '',
 
             comment: {
                 name: this.props.username,
@@ -34,8 +34,6 @@ export class FormComponent extends Component {
                 rating: 0, // adding the star rating system
                 bookid: this.props.bookid,
                 userid: this.props.userid
-                
-                
             }
         };
 
@@ -44,6 +42,23 @@ export class FormComponent extends Component {
         this.onSubmit = this.onSubmit.bind(this);
         //bind the starChange
         this.starChange = this.starChange.bind(this);
+    }
+
+    componentDidMount() {
+        fetch('/personal-info', {
+            method: 'POST',
+            body: JSON.stringify({username: this.props.username}),
+            headers: {'Content-Type': 'application/json'}
+        })
+            .then(res => res.json())
+            .then(personalInfo =>
+                this.setState({
+                    nickname: personalInfo.nickname
+                })
+            )
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     starChange(event) {
@@ -63,7 +78,7 @@ export class FormComponent extends Component {
             ...this.state,
             comment: {
                 ...this.state.comment,
-                 [name]: value
+                [name]: value
             }
         });
     };
@@ -144,7 +159,7 @@ export class FormComponent extends Component {
                 <br />
 
                 <form method='post' onSubmit={this.onSubmit}>
-                      {/* <div className='form-group'>
+                    {/* <div className='form-group'>
                         <input
                           onChange={this.handleFieldChange}
                           value={this.state.comment.name}
