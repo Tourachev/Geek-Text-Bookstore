@@ -35,7 +35,19 @@ async function getAuthorInfo(info, callback) {
         });
 }
 
+async function getComments(info, callback) {
+    var query = 'select * from comments where bookid=?';
+    pool.query(query, [info.bookid])
+        .then(result => {
+            callback(null, result);
+        })
+        .catch(err => {
+            callback(err, null);
+        });
+}
+
 module.exports = {
     getBook,
     getAuthorInfo,
+    getComments,
 };

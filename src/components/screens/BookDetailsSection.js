@@ -2,7 +2,7 @@
 //include a readmore click event
 import React from "react";
 import { Button } from "react-bootstrap";
-import { Icon } from "semantic-ui-react";
+import { Table, TextArea } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { BookImgModal } from '../BookImgModal'
@@ -31,10 +31,13 @@ class DetailsSection extends React.Component {
                 bio: "Author's Life History",
                 name: "Author Name",
                 img: "A URL"
-            }
+            },
+
+            commentData: [],
         }
 
-        this.getRating = this.getRating.bind(this);
+        this.getStars = this.getStars.bind(this);
+        this.getComments = this.getComments.bind(this);
     }
 
     componentDidMount(){
@@ -59,9 +62,31 @@ class DetailsSection extends React.Component {
             this.setState({bookData:details.result[0]})
             console.log(this.state.bookData);
         });
+
+        fetch('/books/getComments', {
+            method: 'POST',
+            body: JSON.stringify({
+                bookid: this.props.bookid,
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        }).then(res => res.json()).then(details => {
+            this.setState({commentData: details})
+        });
     }
 
-    getRating(rating) {
+    getAverage() {
+        let rating = 0,
+            commList = this.state.commentData;
+        if (this.state.commentData.length > 0) {
+            rating = commList.map(comment => comment.rating).reduce((total, val) => {
+                total += val
+                return total / commList.length;
+            })
+        }
+        return this.getStars(rating);
+    }
+
+    getStars(rating) {
         let count = 0;
         let stars = [];
         while(count < rating) {
@@ -74,6 +99,42 @@ class DetailsSection extends React.Component {
             count++;
         }
         return stars;
+    }
+
+    //THIS IS TO CREATE A QUICK COMMENT / REVIEW TABLE FOR THIS FEATURE'S SAKE. DELETE WHEN U FINISH MIGRATING
+    getComments() {
+        //Below all books get mapped onto the cart. Delete after
+        let comm = this.state.commentData.map(comment => {
+            return (
+                <Table celled>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>
+                                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
+                                    <div>{comment.nickname}</div>
+                                    <div>{this.getStars(comment.rating)}</div>
+                                </div>
+                            </Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        <Table.Row>
+                            <Table.Cell>{comment.comment}</Table.Cell>
+                        </Table.Row>
+                    </Table.Body>
+                </Table>
+                /*<tr key={comment.authorid}>
+                    <td>
+                        <tr>
+                            <td>AUTHOR NICKNAME</td>
+                            <td>REVIEW STARS</td>
+                        </tr>
+                        <tr> {comment.comment} </tr>
+                    </td>
+                </tr>*/
+            )
+        })
+        return comm;
     }
 
     render() {
@@ -97,9 +158,9 @@ class DetailsSection extends React.Component {
                         <p>Published By <b>{this.state.bookData.publisher}</b></p>
                         <div id="book-rating">
                             <div id="stars">
-                                {this.getRating(this.state.bookData.rating)}
+                                {this.getAverage(this.state.bookData.rating)}
                             </div>
-                            <p id="rating-text"> 10 Reviews | 10 Comments</p>
+                            <p id="rating-text">{this.state.commentData.length} Reviews</p>
                         </div>
                         <h3>${this.state.bookData.price}</h3>
                         <p>{this.state.bookData.bookDesc}</p>
@@ -118,6 +179,12 @@ class DetailsSection extends React.Component {
                 </div>
                 <div class="section">
                     <h1>Ratings AND Comments</h1>
+                    {/* OVERWRITE THIS CODE ONCE THE REVIEW & COMMENTS ARE WORKING. */}
+                    {/* FOR NOW THIS IS JUST TO GET THE BOOK DETAILS WORKING. */}
+                    <div>
+                        <TextArea placeholder='Write a comment on this book!' style={{width:"100%",padding:"2%"}}/>
+                        {this.getComments()}
+                    </div>
                 </div>
             </div>
         );
