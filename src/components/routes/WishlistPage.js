@@ -5,7 +5,7 @@ import { Button, DropdownButton, Dropdown, Modal } from 'react-bootstrap';
 import { Icon } from 'semantic-ui-react';
 import { Table } from 'reactstrap';
 import Context from '../Context';
-import WishlistPageWrapper from './WishlistPageWrapper';
+import WishlistPageWrapper from '../WishlistPageWrapper';
 
 class Wishlist extends React.Component {
     constructor(props) {
