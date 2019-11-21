@@ -5,7 +5,7 @@ var router = express.Router();
 //body should be {userid: '', listnum: int}
 router.post('/', (req, res) => {
     console.log(req.body);
-    queries.getWishLists(req.body, (err, result) => {
+    queries.getList(req.body, (err, result) => {
         if (err) {
             console.log('Error getting wishlist');
             console.log(err);
@@ -17,9 +17,35 @@ router.post('/', (req, res) => {
     });
 });
 
+router.post('/mount', (req, res) => {
+    console.log(req.body);
+    queries.mount(req.body, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.json(null);
+        } else {
+            console.log(result);
+            res.json(result);
+        }
+    })
+});
+
+router.post('/getNames', (req, res) => {
+    console.log(req.body);
+    queries.getNames(req.body, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.json(null);
+        } else {
+            console.log(result);
+            res.json(result);
+        }
+    })
+});
+
 router.post('/toWish', (req, res) => {
     console.log(req.body);
-    queries.wishToWish(req.body, (err, result) => {
+    queries.toWish(req.body, (err, result) => {
         if (err) {
             console.log(err);
             res.json({decision: false});
@@ -32,7 +58,7 @@ router.post('/toWish', (req, res) => {
 
 router.post('/remove', (req, res) => {
     console.log(req.body);
-    queries.removeFromWish(req.body, (err, result) => {
+    queries.remove(req.body, (err, result) => {
         if (err) {
             console.log(err);
             res.json({decision: false});
@@ -45,7 +71,7 @@ router.post('/remove', (req, res) => {
 
 router.post('/toCart', (req, res) => {
     console.log(req.body);
-    queries.wishToWish(req.body, (err, result) => {
+    queries.toCart(req.body, (err, result) => {
         if (err) {
             console.log(err);
             res.json({decision: false});
@@ -58,7 +84,7 @@ router.post('/toCart', (req, res) => {
 
 router.post('/rename', (req, res) => {
     console.log(req.body);
-    queries.nameList(req.body, (err, result) => {
+    queries.rename(req.body, (err, result) => {
         if (err) {
             console.log(err);
             res.json({decision: false});
