@@ -26,11 +26,15 @@ export class FormComponent extends Component {
             loading: false,
             error: '',
             totalStars: 5,
+            
+            
 
             comment: {
                 name: this.props.username,
                 message: '',
-                rating: 0 // adding the star rating system
+                rating: 0, // adding the star rating system
+                bookIid: this.props.bookid
+                
             }
         };
 
@@ -57,8 +61,8 @@ export class FormComponent extends Component {
         this.setState({
             ...this.state,
             comment: {
-                ...this.state.comment
-                //[name]: this.props.username
+                ...this.state.comment,
+                 [name]: value
             }
         });
     };
@@ -139,16 +143,16 @@ export class FormComponent extends Component {
                 <br />
 
                 <form method='post' onSubmit={this.onSubmit}>
-                    {/* <div className='form-group'>
-            <input
-              onChange={this.handleFieldChange}
-              value={this.state.comment.name}
-              className='form-control'
-              placeholder='🙂 Your Name'
-              name='name'
-              type='text'
-            />
-          </div> */}
+                      {/* <div className='form-group'>
+                        <input
+                          onChange={this.handleFieldChange}
+                          value={this.state.comment.name}
+                          className='form-control'
+                          placeholder='🙂 Your Name'
+                          name='name'
+                          type='text'
+                        />
+                    </div> */}
                     <p>{this.props.username}</p>
 
                     <div className='form-group'>

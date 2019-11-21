@@ -11,7 +11,7 @@ export default class CommentSection extends Component {
         this.state = {
             comments: [],
             loading: false,
-            bookid: 0
+            bookid: this.props.bookid,
         };
 
         this.addComment = this.addComment.bind(this);
@@ -24,6 +24,7 @@ export default class CommentSection extends Component {
     addComment(comment) {
         this.setState({
             loading: false,
+            bookid: this.props.bookid,
             comments: [comment, ...this.state.comments]
         });
     }
@@ -109,6 +110,7 @@ export default class CommentSection extends Component {
                                     <FormComponent
                                         addComment={this.addComment}
                                         username={context.username}
+                                        bookid={this.props.bookid}
                                     />
                                 </div>
                                 <div className='col-8  pt-3 bg-white'>
