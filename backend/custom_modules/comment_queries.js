@@ -13,9 +13,9 @@ const pool = mariadb.createPool({
 
 async function getComments(info, callback) {
   //callback if a function in router
-  var query = "SELECT * FROM comments ORDER BY rating DESC";
+  var query = "SELECT * FROM comments WHERE bookid=?";
   pool
-    .query(query)
+    .query(query, [info.bookid])
     .then(res => {
       // use the splice function to cut out the last member
       // of resulting array form query, (its just metadata)
@@ -40,10 +40,15 @@ async function getComments(info, callback) {
 
 //FROM the comments table create a new comment inseting the message and rating
 async function addComment(info, callback) {
+
+  //  var cols = [info.body.message, info.body.name, info.body.rating]
+  // const newbookid = info.match.params.bookid;
   //callback if a function in router
-  var query = 'INSERT INTO comments VALUES(?, ?, ?)';
+  const bookid = parseInt(info.params.bookid);
+
+  var query = "insert into comments values(?, ?, ?, ?)";
   pool
-    .query(query)
+    .query(query, [bookid, info.message, info.name, info.rating ])
     .then(res => {
       // use the splice function to cut out the last member
       // of resulting array form query, (its just metadata)
