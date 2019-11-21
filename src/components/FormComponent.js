@@ -32,7 +32,8 @@ export class FormComponent extends Component {
                 name: this.props.username,
                 message: '',
                 rating: 0, // adding the star rating system
-                bookid: this.props.bookid
+                bookid: this.props.bookid,
+                userid: this.props.userid
                 
                 
             }

@@ -8,7 +8,7 @@ function Comment(props) {
         className='mr-3 bg-light rounded'
         width='50'
         height='50'
-        src={`https://api.adorable.io/avatars/265/abot${name.toLowerCase()}@adorable.io.png`}
+        // src={`https://api.adorable.io/avatars/265/abot${name.toLowerCase()}@adorable.io.png`}
         alt={name}
       />
 
