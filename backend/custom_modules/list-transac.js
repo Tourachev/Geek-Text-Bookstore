@@ -11,212 +11,218 @@ const pool = mariadb.createPool({
     //rowsAsArray: true
 });
 
-/* wishToWish
- *---------------------------------------------------------
- * Moves book from one wish list to another.
- * 
- * params: info - json containing bookid, userid, title, 
- *                listnum, and new listnum
- *         callback - callback function to return result
- * 
- * return: int representing result or null(error)
- */
-async function wishToWish(info, callback) {
+async function getList(info, callback) {
+    var query = `
+    SELECT B.imagelink, B.bookid, B.title
+    FROM (
+        (SELECT * FROM wishlist WHERE userid=? AND listnum=?) as A
+        JOIN
+        (SELECT imagelink, bookid, title FROM book) as B
+        ON A.bookid=B.bookid 
+    )`;
+    pool.query(query, [info.userid, info.listnum])
+    .then(res => {
+        callback(null, res.splice(0, res.length));
+    })
+    .catch(err => {
+        callback(err, null);
+    })
+}
 
-    var step1 = "delete from wishlist where bookid=? and userid=? and listnum=?";
-    var step2 = "insert into wishlist values(?,?,?,?)";
-    var original = [
-        info.bookid, info.userid, info.listnum
-    ];
-    var newList = [
-        info.bookid, info.userid, info.title, info.othernum
-    ];
+async function toWish(info, callback) {
+    var step1 = 'DELETE FROM wishlist WHERE bookid=? AND userid=? AND listnum=?';
+    var step2 = 'INSERT INTO wishlist VALUES(?,?,?)';
 
     pool.getConnection()
-        .then(conn => {
-            conn.query(step1, original)
-                .then(() => {
-                    conn.query(step2, newList)
-                        .then(res => {
-                            conn.commit();
-                            conn.release();
-                            callback(null, res); //success! book moved
-                        })
-                        .catch(err => {
-                            conn.rollback();
-                            conn.release();
-                            callback(err, null); //error inserting book into new list
-                        })
+    .then(con => {
+        con.beginTransaction()
+        .then(() => {
+            con.query(step1, [info.bookid, info.userid, info.listnum])
+            .then(() => {
+                con.query(step2, [info.bookid, info.userid, info.othernum])
+                .then(res => {
+                    con.commit();
+                    con.release();
+                    callback(null, res.splice(0, res.length));
                 })
                 .catch(err => {
-                    conn.rollback();
-                    conn.release();
-                    callback(err, null); //query error
-                })
+                    con.rollback();
+                    con.release();
+                    callback(err, null);})
+            })
+            .catch(err => {
+                con.rollback();
+                con.release();
+                callback(err, null);})
         })
         .catch(err => {
-            callback(err, null); //query error
-        });
+            callback(err, null);})
+    })
+    .catch(err => {callback(err, null);})
 }
 
-/* addToWish
- *----------------------------------------------------------------------------
- * Add a book to the specified wishlist.
- * 
- * params: info - json containing bookid, userid, title, listnum
- *         callback - callback function to return result
- * 
- * return: int representing result or null(error)
- */
-async function addToWish(info, callback) {
-
-    var query = "insert into wishlist values(?,?,?,?)";
-    var fields = [
-        info.bookid, info.userid, info.title, info.listnum
-    ];
-
-    pool.query(query, fields)
-        .then(res => {
-            callback(null, 2); //book added to wishlist
-        })
-        .catch(err => {
-            if (err.errno == NOT_UNIQUE) {
-                callback(err, 1); //book already in list
-            } else {
-                callback(err, null) //query error
-            }
-        });
+async function remove(info, callback) {
+    var query = 'DELETE FROM wishlist WHERE userid=? AND listnum=? AND bookid=?';
+    console.log(query);
+    pool.query(query, [info.userid, info.listnum, info.bookid])
+    .then(() => {
+        callback(null, true);
+    })
+    .catch(err => {
+        callback(err, null);
+    })
 }
 
-/* nameList
- *------------------------------------------------------------------
- * Rename wishlist.
- *
- * params: info - json containing listnum, listname, userid
- * 
- * return: null(failed) or int(success)
- */
-async function nameList(info, callback) {
+async function toCart(info, callback) {
+    var price;
+    var getPrice = 'SELECT price FROM book WHERE bookid=?';
+    var step1 = 'DELETE FROM wishlist WHERE userid=? AND listnum=? AND bookid=?';
+    var step2 = `INSERT INTO shoppingcart(userid, bookid, quantity, price, title)
+    VALUES(?,?,?,?,?)`;
+    var step3 = `UPDATE shoppingcart SET quantity=(quantity + 1) 
+    WHERE userid=? AND bookid=?`;
 
-    var step1 = "insert into listnames values(?,?,?)";
-    var step2 = "update listnames set listname=? where listnum=? and userid=?";
-    var fields1 = [
-        info.listnum, info.listname, info.userid
-    ];
-    var fields2 = [
-        info.listname, info.listnum, info.userid
-    ];
+    pool.query(getPrice, [info.bookid])
+    .then(res => {
+        price = res[0].price;
+    })
+    .catch(err => {
+        callback(err, null);
+    })
 
     pool.getConnection()
-        .then(conn => {
-            conn.query(step1, fields1)
+    .then(con => {
+        con.beginTransaction()
+        .then(() => {
+            con.query(step1, [info.userid, info.listnum, info.bookid])
+            .then(() => {
+                con.query(step2, [info.userid, info.bookid, 1, price, info.title])
                 .then(() => {
-                    conn.commit();
-                    conn.release();
-                    callback(null, 2); //newly named list (first time)
+                    con.commit();
+                    con.release();
+                    callback(null, true);
                 })
                 .catch(err => {
                     if (err.errno == NOT_UNIQUE) {
-                        conn.query(step2, fields2)
-                            .then(() => {
-                                conn.commit();
-                                conn.release();
-                                callback(null, 1); //list name updated
-                            })
-                            .catch(err => {
-                                conn.rollback();
-                                conn.release();
-                                callback(err, null); //query error
-                            })
-                    } else {
-                        conn.rollback();
-                        conn.release();
-                        callback(err, null); //query error
+                        con.query(step3, [info.userid, info.bookid])
+                        .then(() => {
+                            con.commit();
+                            con.release();
+                            callback(null, true);
+                        })
+                        .catch(err => {
+                            callback(err, null);
+                        })
+                    }
+                    else {
+                        con.rollback();
+                        con.release();
+                        callback(err, null);
                     }
                 })
+            })
+            .catch(err => {
+                con.rollback();
+                con.release();
+                callback(err, null);})
         })
-        .catch(err => {
-            callback(err, null); //query error
-        });
+        .catch(err => {callback(err, null);})
+    })
+    .catch(err => {callback(err, null);})
 }
 
-/* getWishLists
- *-----------------------------------------------------
- * Get wishlist for users.
- * 
- * params: userid - userid to get wishlists of
- *         callback - callback function to return values
- * 
- * return: wishlists or null(error)
- */
-async function getWishLists(info, callback) {
+async function rename(info, callback) {
+    var query = 'UPDATE listnames SET listname=? WHERE userid=? and listnum=?';
+    pool.query(query, [info.listname, info.userid, info.listnum])
+    .then(res => {
+        callback(null, res.splice(0, res.length));
+    })
+    .catch(err => {
+        callback(err, null);
+    })
+}
 
-    var query = 'select * from wishlist where userid=? and listnum=?';
+async function getNames(info, callback) {
+    var query = 'SELECT listname FROM listnames WHERE userid=?';
+    pool.query(query, [info.userid])
+    .then(res => {
+        callback(null, [res[0].listname, res[1].listname, res[2].listname]);
+    })
+    .catch(err => {
+        callback(err, null);
+    })
+}
 
-    var i;
-    var names = [];
-    var query2 = 'select listname from listnames where userid=? order by listnum';
+async function mount(info, callback) {
+    var data = {
+        list1: [],
+        list2: [],
+        list3: [],
+        names: []
+    }
 
-    var data = {books: [], names: []};
+    var query1 = `
+    SELECT B.imagelink, B.bookid, B.title
+    FROM (
+        (SELECT * FROM wishlist WHERE userid=? AND listnum=?) as A
+        JOIN
+        (SELECT imagelink, bookid, title FROM book) as B
+        ON A.bookid=B.bookid 
+    )`;
+    var query2 = 'SELECT listname FROM listnames WHERE userid=?';
 
-
-    pool.query(query, [info.userid, info.listnum])
-        .then(res1 => {
-            res1 = res1.splice(0, res1.length);
-            data.books = res1;
-            pool.query(query2, [info.userid])
+    pool.getConnection()
+    .then(con => {
+        con.beginTransaction()
+        .then(() => {
+            con.query(query1, [info.userid, 1])
+            .then(res1 => {
+                data.list1 = res1.splice(0, res1.length);
+                con.query(query1, [info.userid, 2])
                 .then(res2 => {
-                    res2 = res2.splice(0, res2.length);
-                    for (i = 0; i <= 2; i++) {
-                        names.push(res2[i].listname);
-                    }
-                    data.names = names;
-                    callback(null, data);
+                    data.list2 = res2.splice(0, res2.length);
+                    con.query(query1, [info.userid, 3])
+                    .then(res3 => {
+                        data.list3 = res3.splice(0, res3.length);
+                        con.query(query2, [info.userid])
+                        .then(res4 => {
+                            data.names = [res4[0].listname, res4[1].listname, res4[2].listname];
+                            con.commit()
+                            con.release()
+                            callback(null, data);
+                        })
+                        .catch(err => {
+                            con.rollback();
+                            con.release();
+                            callback(err, null);})
+                    })
+                    .catch(err => {
+                        con.rollback();
+                        con.release();
+                        callback(err, null);})
                 })
                 .catch(err => {
-                    callback(err, null);
-                })
-            
+                    con.rollback();
+                    con.release();
+                    callback(err, null);})
+            })
+            .catch(err => {
+                con.rollback();
+                con.release();
+                callback(err, null);})
         })
-        .catch(err => {
-            callback(err, null);
-        });
+        .catch(err => {callback(err, null);})
+    })
+    .catch(err => {callback(err, null);})
 }
 
-/* removeFromWish
- *--------------------------------------------
- * Remove a book from a specified wishlist.
- * 
- * params: info - json containing listnum, bookid, userid
- *         callback - callback function to return result
- * 
- * return: null(error) or result(success)
- */
-async function removeFromWish(info, callback) {
-
-    var query = "delete from wishlist where listnum=? and bookid=? and userid=?";
-    var fields = [
-        info.listnum, info.bookid, info.userid
-    ];
-
-    pool.query(query, fields)
-        .then(res => {
-            callback(null, res); //book deleted from list
-        })
-        .catch(err => {
-            callback(err, null); //query error
-        });
-}
-
-async function toCart() {
-    var query = "";
-}
 
 module.exports = {
-    wishToWish,
-    addToWish,
-    nameList,
-    getWishLists,
+    toWish,
     toCart,
-    removeFromWish
+    remove,
+    getList,
+    rename,
+    getNames,
+    mount
 };
