@@ -30,11 +30,10 @@ export class FormComponent extends Component {
 
             comment: {
                 name: this.props.username,
-                nickname: this.state.nickname,
                 message: '',
                 rating: 0, // adding the star rating system
                 bookid: this.props.bookid,
-                userid: this.props.userid
+                
             }
         };
 
@@ -46,9 +45,10 @@ export class FormComponent extends Component {
     }
 
     componentDidMount() {
+        //let {comment} = this.state;
         fetch('/personal-info', {
             method: 'POST',
-            body: JSON.stringify({username: this.props.username}),
+            body: JSON.stringify({username: this.state.username}),
             headers: {'Content-Type': 'application/json'}
         })
             .then(res => res.json())

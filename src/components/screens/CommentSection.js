@@ -11,7 +11,7 @@ export default class CommentSection extends Component {
         this.state = {
             comments: [],
             loading: false,
-            bookid: this.props.bookid
+            bookid: this.props.bookid,
         };
 
         this.addComment = this.addComment.bind(this);
@@ -25,7 +25,6 @@ export default class CommentSection extends Component {
         this.setState({
             loading: false,
             bookid: this.props.bookid,
-            nickname: '',
             comments: [comment, ...this.state.comments]
         });
     }
@@ -55,26 +54,11 @@ export default class CommentSection extends Component {
         //loading mode
         this.setState({loading: true});
 
-        fetch('/personal-info', {
-            method: 'POST',
-            body: JSON.stringify({username: this.props.username}),
-            headers: {'Content-Type': 'application/json'}
-        })
-            .then(res => res.json())
-            .then(personalInfo =>
-                this.setState({
-                    nickname: personalInfo.nickname
-                })
-            )
-            .catch(err => {
-                console.log(err);
-            });
-
         //get all the comments
         fetch('/comments/getComments', {
             method: 'POST',
             body: JSON.stringify({
-                bookid: this.props.bookid
+                 bookid: this.props.bookid,
             }),
             headers: {'Content-Type': 'application/json'}
         })
@@ -82,7 +66,8 @@ export default class CommentSection extends Component {
             .then(res => {
                 this.setState({
                     comments: res,
-                    loading: false
+                    loading: false,
+                    bookid: res.bookid,
                 });
             })
             .catch(err => {
@@ -127,6 +112,7 @@ export default class CommentSection extends Component {
                                         addComment={this.addComment}
                                         username={context.username}
                                         bookid={this.props.bookid}
+                                        
                                     />
                                 </div>
                                 <div className='col-8  pt-3 bg-white'>

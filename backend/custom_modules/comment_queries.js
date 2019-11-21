@@ -48,7 +48,7 @@ async function addComment(info, callback) {
 
   var query = "insert into comments values(?, ?, ?, ?, ?)";
   pool
-    .query(query, [info.bookid, info.message, info.name, info.rating, info.userid ])
+    .query(query, [info.bookid, info.message, info.name, info.rating, info.nickname ])
     .then(res => {
       // use the splice function to cut out the last member
       // of resulting array form query, (its just metadata)
