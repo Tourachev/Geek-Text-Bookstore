@@ -4,7 +4,6 @@ import FormComponent from '../FormComponent';
 import Context from '../Context';
 import Footer from '../Footer';
 // import "../css/comment.css";
-import Context from '../Context';
 
 export default class CommentSection extends Component {
     constructor(props) {
