@@ -15,7 +15,7 @@ export default class CommentPage extends Component {
                 <Context.Consumer>
                     {context => (
                       <div className='body'>
-                          <CommentSection bookid={this.props.match.params.id} title={context.state}/>
+                          <CommentSection bookid={this.props.match.params.id} title={context.state} username={context.username}/>
                           <Footer />
                       </div>
 

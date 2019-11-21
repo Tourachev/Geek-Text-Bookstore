@@ -119,8 +119,11 @@ class DetailsSection extends React.Component {
                     <Button size="lg" style={{ width: "30%", marginRight:"5vw" }}>Comments</Button>
                     </Link>
                     </Context.Provider> */}
-
-                    <CommentSection imagelink={this.state.bookData.imagelink} title={this.state.bookData.title}/>
+                    <Context.Consumer>
+                    {context => (
+                    <CommentSection bookid={this.state.bookData.bookid} imagelink={this.state.bookData.imagelink} title={this.state.bookData.title} username={context.username} />
+                    )}
+                    </Context.Consumer>
                 </div>
             </div>
         );

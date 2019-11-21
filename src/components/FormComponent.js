@@ -55,7 +55,7 @@ export class FormComponent extends Component {
       ...this.state,
       comment: {
         ...this.state.comment,
-        [name]: value
+        //[name]: this.props.username
       }
     });
   };
@@ -76,7 +76,7 @@ export class FormComponent extends Component {
 
     // persist the comments on server
     let { comment } = this.state;
-    fetch("comments/insertComment", {
+    fetch("/comments/insertComment", {
       method: "post",
       body: JSON.stringify(comment),
       headers: { "Content-Type": "application/json" }
@@ -137,7 +137,7 @@ export class FormComponent extends Component {
         <br />
     
         <form method='post' onSubmit={this.onSubmit}>
-          <div className='form-group'>
+          {/* <div className='form-group'>
             <input
               onChange={this.handleFieldChange}
               value={this.state.comment.name}
@@ -146,7 +146,8 @@ export class FormComponent extends Component {
               name='name'
               type='text'
             />
-          </div>
+          </div> */}
+          <p>{this.props.username}</p>
 
           <div className='form-group'>
             <textarea

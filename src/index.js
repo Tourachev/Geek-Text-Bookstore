@@ -85,6 +85,17 @@ class App extends Component {
                           <ProfilePage isLoggedIn={context.isLoggedIn} />
                         )}
                       />
+                        
+                        <Route
+                        path='/comments'
+                        component={() => (
+                          <Comment isLoggedIn={context.isLoggedIn}
+                          username={context.username} 
+                          />
+                          
+                        )}
+                      />
+
 
                       <Route
                         path='/wishlist'

@@ -10,7 +10,8 @@ export default class CommentSection extends Component {
     super(props);
     this.state = {
       comments: [],
-      loading: false
+      loading: false,
+      bookid: 0,
     };
 
     this.addComment = this.addComment.bind(this);
@@ -53,7 +54,12 @@ export default class CommentSection extends Component {
     this.setState({ loading: true });
 
     //get all the comments
-    fetch("/getComments")
+    fetch("/getComments", {  
+      method: 'POST',
+      body: JSON.stringify({
+        bookid: this.props.bookid,
+    }),
+    headers: { 'Content-Type': 'application/json' }})
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -90,13 +96,15 @@ export default class CommentSection extends Component {
             <div className='col-4  pt-3 border-right'>
               <h6>Say something about your purchase</h6>
               {/* Comment Form Component */}
-              <FormComponent addComment={this.addComment} />
+              <FormComponent addComment={this.addComment}
+               username={this.props.username} />
             </div>
             <div className='col-8  pt-3 bg-white'>
               {/* Comment List Component */}
               <CommentList
                 loading={this.state.loading}
                 comments={this.state.comments}
+                username={this.props.username}
               />
             </div>
           </div>
