@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import "../css/stars.css";
+import { Dropdown } from "semantic-ui-react";
 
 const Star = ({ selected = false, onClick = f => f }) => (
   <div className={selected ? "star selected" : "star"} onClick={onClick}></div>
@@ -20,7 +21,7 @@ export class FormComponent extends Component {
       error: "",
       totalStars: 5,
 
-      nickname: "",
+      nickname: "" || "anonymous",
       comment: "",
       rating: 0, // adding the star rating system
       bookid: this.props.bookid,
@@ -132,7 +133,7 @@ export class FormComponent extends Component {
           //clear the message box
           this.setState({
             loading: false,
-            comments: { ...data, message: "" }
+            comments: { ...data, comment: "" }
           });
         }
       })
@@ -158,14 +159,86 @@ export class FormComponent extends Component {
     ) : null;
   }
 
+  getNickname = event => {
+    const { value, text } = event.target;
+    if (value == "anonymous") {
+      this.setState({
+        ...this.state,
+        nickname: "anonymous" // setting to anonymous
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        [text]: value // setting the value nickname
+      });
+    }
+  };
+
   render() {
+    const friendOptions = [
+      {
+        key: this.state.nickname,
+        text: this.state.nickname,
+        value: this.state.nickname,
+        image: {
+          avatar: true,
+          src: `https://ui-avatars.com/api/?name=${this.state.nickname}?rounded=true`
+        }
+      },
+      {
+        key: "anonymous",
+        text: "anonymous",
+        value: "anonymous",
+        image: {
+          avatar: true,
+          src: `https://ui-avatars.com/api/?name=anonymous?rounded=true`
+        }
+      },
+      {
+        key: "Stevie Feliciano",
+        text: "Stevie Feliciano",
+        value: "Stevie Feliciano",
+        image: {
+          avatar: true,
+          src: `https://ui-avatars.com/api/?name=StevieFeliciano?rounded=true`
+        }
+      },
+      {
+        key: "Christian",
+        text: "Christian",
+        value: "Christian",
+        image: {
+          avatar: true,
+          src: `https://ui-avatars.com/api/?name=$Christian?rounded=true`
+        }
+      },
+      {
+        key: "Matt",
+        text: "Matt",
+        value: "Matt",
+        image: {
+          avatar: true,
+          src: `https://ui-avatars.com/api/?name=Matt?rounded=true`
+        }
+      },
+      {
+        key: "Justen Kitsune",
+        text: "Justen Kitsune",
+        value: "Justen Kitsune",
+        image: {
+          avatar: true,
+          src: `https://ui-avatars.com/api/?name=JustenKitsune?rounded=true`
+        }
+      }
+    ];
     return (
       <React.Fragment>
         <p>{this.state.userid}</p>
         <p>{this.state.bookid}</p>
         <p>{this.state.nickname}</p>
+
         <form method='post' onSubmit={this.onSubmit}>
-          <div className='form-group'>
+          {/* <div className='form-group'>
             <input
               onChange={this.handleFieldChange}
               value={this.state.nickname}
@@ -174,7 +247,16 @@ export class FormComponent extends Component {
               name='nickname'
               type='text'
             />
-          </div>
+          </div> */}
+
+          <Dropdown
+            placeholder='Select Your Nickname'
+            fluid
+            selection
+            options={friendOptions}
+            onChange={this.getNickname}
+            onChange={this.handleFieldChange}
+          />
 
           <div className='form-group'>
             <textarea

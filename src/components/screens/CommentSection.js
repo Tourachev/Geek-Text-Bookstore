@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import CommentList from "../CommentList";
 import FormComponent from "../FormComponent";
 import Context from "../Context";
-import Footer from "../Footer";
-// import "../css/comment.css";
+import { Link } from "react-router-dom";
 
 export default class CommentSection extends Component {
   constructor(props) {
@@ -88,6 +87,32 @@ export default class CommentSection extends Component {
         this.setState({ loading: false });
       });
   }
+  form() {
+    if (this.props.isLoggedIn) {
+      return (
+        <FormComponent
+          addComment={this.addComment}
+          username={this.props.username}
+          bookid={this.props.bookid}
+        />
+      );
+    } else {
+      return (
+        <div class='ohoh'>
+          <p class='lead'>Looks like you're not logged in!</p>
+          <p class='lead'>Click below to get to the login page.</p>
+          <hr class='my-4' />
+          <p class='lead'>
+            <Link to='/login'>
+              <button type='button' class='btn btn-outline-primary btn-block'>
+                Take Me There!
+              </button>
+            </Link>
+          </p>
+        </div>
+      );
+    }
+  }
 
   render() {
     // const loadingSpin = this.state.loading ? "App-logo Spin" : "App-logo";
@@ -114,12 +139,8 @@ export default class CommentSection extends Component {
               <div className='row'>
                 <div className='col-4  pt-3 border-right'>
                   <h6>Say something about your purchase</h6>
-                  {/* Comment Form Component */}
-                  <FormComponent
-                    addComment={this.addComment}
-                    username={this.props.username}
-                    bookid={this.props.bookid}
-                  />
+
+                  {this.form()}
                 </div>
                 <div className='col-8  pt-3 bg-white'>
                   {/* Comment List Component */}
@@ -130,7 +151,6 @@ export default class CommentSection extends Component {
                 </div>
               </div>
             </div>
-            {/* <Footer /> */}
           </React.Fragment>
         )}
       </Context.Consumer>
