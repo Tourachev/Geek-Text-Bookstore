@@ -2,6 +2,11 @@ import React from "react";
 
 function Comment(props) {
   const { nickname, comment, rating } = props.comment;
+  console.log("NICKNAME:" + nickname);
+  console.log(comment);
+  console.log(rating);
+  console.log("props.comment:" + props.comment);
+  console.log("props:" + props.comment);
   return (
     <div className='media mb-3'>
       <img
@@ -9,7 +14,7 @@ function Comment(props) {
         width='50'
         height='50'
         // src={`https://api.adorable.io/avatars/265/abot${nickname.toLowerCase()}@adorable.io.png`}
-        src={`https://ui-avatars.com/api/?name=${nickname}`}
+        src={`https://ui-avatars.com/api/?name=${nickname}?rounded=true`}
         alt={nickname}
       />
 

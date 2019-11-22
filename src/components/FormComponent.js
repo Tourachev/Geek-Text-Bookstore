@@ -123,7 +123,7 @@ export class FormComponent extends Component {
           // comment.rating = res.rating;
           this.props.addComment(data);
 
-          // clear the message box
+          //clear the message box
           this.setState({
             loading: false,
             comments: {
@@ -163,7 +163,7 @@ export class FormComponent extends Component {
       <React.Fragment>
         <p>{this.state.userid}</p>
         <p>{this.state.bookid}</p>
-        {/* <p>{this.state.nickname}</p> */}
+        <p>{this.state.nickname}</p>
         <form method='post' onSubmit={this.onSubmit}>
           <div className='form-group'>
             <input

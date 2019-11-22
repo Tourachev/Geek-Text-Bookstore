@@ -50,7 +50,8 @@ async function addComment(info, callback) {
     .then(res => {
       // use the splice function to cut out the last member
       // of resulting array form query, (its just metadata)
-      callback(null, res.splice(0, res.length)); //return result in second param
+      console.log(res);
+      callback(null, res); //return result in second param
     })
     .catch(err => {
       callback(err, null); //return error in first param

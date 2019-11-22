@@ -24,7 +24,6 @@ export default class CommentSection extends Component {
   addComment(comment) {
     this.setState({
       loading: false,
-      bookid: this.props.bookid,
       comments: [comment, ...this.state.comments]
     });
   }
