@@ -707,3 +707,34 @@ code {
     transform: translateY(5px);
     /* move the element down by 5px (it will stay in place because it's attached to the element that also moves up 5px) */
 }
+
+Table.wishlist{
+    table-layout: fixed;
+}
+
+.table-img{
+    width:100px;
+    height:100px;
+ 
+ /*Scale down will take the necessary specified space that is 100px x 100px without stretching the image*/
+     object-fit:scale-down;
+ 
+ }
+
+ td.wishlist{
+     vertical-align: middle;
+     column-width: 25%;
+     word-wrap: break-word;
+     width: 25%;
+ }
+
+ h1.wishlist{
+    font-size: xx-large;
+    vertical-align: middle;
+    text-align: center;
+ }
+
+ h2.wishlist{
+     font-size: large;
+     vertical-align: middle;
+ }
