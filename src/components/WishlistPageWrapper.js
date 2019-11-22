@@ -6,6 +6,7 @@ import { Icon } from 'semantic-ui-react';
 import { Table } from 'reactstrap';
 import NameModal from './NameModal';
 
+
 class WishlistPageWrapper extends React.Component {
     constructor(props) {
         super(props);
@@ -127,8 +128,9 @@ class WishlistPageWrapper extends React.Component {
         let body1 = list[0].map(entry => {
             return (
                 <tr key={entry.bookid}>
-                    <td>{entry.title}</td>
-                    <td>
+                    <td class='wishlist'><img class='table-img' src={entry.imagelink}/></td>
+                    <td class='wishlist'>{entry.title}</td>
+                    <td class='wishlist'>
                         <button type='button' class='btn btn-outline-dark'
                             onClick={() => this.toCart(entry.bookid, 1, entry.title)}
                         >
@@ -144,7 +146,7 @@ class WishlistPageWrapper extends React.Component {
                             <Icon name='close' color='red'/>
                         </Button>
                     </td>
-                    <td>
+                    <td class='wishlist'>
                     <DropdownButton 
                         id="dropdown-basic-button" 
                         title="Move to other wish list"
@@ -163,8 +165,9 @@ class WishlistPageWrapper extends React.Component {
         let body2 = list[1].map(entry => {
             return (
                 <tr key={entry.bookid}>
-                    <td>{entry.title}</td>
-                    <td>
+                    <td class='wishlist'><img class='table-img' src={entry.imagelink}/></td>
+                    <td class='wishlist'>{entry.title}</td>
+                    <td class='wishlist'>
                         <button type='button' class='btn btn-outline-dark'
                             onClick={() => this.toCart(entry.bookid, 2, entry.title)}
                         >
@@ -180,7 +183,7 @@ class WishlistPageWrapper extends React.Component {
                             <Icon name='close' color='red'/>
                         </Button>
                     </td>
-                    <td>
+                    <td class='wishlist'>
                     <DropdownButton 
                         id="dropdown-basic-button" 
                         title="Move to other wish list"
@@ -199,8 +202,9 @@ class WishlistPageWrapper extends React.Component {
         let body3 = list[2].map(entry => {
             return (
                 <tr key={entry.bookid}>
-                    <td>{entry.title}</td>
-                    <td>
+                    <td class='wishlist'><img class='table-img' src={entry.imagelink}/></td>
+                    <td class='wishlist'>{entry.title}</td>
+                    <td class='wishlist'>
                         <button type='button' class='btn btn-outline-dark'
                             onClick={() => this.toCart(entry.bookid, 3, entry.title)}
                         >
@@ -216,7 +220,7 @@ class WishlistPageWrapper extends React.Component {
                             <Icon name='close' color='red'/>
                         </Button>
                     </td>
-                    <td>
+                    <td class='wishlist'>
                     <DropdownButton 
                         id="dropdown-basic-button" 
                         title="Move to other wish list"
@@ -241,18 +245,21 @@ class WishlistPageWrapper extends React.Component {
             <div>
             <div id='purchase-container'>
                 <div id='purchase-body'>
-                    <h1 className='display-4' style={{ marginBottom: '3%' }}>
+                    <h2 class='wishlist' style={{ marginBottom: '3%' }}>
                         { this.state.names[0] }
                     <NameModal
                         listnum={1}
                         username={this.state.username}
                         refresh={this.handleRefresh}
                     />
-                    </h1>
-                    <Table>
+                    </h2>
+                    <Table class='wishlist'>
                         <thead>
                             <tr>
+                                <th>Cover Art</th>
                                 <th>Book Title</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>{this.state.body1}</tbody>
@@ -261,18 +268,21 @@ class WishlistPageWrapper extends React.Component {
             </div>
             <div id='purchase-container'>
                 <div id='purchase-body'>
-                    <h1 className='display-4' style={{ marginBottom: '3%' }}>
+                    <h2 class='wishlist' style={{ marginBottom: '3%' }}>
                         { this.state.names[1] }
                     <NameModal
                         listnum={2}
                         username={this.state.username}
                         refresh={this.handleRefresh}
                     />
-                    </h1>
-                    <Table>
+                    </h2>
+                    <Table class='wishlist'>
                         <thead>
                             <tr>
+                                <th>Cover Art</th>
                                 <th>Book Title</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>{this.state.body2}</tbody>
@@ -281,18 +291,21 @@ class WishlistPageWrapper extends React.Component {
             </div>
             <div id='purchase-container'>
                 <div id='purchase-body'>
-                    <h1 className='display-4' style={{ marginBottom: '3%' }}>
+                    <h2 class='wishlist' style={{ marginBottom: '3%' }}>
                         { this.state.names[2] }
                     <NameModal
                         listnum={3}
                         username={this.state.username}
                         refresh={this.handleRefresh}
                     />
-                    </h1>
-                    <Table>
+                    </h2>
+                    <Table class='wishlist'>
                         <thead>
                             <tr>
+                                <th>Cover Art</th>
                                 <th>Book Title</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>{this.state.body3}</tbody>
