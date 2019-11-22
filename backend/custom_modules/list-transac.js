@@ -40,15 +40,15 @@ async function toWish(info, callback) {
             con.query(step1, [info.bookid, info.userid, info.listnum])
             .then(() => {
                 con.query(step2, [info.bookid, info.userid, info.othernum])
-                .then(res => {
+                .then(() => {
                     con.commit();
                     con.release();
-                    callback(null, res.splice(0, res.length));
+                    callback(null, true);
                 })
                 .catch(err => {
-                    con.rollback();
+                    con.commit();
                     con.release();
-                    callback(err, null);})
+                    callback(null, false);})
             })
             .catch(err => {
                 con.rollback();
@@ -214,6 +214,20 @@ async function mount(info, callback) {
         .catch(err => {callback(err, null);})
     })
     .catch(err => {callback(err, null);})
+}
+
+async function addToWish(info, callback) {
+    pool.query('insert into wishlist values(?,?,?)', [info.bookid, info.userid, info.listnum])
+    .then(res => {
+        callback(null, false);
+    })
+    .catch(err => {
+        if (err.errno == NOT_UNIQUE) {
+            callback(null, false);
+        } else {
+            callback(err, null);
+        }
+    })
 }
 
 
