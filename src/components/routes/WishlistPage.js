@@ -15,8 +15,9 @@ class Wishlist extends React.Component {
     render() {
         if (this.props.isLoggedIn) {
             return (
-                <div><div>
-                    <h1 className='display-3'>
+                <div>
+                    <div>
+                    <h1 class='wishlist'>
                         Your Personal Wishlists 
                     </h1>
                     <div className="body">
