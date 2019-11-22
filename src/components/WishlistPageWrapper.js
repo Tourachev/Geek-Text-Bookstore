@@ -1,10 +1,10 @@
 import React from 'react';
-import Footer from '../Footer';
+import Footer from './Footer';
 import { Link } from 'react-router-dom';
 import { Button, DropdownButton, Dropdown, Modal } from 'react-bootstrap';
 import { Icon } from 'semantic-ui-react';
 import { Table } from 'reactstrap';
-import Context from '../Context';
+import NameModal from './NameModal';
 
 class WishlistPageWrapper extends React.Component {
     constructor(props) {
@@ -21,7 +21,9 @@ class WishlistPageWrapper extends React.Component {
         };
     }
 
-    refresh = () => {
+    handleRefresh = () => this.refresh();
+
+    refresh() {
         fetch('/wishlist/mount', {
             method: 'POST',
             body: JSON.stringify({
@@ -241,9 +243,11 @@ class WishlistPageWrapper extends React.Component {
                 <div id='purchase-body'>
                     <h1 className='display-4' style={{ marginBottom: '3%' }}>
                         { this.state.names[0] }
-                    <Button>
-                        <Icon name='edit' inverted={true}/>
-                    </Button>
+                    <NameModal
+                        listnum={1}
+                        username={this.state.username}
+                        refresh={this.handleRefresh}
+                    />
                     </h1>
                     <Table>
                         <thead>
@@ -259,9 +263,11 @@ class WishlistPageWrapper extends React.Component {
                 <div id='purchase-body'>
                     <h1 className='display-4' style={{ marginBottom: '3%' }}>
                         { this.state.names[1] }
-                    <Button>
-                        <Icon name='edit' inverted={true}/>
-                    </Button>
+                    <NameModal
+                        listnum={2}
+                        username={this.state.username}
+                        refresh={this.handleRefresh}
+                    />
                     </h1>
                     <Table>
                         <thead>
@@ -277,9 +283,11 @@ class WishlistPageWrapper extends React.Component {
                 <div id='purchase-body'>
                     <h1 className='display-4' style={{ marginBottom: '3%' }}>
                         { this.state.names[2] }
-                    <Button>
-                        <Icon name='edit' inverted={true}/>
-                    </Button>
+                    <NameModal
+                        listnum={3}
+                        username={this.state.username}
+                        refresh={this.handleRefresh}
+                    />
                     </h1>
                     <Table>
                         <thead>
