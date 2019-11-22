@@ -12,19 +12,16 @@ const pool = mariadb.createPool({
 });
 
 async function getComments(info, callback) {
-  //callback if a function in router
-  var query = "SELECT * FROM comments WHERE bookid=?";
-  pool
-    .query(query, [info.bookid])
-    .then(res => {
-      // use the splice function to cut out the last member
-      // of resulting array form query, (its just metadata)
-      callback(null, res.splice(0, res.length)); //return result in second param
-    })
-    .catch(err => {
-      callback(err, null); //return error in first param
-    });
+  var query = 'select * from comments where bookid=?';
+  pool.query(query, [info.bookid])
+      .then(result => {
+          callback(null, result);
+      })
+      .catch(err => {
+          callback(err, null);
+      });
 }
+
 
 // async function getCommnetByslug(info, callback) {
 //     // replace the $ from postgresql to ? for mariadb
@@ -41,14 +38,14 @@ async function getComments(info, callback) {
 //FROM the comments table create a new comment inseting the message and rating
 async function addComment(info, callback) {
 
-  //  var cols = [info.body.message, info.body.name, info.body.rating]
+  //  var cols = [ info.body.userid, info.body.comment, info.body.nickname, info.body.rating]
   // const newbookid = info.match.params.bookid;
   //callback if a function in router
-  // const bookid = parseInt(info.params.bookid);
+   const bookid = parseInt(info.bookid);
 
-  var query = "insert into comments values(?, ?, ?, ?, ?)";
+  var query = `INSERT INTO comments (userid, nickname, comment, bookid, rating) VALUES(?, ?, ?, ?, ?)`;
   pool
-    .query(query, [info.bookid, info.message, info.name, info.rating, info.nickname ])
+    .query(query, [info.body.userid, info.body.nickname, info.body.comment, bookid, info.body.rating ])
     .then(res => {
       // use the splice function to cut out the last member
       // of resulting array form query, (its just metadata)

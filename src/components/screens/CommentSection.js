@@ -23,8 +23,7 @@ export default class CommentSection extends Component {
      */
     addComment(comment) {
         this.setState({
-            loading: false,
-            bookid: this.props.bookid,
+            ...this.state,
             comments: [comment, ...this.state.comments]
         });
     }
@@ -67,7 +66,6 @@ export default class CommentSection extends Component {
                 this.setState({
                     comments: res,
                     loading: false,
-                    bookid: res.bookid,
                 });
             })
             .catch(err => {
@@ -110,7 +108,7 @@ export default class CommentSection extends Component {
                                     {/* Comment Form Component */}
                                     <FormComponent
                                         addComment={this.addComment}
-                                        username={context.username}
+                                        username={this.props.username}
                                         bookid={this.props.bookid}
                                         
                                     />
@@ -120,8 +118,8 @@ export default class CommentSection extends Component {
                                     <CommentList
                                         loading={this.state.loading}
                                         comments={this.state.comments}
-                                        username={this.props.username}
-                                        bookid={this.props.bookid}
+                                        
+                                       
                                     />
                                 </div>
                             </div>
