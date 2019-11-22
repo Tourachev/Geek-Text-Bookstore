@@ -20,17 +20,18 @@ var router = express.Router();
 //   });
 // });
 
-router.get('/', function(req, res, next) {
+router.get("/", function(req, res, next) {
   console.log(req);
   //res.json(bookData);
-  pool.query('select * from comments')
-      .then(result => {
-          console.log(result);
-          res.json(result);
-      })
-      .catch(err => {
-          console.log(err);
-      })
+  pool
+    .query("select * from comments")
+    .then(result => {
+      console.log(result);
+      res.json(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 });
 
 router.post("/getComments", (req, res) => {
@@ -56,7 +57,7 @@ router.post("/insertComment", (req, res) => {
       res.json(null);
     } else {
       console.log(result);
-      res.json({ result: result }); //insert successful
+      res.json(result); //insert successful
     }
   });
 });
