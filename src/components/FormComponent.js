@@ -12,6 +12,7 @@ Star.propTypes = {
 };
 
 export class FormComponent extends Component {
+<<<<<<< HEAD
   constructor(props) {
     super(props);
     this.state = {
@@ -29,6 +30,50 @@ export class FormComponent extends Component {
         userid: this.props.username,
     
     };
+=======
+    constructor(props) {
+        super(props);
+        this.state = {
+            isFeteching: false,
+            loading: false,
+            error: '',
+            totalStars: 5,
+            nickname: '',
+
+            comment: {
+                name: this.props.username,
+                nickname: this.state.nickname,
+                message: '',
+                rating: 0, // adding the star rating system
+                bookid: this.props.bookid,
+                userid: this.props.userid
+            }
+        };
+
+        //bind context to methods
+        this.handleFieldChange = this.handleFieldChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        //bind the starChange
+        this.starChange = this.starChange.bind(this);
+    }
+
+    componentDidMount() {
+        fetch('/personal-info', {
+            method: 'POST',
+            body: JSON.stringify({username: this.props.username}),
+            headers: {'Content-Type': 'application/json'}
+        })
+            .then(res => res.json())
+            .then(personalInfo =>
+                this.setState({
+                    nickname: personalInfo.nickname
+                })
+            )
+            .catch(err => {
+                console.log(err);
+            });
+    }
+>>>>>>> parent of 2bd09762... updating comment
 
     //bind context to methods
     this.handleFieldChange = this.handleFieldChange.bind(this);

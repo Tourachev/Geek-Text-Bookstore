@@ -11,7 +11,7 @@ export default class CommentSection extends Component {
         this.state = {
             comments: [],
             loading: false,
-            bookid: this.props.bookid,
+            bookid: this.props.bookid
         };
 
         this.addComment = this.addComment.bind(this);
@@ -23,7 +23,13 @@ export default class CommentSection extends Component {
      */
     addComment(comment) {
         this.setState({
+<<<<<<< HEAD
             ...this.state,
+=======
+            loading: false,
+            bookid: this.props.bookid,
+            nickname: '',
+>>>>>>> parent of 2bd09762... updating comment
             comments: [comment, ...this.state.comments]
         });
     }
@@ -53,11 +59,26 @@ export default class CommentSection extends Component {
         //loading mode
         this.setState({loading: true});
 
+        fetch('/personal-info', {
+            method: 'POST',
+            body: JSON.stringify({username: this.props.username}),
+            headers: {'Content-Type': 'application/json'}
+        })
+            .then(res => res.json())
+            .then(personalInfo =>
+                this.setState({
+                    nickname: personalInfo.nickname
+                })
+            )
+            .catch(err => {
+                console.log(err);
+            });
+
         //get all the comments
         fetch('/comments/getComments', {
             method: 'POST',
             body: JSON.stringify({
-                 bookid: this.props.bookid,
+                bookid: this.props.bookid
             }),
             headers: {'Content-Type': 'application/json'}
         })
@@ -65,7 +86,11 @@ export default class CommentSection extends Component {
             .then(res => {
                 this.setState({
                     comments: res,
+<<<<<<< HEAD
                     loading: false,
+=======
+                    loading: false
+>>>>>>> parent of 2bd09762... updating comment
                 });
             })
             .catch(err => {
@@ -110,7 +135,6 @@ export default class CommentSection extends Component {
                                         addComment={this.addComment}
                                         username={this.props.username}
                                         bookid={this.props.bookid}
-                                        
                                     />
                                 </div>
                                 <div className='col-8  pt-3 bg-white'>
