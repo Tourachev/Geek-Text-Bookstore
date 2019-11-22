@@ -80,8 +80,9 @@ class DetailsSection extends React.Component {
         if (this.state.commentData.length > 0) {
             rating = commList.map(comment => comment.rating).reduce((total, val) => {
                 total += val
-                return total / commList.length;
-            })
+                return total;
+            })/ commList.length
+            console.log("RATING: " + rating);
         }
         return this.getStars(rating);
     }
@@ -123,15 +124,6 @@ class DetailsSection extends React.Component {
                         </Table.Row>
                     </Table.Body>
                 </Table>
-                /*<tr key={comment.authorid}>
-                    <td>
-                        <tr>
-                            <td>AUTHOR NICKNAME</td>
-                            <td>REVIEW STARS</td>
-                        </tr>
-                        <tr> {comment.comment} </tr>
-                    </td>
-                </tr>*/
             )
         })
         return comm;
@@ -165,8 +157,12 @@ class DetailsSection extends React.Component {
                         <h3>${this.state.bookData.price}</h3>
                         <p>{this.state.bookData.bookDesc}</p>
                         <div class="book-rating">
-                            <Button size="lg" style={{ width: "30%", marginRight:"5vw" }}>Purchase</Button>
-                            <Button size="lg" style={{ width:"30%"}} class="option-button">Save to Wishlist</Button>
+                            <Link to="/cart">
+                                <Button size="lg" style={{ width: "30%", marginRight:"5vw" }}>Purchase</Button>
+                            </Link>
+                            <Link to="/wishlist">
+                                <Button size="lg" style={{ width:"30%"}} class="option-button">Save to Wishlist</Button>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -178,11 +174,14 @@ class DetailsSection extends React.Component {
                     </div>
                 </div>
                 <div class="section">
-                    <h1>Ratings AND Comments</h1>
+                    <h1>Comments</h1>
                     {/* OVERWRITE THIS CODE ONCE THE REVIEW & COMMENTS ARE WORKING. */}
                     {/* FOR NOW THIS IS JUST TO GET THE BOOK DETAILS WORKING. */}
                     <div>
-                        <TextArea placeholder='Write a comment on this book!' style={{width:"100%",padding:"2%"}}/>
+                        <TextArea placeholder='Write a comment on this book!' style={{width:"100%",padding:"2%", marginBottom:"1%"}}/>
+                        <div style={{ display: "flex", justifyContent:"flex-end"}}>
+                            <Button size="lg" style={{ width: "30%"}}>Submit Comment</Button>
+                        </div>
                         {this.getComments()}
                     </div>
                 </div>
