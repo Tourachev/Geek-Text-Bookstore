@@ -48,10 +48,13 @@ router.post('/toWish', (req, res) => {
     queries.toWish(req.body, (err, result) => {
         if (err) {
             console.log(err);
-            res.json({decision: false});
+            res.json(null);
         } else {
-            console.log(result);
-            res.json({decision: true});
+            if (result == true) {
+                res.json({decision: true});
+            } else {
+                res.json({decision: false});
+            }
         }
     })
 });
