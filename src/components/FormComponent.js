@@ -121,18 +121,18 @@ export class FormComponent extends Component {
         } else {
           // add time return from api and push comment to parent state
           // comment.rating = res.rating;
-          this.props.addComment(data);
+          this.props.addComment({
+            nickname: this.state.nickname,
+            comment: this.state.comment,
+            rating: this.state.rating, // adding the star rating system
+            bookid: this.state.bookid,
+            userid: this.state.userid
+          });
 
           //clear the message box
           this.setState({
             loading: false,
-            comments: {
-              nickname: "",
-              comment: "",
-              rating: 0, // adding the star rating system
-              bookid: this.state.bookid,
-              userid: this.state.userid
-            }
+            comments: { ...data, message: "" }
           });
         }
       })
