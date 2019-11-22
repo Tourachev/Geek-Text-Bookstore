@@ -57,7 +57,7 @@ class MyForm extends React.Component {
                 console.log(err);
             });
 
-        alert('Submitted!');
+        alert('Name Changed!');
         this.props.closeMethod();
         this.props.refresh();
     };
@@ -76,7 +76,6 @@ class MyForm extends React.Component {
                 <button type='submit' class='btn btn-outline-secondary'>
                     Submit
                 </button>
-                {/* <input type='submit' value='submit' /> */}
             </form>
         );
     }
@@ -103,7 +102,7 @@ export default function SimpleModal(props) {
                 class='btn btn-link btn-lg'
                 onClick={handleOpen}
             >
-                Edit wishlist name {props.username}<Icon name="edit"/>
+                <Icon name="edit"/>
             </button>
             <Modal
                 aria-labelledby='simple-modal-title'
