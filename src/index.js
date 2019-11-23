@@ -27,8 +27,6 @@ class Provider extends React.Component {
   state = {
     username: "",
     isLoggedIn: false,
-    nickname: "",
-    isPurchase: false,
     login: () => {
       this.setState({ isLoggedIn: true });
     },
@@ -37,12 +35,6 @@ class Provider extends React.Component {
     },
     setUsername: name => {
       this.setState({ username: name });
-    },
-    setNickname: nickname => {
-      this.setState({ nickname: nickname });
-    },
-    purchase: () => {
-      this.setState({ isPurchase: true });
     }
   };
 
@@ -81,7 +73,6 @@ class App extends Component {
                 <Route path='/login' component={Login} />
                 <Route path='/book/:id' component={ViewBook} />
                 <Route path='/author/:name' component={AuthorWorks} />
-                {/* <Route path='/comments' component={Comment} /> */}
                 <Route path='/signUp' component={ApplicationForm} />
                 {/* Below I am passing the context state into the Profile component*/}
                 <Context.Consumer>
@@ -91,7 +82,8 @@ class App extends Component {
                         path='/profile'
                         component={() => (
                           <ProfilePage isLoggedIn={context.isLoggedIn}
-                                       setNickname={context.setNickname} /> //Alex add this to get nickname
+                          
+                          /> 
                         )}
                       />
 
@@ -101,8 +93,7 @@ class App extends Component {
                           <ViewBook
                             isLoggedIn={context.isLoggedIn}
                             username={context.username}
-                            nickname={context.nickname}
-                            isPurchase={context.isPurchase}
+                           
                           />
                         )}
                       />

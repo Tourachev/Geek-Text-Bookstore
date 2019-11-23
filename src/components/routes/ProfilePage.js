@@ -39,7 +39,6 @@ class ProfilePage extends React.Component {
                                         <div className='profile-card-content'>
                                             <Personal
                                                 username={context.username}
-                                                setNickname={context.setNickname} //Alex add this to get the nickname
                                             />
                                         </div>
                                     </div>

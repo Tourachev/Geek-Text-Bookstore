@@ -14,17 +14,13 @@ class ViewBookPage extends React.Component {
         
           
         return (
-            <Context.Consumer>
-            {context => (
             <div>
                 <div className='body'>
-                    <DetailsSection bookid={this.props.match.params.id} nickname={context.nickname}/>
+                    <DetailsSection bookid={this.props.match.params.id} />
                     <Footer />
                 </div>
             </div>
-            
-            )}
-            </Context.Consumer>
+     
         );
         
     }

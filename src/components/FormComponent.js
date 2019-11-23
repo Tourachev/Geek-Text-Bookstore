@@ -24,7 +24,7 @@ export class FormComponent extends Component {
 			error: '',
 			totalStars: 5,
 
-			nickname: '',
+			nickname: '' ,
 			comment: '',
 			rating: 0, // adding the star rating system
 			bookid: this.props.bookid,
@@ -67,30 +67,21 @@ export class FormComponent extends Component {
 	 * Handle form input field changes & update the state
 	 */
 	handleFieldChange = event => {
-		const {value, name} = event.target;
-
-		this.setState({
-			[name]: value
-		});
+    const {value, name, text} = event.target;
+    
+    if (event == 'anymonous') {
+      this.setState({
+        nickname: event
+      });
+      
+    } else {
+      this.setState({
+        [name]: value
+      });
+    }
+		
 	};
 
-	//   componentDidMount() {
-	//     //let {comment} = this.state;
-	//     fetch('/personal-info', {
-	//         method: 'POST',
-	//         body: JSON.stringify({username: this.state.username}),
-	//         headers: {'Content-Type': 'application/json'}
-	//     })
-	//         .then(res => res.json())
-	//         .then(personalInfo =>
-	//             this.setState({
-	//                 nickname: personalInfo
-	//             })
-	//         )
-	//         .catch(err => {
-	//             console.log(err);
-	//         });
-	// }
 
 	/**
 	 * Form submit handler
@@ -151,7 +142,7 @@ export class FormComponent extends Component {
 
 	isFormValid() {
 		return (
-			this.state.nickname !== '' &&
+			//this.state.nickname !== '' &&
 			this.state.comment !== '' &&
 			this.state.rating !== 0
 		);
@@ -163,20 +154,20 @@ export class FormComponent extends Component {
 		) : null;
 	}
 
-	getNickname = event => {
-		const {value, text} = event.target;
-		if (value == 'anonymous') {
-			this.setState({
-				...this.state,
-				nickname: 'anonymous' // setting to anonymous
-			});
-		} else {
-			this.setState({
-				...this.state,
-				[text]: value // setting the value nickname
-			});
-		}
-	};
+	// getNickname = event => {
+	// 	//const {value, text} = event.target;
+	// 	if (event == 'anonymous') {
+	// 		this.setState({
+	// 			...this.state,
+	// 			nickname: 'anonymous' // setting to anonymous
+	// 		});
+	// 	} else {
+	// 		this.setState({
+	// 			...this.state,
+	// 			[text]: value // setting the value nickname
+	// 		});
+	// 	}
+	// };
 
 	render() {
 		const friendOptions = [
@@ -197,49 +188,14 @@ export class FormComponent extends Component {
 					avatar: true,
 					src: `https://ui-avatars.com/api/?name=anonymous?rounded=true`
 				}
-			},
-			{
-				key: 'Stevie Feliciano',
-				text: 'Stevie Feliciano',
-				value: 'Stevie Feliciano',
-				image: {
-					avatar: true,
-					src: `https://ui-avatars.com/api/?name=StevieFeliciano?rounded=true`
-				}
-			},
-			{
-				key: 'Christian',
-				text: 'Christian',
-				value: 'Christian',
-				image: {
-					avatar: true,
-					src: `https://ui-avatars.com/api/?name=$Christian?rounded=true`
-				}
-			},
-			{
-				key: 'Matt',
-				text: 'Matt',
-				value: 'Matt',
-				image: {
-					avatar: true,
-					src: `https://ui-avatars.com/api/?name=Matt?rounded=true`
-				}
-			},
-			{
-				key: 'Justen Kitsune',
-				text: 'Justen Kitsune',
-				value: 'Justen Kitsune',
-				image: {
-					avatar: true,
-					src: `https://ui-avatars.com/api/?name=JustenKitsune?rounded=true`
-				}
 			}
+		
 		];
 		return (
 			<React.Fragment>
-				<p>{this.state.userid}</p>
+				{/* <p>{this.state.userid}</p>
 				<p>{this.state.bookid}</p>
-				<p>{this.state.nickname}</p>
+				<p>{this.state.nickname}</p> */}
 
 				<form method='post' onSubmit={this.onSubmit}>
 					{/* <div className='form-group'>
@@ -261,6 +217,7 @@ export class FormComponent extends Component {
 						onChange={this.getNickname}
 						onChange={this.handleFieldChange}
 					/>
+          <br/>
 
 					<div className='form-group'>
 						<textarea

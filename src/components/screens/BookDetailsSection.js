@@ -161,8 +161,7 @@ class DetailsSection extends React.Component {
 								title={this.state.bookData.title}
 								username={context.username}
 								isLoggedIn={context.isLoggedIn}
-								nickname={context.nickname}
-								isPurchase={context.isPurchase}
+								
 							/>
 						)}
 					</Context.Consumer>
