@@ -219,7 +219,7 @@ async function mount(info, callback) {
 async function addToWish(info, callback) {
     pool.query('insert into wishlist values(?,?,?)', [info.bookid, info.userid, info.listnum])
     .then(res => {
-        callback(null, false);
+        callback(null, true);
     })
     .catch(err => {
         if (err.errno == NOT_UNIQUE) {
@@ -238,5 +238,6 @@ module.exports = {
     getList,
     rename,
     getNames,
-    mount
+    mount,
+    addToWish
 };
