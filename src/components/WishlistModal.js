@@ -3,6 +3,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Icon } from 'semantic-ui-react';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -143,21 +144,28 @@ export default function SimpleModal(props) {
         }
     };
 
-    const getNames = () => {
+    const handleCart = () => {
         if (props.isLoggedIn) {
-            fetch('/wishlist/getNames', {
+            fetch('/cart/insert', {
                 method: 'POST',
                 body: JSON.stringify({
-                    userid: props.username
+                    username: props.username,
+                    bookID: props.bookid,
+                    quantity: 1,
+                    price: props.price,
+                    title: props.title
                 }),
                 headers: { 'Content-Type': 'application/json' }
             })
             .then(res => res.json())
-            .then(data => {
-                return data;
+            .then(() => {
+                alert('Book added to Cart!');
+            })
+            .catch(err => {
+                alert('Error adding book to Cart!');
             })
         } else {
-            return ['Wishlist1', 'Wishlist2', 'Wishlist3'];
+            alert('You are not logged in!');
         }
     }
 
@@ -168,11 +176,16 @@ export default function SimpleModal(props) {
     return (
         <div>
             <Button
-                size="lg" style={{ width: "30%"}}
+                size="lg" style={{ width: "30%", marginRight:"5vw"}}
                 type='button'
-                class='option-button'
-                onClick={handleOpen}
-            >Save to Wishlist
+                class='floated'
+                onClick={handleOpen}>Save to Wishlist
+            </Button>
+            <Button
+                size="lg" style={{ width: "30%", marginRight:"5vw"}}
+                type='button'
+                class='floated'
+                onClick={handleCart}>Save to Cart
             </Button>
             <Modal
                 aria-labelledby='simple-modal-title'
