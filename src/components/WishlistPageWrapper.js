@@ -129,7 +129,12 @@ class WishlistPageWrapper extends React.Component {
             return (
                 <tr key={entry.bookid}>
                     <td class='wishlist'><img class='table-img' src={entry.imagelink}/></td>
-                    <td class='wishlist'>{entry.title}</td>
+                    <td class='wishlist'>
+                    <Link
+                        to={{ pathname: "/book/" + entry.bookid }}>
+                        <p>{entry.title}</p>
+                    </Link>
+                    </td>
                     <td class='wishlist'>
                         <button type='button' class='btn btn-outline-dark'
                             onClick={() => this.toCart(entry.bookid, 1, entry.title)}
@@ -166,7 +171,12 @@ class WishlistPageWrapper extends React.Component {
             return (
                 <tr key={entry.bookid}>
                     <td class='wishlist'><img class='table-img' src={entry.imagelink}/></td>
-                    <td class='wishlist'>{entry.title}</td>
+                    <td class='wishlist'>
+                    <Link
+                        to={{ pathname: "/book/" + entry.bookid }}>
+                        <p>{entry.title}</p>
+                    </Link>
+                    </td>
                     <td class='wishlist'>
                         <button type='button' class='btn btn-outline-dark'
                             onClick={() => this.toCart(entry.bookid, 2, entry.title)}
@@ -203,8 +213,13 @@ class WishlistPageWrapper extends React.Component {
             return (
                 <tr key={entry.bookid}>
                     <td class='wishlist'><img class='table-img' src={entry.imagelink}/></td>
-                    <td class='wishlist'>{entry.title}</td>
                     <td class='wishlist'>
+                    <Link
+                        to={{ pathname: "/book/" + entry.bookid }}>
+                        <p>{entry.title}</p>
+                    </Link>
+                    </td>
+                    <td>
                         <button type='button' class='btn btn-outline-dark'
                             onClick={() => this.toCart(entry.bookid, 3, entry.title)}
                         >
