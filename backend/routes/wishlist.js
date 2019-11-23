@@ -98,5 +98,17 @@ router.post('/rename', (req, res) => {
     })
 });
 
+router.post('/addToWish', (req, res) => {
+    queries.addToWish(req.body, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.json(null);
+        } else {
+            console.log(result);
+            res.json({decision: result});
+        }   
+    })
+})
+
 
 module.exports = router;
