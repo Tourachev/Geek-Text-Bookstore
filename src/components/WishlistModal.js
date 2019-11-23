@@ -33,12 +33,29 @@ const useStyles = makeStyles(theme => ({
 class MyForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {selectedOption: 'option1'};
+        this.state = {
+            selectedOption: 'option1',
+            names: ['Wishlist1', 'Wishlist2', 'Wishlist3']
+        };
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(evt) {
         this.setState({selectedOption: evt.target.value});
+    }
+
+    componentDidMount() {
+        fetch('/wishlist/getNames', {
+            method: 'POST',
+            body: JSON.stringify({
+                userid: this.props.username
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(res => res.json())
+        .then(data => {
+            this.setState({ names: data });
+        })
     }
 
     mySubmitHandler = event => {
@@ -73,33 +90,34 @@ class MyForm extends React.Component {
                 console.log(err);
             });
         this.props.closeMethod();
-    };
+    }
+
     render() {
         return (
             <form onSubmit={this.mySubmitHandler}>
                 <p>Add Book to a Wishlist</p>
                 <div classname='radio'>
                     <label>
-                        <input type='radio' value='option1' className='form-control'
+                        <input type='radio' value='option1'
                         checked={this.state.selectedOption === 'option1'}
                         onChange={this.handleChange}/>
-                        {this.props.names[0]}
+                        {this.state.names[0]}
                     </label>
                 </div>
                 <div classname='radio'>
                     <label>
-                        <input type='radio' value='option2' className='form-control'
+                        <input type='radio' value='option2'
                         checked={this.state.selectedOption === 'option2'}
                         onChange={this.handleChange}/>
-                        {this.props.names[1]}
+                        {this.state.names[1]}
                     </label>
                 </div>
                 <div classname='radio'>
                     <label>
-                        <input type='radio' value='option3' className='form-control'
+                        <input type='radio' value='option3'
                         checked={this.state.selectedOption === 'option3'}
                         onChange={this.handleChange}/>
-                        {this.props.names[2]}
+                        {this.state.names[2]}
                     </label>
                 </div>
                 <button type='submit' class='btn btn-outline-secondary'>
@@ -111,6 +129,7 @@ class MyForm extends React.Component {
 }
 
 export default function SimpleModal(props) {
+    let names = ['Wishlist1', 'Wishlist2', 'Wishlist3'];
     const classes = useStyles();
     // getModalStyle is not a pure function, we roll the style only on the first render
     const [modalStyle] = React.useState(getModalStyle);
@@ -123,6 +142,24 @@ export default function SimpleModal(props) {
             alert('You are not logged in!');
         }
     };
+
+    const getNames = () => {
+        if (props.isLoggedIn) {
+            fetch('/wishlist/getNames', {
+                method: 'POST',
+                body: JSON.stringify({
+                    userid: props.username
+                }),
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(res => res.json())
+            .then(data => {
+                return data;
+            })
+        } else {
+            return ['Wishlist1', 'Wishlist2', 'Wishlist3'];
+        }
+    }
 
     const handleClose = () => {
         setOpen(false);
@@ -149,7 +186,6 @@ export default function SimpleModal(props) {
                         username={props.username}
                         closeMethod={handleClose}
                         bookid={props.bookid}
-                        names={props.names}
                     />
                 </div>
             </Modal>

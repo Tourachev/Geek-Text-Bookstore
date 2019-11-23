@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { BookImgModal } from '../BookImgModal'
 import ModalImage from "react-modal-image";
+import WishlistModal from '../WishlistModal';
 
 class DetailsSection extends React.Component {
     constructor(props) {
@@ -160,9 +161,11 @@ class DetailsSection extends React.Component {
                             <Link to="/cart">
                                 <Button size="lg" style={{ width: "30%", marginRight:"5vw" }}>Purchase</Button>
                             </Link>
-                            <Link to="/wishlist">
-                                <Button size="lg" style={{ width:"30%"}} class="option-button">Save to Wishlist</Button>
-                            </Link>
+                            <WishlistModal
+                                username={this.props.username}
+                                bookid={this.state.bookData.bookid}
+                                isLoggedIn={this.props.isLoggedIn}
+                            />
                         </div>
                     </div>
                 </div>
