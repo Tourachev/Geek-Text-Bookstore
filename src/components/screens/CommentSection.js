@@ -123,24 +123,8 @@ export default class CommentSection extends Component {
         {context => (
           <React.Fragment>
             <div className='App container bg-light shadow'>
-              <div>
-                <img class='author-img' src={this.props.imagelink}></img>
-                <br />
-                <h2>{this.props.title}</h2>
-              </div>
-              <header className='App-header'>
-                <h1 className='App-title'>
-                  Geek Text Comments
-                  <span className='px-2' role='img' aria-label='Chat'>
-                    💬
-                  </span>
-                </h1>
-              </header>
-
               <div className='row'>
                 <div className='col-4  pt-3 border-right'>
-                  <h6>Say something about your purchase</h6>
-
                   {this.form()}
                 </div>
                 <div className='col-8  pt-3 bg-white'>
