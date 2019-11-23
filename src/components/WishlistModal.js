@@ -33,23 +33,31 @@ const useStyles = makeStyles(theme => ({
 class MyForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {listname: ''};
+        this.state = {selectedOption: 'option1'};
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(evt) {
-        this.setState({[evt.target.name]: evt.target.value});
+        this.setState({selectedOption: evt.target.value});
     }
 
     mySubmitHandler = event => {
         event.preventDefault();
+        var listnum = 1;
+        if (this.state.selectedOption === 'option1') {
+            listnum = 1;
+        } else if (this.state.selectedOption === 'option2') {
+            listnum = 2;
+        } else {
+            listnum = 3;
+        }
 
-        fetch('/wishlist/rename', {
+        fetch('/wishlist/addToWish', {
             method: 'POST',
             body: JSON.stringify({
                 userid: this.props.username,
                 bookid: this.props.bookid,
-                listnum: this.state.listnum
+                listnum: listnum
             }),
             headers: {'Content-Type': 'application/json'}
         })
@@ -64,8 +72,6 @@ class MyForm extends React.Component {
             .catch(err => {
                 console.log(err);
             });
-
-        alert('Name Changed!');
         this.props.closeMethod();
     };
     render() {
@@ -74,24 +80,24 @@ class MyForm extends React.Component {
                 <p>Add Book to a Wishlist</p>
                 <div classname='radio'>
                     <label>
-                        <input type='radio' value={1} className='form-control'
-                        checked={this.state.listnum === 1}
+                        <input type='radio' value='option1' className='form-control'
+                        checked={this.state.selectedOption === 'option1'}
                         onChange={this.handleChange}/>
                         {this.props.names[0]}
                     </label>
                 </div>
                 <div classname='radio'>
                     <label>
-                        <input type='radio' value={2} className='form-control'
-                        checked={this.state.listnum === 2}
+                        <input type='radio' value='option2' className='form-control'
+                        checked={this.state.selectedOption === 'option2'}
                         onChange={this.handleChange}/>
                         {this.props.names[1]}
                     </label>
                 </div>
                 <div classname='radio'>
                     <label>
-                        <input type='radio' value={3} className='form-control'
-                        checked={this.state.listnum === 3}
+                        <input type='radio' value='option3' className='form-control'
+                        checked={this.state.selectedOption === 'option3'}
                         onChange={this.handleChange}/>
                         {this.props.names[2]}
                     </label>
@@ -138,12 +144,11 @@ export default function SimpleModal(props) {
                 onClose={handleClose}
             >
                 <div style={modalStyle} className={classes.paper}>
-                    <h2 id='simple-modal-title'>Edit Wishlist Name</h2>
+                    <h2 id='simple-modal-title'>Select Wishlist</h2>
                     <MyForm
                         username={props.username}
                         closeMethod={handleClose}
                         bookid={props.bookid}
-                        listnum={props.listnum}
                         names={props.names}
                     />
                 </div>
