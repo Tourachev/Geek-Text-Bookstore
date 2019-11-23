@@ -158,13 +158,12 @@ class DetailsSection extends React.Component {
                         <h3>${this.state.bookData.price}</h3>
                         <p>{this.state.bookData.bookDesc}</p>
                         <div class="book-rating">
-                            <Link to="/cart">
-                                <Button size="lg" style={{ width: "30%", marginRight:"5vw" }}>Purchase</Button>
-                            </Link>
                             <WishlistModal
                                 username={this.props.username}
                                 bookid={this.state.bookData.bookid}
                                 isLoggedIn={this.props.isLoggedIn}
+                                price={this.state.bookData.price}
+                                title={this.state.bookData.title}
                             />
                         </div>
                     </div>
