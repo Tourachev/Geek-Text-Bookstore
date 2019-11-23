@@ -6,10 +6,9 @@ import {Button} from 'react-bootstrap';
 import {Icon} from 'semantic-ui-react';
 import {useParams} from 'react-router-dom';
 import {Link} from 'react-router-dom';
-import ModalImage from "react-modal-image";
+import ModalImage from 'react-modal-image';
 import Context from '../Context';
 import CommentSection from './CommentSection';
-
 
 class DetailsSection extends React.Component {
 	constructor(props) {
@@ -29,7 +28,6 @@ class DetailsSection extends React.Component {
 				title: 'Book Title'
 			},
 
-
 			authorData: {
 				authorid: 999,
 				bio: "Author's Life History",
@@ -37,13 +35,14 @@ class DetailsSection extends React.Component {
 				img: 'A URL'
 			},
 
-			commentData: [],
+			commentData: []
 		};
 		this.getStars = this.getStars.bind(this);
 		this.getAverage = this.getAverage.bind(this);
 	}
 
 	componentDidMount() {
+		console.log(this.props.username);
 		fetch('/books/getBook', {
 			method: 'POST',
 			body: JSON.stringify({
@@ -69,91 +68,126 @@ class DetailsSection extends React.Component {
 				this.setState({bookData: details.result[0]});
 				console.log(this.state.bookData);
 			});
-			fetch('/books/getComments', {
-				method: 'POST',
-				body: JSON.stringify({
-					bookid: this.props.bookid,
-				}),
-				headers: { 'Content-Type': 'application/json' }
-			}).then(res => res.json()).then(details => {
-				this.setState({commentData: details})
+		fetch('/books/getComments', {
+			method: 'POST',
+			body: JSON.stringify({
+				bookid: this.props.bookid
+			}),
+			headers: {'Content-Type': 'application/json'}
+		})
+			.then(res => res.json())
+			.then(details => {
+				this.setState({commentData: details});
 			});
 	}
 
-    getAverage() {
-        let rating = 0,
-            commList = this.state.commentData;
-        if (this.state.commentData.length > 0) {
-            rating = commList.map(comment => comment.rating).reduce((total, val) => {
-                total += val
-                return total;
-            })/ commList.length
-            console.log("RATING: " + rating);
-        }
-        return this.getStars(rating);
-    }
+	getAverage() {
+		let rating = 0,
+			commList = this.state.commentData;
+		if (this.state.commentData.length > 0) {
+			rating =
+				commList
+					.map(comment => comment.rating)
+					.reduce((total, val) => {
+						total += val;
+						return total;
+					}) / commList.length;
+			console.log('RATING: ' + rating);
+		}
+		return this.getStars(rating);
+	}
 
-    getStars(rating) {
-        let count = 0;
-        let stars = [];
-        while(count < rating) {
-            stars.push(<i class='fas fa-star'></i>)
-            count++;
-        }
+	getStars(rating) {
+		let count = 0;
+		let stars = [];
+		while (count < rating) {
+			stars.push(<i class='fas fa-star'></i>);
+			count++;
+		}
 
-        while (count < 5) {
-            stars.push(<i class='far fa-star'></i>)
-            count++;
-        }
-        return stars;
-    }
+		while (count < 5) {
+			stars.push(<i class='far fa-star'></i>);
+			count++;
+		}
+		return stars;
+	}
 
 	render() {
 		return (
 			<div clsas='book-container'>
-			<div class='book-body'>
-				<h1>{this.props.text}</h1>
+				<div class='book-body'>
+					<h1>{this.props.text}</h1>
 
-				<div class="book-imgcontainer">
-					<ModalImage
-						small={this.state.bookData.imagelink}
-						large={this.state.bookData.imagelink}
-						className='card-top'
-						alt={this.state.bookData.title}
-					/>
-				</div>
+					<div class='book-imgcontainer'>
+						<ModalImage
+							small={this.state.bookData.imagelink}
+							large={this.state.bookData.imagelink}
+							className='card-top'
+							alt={this.state.bookData.title}
+						/>
+					</div>
 
-				<div class="book-details">
-					<h1>{this.state.bookData.title}</h1>
-					<Link to={{pathname: "/author/" + this.state.bookData.author}}><h2 id="subtitle">{this.state.bookData.author}</h2></Link>
-					<p>Published By <b>{this.state.bookData.publisher}</b></p>
-					<div id="book-rating">
-						<div id="stars">
-							{this.getAverage(this.state.bookData.rating)}
+					<div class='book-details'>
+						<h1>{this.state.bookData.title}</h1>
+						<Link
+							to={{
+								pathname:
+									'/author/' + this.state.bookData.author
+							}}
+						>
+							<h2 id='subtitle'>{this.state.bookData.author}</h2>
+						</Link>
+						<p>
+							Published By <b>{this.state.bookData.publisher}</b>
+						</p>
+						<div id='book-rating'>
+							<div id='stars'>
+								{this.getAverage(this.state.bookData.rating)}
+							</div>
+							<p id='rating-text'>
+								{this.state.commentData.length} Reviews
+							</p>
 						</div>
-						<p id="rating-text">{this.state.commentData.length} Reviews</p>
-					</div>
-					<h3>${this.state.bookData.price}</h3>
-					<p>{this.state.bookData.bookDesc}</p>
-					<div class="book-rating">
-						<Link to="/cart">
-							<Button size="lg" style={{ width: "30%", marginRight:"5vw" }}>Purchase</Button>
-						</Link>
-						<Link to="/wishlist">
-							<Button size="lg" style={{ width:"30%"}} class="option-button">Save to Wishlist</Button>
-						</Link>
+						<h3>${this.state.bookData.price}</h3>
+						<p>{this.state.bookData.bookDesc}</p>
+						<div class='book-rating'>
+							<Link to='/cart'>
+								<Button
+									size='lg'
+									style={{width: '30%', marginRight: '5vw'}}
+								>
+									Purchase
+								</Button>
+							</Link>
+							<Link to='/wishlist'>
+								<Button
+									size='lg'
+									style={{width: '30%'}}
+									class='option-button'
+								>
+									Save to Wishlist
+								</Button>
+							</Link>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="section">
-				<h1>About the Author</h1>
-				<div class="author-details">
-					<img class="author-img" src={this.state.authorData.img}></img>
-					<p><h1 style={{ marginBottom: "3%" }}>{this.state.bookData.author}</h1>{this.state.authorData.bio}</p>
+				<div class='section'>
+					<h1>About the Author</h1>
+					<div class='author-details'>
+						<img
+							class='author-img'
+							src={this.state.authorData.img}
+						></img>
+						<p>
+							<h1 style={{marginBottom: '3%'}}>
+								{this.state.bookData.author}
+							</h1>
+							{this.state.authorData.bio}
+						</p>
+					</div>
 				</div>
-			</div>
-			<div class="section">
-				<h1>Comments</h1>
+				<div class='section'>
+					<h1>Comments</h1>
 					{/* <Context.Provider value={{state: this.state.bookData}}>
                     <Link to={{pathname:"/comments" + "/book/" + this.props.bookid }} >
                     <Button size="lg" style={{ width: "30%", marginRight:"5vw" }}>Comments</Button>
@@ -174,7 +208,6 @@ class DetailsSection extends React.Component {
 			</div>
 		);
 	}
-
 }
 
 export default DetailsSection;

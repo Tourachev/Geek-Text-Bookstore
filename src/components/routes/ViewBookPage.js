@@ -18,6 +18,7 @@ class ViewBookPage extends React.Component {
 						<div className='body'>
 							<DetailsSection
 								bookid={this.props.match.params.id}
+								username={context.username}
 							/>
 							<Footer />
 						</div>
