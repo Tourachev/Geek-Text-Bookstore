@@ -154,6 +154,7 @@ class DetailsSection extends React.Component {
 							<WishlistModal
 								username={this.props.username}
 								isLoggedIn={this.props.isLoggedIn}
+								bookid={this.state.bookData.bookid}
 								bookid={this.state.bookData.isLoggedIn}
 								price={this.state.bookData.price}
 								title={this.state.bookData.title}
