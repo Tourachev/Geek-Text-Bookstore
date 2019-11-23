@@ -58,8 +58,28 @@ async function addComment(info, callback) {
     });
 }
 
+async function isPurchased(info, callback) {
+  //callback if a function in router
+  var query = "SELECT * FROM purchase WHERE bookid=? AND userid=?";
+  pool
+    .query(query, [
+      info.userid,
+      info.bookid,
+    ])
+    .then(res => {
+      // use the splice function to cut out the last member
+      // of resulting array form query, (its just metadata)
+      console.log(res);
+      callback(null, res); //return result in second param
+    })
+    .catch(err => {
+      callback(err, null); //return error in first param
+    });
+}
+
 module.exports = {
   getComments,
-  addComment
+  addComment,
+  isPurchased
   //   getCommenyBySlug
 };

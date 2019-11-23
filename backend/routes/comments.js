@@ -62,4 +62,18 @@ router.post("/insertComment", (req, res) => {
   });
 });
 
+router.post("/isPurchased", (req, res) => {
+  queries.isPurchased(req.body, (err, result) => {
+    if (err) {
+      console.log(
+        "Error in /backend/routes/comments : " + "from isPurchsed\n" + err
+      );
+      res.json(null);
+    } else {
+      console.log(result);
+      res.json(result); //insert successful
+    }
+  });
+});
+
 module.exports = router;

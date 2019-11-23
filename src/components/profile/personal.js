@@ -1,6 +1,7 @@
 import React from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import PropTypes from 'prop-types';
+import Context from '../Context';
 
 class Personal extends React.Component {
     constructor(props) {
@@ -17,6 +18,8 @@ class Personal extends React.Component {
             loading: true
         };
         this.handleChange = this.handleChange.bind(this);
+
+        
     }
 
     static contextTypes = {
@@ -90,7 +93,12 @@ class Personal extends React.Component {
     }
 
     renderEditView = () => {
+     
+
+          
         return (
+           <Context.Consumer>
+             {context => (
             <div>
                 <div className='info-card'>
                     <form onSubmit={this.mySubmitHandler}>
@@ -156,8 +164,12 @@ class Personal extends React.Component {
                             </button>
                         </div>
                     </form>
+                    {context.setNickname(this.state.nickname)}
                 </div>
             </div>
+           
+          )}
+         </Context.Consumer>
         );
     };
 

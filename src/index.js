@@ -27,6 +27,8 @@ class Provider extends React.Component {
   state = {
     username: "",
     isLoggedIn: false,
+    nickname: "",
+    isPurchase: false,
     login: () => {
       this.setState({ isLoggedIn: true });
     },
@@ -35,6 +37,12 @@ class Provider extends React.Component {
     },
     setUsername: name => {
       this.setState({ username: name });
+    },
+    setNickname: nickname => {
+      this.setState({ nickname: nickname });
+    },
+    purchase: () => {
+      this.setState({ isPurchase: true });
     }
   };
 
@@ -82,20 +90,22 @@ class App extends Component {
                       <Route
                         path='/profile'
                         component={() => (
-                          <ProfilePage isLoggedIn={context.isLoggedIn} />
-                        )}
-                      />
-                        
-                        <Route
-                        path='/book/:id'
-                        component={() => (
-                          <ViewBook isLoggedIn={context.isLoggedIn}
-                          username={context.username} 
-                          />
-                          
+                          <ProfilePage isLoggedIn={context.isLoggedIn}
+                                       setNickname={context.setNickname} /> //Alex add this to get nickname
                         )}
                       />
 
+                      <Route
+                        path='/book/:id'
+                        component={() => (
+                          <ViewBook
+                            isLoggedIn={context.isLoggedIn}
+                            username={context.username}
+                            nickname={context.nickname}
+                            isPurchase={context.isPurchase}
+                          />
+                        )}
+                      />
 
                       <Route
                         path='/wishlist'

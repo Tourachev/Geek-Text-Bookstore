@@ -21,7 +21,7 @@ export class FormComponent extends Component {
       error: "",
       totalStars: 5,
 
-      nickname: "" || "anonymous",
+      nickname: this.props.nickname,
       comment: "",
       rating: 0, // adding the star rating system
       bookid: this.props.bookid,

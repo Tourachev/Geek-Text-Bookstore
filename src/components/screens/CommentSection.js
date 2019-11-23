@@ -94,6 +94,7 @@ export default class CommentSection extends Component {
           addComment={this.addComment}
           username={this.props.username}
           bookid={this.props.bookid}
+          nickname={this.props.nickname}
         />
       );
     } else {
