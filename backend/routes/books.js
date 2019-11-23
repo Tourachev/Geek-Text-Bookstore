@@ -46,4 +46,13 @@ router.post('/getAuthInfo', (req, res) => {
     });
 });
 
+router.post('/getComments', (req, res) => {
+    console.log(req.body)
+    queries.getComments(req.body, (err, result) => {
+        console.log("Getting the Book's Comments");
+        console.log(result);
+        res.json(result);
+    });
+});
+
 module.exports = router;

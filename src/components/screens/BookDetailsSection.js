@@ -1,5 +1,6 @@
 // gonna make book card a click event
 //include a readmore click event
+
 import React from 'react';
 import {Button} from 'react-bootstrap';
 import {Icon} from 'semantic-ui-react';
@@ -8,6 +9,7 @@ import {Link} from 'react-router-dom';
 import {BookImgModal} from '../BookImgModal';
 import Context from '../Context';
 import CommentSection from './CommentSection';
+
 
 class DetailsSection extends React.Component {
 	constructor(props) {
@@ -26,6 +28,7 @@ class DetailsSection extends React.Component {
 				rating: 1,
 				title: 'Book Title'
 			},
+
 
 			authorData: {
 				authorid: 999,
@@ -73,6 +76,7 @@ class DetailsSection extends React.Component {
 			stars.push(<i class='fas fa-star'></i>);
 			count++;
 		}
+
 
 		while (count < 5) {
 			stars.push(<i class='far fa-star'></i>);
@@ -169,6 +173,7 @@ class DetailsSection extends React.Component {
 			</div>
 		);
 	}
+
 }
 
 export default DetailsSection;

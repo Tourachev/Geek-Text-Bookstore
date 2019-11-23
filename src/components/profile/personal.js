@@ -1,5 +1,7 @@
 import React from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import ChangePasswordModal from './ChangePasswordModal';
+
 import PropTypes from 'prop-types';
 import Context from '../Context';
 
@@ -39,8 +41,8 @@ class Personal extends React.Component {
     getInfo() {
         fetch('/personal-info', {
             method: 'POST',
-            body: JSON.stringify({ username: this.state.username }),
-            headers: { 'Content-Type': 'application/json' }
+            body: JSON.stringify({username: this.state.username}),
+            headers: {'Content-Type': 'application/json'}
         })
             .then(res => res.json())
             .then(personalInfo =>
@@ -71,7 +73,7 @@ class Personal extends React.Component {
                 nickname: this.state.nickname,
                 username: this.state.username
             }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: {'Content-Type': 'application/json'}
         })
             .then(res => res.json())
             // .then(newInfo => {
@@ -88,11 +90,11 @@ class Personal extends React.Component {
     };
 
     changeEditMode = () => {
-        this.setState({ inEditMode: true });
+        this.setState({inEditMode: true});
     };
 
     handleChange(e) {
-        this.setState({ [e.target.name]: e.target.value });
+        this.setState({[e.target.name]: e.target.value});
     }
 
     renderEditView = () => {
@@ -193,6 +195,7 @@ class Personal extends React.Component {
                         >
                             EDIT
                         </button>
+                        <ChangePasswordModal username={this.props.username} />
                     </div>
                 </div>
             </div>
