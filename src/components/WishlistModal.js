@@ -94,38 +94,56 @@ class MyForm extends React.Component {
     }
 
     render() {
-        return (
-            <form onSubmit={this.mySubmitHandler}>
-                <p>Add Book to a Wishlist</p>
-                <div classname='radio'>
-                    <label>
-                        <input type='radio' value='option1'
-                        checked={this.state.selectedOption === 'option1'}
-                        onChange={this.handleChange}/>
-                        {this.state.names[0]}
-                    </label>
+        if (this.props.isLoggedIn) {
+            return (
+                <form onSubmit={this.mySubmitHandler}>
+                    <h2 id='simple-modal-title'>Select Wishlist</h2>
+                    <p>Add Book to a Wishlist</p>
+                    <div classname='radio'>
+                        <label>
+                            <input type='radio' value='option1'
+                            checked={this.state.selectedOption === 'option1'}
+                            onChange={this.handleChange}/>
+                            {this.state.names[0]}
+                        </label>
+                    </div>
+                    <div classname='radio'>
+                        <label>
+                            <input type='radio' value='option2'
+                            checked={this.state.selectedOption === 'option2'}
+                            onChange={this.handleChange}/>
+                            {this.state.names[1]}
+                        </label>
+                    </div>
+                    <div classname='radio'>
+                        <label>
+                            <input type='radio' value='option3'
+                            checked={this.state.selectedOption === 'option3'}
+                            onChange={this.handleChange}/>
+                            {this.state.names[2]}
+                        </label>
+                    </div>
+                    <button type='submit' class='btn btn-outline-secondary'>
+                        Submit
+                    </button>
+                </form>
+            );
+        }
+        else {
+            return (
+                <div>
+                    <p>Looks like you aren't logged in</p>
+                    <Link to='/login'>
+                    <button
+                                type='button'
+                                class='btn btn-outline-primary btn-block'
+                            >
+                                Login
+                            </button>
+                    </Link>
                 </div>
-                <div classname='radio'>
-                    <label>
-                        <input type='radio' value='option2'
-                        checked={this.state.selectedOption === 'option2'}
-                        onChange={this.handleChange}/>
-                        {this.state.names[1]}
-                    </label>
-                </div>
-                <div classname='radio'>
-                    <label>
-                        <input type='radio' value='option3'
-                        checked={this.state.selectedOption === 'option3'}
-                        onChange={this.handleChange}/>
-                        {this.state.names[2]}
-                    </label>
-                </div>
-                <button type='submit' class='btn btn-outline-secondary'>
-                    Submit
-                </button>
-            </form>
-        );
+            );
+        }
     }
 }
 
@@ -137,11 +155,7 @@ export default function SimpleModal(props) {
     const [open, setOpen] = React.useState(false);
 
     const handleOpen = () => {
-        if (props.isLoggedIn) {
-            setOpen(true);
-        } else {
-            alert('You are not logged in!');
-        }
+        setOpen(true);
     };
 
     const handleCart = () => {
@@ -165,7 +179,7 @@ export default function SimpleModal(props) {
                 alert('Error adding book to Cart!');
             })
         } else {
-            alert('You are not logged in!');
+            setOpen(true);
         }
     }
 
@@ -194,11 +208,11 @@ export default function SimpleModal(props) {
                 onClose={handleClose}
             >
                 <div style={modalStyle} className={classes.paper}>
-                    <h2 id='simple-modal-title'>Select Wishlist</h2>
                     <MyForm
                         username={props.username}
                         closeMethod={handleClose}
                         bookid={props.bookid}
+                        isLoggedIn={props.isLoggedIn}
                     />
                 </div>
             </Modal>
