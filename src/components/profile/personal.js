@@ -73,15 +73,20 @@ class Personal extends React.Component {
             }),
             headers: { 'Content-Type': 'application/json' }
         })
-            .then(res => res.json())
+            .then(res => res.json(),
+            this.props.setNickname({nickname: this.state.nickname}) //add this to get nickname
+            )
             // .then(newInfo => {
             //     //look at address-info for return values
             //     this.getInfo();
             // })
+             
             .catch(err => {
                 console.log(err);
             })
-            .then(alert('Submitted!'));
+            .then(alert('Submitted!'),
+           
+            );
     };
 
     changeEditMode = () => {
@@ -99,6 +104,7 @@ class Personal extends React.Component {
         return (
            <Context.Consumer>
              {context => (
+                 
             <div>
                 <div className='info-card'>
                     <form onSubmit={this.mySubmitHandler}>
@@ -164,7 +170,7 @@ class Personal extends React.Component {
                             </button>
                         </div>
                     </form>
-                    {context.setNickname(this.state.nickname)}
+                    
                 </div>
             </div>
            

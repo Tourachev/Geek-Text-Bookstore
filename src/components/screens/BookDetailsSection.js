@@ -142,7 +142,7 @@ class DetailsSection extends React.Component {
                 title={this.state.bookData.title}
                 username={context.username}
                 isLoggedIn={context.isLoggedIn}
-                nickname={this.props.nickname}
+                nickname={context.nickname}
                 isPurchase={context.isPurchase}
               />
             )}
