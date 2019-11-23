@@ -104,7 +104,7 @@ export class FormComponent extends Component {
 			body: JSON.stringify({
 				nickname: this.state.nickname,
 				comment: this.state.comment,
-				rating: this.state.rating, // adding the star rating system
+				rating: this.state.rating, 
 				bookid: this.state.bookid,
 				userid: this.state.userid
 			}),
@@ -120,7 +120,7 @@ export class FormComponent extends Component {
 					this.props.addComment({
 						nickname: this.state.nickname,
 						comment: this.state.comment,
-						rating: this.state.rating, // adding the star rating system
+						rating: this.state.rating, 
 						bookid: this.state.bookid,
 						userid: this.state.userid
 					});
@@ -137,8 +137,35 @@ export class FormComponent extends Component {
 					error: 'Something went wrong while submitting form.',
 					loading: false
 				});
-			});
-	}
+      });
+      
+      /**this is to check if the user bought a buy to comment */
+      fetch('/comments/isPurchased', {
+        method: 'POST',
+        body: JSON.stringify({
+            bookid: this.props.bookid,
+            userid: this.state.userid,
+        }),
+        headers: { 'Content-Type': 'application/json' }
+    }).then(res => res.json()).then(res => {
+          if (res.error) {
+            this.setState({loading: false, error: res.error});
+          } else {
+            this.setState({
+              nickname: res.nickname,
+              comment: res.comment,
+              rating: res.rating, 
+              bookid: res.bookid,
+              userid: res.userid})
+          }     
+    }).catch(err => {
+      this.state({
+        error: 'You need to buy the book in order to comment and rate it',
+        loading: false,
+      })
+    });
+}
+	
 
 	isFormValid() {
 		return (
