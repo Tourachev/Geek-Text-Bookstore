@@ -18,7 +18,8 @@ class ViewBookPage extends React.Component {
 						<div className='body'>
 							<DetailsSection
 								bookid={this.props.match.params.id}
-								username={context.username}
+                                username={context.username}
+                                isLoggedIn={context.isLoggedIn}
 							/>
 							<Footer />
 						</div>

@@ -9,6 +9,7 @@ import {Link} from 'react-router-dom';
 import ModalImage from 'react-modal-image';
 import Context from '../Context';
 import CommentSection from './CommentSection';
+import WishlistModal from '../WishlistModal';
 
 class DetailsSection extends React.Component {
 	constructor(props) {
@@ -150,23 +151,13 @@ class DetailsSection extends React.Component {
 						<h3>${this.state.bookData.price}</h3>
 						<p>{this.state.bookData.bookDesc}</p>
 						<div class='book-rating'>
-							<Link to='/cart'>
-								<Button
-									size='lg'
-									style={{width: '30%', marginRight: '5vw'}}
-								>
-									Purchase
-								</Button>
-							</Link>
-							<Link to='/wishlist'>
-								<Button
-									size='lg'
-									style={{width: '30%'}}
-									class='option-button'
-								>
-									Save to Wishlist
-								</Button>
-							</Link>
+							<WishlistModal
+								username={this.props.username}
+								isLoggedIn={this.props.isLoggedIn}
+								bookid={this.state.bookData.isLoggedIn}
+								price={this.state.bookData.price}
+								title={this.state.bookData.title}
+							/>
 						</div>
 					</div>
 				</div>
