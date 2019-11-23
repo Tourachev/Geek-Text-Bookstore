@@ -1,5 +1,4 @@
 import React from "react";
-
 import AuthorWorksSection from '../screens/AuthorWorksSection'
 import Navbar from "../NavBar";
 import Footer from "../Footer";
