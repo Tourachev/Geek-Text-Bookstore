@@ -42,7 +42,6 @@ class DetailsSection extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log(this.props.username);
 		fetch('/books/getBook', {
 			method: 'POST',
 			body: JSON.stringify({
