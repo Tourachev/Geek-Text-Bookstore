@@ -62,7 +62,9 @@ async function createUser(info, callback) {
         var step2 = 'insert into userinfo values(?, ?, ?, ?, ?, ?, ?, ?)';
 
         pool.getConnection()
-            .then(conn => {
+        .then(conn => {
+            conn.beginTransaction()
+            .then(() => {
                 conn.query(step1, [info.values.UserName, hash])
                     .then(() => {
                         conn.query(step2, cols)
@@ -84,8 +86,12 @@ async function createUser(info, callback) {
                     });
             })
             .catch(err => {
-                callback(err, 0); //0 - connection error
-            });
+                callback(err, null);
+            })
+        })
+        .catch(err => {
+            callback(err, null);
+        })
     });
 }
 
