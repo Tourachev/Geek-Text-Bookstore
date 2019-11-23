@@ -23,6 +23,7 @@ export class FormComponent extends Component {
 			loading: false,
 			error: '',
 			totalStars: 5,
+			decision: false,
 
 			nickname: '' ,
 			comment: '',
@@ -148,17 +149,15 @@ export class FormComponent extends Component {
         }),
         headers: { 'Content-Type': 'application/json' }
     }).then(res => res.json()).then(res => {
-          if (res.error) {
-            this.setState({loading: false, error: res.error});
+          if (res.decision === false) {
+			this.setState({loading: false, error: res.error});
+			alert("you need to buy the book in order to comment and rate it");
           } else {
             this.setState({
-              nickname: res.nickname,
-              comment: res.comment,
-              rating: res.rating, 
-              bookid: res.bookid,
-              userid: res.userid})
+             decision: true})
           }     
     }).catch(err => {
+	   alert("you need to buy the book in order to comment and rate it");
       this.state({
         error: 'You need to buy the book in order to comment and rate it',
         loading: false,

@@ -68,10 +68,12 @@ router.post("/isPurchased", (req, res) => {
       console.log(
         "Error in /backend/routes/comments : " + "from isPurchsed\n" + err
       );
-      res.json(null);
+      //res.json(null);
+      res.json({decision: false});
     } else {
       console.log(result);
-      res.json(result); //insert successful
+      //res.json(result);
+      res.json({decision: true}); //insert successful
     }
   });
 });
