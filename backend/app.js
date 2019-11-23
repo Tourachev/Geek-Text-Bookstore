@@ -10,12 +10,15 @@ const cartRouter = require('./routes/cart');
 const indexRouter = require('./routes/index');
 const booksRouter = require('./routes/books');
 const wishlistRouter = require('./routes/wishlist');
-const savedForLaterRouter = require('./routes/saved-for-later');
-const personalInfoRouter = require('./routes/personal-info');
-const addressInfoRouter = require('./routes/address-info');
-const creditInfoRouter = require('./routes/credit-info');
-const authRouter = require('./routes/auth.js');
-const usersRouter = require('./routes/registration.js');
+
+const savedForLaterRouter = require("./routes/saved-for-later");
+const personalInfoRouter = require("./routes/personal-info");
+const addressInfoRouter = require("./routes/address-info");
+const creditInfoRouter = require("./routes/credit-info");
+const authRouter = require("./routes/auth.js");
+const usersRouter = require("./routes/registration.js");
+const commentsRouter = require('./routes/comments');
+
 
 //purchase router
 const purchaseRouter = require('./routes/purchase');
@@ -45,6 +48,7 @@ app.use('/auth', authRouter);
 app.use('/cart', cartRouter);
 app.use('/saved-for-later', savedForLaterRouter);
 app.use('/wishlist', wishlistRouter);
+app.use('/comments', commentsRouter);
 
 //purchase router
 app.use('/purchase', purchaseRouter);

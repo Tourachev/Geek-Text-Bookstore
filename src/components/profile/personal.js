@@ -3,6 +3,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import ChangePasswordModal from './ChangePasswordModal';
 
 import PropTypes from 'prop-types';
+import Context from '../Context';
 
 class Personal extends React.Component {
     constructor(props) {
@@ -19,6 +20,8 @@ class Personal extends React.Component {
             loading: true
         };
         this.handleChange = this.handleChange.bind(this);
+
+        
     }
 
     static contextTypes = {
@@ -77,10 +80,13 @@ class Personal extends React.Component {
             //     //look at address-info for return values
             //     this.getInfo();
             // })
+             
             .catch(err => {
                 console.log(err);
             })
-            .then(alert('Submitted!'));
+            .then(alert('Submitted!'),
+           
+            );
     };
 
     changeEditMode = () => {
@@ -92,7 +98,11 @@ class Personal extends React.Component {
     }
 
     renderEditView = () => {
+     
+
+          
         return (
+           
             <div>
                 <div className='info-card'>
                     <form onSubmit={this.mySubmitHandler}>
@@ -158,8 +168,11 @@ class Personal extends React.Component {
                             </button>
                         </div>
                     </form>
+                    
                 </div>
             </div>
+           
+         
         );
     };
 

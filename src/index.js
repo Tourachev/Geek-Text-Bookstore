@@ -17,7 +17,7 @@ import Login from "./components/Login";
 import Navbar from "./components/NavBar";
 import ApplicationForm from "./components/ApplicationForm";
 import Context from "./components/Context";
-import Comment from "./components/Form";
+// import Comment from "./components/routes/CommentPage";
 
 class Provider extends React.Component {
   constructor(props) {
@@ -73,7 +73,6 @@ class App extends Component {
                 <Route path='/login' component={Login} />
                 <Route path='/book/:id' component={ViewBook} />
                 <Route path='/author/:name' component={AuthorWorks} />
-                <Route path='/comment' component={Comment} />
                 <Route path='/signUp' component={ApplicationForm} />
                 {/* Below I am passing the context state into the Profile component*/}
                 <Context.Consumer>
@@ -82,7 +81,20 @@ class App extends Component {
                       <Route
                         path='/profile'
                         component={() => (
-                          <ProfilePage isLoggedIn={context.isLoggedIn} />
+                          <ProfilePage isLoggedIn={context.isLoggedIn}
+                          
+                          /> 
+                        )}
+                      />
+
+                      <Route
+                        path='/book/:id'
+                        component={() => (
+                          <ViewBook
+                            isLoggedIn={context.isLoggedIn}
+                            username={context.username}
+                           
+                          />
                         )}
                       />
 
