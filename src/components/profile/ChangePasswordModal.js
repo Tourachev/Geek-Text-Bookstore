@@ -1,7 +1,6 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import Button from '@material-ui/core/Button';
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -32,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 class MyForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {ccnum: '', cvv: '', name: '', zip: '', expdate: ''};
+        this.state = {username: this.props.username, newPassword: ''};
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -41,87 +40,43 @@ class MyForm extends React.Component {
     }
 
     mySubmitHandler = event => {
-        console.log(this.state.ccnum);
-
         event.preventDefault();
 
-        fetch('/credit-info/insert', {
+        fetch('/personal-info/change-password', {
             method: 'POST',
             body: JSON.stringify({
                 username: this.props.username,
-                ccnum: this.state.ccnum,
-                cvv: this.state.cvv,
-                name: this.state.name,
-                zip: this.state.zip,
-                expdate: this.state.expdate
+                newPassword: this.state.newPassword
             }),
             headers: {'Content-Type': 'application/json'}
         })
             .then(res => res.json())
-            .then(newInfo => {
-                //look at address-info for return values
-                this.getInfo();
-            })
             .catch(err => {
                 console.log(err);
             });
 
         alert('Submitted!');
         this.props.closeMethod();
-        this.props.getInfo();
     };
     render() {
         return (
             <form onSubmit={this.mySubmitHandler}>
-                <p>Enter Credit Card Number:</p>
+                <p>Enter New Password:</p>
                 <input
-                    type='text'
-                    name='ccnum'
+                    type='password'
+                    name='newPassword'
                     onChange={this.handleChange}
-                    minlength='16'
-                    maxlength='16'
-                    required
                     className='form-control'
+                    required
                 />
-                <p>Enter Expiration Date:</p>
+                {/* <p>Verify New Password:</p>
                 <input
-                    type='date'
-                    name='expdate'
+                    type='password'
+                    name='city'
                     onChange={this.handleChange}
-                    placeholder='Format: Year/Month/Date'
-                    min='2019-11-02'
-                    required
                     className='form-control'
-                />
-                <p>Enter CVV:</p>
-                <input
-                    type='text'
-                    name='cvv'
-                    onChange={this.handleChange}
-                    minlength='3'
-                    maxlength='4'
                     required
-                    className='form-control'
-                />
-                <p>Enter Name On Card:</p>
-                <input
-                    type='text'
-                    name='name'
-                    onChange={this.handleChange}
-                    required
-                    className='form-control'
-                />
-                <p>Enter Zip:</p>
-                <input
-                    type='text'
-                    name='zip'
-                    onChange={this.handleChange}
-                    minlength='5'
-                    maxlength='5'
-                    required
-                    className='form-control'
-                />
-                <br />
+                /> */}
                 <br />
                 <button type='submit' class='btn btn-outline-secondary'>
                     Submit
@@ -152,7 +107,7 @@ export default function SimpleModal(props) {
                 class='btn btn-link btn-lg'
                 onClick={handleOpen}
             >
-                ADD
+                CHANGE PASSWORD
             </button>
             <Modal
                 aria-labelledby='simple-modal-title'
@@ -161,11 +116,10 @@ export default function SimpleModal(props) {
                 onClose={handleClose}
             >
                 <div style={modalStyle} className={classes.paper}>
-                    <h2 id='simple-modal-title'>Add A New Credit Card</h2>
+                    <h2 id='simple-modal-title'>Enter a new Password:</h2>
                     <MyForm
                         username={props.username}
                         closeMethod={handleClose}
-                        getInfo={props.getInfo}
                     />
                 </div>
             </Modal>

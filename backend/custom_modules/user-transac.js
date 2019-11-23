@@ -22,6 +22,23 @@ const pool = mariadb.createPool({
     //rowsAsArray: true
 });
 
+async function changePassword(info, callback) {
+    bcrypt.hash(info.newPassword, saltRounds, function(err, hash) {
+        var step1 = 'update credentials set password=? where userid=?';
+        pool.getConnection()
+            .then(conn => {
+                conn.query(step1, [hash, info.username]).catch(err => {
+                    conn.rollback();
+                    conn.release();
+                    callback(err, 1); //1 - username taken
+                });
+            })
+            .catch(err => {
+                callback(err, 0); //0 - connection error
+            });
+    });
+}
+
 /*
     This function performs a transaction to create a user.
     It checks first if username is taken, if it isn't it continues
@@ -144,7 +161,7 @@ async function delPaymentInfo(info, callback) {
     This function adds a shipping address to the specified user.
     --------------------------------------------------------------
 
-    param:  info - json including shipping address and specified user 
+    param:  info - json including shipping address and specified user
             callback - function that will include the result or error
 */
 async function addAddress(info, callback) {
@@ -439,7 +456,7 @@ async function addToWish(info, callback) {
 }
 
 async function addToLater(info, callback) {
-    var fields = [info.userid, info.bookid, info.price, info.title];
+    var fields = [info.username, info.bookID, info.price, info.title];
 
     var step1 =
         'insert into saveforlater(userid, bookid, price, title)' +
@@ -466,6 +483,7 @@ async function addToLater(info, callback) {
 }
 
 async function cartToLater(info, callback) {
+    console.log(info.bookid);
     var step1 =
         'select userid, bookid, price, title from shoppingcart where userid=? and bookid=?';
     var entry;
@@ -474,20 +492,14 @@ async function cartToLater(info, callback) {
         'values(?,?,?,?)';
     var step3 = 'delete from shoppingcart where userid=? and bookid=?';
 
-    pool.query(step1, info)
+    pool.query(step1, [info.userid, info.bookid])
         .then(res => {
-            entry = [
-                res[0].userid,
-                res[0].bookid,
-                res[0].quantity,
-                res[0].price,
-                res[0].title
-            ];
+            entry = [info.userid, info.bookid, info.price, info.title];
             pool.getConnection()
                 .then(con => {
                     con.query(step2, entry)
                         .then(() => {
-                            con.query(step3, info)
+                            con.query(step3, [info.userid, info.bookid])
                                 .then(() => {
                                     con.commit();
                                     con.release();
@@ -506,8 +518,49 @@ async function cartToLater(info, callback) {
                         });
                 })
                 .catch(err => {
-                    con.rollback();
-                    con.release();
+                    callback(err, 2); //error in step 1
+                });
+        })
+        .catch(err => {
+            callback(err, 1); //error making connection
+        });
+}
+
+async function laterToCart(info, callback) {
+    var step1 =
+        'select userid, bookid from saveforlater where userid=? and bookid=?';
+    var entry;
+    var step2 =
+        'insert into shoppingcart(userid, bookid, price, title, quantity)' +
+        'values(?,?,?,?,?)';
+    var step3 = 'delete from saveforlater where userid=? and bookid=?';
+
+    pool.query(step1, [info.userid, info.bookid])
+        .then(res => {
+            entry = [info.userid, info.bookid, info.price, info.title, 1];
+            pool.getConnection()
+                .then(con => {
+                    con.query(step2, entry)
+                        .then(() => {
+                            con.query(step3, [info.userid, info.bookid])
+                                .then(() => {
+                                    con.commit();
+                                    con.release();
+                                    callback(null, 5); //sucess
+                                })
+                                .catch(err => {
+                                    con.rollback();
+                                    con.release();
+                                    callback(err, 4); //error in step3
+                                });
+                        })
+                        .catch(err => {
+                            con.rollback();
+                            con.release();
+                            callback(err, 3); //error in step 2
+                        });
+                })
+                .catch(err => {
                     callback(err, 2); //error in step 1
                 });
         })
@@ -536,5 +589,7 @@ module.exports = {
     addToLater,
     cartToLater,
     getLater,
-    delLater
+    delLater,
+    laterToCart,
+    changePassword
 };

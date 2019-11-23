@@ -1,17 +1,17 @@
-import React from 'react';
-import faker from 'faker';
-import { Link } from 'react-router-dom';
+import React from "react";
+import ModalImage from "react-modal-image";
+import { Link } from "react-router-dom";
 
 class BookCard extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    mySubmitHandler = event => {
+    addToCartHandler = event => {
         event.preventDefault();
 
-        fetch('/cart/insert', {
-            method: 'POST',
+        fetch("/cart/insert", {
+            method: "POST",
             body: JSON.stringify({
                 username: this.props.username,
                 bookID: this.props.bookID,
@@ -19,7 +19,7 @@ class BookCard extends React.Component {
                 price: this.props.price,
                 title: this.props.title
             }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { "Content-Type": "application/json" }
         })
             .then(res => res.json())
             // .then(newInfo => {
@@ -29,7 +29,32 @@ class BookCard extends React.Component {
             .catch(err => {
                 console.log(err);
             })
-            .then(alert('Submitted!'));
+            .then(alert("Submitted!"));
+    };
+
+    addToLaterHandler = event => {
+        event.preventDefault();
+
+        fetch("/saved-for-later/insert", {
+            method: "POST",
+            body: JSON.stringify({
+                username: this.props.username,
+                bookID: this.props.bookID,
+                quantity: 1,
+                price: this.props.price,
+                title: this.props.title
+            }),
+            headers: { "Content-Type": "application/json" }
+        })
+            .then(res => res.json())
+            // .then(newInfo => {
+            //     //look at address-info for return values
+            //     this.getInfo();
+            // })
+            .catch(err => {
+                console.log(err);
+            })
+            .then(alert("Submitted!"));
     };
 
     render() {
@@ -37,14 +62,17 @@ class BookCard extends React.Component {
             return (
                 <div>
                     <div class='card'>
-                        <img
-                            src={this.props.image}
-                            class="card-top"
+                        <ModalImage
+                            small={this.props.image}
+                            large={this.props.image}
+                            className='card-top'
                             alt={this.props.title}
                         />
                         <div class='card-body'>
                             <h5 class='card-title'>{this.props.author}</h5>
-                            <Link to={{pathname: "/book/" + this.props.bookID}}>
+                            <Link
+                                to={{ pathname: "/book/" + this.props.bookID }}
+                            >
                                 <p class='card-text'>{this.props.title}</p>
                             </Link>
                         </div>
@@ -67,13 +95,14 @@ class BookCard extends React.Component {
                             <button
                                 type='button'
                                 class='btn btn-secondary cart-button'
-                                onClick={event => this.mySubmitHandler(event)}
+                                onClick={event => this.addToCartHandler(event)}
                             >
                                 Add to Cart
                             </button>
                             <button
                                 type='button'
                                 class='btn btn-secondary cart-button'
+                                onClick={event => this.addToLaterHandler(event)}
                             >
                                 Save For later
                             </button>
@@ -85,20 +114,28 @@ class BookCard extends React.Component {
             return (
                 <div>
                     <div class='card'>
-                        <img
+                        {/* <img
                             src={this.props.image}
-                            class="card-top"
+                            className='card-top image-zoom'
+                            alt={this.props.title}
+                        /> */}
+                        <ModalImage
+                            small={this.props.image}
+                            large={this.props.image}
+                            className='card-top'
                             alt={this.props.title}
                         />
                         <div class='card-body'>
                             <h5 class='card-title'>{this.props.author}</h5>
-                            <Link to={{pathname: "/book/" + this.props.bookID}}>
+                            <Link
+                                to={{ pathname: "/book/" + this.props.bookID }}
+                            >
                                 <p class='card-text'>{this.props.title}</p>
                             </Link>
                         </div>
                         <ul class='list-group list-group-flush'>
                             <li class='list-group-item'>
-                                Genre: {this.props.genre}
+                                Genres: {this.props.genre}
                             </li>
                             <li class='list-group-item'>
                                 Price: ${this.props.price}

@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
-import { List, ListItem } from 'material-ui/List';
-import Footer from '../components/Footer';
-import { Link } from 'react-router-dom';
-import Header from './Header';
+import React, { Component } from "react";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import AppBar from "material-ui/AppBar";
+import RaisedButton from "material-ui/RaisedButton";
+import { List, ListItem } from "material-ui/List";
+import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
+import Header from "./Header";
 
 export class ConfirmForm extends Component {
     //GO to the next Page
@@ -24,23 +24,21 @@ export class ConfirmForm extends Component {
 
     validate = e => {
         e.preventDefault();
-        fetch('/registration', {
-            method: 'post',
+        fetch("/registration", {
+            method: "post",
             body: JSON.stringify(this.props),
-            headers: {'Content-Type': 'application/json'},
+            headers: { "Content-Type": "application/json" }
         })
-        .then(res => res.json())
-        .then(json => {
-            if (json.result === 3) {
-                this.props.nextStep(); //account created
-            }
-            else if (json.result == 2) {
-                //email taken
-            }
-            else {
-                this.props.prevStep(); //username taken
-            }
-        })
+            .then(res => res.json())
+            .then(json => {
+                if (json.result === 3) {
+                    this.props.nextStep(); //account created
+                } else if (json.result == 2) {
+                    //email taken
+                } else {
+                    this.props.prevStep(); //username taken
+                }
+            });
     };
 
     render() {
@@ -59,48 +57,9 @@ export class ConfirmForm extends Component {
         return (
             <MuiThemeProvider>
                 <React.Fragment>
-                    <nav
-                        className='navbar navbar-expand-lg navbar-light bg-light'
-                        id='sign-up-nav'
-                    >
-                        <div
-                            className='collapse navbar-collapse'
-                            id='navbarSupportedContent'
-                        >
-                            <div id='navbar-left'>
-                                <ul className='navbar-nav navbar-items'>
-                                    <li
-                                        className='nav-item active'
-                                        id='home-logo'
-                                        onClick={Header.handleCLick}
-                                    >
-                                        <Link to='/'>
-                                            <i className='fas fa-home fa-lg'></i>
-                                        </Link>
-                                    </li>
-
-                                    <li></li>
-                                </ul>
-                            </div>
-                            <div id='navbar-right'>
-                                <ul className='navbar-nav navbar-items'>
-                                    <li>
-                                        <div
-                                            className='ui vertical large button'
-                                            tabIndex='0'
-                                        >
-                                            <Link to='/'>
-                                                <div className='visible content'>
-                                                    Exit
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                    <h1 className='display-4  container'>Sign Up Form</h1>
+                    <h1 className='display-4  container'>
+                        Please Review All Data
+                    </h1>
 
                     <div className=' sign-in-body container'>
                         <List>
@@ -120,10 +79,10 @@ export class ConfirmForm extends Component {
                                 primaryText='Username'
                                 secondaryText={UserName}
                             />
-                            <ListItem
+                            {/* <ListItem
                                 primaryText='Nickname'
                                 secondaryText={NickName}
-                            />
+                            /> */}
                             <ListItem
                                 primaryText='Address'
                                 secondaryText={Address}
@@ -136,7 +95,7 @@ export class ConfirmForm extends Component {
                         </List>
                         <div className='sign-up-bottom-row'>
                             <button
-                                type='button'
+                                type='submit'
                                 class='btn btn-secondary btn-lg'
                                 label='Back'
                                 primary={true}
@@ -146,12 +105,12 @@ export class ConfirmForm extends Component {
                                 BACK
                             </button>
                             <button
-                                type='button'
+                                type='submit'
                                 class='btn btn-secondary btn-lg'
-                                label='Confirm & Continue'
+                                label='continue'
                                 primary={true}
                                 style={styles.button}
-                                onClick={this.validate}
+                                onClick={this.continue}
                             >
                                 CONTINUE
                             </button>

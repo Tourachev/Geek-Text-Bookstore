@@ -1,5 +1,7 @@
 import React from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import AddressAddModal from '../profile/AddressAddModal';
+import Context from '../Context';
 
 class Address extends React.Component {
     constructor(props) {
@@ -13,24 +15,26 @@ class Address extends React.Component {
     }
 
     componentDidMount() {
-        this.getInfo();
+        this.getInfo(this.state.username);
         // console.log(this.state.personalInfo);
     }
 
     getInfo() {
         fetch('/address-info', {
             method: 'POST',
-            body: JSON.stringify({ username: this.state.username }),
-            headers: { 'Content-Type': 'application/json' }
+            body: JSON.stringify({username: this.state.username}),
+            headers: {'Content-Type': 'application/json'}
         })
             .then(res => res.json())
             .then(newInfo => {
-                this.setState({ addressInfo: newInfo, loading: false });
+                this.setState({addressInfo: newInfo, loading: false});
             })
             .catch(err => {
                 console.log(err);
             });
     }
+
+    handleRefresh = () => this.getInfo();
 
     handleInsert(addressInfo) {
         fetch('/address-info/insert', {
@@ -42,7 +46,7 @@ class Address extends React.Component {
                 address: addressInfo.address,
                 zip: addressInfo.zip
             }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: {'Content-Type': 'application/json'}
         })
             .then(res => res.json())
             .then(newInfo => {
@@ -64,12 +68,12 @@ class Address extends React.Component {
                 address: addressInfo.address,
                 zip: addressInfo.zip
             }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: {'Content-Type': 'application/json'}
         })
             .then(res => res.json())
             .then(newInfo => {
                 //look at address-info for return values
-                this.getInfo();
+                this.getInfo(this.state.username);
                 alert('Deleted!');
             })
             .catch(err => {
@@ -91,15 +95,6 @@ class Address extends React.Component {
                         <button
                             type='button'
                             class='btn btn-link btn-lg'
-                            onClick={() => this.handleInsert(addressInfo)} //need form to input ADDRESS
-                        >
-                            EDIT
-                        </button>
-
-                        {/* <AddressEditModal /> */}
-                        <button
-                            type='button'
-                            class='btn btn-link btn-lg'
                             onClick={() => this.handleDelete(addressInfo)}
                         >
                             DELETE
@@ -109,7 +104,24 @@ class Address extends React.Component {
             </div>
         ));
 
-        return <div>{this.state.loading ? <LinearProgress /> : card}</div>;
+        const result = (
+            <Context.Consumer>
+                {context => (
+                    <div className='profile-card'>
+                        <div className='profile-card-header'>
+                            <h1 className='display-4 '>Addresses On File</h1>
+                            <AddressAddModal
+                                username={context.username}
+                                getInfo={this.handleRefresh}
+                            />
+                        </div>
+                        <div className='profile-card-content'> {card} </div>
+                    </div>
+                )}
+            </Context.Consumer>
+        );
+
+        return <div>{this.state.loading ? <LinearProgress /> : result}</div>;
     }
 }
 

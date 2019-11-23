@@ -1,7 +1,6 @@
 import React from 'react';
 import Footer from '../Footer';
-import PurchaseSection from '../screens/PurchaseSection';
-import SavedForLater from '../screens/SavedForLater';
+import CartPageWrapper from '../screens/CartPageWrapper'
 import Context from '../Context';
 import { Link } from 'react-router-dom';
 
@@ -18,11 +17,7 @@ class CartPage extends React.Component {
                         <Context.Consumer>
                             {context => (
                                 <div>
-                                    <PurchaseSection
-                                        username={context.username}
-                                        isLoggedIn={context.isLoggedIn}
-                                    />
-                                    <SavedForLater
+                                    <CartPageWrapper
                                         username={context.username}
                                         isLoggedIn={context.isLoggedIn}
                                     />

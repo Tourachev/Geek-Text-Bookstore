@@ -22,6 +22,7 @@ router.post('/', (req, res, next) => {
 //body should be {username: '', ccnum: Number, cvv: Number(3),
 //                name: '', zip: Number(5), expdate: ''}
 router.post('/insert', (req, res) => {
+    console.log(req.body);
     queries.addPaymentInfo(req.body, (err, result) => {
         if (err) {
             console.log(
@@ -31,7 +32,7 @@ router.post('/insert', (req, res) => {
             );
             res.json(null);
         } else {
-            res.json({ decision: result }); //insert successful
+            res.json({decision: result}); //insert successful
         }
     });
 });
@@ -46,7 +47,7 @@ router.post('/edit', (req, res) => {
             );
             res.json(null);
         } else {
-            res.json({ decision: result }); //insert successful
+            res.json({decision: result}); //insert successful
         }
     });
 });
@@ -63,7 +64,7 @@ router.post('/delete', (req, res) => {
             );
             res.json(null);
         } else {
-            res.json({ decision: true }); //insert successful
+            res.json({decision: true}); //insert successful
         }
     });
 });

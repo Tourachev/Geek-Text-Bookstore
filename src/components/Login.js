@@ -1,17 +1,17 @@
-import React from 'react';
-import { Button, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
-import Footer from './Footer';
-import { Link, Redirect } from 'react-router-dom';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import Context from './Context';
+import React from "react";
+import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import Footer from "./Footer";
+import { Link, Redirect } from "react-router-dom";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import Context from "./Context";
 
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            username: '',
-            password: '',
+            username: "",
+            password: "",
             hideIssue: true,
             redirect: false,
             hideLoader: true
@@ -45,10 +45,10 @@ export default class Login extends React.Component {
     handleSubmit = event => {
         this.setState({ hideLoader: false });
         event.preventDefault();
-        fetch('/auth', {
-            method: 'POST',
+        fetch("/auth", {
+            method: "POST",
             body: JSON.stringify(this.state),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { "Content-Type": "application/json" }
         })
             .then(res => res.json())
             .then(json => {
@@ -73,10 +73,8 @@ export default class Login extends React.Component {
 
     render() {
         const { username, password } = this.state;
-
-        const issueStyle = this.state.hideIssue ? { display: 'none' } : {};
-
-        const loaderStyle = this.state.hideLoader ? { display: 'none' } : {};
+        const issueStyle = this.state.hideIssue ? { display: "none" } : {};
+        const loaderStyle = this.state.hideLoader ? { display: "none" } : {};
 
         if (this.state.redirect) {
             return (
@@ -85,7 +83,7 @@ export default class Login extends React.Component {
                         <Redirect
                             push
                             to={{
-                                pathname: '/profile',
+                                pathname: "/profile",
                                 state: { username: context.username }
                             }}
                         />
@@ -121,9 +119,9 @@ export default class Login extends React.Component {
                                 type='password'
                             />
                         </FormGroup>
-                        <div style={{ width: '100%' }}>
+                        <div style={{ width: "100%" }}>
                             <Link to='/signUp'>
-                                <Button style={{ width: '47%' }}>
+                                <Button style={{ width: "47%" }}>
                                     Sign Up
                                 </Button>
                             </Link>
@@ -132,8 +130,8 @@ export default class Login extends React.Component {
                                 {context => (
                                     <Button
                                         style={{
-                                            width: '47%',
-                                            marginLeft: '6%'
+                                            width: "47%",
+                                            marginLeft: "6%"
                                         }}
                                         type='submit'
                                         onClick={() => {

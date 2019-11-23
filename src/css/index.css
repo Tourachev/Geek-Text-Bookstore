@@ -3,12 +3,24 @@
     text-decoration: underline;
 }
 
+.image-zoom:hover {
+    cursor: zoom-in;
+}
+
+.image-zoom:active {
+    transition: all 0.5s ease;
+    transform: scale(1.5);
+    cursor: zoom-in;
+    overflow: inherit;
+    z-index: 2;
+}
+
 .author-details {
     margin-top: 5%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    width:100%;
+    width: 100%;
 }
 
 .author-img {
@@ -70,9 +82,9 @@
 .book-imgcontainer {
     justify-content: center;
     display: flex;
-    width: 80vw;
+    width: 40vw;
     margin: 5%;
-    margin-right:0;
+    margin-right: 5%;
 }
 
 .book-img {
@@ -99,9 +111,9 @@
     right: 0;
     bottom: 0;
     margin: auto;
-    background-color: rgba(0,0,0, 0.5);
-  }
-  .popup\_inner {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.popup\_inner {
     position: absolute;
     left: 25%;
     right: 25%;
@@ -110,9 +122,9 @@
     margin: auto;
     border-radius: 20px;
     background: white;
-  }
+}
 
-#stars{
+#stars {
     margin-top: 3px;
     margin-right: 5px;
 }
@@ -126,7 +138,7 @@
 #subtitle {
     height: 5vh;
     color: rgb(72, 72, 72);
-    margin-top: 0
+    margin-top: 0;
 }
 
 #subtitle:hover {
@@ -191,6 +203,10 @@
     display: flex;
     flex-direction: column;
 }
+.info-card-rc {
+    display: flex;
+    flex-direction: column;
+}
 
 .ohoh {
     position: absolute;
@@ -240,6 +256,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    margin-right: 3%;
     height: 100%;
     width: 50%;
 }
@@ -254,6 +271,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-right: -1.9%;
+    margin-left: -1.8%;
 }
 
 /* CSS FOR PROFILE MANAGEMENT */
@@ -272,9 +291,9 @@
 
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     height: 100%;
@@ -297,6 +316,7 @@ body {
     padding-top: 2%;
     min-height: 800px;
     height: 90%;
+    z-index: 2;
 }
 
 #sidebar {
@@ -396,8 +416,8 @@ p {
     width: 100%;
     min-height: 400px;
     max-height: 400px;
-    border-top-left-radius: calc(.25rem - 1px);
-    border-top-right-radius: calc(.25rem - 1px);
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-top-right-radius: calc(0.25rem - 1px);
 }
 
 a {
@@ -481,7 +501,7 @@ a {
 
 .header::after {
     height: 100%;
-    content: "";
+    content: '';
     background: url(../img/img2.jpg);
     background-attachment: fixed;
     background-position: center;
@@ -497,7 +517,7 @@ a {
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
 }
 
@@ -667,7 +687,7 @@ code {
     pointer-events: none;
     position: absolute;
     z-index: -1;
-    content: "";
+    content: '';
     top: 100%;
     left: 5%;
     height: 10px;
