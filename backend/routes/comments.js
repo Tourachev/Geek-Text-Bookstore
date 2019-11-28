@@ -78,4 +78,18 @@ router.post("/isPurchased", (req, res) => {
   });
 });
 
+router.post("/purchaseBook", (req, res) => {
+  queries.PurchasedBook(req.body, (err, result) => {
+    if (err) {
+      console.log(
+        "Error in /backend/routes/comments : " + "from PurchaseBook\n" + err
+      );
+      res.json(null);
+    } else {
+      console.log(result);
+      res.json(result); //insert successful
+    }
+  });
+});
+
 module.exports = router;

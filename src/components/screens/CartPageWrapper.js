@@ -21,10 +21,12 @@ class CartPageWrapper extends React.Component {
         this.removeCartItems = this.removeCartItems.bind(this);
         this.changeQuantity = this.changeQuantity.bind(this);
 
+
         //Saved for Later Methods
         this.getSavedItems = this.getSavedItems.bind(this);
         this.removeSavedItems = this.removeSavedItems.bind(this);
         this.moveToCartHandler = this.moveToCartHandler.bind(this);
+        this.addItems = this.addItems.bind(this);
     }
 
     componentDidMount(){
@@ -35,7 +37,7 @@ class CartPageWrapper extends React.Component {
         })
         .then(res => res.json())
         .then(books => {
-            this.getCartItems(books.result)
+            this.getCartItems(books.result);
         });
 
         fetch("/saved-for-later", {
@@ -83,6 +85,7 @@ class CartPageWrapper extends React.Component {
         this.getCartItems(this.state.cartBooks);
     }
 
+
     getCartItems(books) {
         let total = 0.0;
         console.log("BOOKS START:")
@@ -121,6 +124,16 @@ class CartPageWrapper extends React.Component {
                         >
                             <Icon name='close' color='red' />
                         </Button>
+
+                        <div className='price-row'>
+                            <Button
+                                size='lg'
+                                style={{ width: "30%" }}
+                                onClick={this.addItems.bind(this, item)}
+                            >
+                                Purchase
+                            </Button>
+                        </div>
                     </td>
                 </tr>
             )
@@ -271,6 +284,26 @@ class CartPageWrapper extends React.Component {
             });
     }
 
+    addItems(item){
+        this.state.cartBooks.splice(
+            this.state.cartBooks.findIndex(book => book.bookid === item.bookid),
+            1
+        );
+        fetch('/comments/purchaseBook', {
+            method: 'POST',
+            body: JSON.stringify({
+                userid: this.state.username,
+                bookid: item.bookid,
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        }).then(res => res.json()).then(details => {
+            console.log("Book Purchased");
+            // this.setState({  userid: this.state.username,
+            //                 bookid: item.bookid,})
+        });
+        alert("YOU purchase the book");
+    }
+    
     render() {
         return (
             <div>
@@ -296,15 +329,7 @@ class CartPageWrapper extends React.Component {
                                 Total Price: ${this.state.totalPrice.toFixed(2)}
                             </h3>
                         </div>
-                        <div className='price-row'>
-                            <Button
-                                size='lg'
-                                style={{ width: "30%" }}
-                                onClick={this.addItems}
-                            >
-                                Purchase
-                            </Button>
-                        </div>
+
                     </div>
                 </div>
 
