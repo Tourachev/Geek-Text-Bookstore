@@ -1,6 +1,7 @@
 import React from 'react';
 
 const SideBar = () => {
+
     return (
         <div id='sidebar'>
             <div>
@@ -15,7 +16,7 @@ const SideBar = () => {
                     Horror <input type='checkbox' />
                 </p>
                 <p>
-                    Pulp Fiction <input type='checkbox' />
+                     Fiction <input type='checkbox' />
                 </p>
                 <p>
                     Drama <input type='checkbox' />

@@ -1,77 +1,159 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Context from './Context';
 
-const NavBar = () => {
-    return (
-        <div>
-            <nav className='navbar navbar-expand-lg navbar-light bg-light'>
-                {/* <button
-                    className='navbar-toggler'
-                    type='button'
-                    data-toggle='collapse'
-                    data-target='#navbarSupportedContent'
-                    aria-controls='navbarSupportedContent'
-                    aria-expanded='false'
-                    aria-label='Toggle navigation'
-                >
-                    <span className='navbar-toggler-icon'></span>
-                </button> */}
+// Navbar accepts the context as props and then we can render conditionally depending on if the user is logged in.
 
-                <div
-                    className='collapse navbar-collapse'
-                    id='navbarSupportedContent'
-                >
-                    <div id='navbar-left'>
-                        <ul className='navbar-nav navbar-items'>
-                            <li className='nav-item active' id='home-logo'>
-                                <a className='nav-link' href='index.html'>
-                                    <i className='fas fa-home fa-lg'></i>
-                                </a>
-                            </li>
+const NavBar = props => {
+    if (!props.isLoggedIn) {
+        return (
+            <div>
+                <nav className='navbar navbar-expand-lg navbar-light bg-light'>
+                    <div
+                        className='collapse navbar-collapse'
+                        id='navbarSupportedContent'
+                    >
+                        <div id='navbar-left'>
+                            <ul className='navbar-nav navbar-items'>
+                                <li className='nav-item active' id='home-logo'>
+                                    <Link to='/'>
+                                        <i className='fas fa-home fa-lg'></i>
+                                    </Link>
+                                </li>
 
-                            <div
-                                className='ui vertical large animated button'
-                                tabIndex='0'
-                            >
-                                <div className='hidden content'>Cart</div>
-                                <div className='visible content'>
-                                    <i className='shop icon'></i>
-                                </div>
-                            </div>
-                        </ul>
+                                <li>
+                                    <div
+                                        className='ui vertical large button'
+                                        tabIndex='0'
+                                    >
+                                        <div className='visible content'>
+                                            <Link to='/Browse'>Browse</Link>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id='navbar-right'>
+                            <ul className='navbar-nav navbar-items'>
+                                <li>
+                                    <Link to='/login'>
+                                        <div
+                                            className='ui vertical large button'
+                                            tabIndex='0'
+                                        >
+                                            <div className='visible content'>
+                                                Login
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <div
+                                        className='ui vertical large button'
+                                        tabIndex='0'
+                                    >
+                                        <div className='visible content'>
+                                            <Link to='/cart'>
+                                                <i className='shop icon'></i>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div id='navbar-right'>
-                        <ul className='navbar-nav navbar-items'>
-                            <li>
-                                <div
-                                    className='ui vertical large animated button'
-                                    tabIndex='0'
-                                >
-                                    <div className='hidden content'>
-                                        It's Free!
+                </nav>
+            </div>
+        );
+    } else {
+        return (
+            <div>
+                <nav className='navbar navbar-expand-lg navbar-light bg-light'>
+                    <div
+                        className='collapse navbar-collapse'
+                        id='navbarSupportedContent'
+                    >
+                        <div id='navbar-left'>
+                            <ul className='navbar-nav navbar-items'>
+                                <li className='nav-item active' id='home-logo'>
+                                    <Link to='/'>
+                                        <i className='fas fa-home fa-lg'></i>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <div
+                                        className='ui vertical large button'
+                                        tabIndex='0'
+                                    >
+                                        <div className='visible content'>
+                                            <Link to='/Browse'>Browse</Link>
+                                        </div>
                                     </div>
-                                    <div className='visible content'>
-                                        Sign-up
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id='navbar-right'>
+                            <ul className='navbar-nav navbar-items'>
+                                <li>
+                                    <div
+                                        className='ui vertical large button'
+                                        tabIndex='0'
+                                    >
+                                        <div className='visible content'>
+                                            <Link to='/profile'>
+                                                My Account
+                                            </Link>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div
-                                    className='ui vertical large animated button'
-                                    tabIndex='0'
-                                >
-                                    <div className='hidden content'>
-                                        Welcome!
+                                </li>
+                                <li>
+                                    <div
+                                        className='ui vertical large button'
+                                        tabIndex='0'
+                                    >
+                                        <div className='visible content'>
+                                            <Link to='/wishlist'>
+                                                Wishlists
+                                            </Link>
+                                        </div>
                                     </div>
-                                    <div className='visible content'>
-                                        Sign in
+                                </li>
+                                <li>
+                                    <div
+                                        className='ui vertical large button'
+                                        tabIndex='0'
+                                    >
+                                        <Context.Consumer>
+                                            {context => (
+                                                <div
+                                                    className='visible content'
+                                                    onClick={context.logout}
+                                                >
+                                                    <Link to='/'>Sign Out</Link>
+                                                </div>
+                                            )}
+                                        </Context.Consumer>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
+                                </li>
+                                <li>
+                                    <div
+                                        className='ui vertical large button'
+                                        tabIndex='0'
+                                    >
+                                        <div className='visible content'>
+                                            <Link to='/cart'>
+                                                <i className='shop icon'></i>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </nav>
-        </div>
-    );
+                </nav>
+            </div>
+        );
+    }
 };
 export default NavBar;
