@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/FIU-CEN-TEAM8/static/css/main.47bc2322.chunk.css",
-    "main.js": "/FIU-CEN-TEAM8/static/js/main.95c70066.chunk.js",
-    "main.js.map": "/FIU-CEN-TEAM8/static/js/main.95c70066.chunk.js.map",
+    "main.css": "/FIU-CEN-TEAM8/static/css/main.5f7ad95b.chunk.css",
+    "main.js": "/FIU-CEN-TEAM8/static/js/main.fb86773a.chunk.js",
+    "main.js.map": "/FIU-CEN-TEAM8/static/js/main.fb86773a.chunk.js.map",
     "runtime~main.js": "/FIU-CEN-TEAM8/static/js/runtime~main.d1238491.js",
     "runtime~main.js.map": "/FIU-CEN-TEAM8/static/js/runtime~main.d1238491.js.map",
-    "static/js/2.a8648fd8.chunk.js": "/FIU-CEN-TEAM8/static/js/2.a8648fd8.chunk.js",
-    "static/js/2.a8648fd8.chunk.js.map": "/FIU-CEN-TEAM8/static/js/2.a8648fd8.chunk.js.map",
+    "static/js/2.5ec3e220.chunk.js": "/FIU-CEN-TEAM8/static/js/2.5ec3e220.chunk.js",
+    "static/js/2.5ec3e220.chunk.js.map": "/FIU-CEN-TEAM8/static/js/2.5ec3e220.chunk.js.map",
     "index.html": "/FIU-CEN-TEAM8/index.html",
-    "precache-manifest.b26b3c5464ee287835297c8a3cba0b59.js": "/FIU-CEN-TEAM8/precache-manifest.b26b3c5464ee287835297c8a3cba0b59.js",
+    "precache-manifest.1226b006c2d1de5224b42b3011702a98.js": "/FIU-CEN-TEAM8/precache-manifest.1226b006c2d1de5224b42b3011702a98.js",
     "service-worker.js": "/FIU-CEN-TEAM8/service-worker.js",
-    "static/css/main.47bc2322.chunk.css.map": "/FIU-CEN-TEAM8/static/css/main.47bc2322.chunk.css.map",
+    "static/css/main.5f7ad95b.chunk.css.map": "/FIU-CEN-TEAM8/static/css/main.5f7ad95b.chunk.css.map",
     "static/media/index.css": "/FIU-CEN-TEAM8/static/media/img2.2b7a26ee.jpg"
   }
 }
