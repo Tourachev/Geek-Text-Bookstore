@@ -8,30 +8,30 @@
 
 ## Functionality
 
-# Book Browsing
+### Book Browsing
 - Allows user to filter books by genre and rating
 - Allows user to sort by rating, price, date added.
 
-# Profile Management
+### Profile Management
 - Allows User registration.
 - Allows credit card management.
 - Allows address management.
 - Allows presonal details management.
 - Passwords hashed using bcrypt.
 
-# Book Details
+### Book Details
 - Provides data on book when clicked. 
 - Allows further access to books only written by author.
 - Comments and ratings under particular book.
 - Users allowed to leave anonymous comments.
 
-# Shopping Cart
+### Shopping Cart
 - Books are added to cart.
 - Books can be moved to saved for later.
 - Subotal calculated in cart.
 - Books can be deleted or increased in quantity.
 
-# Favourites lists
+### Favourites lists
 - Users can have up to three favourites lists.
 - Users can add books from the saved for later list.
 
