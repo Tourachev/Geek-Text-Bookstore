@@ -1,4 +1,6 @@
-# Geek Text online book store web app.
+# Geek Text Online Book Store Web App.
+
+A full stack web application aimed at basic online store functionality.
 
 ## Stack
 - React
